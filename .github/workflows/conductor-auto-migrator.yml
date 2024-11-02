@@ -15,9 +15,19 @@ on:
 jobs:
   build:
     name: Conductor Migrator
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - env: test
+            runner: ubuntu-latest
+          - env: stg
+            runner: ubuntu-latest
+          - env: outposts
+            runner: self-hosted  # Replace with your specific outposts runner label if needed
     environment:
       name: ${{ inputs.environment }}
+    if: ${{ matrix.env == inputs.environment }}
     env:
       CONDUCTOR_URL: ${{ vars.CONDUCTOR_URL }}
     steps:
@@ -27,18 +37,18 @@ jobs:
       - name: Print Conductor URL
         run: echo "Conductor URL for environment $CONDUCTOR_URL"
 
-      # - name: Remove existing Docker image
-      #   run: |
-      #     docker rmi -f conductor-migrator || echo "No existing image to remove"
-      #   continue-on-error: true
+      - name: Remove existing Docker image
+        run: |
+          docker rmi -f conductor-migrator || echo "No existing image to remove"
+        continue-on-error: true
 
-      # - name: Build Docker Image
-      #   run: |
-      #     cd ./platform/conductor
-      #     pwd
-      #     sed -i 's/env: dev/env: production/' config/env.yml
-      #     sed -i 's|base_url: "http://localhost:8080"|base_url: "https://conductor.myloapp.com/"|' config/env.yml
-      #     docker build -t conductor-migrator .
+      - name: Build Docker Image
+        run: |
+          cd ./platform/conductor
+          pwd
+          sed -i 's/env: dev/env: production/' config/env.yml
+          sed -i 's|base_url: "http://localhost:8080"|base_url: "https://conductor.myloapp.com/"|' config/env.yml
+          docker build -t conductor-migrator .
 
-      # - name: Run the migrator from Docker image
-      #   run: docker run conductor-migrator deploy
+      - name: Run the migrator from Docker image
+        run: docker run conductor-migrator deploy
