@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
+    env:
+      CONDUCTOR_URL: ${{ vars.CONDUCTOR_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
