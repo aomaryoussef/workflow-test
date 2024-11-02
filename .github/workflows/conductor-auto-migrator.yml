@@ -24,6 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Print Conductor URL
+        run: echo "Conductor URL for environment: $CONDUCTOR_URL"
+
       # - name: Remove existing Docker image
       #   run: |
       #     docker rmi -f conductor-migrator || echo "No existing image to remove"
