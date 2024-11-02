@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     name: Conductor Migrator
-    runs-on: ${{ inputs.environment == 'outposts' && 'outposts' || 'general-runner' }} # Use self-hosted for outposts, ubuntu-latest for others
+    runs-on: ${{ inputs.environment == 'outposts' && 'outposts' || 'general-runners' }} # Use self-hosted for outposts, ubuntu-latest for others
     environment:
       name: ${{ inputs.environment }}
     env:
@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Print Conductor URL
-        run: echo "Conductor URL for environment: $CONDUCTOR_URL"
+        run: echo "Conductor URL for environment $CONDUCTOR_URL"
 
       - name: Remove existing Docker image
         run: |
