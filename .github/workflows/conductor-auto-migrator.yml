@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     name: Conductor Migrator
-    runs-on: ${{ inputs.environment == 'outposts' && 'ubuntu-latest' || 'general-runner' }} 
+    runs-on: ${{ inputs.environment == 'outposts' && 'ubuntu-latest' || 'ubuntu-latest' }} 
     environment:
       name: ${{ inputs.environment }}
     env:
