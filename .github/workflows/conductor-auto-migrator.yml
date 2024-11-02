@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Please Select The Environment To Run Build on:- '
+        description: 'Please select the environment to run the build on:'
         required: true
         type: choice
         options:
@@ -15,9 +15,9 @@ on:
 jobs:
   build:
     name: Conductor Migrator
-    runs-on: outposts
+    runs-on: ubuntu-latest
     environment:
-      name: ${{ inputs.environment }} 
+      name: ${{ inputs.environment }}
     env:
       CONDUCTOR_URL: ${{ secrets.CONDUCTOR_URL }}
     steps:
@@ -27,16 +27,12 @@ jobs:
       - name: Print Conductor URL
         run: echo "Conductor URL for environment: $CONDUCTOR_URL"
 
-
-
-
-
-
-      # - name: Remove an existing image
-      #   run:  docker rmi -f conductor-migrator
+      # - name: Remove existing Docker image
+      #   run: |
+      #     docker rmi -f conductor-migrator || echo "No existing image to remove"
       #   continue-on-error: true
 
-      # - name: Build the Docker Image
+      # - name: Build Docker Image
       #   run: |
       #     cd ./platform/conductor
       #     pwd
@@ -44,8 +40,5 @@ jobs:
       #     sed -i 's|base_url: "http://localhost:8080"|base_url: "https://conductor.myloapp.com/"|' config/env.yml
       #     docker build -t conductor-migrator .
 
-      # - name: Run the migrator from base image
+      # - name: Run the migrator from Docker image
       #   run: docker run conductor-migrator deploy
-
-
-   
