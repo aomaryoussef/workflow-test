@@ -1,0 +1,31 @@
+[
+    {
+      "ownerApp": null,
+      "createTime": 1711440483599,
+      "updateTime": null,
+      "createdBy": "ibrahim.awad@btech.com",
+      "updatedBy": null,
+      "name": "send_slack_message",
+      "description": "Send slack message",
+      "retryCount": 5,
+      "timeoutSeconds": 10,
+      "inputKeys": [
+        "message"
+      ],
+      "outputKeys": [],
+      "timeoutPolicy": "ALERT_ONLY",
+      "retryLogic": "FIXED",
+      "retryDelaySeconds": 1,
+      "responseTimeoutSeconds": 5,
+      "concurrentExecLimit": null,
+      "inputTemplate": {},
+      "rateLimitPerFrequency": 0,
+      "rateLimitFrequencyInSeconds": 1,
+      "isolationGroupId": null,
+      "executionNameSpace": null,
+      "ownerEmail": "ibrahim.awad@btech.com",
+      "pollTimeoutSeconds": 5,
+      "backoffScaleFactor": 1
+    }
+  ]
+  

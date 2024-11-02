@@ -1,0 +1,182 @@
+{
+  "ownerApp": null,
+  "createTime": 1727862757063,
+  "updateTime": 1728481388726,
+  "createdBy": null,
+  "updatedBy": null,
+  "name": "risk_process",
+  "description": "Risk Process",
+  "version": 17,
+  "tasks": [
+    {
+      "name": "is_consumer_in_sanction_list",
+      "taskReferenceName": "is_consumer_in_sanction_list",
+      "description": null,
+      "inputParameters": {
+        "consumer_details": "${workflow.input.consumer_details}",
+        "phone_number": "${workflow.input.phone_number}",
+        "consumer_id": "${workflow.input.consumer_id}"
+      },
+      "type": "SIMPLE",
+      "dynamicTaskNameParam": null,
+      "caseValueParam": null,
+      "caseExpression": null,
+      "scriptExpression": null,
+      "dynamicForkJoinTasksParam": null,
+      "dynamicForkTasksParam": null,
+      "dynamicForkTasksInputParamName": null,
+      "startDelay": 0,
+      "subWorkflowParam": null,
+      "sink": null,
+      "optional": false,
+      "taskDefinition": null,
+      "rateLimited": null,
+      "asyncComplete": false,
+      "loopCondition": null,
+      "retryCount": null,
+      "evaluatorType": null,
+      "expression": null
+    },
+    {
+      "name": "is_consumer_in_lists",
+      "taskReferenceName": "is_consumer_in_lists",
+      "description": null,
+      "inputParameters": {
+        "is_user_in_sanction_list": "${is_consumer_in_sanction_list.output.is_user_in_list}"
+      },
+      "type": "SWITCH",
+      "dynamicTaskNameParam": null,
+      "caseValueParam": null,
+      "caseExpression": null,
+      "scriptExpression": null,
+      "decisionCases": {
+        "true": [
+          {
+            "name": "consumer_is_in_lists",
+            "taskReferenceName": "consumer_is_in_lists",
+            "description": null,
+            "inputParameters": {
+              "sacntiion_list_type": "${is_consumer_in_sanction_list.output.list_type}",
+              "sanction_list_consumer_national_id": "${is_consumer_in_sanction_list.output.national_id}",
+              "sanction_list_consumer_name": "${is_consumer_in_sanction_list.output.name}",
+              "consumer_details": "${workflow.input.consumer_details}",
+              "phone_number": "${workflow.input.phone_number}"
+            },
+            "type": "SIMPLE",
+            "dynamicTaskNameParam": null,
+            "caseValueParam": null,
+            "caseExpression": null,
+            "scriptExpression": null,
+            "dynamicForkJoinTasksParam": null,
+            "dynamicForkTasksParam": null,
+            "dynamicForkTasksInputParamName": null,
+            "startDelay": 0,
+            "subWorkflowParam": null,
+            "sink": null,
+            "optional": false,
+            "taskDefinition": null,
+            "rateLimited": null,
+            "asyncComplete": false,
+            "loopCondition": null,
+            "retryCount": null,
+            "evaluatorType": null,
+            "expression": null
+          },
+          {
+            "name": "terminate_workflow",
+            "taskReferenceName": "terminate_workflow",
+            "description": null,
+            "inputParameters": {
+              "terminationStatus": "FAILED",
+              "terminationReason": "User found in sanction list.",
+              "workflowErrorReason": "User found in sanction list."
+            },
+            "type": "TERMINATE",
+            "dynamicTaskNameParam": null,
+            "caseValueParam": null,
+            "caseExpression": null,
+            "scriptExpression": null,
+            "dynamicForkJoinTasksParam": null,
+            "dynamicForkTasksParam": null,
+            "dynamicForkTasksInputParamName": null,
+            "startDelay": 0,
+            "subWorkflowParam": null,
+            "sink": null,
+            "optional": false,
+            "taskDefinition": null,
+            "rateLimited": null,
+            "asyncComplete": false,
+            "loopCondition": null,
+            "retryCount": null,
+            "evaluatorType": null,
+            "expression": null
+          }
+        ],
+        "false": [
+          {
+            "name": "score_consumer_via_risk_engine",
+            "taskReferenceName": "score_consumer_via_risk_engine",
+            "description": null,
+            "inputParameters": {
+              "consumer_details": "${workflow.input.consumer_details}",
+              "phone_number": "${workflow.input.phone_number}",
+              "consumer_id": "${workflow.input.consumer_id}",
+              "booking_time": "${workflow.input.booking_time}"
+            },
+            "type": "SIMPLE",
+            "dynamicTaskNameParam": null,
+            "caseValueParam": null,
+            "caseExpression": null,
+            "scriptExpression": null,
+            "dynamicForkJoinTasksParam": null,
+            "dynamicForkTasksParam": null,
+            "dynamicForkTasksInputParamName": null,
+            "startDelay": 0,
+            "subWorkflowParam": null,
+            "sink": null,
+            "optional": false,
+            "taskDefinition": null,
+            "rateLimited": null,
+            "asyncComplete": false,
+            "loopCondition": null,
+            "retryCount": null,
+            "evaluatorType": null,
+            "expression": null
+          }
+        ]
+      },
+      "dynamicForkJoinTasksParam": null,
+      "dynamicForkTasksParam": null,
+      "dynamicForkTasksInputParamName": null,
+      "startDelay": 0,
+      "subWorkflowParam": null,
+      "sink": null,
+      "optional": false,
+      "taskDefinition": null,
+      "rateLimited": null,
+      "asyncComplete": false,
+      "loopCondition": null,
+      "retryCount": null,
+      "evaluatorType": "javascript",
+      "expression": "$.is_user_in_sanction_list ? 'true' : 'false' "
+    }
+  ],
+  "inputParameters": [
+    "consumer_details",
+    "booking_time"
+  ],
+  "outputParameters": {
+    "is_consumer_in_sanction_list": "${is_consumer_in_sanction_list.output.is_user_in_sanction_list}",
+    "list_type": "${is_consumer_in_sanction_list.output.list_type}",
+    "consumer_cl": "${score_consumer_via_risk_engine.output}"
+  },
+  "failureWorkflow": "",
+  "schemaVersion": 2,
+  "restartable": true,
+  "workflowStatusListenerEnabled": false,
+  "ownerEmail": "petru.b.external@btech.com",
+  "timeoutPolicy": "ALERT_ONLY",
+  "timeoutSeconds": 3600,
+  "variables": {},
+  "inputTemplate": {}
+}

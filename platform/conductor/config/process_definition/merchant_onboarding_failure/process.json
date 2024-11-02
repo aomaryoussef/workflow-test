@@ -1,0 +1,51 @@
+{
+    "ownerApp": null,
+    "createTime": 1711966159606,
+    "updateTime": 1711967322339,
+    "createdBy": null,
+    "updatedBy": null,
+    "accessPolicy": {},
+    "name": "merchant_onboarding_failure",
+    "description": "Default failure workflow for merchant onboarding",
+    "version": 1,
+    "tasks": [
+        {
+            "name": "send_slack_message",
+            "taskReferenceName": "send_slack_message",
+            "description": null,
+            "inputParameters": {
+                "message": "*Merchant Onboarding Failed* :exclamation: \n \n*Workflow ID*: ```\n${workflow.input.workflowId}\n``` \n*Reason*: ```\n${workflow.input.reason}\n```"
+            },
+            "type": "SIMPLE",
+            "dynamicTaskNameParam": null,
+            "caseValueParam": null,
+            "caseExpression": null,
+            "scriptExpression": null,
+            "dynamicForkJoinTasksParam": null,
+            "dynamicForkTasksParam": null,
+            "dynamicForkTasksInputParamName": null,
+            "startDelay": 0,
+            "subWorkflowParam": null,
+            "sink": null,
+            "optional": false,
+            "taskDefinition": null,
+            "rateLimited": null,
+            "asyncComplete": false,
+            "loopCondition": null,
+            "retryCount": null,
+            "evaluatorType": null,
+            "expression": null
+        }
+    ],
+    "inputParameters": [],
+    "outputParameters": {},
+    "failureWorkflow": null,
+    "schemaVersion": 2,
+    "restartable": true,
+    "workflowStatusListenerEnabled": false,
+    "ownerEmail": "ibrahim.awad@btech.com",
+    "timeoutPolicy": "ALERT_ONLY",
+    "timeoutSeconds": 0,
+    "variables": {},
+    "inputTemplate": {}
+}
