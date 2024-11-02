@@ -1,0 +1,51 @@
+name: Conductor Auto Migrator
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Please Select The Environment To Run Build on:- '
+        required: true
+        type: choice
+        options:
+          - test
+          - stg
+          - outposts
+
+jobs:
+  build:
+    name: Conductor Migrator
+    runs-on: outposts
+    environment:
+      name: ${{ inputs.environment }} 
+    env:
+      CONDUCTOR_URL: ${{ secrets.CONDUCTOR_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Print Conductor URL
+        run: echo "Conductor URL for environment: $CONDUCTOR_URL"
+
+
+
+
+
+
+      # - name: Remove an existing image
+      #   run:  docker rmi -f conductor-migrator
+      #   continue-on-error: true
+
+      # - name: Build the Docker Image
+      #   run: |
+      #     cd ./platform/conductor
+      #     pwd
+      #     sed -i 's/env: dev/env: production/' config/env.yml
+      #     sed -i 's|base_url: "http://localhost:8080"|base_url: "https://conductor.myloapp.com/"|' config/env.yml
+      #     docker build -t conductor-migrator .
+
+      # - name: Run the migrator from base image
+      #   run: docker run conductor-migrator deploy
+
+
+   
