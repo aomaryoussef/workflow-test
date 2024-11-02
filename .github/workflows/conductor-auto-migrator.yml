@@ -15,9 +15,18 @@ on:
 jobs:
   build:
     name: Conductor Migrator
-    runs-on: ${{ inputs.environment == 'outposts' && 'outposts' || 'general-runners' }} # Use self-hosted for outposts, ubuntu-latest for others
-    environment:
-      name: ${{ inputs.environment }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - env: test
+            runner: ubuntu-latest
+          - env: stg
+            runner: ubuntu-latest
+          - env: outposts
+            runner: self-hosted  # Replace with your specific outposts runner label if needed
+    environment: ${{ inputs.environment }}
+    if: ${{ matrix.env == inputs.environment }}
     env:
       CONDUCTOR_URL: ${{ vars.CONDUCTOR_URL }}
     steps:
