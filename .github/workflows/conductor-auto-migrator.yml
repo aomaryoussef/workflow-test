@@ -57,7 +57,7 @@ jobs:
           cat config/env.yml
 
       - name: Build Docker Image
-        if: ${{ env.build_required == 'true' }}
+        if: ${{ env.build_required == 'false' }}
         run: |
           cd ./platform/conductor/${{ inputs.environment }}
           pwd
