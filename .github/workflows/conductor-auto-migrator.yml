@@ -67,7 +67,7 @@ jobs:
           cat config/env.yml
 
       - name: Build Docker Image
-        if: ${{ env.build_required == 'false' }}
+        if: ${{ env.build_required == 'true' && ${{ inputs.build-action }}" == "build }}
         run: |
           cd ./platform/conductor/${{ inputs.environment }}
           pwd
@@ -79,8 +79,5 @@ jobs:
           cd ./platform/conductor/${{ inputs.environment }}
           docker rm -f workflow-migrator-container
 
-          if [[ "${{ inputs.build-action }}" == "build" ]]; then
-            cat config/env.yml
-            docker build -t conductor-workflow-migrator .    
-          fi
+         
           docker run --name workflow-migrator-container -v "$PWD/config:/etc/config/workflow-migrator" conductor-workflow-migrator deploy
