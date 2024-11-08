@@ -33,9 +33,9 @@ jobs:
             CONTAINER="Test"
 
             if [[ ! -z "$CONTAINER" ]]; then
-                echo "build_required=true" >> $GITHUB_ENV
-              else
                 echo "build_required=false" >> $GITHUB_ENV
+              else
+                echo "build_required=true" >> $GITHUB_ENV
             fi
         continue-on-error: true
 
