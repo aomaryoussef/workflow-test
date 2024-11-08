@@ -25,12 +25,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Print Conductor URL
         run: echo "Conductor URL for environment -> $CONDUCTOR_URL"
 
       - name: Remove existing Docker image
         run: |
-            CONTAINER='$(docker ps -a | grep "conductor-workflow-migrator-container)'
+            CONTAINER=$(docker ps -a | grep "conductor-workflow-migrator-container)
 
             if [[ ! -z "$CONTAINER" ]]; then
                 echo "build_required=false" >> $GITHUB_ENV
@@ -48,8 +51,12 @@ jobs:
           cat config/env.yml
 
       - name: Build Docker Image
-        if: ${{ env.build_required == 'false' }}
+        if: ${{ env.build_required == 'true' }}
         run: |
           cd ./platform/conductor/${{ inputs.environment }}
           pwd
           cat config/env.yml
+          docker build -t conductor-workflow-migrator .
+
+      - name: Run the migrator
+        run: docker run --name workflow-migrator-container -v "$PWD/${{ inputs.environment }}/config:/etc/config/workflow-migrator" conductor-workflow-migrator deploy
