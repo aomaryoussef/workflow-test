@@ -40,6 +40,9 @@ jobs:
 
       - name: Remove existing Docker image
         run: |
+            docker --version
+            docker ps
+            docker ps -a
             CONTAINER=""
             
             if [[ ! -z "$CONTAINER" ]]; then
