@@ -16,7 +16,7 @@ on:
 jobs:
   build:
     name: Conductor Migrator
-    runs-on: ${{ inputs.environment == 'outposts' && 'outposts' || inputs.environment == 'stg-outposts' && 'outposts' || 'general-runner' }}
+    runs-on: ${{ inputs.environment == 'outposts' && 'outposts' || inputs.environment == 'stg-outposts' && 'outposts' || 'ubuntu-latest' }}
     environment:
       name: ${{ inputs.environment }}
     env:
@@ -30,17 +30,20 @@ jobs:
 
       - name: Remove existing Docker image
         run: |
-          docker rmi -f conductor-migrator || echo "No existing image to remove"
+            CONTAINER="Test"
+
+            if [[ ! -z "$CONTAINER" ]]; then
+                echo "build_required=true" >> $GITHUB_ENV
+              else
+                echo "build_required=false" >> $GITHUB_ENV
+            fi
         continue-on-error: true
 
       - name: Build Docker Image
+        if: ${{ env.build_required == 'true' }}
         run: |
           cd ./platform/conductor
           pwd
           sed -i "s/env: dev/env: ${{ inputs.environment }}/" config/env.yml
           sed -i "s|base_url: \"http://localhost:8080\"|base_url: \"$CONDUCTOR_URL\"|" config/env.yml
           cat config/env.yml
-          docker build -t conductor-migrator .
-
-      - name: Run the migrator from Docker image
-        run: docker run conductor-migrator deploy
