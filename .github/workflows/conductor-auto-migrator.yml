@@ -16,7 +16,7 @@ on:
         description: 'Please Select The build action To Run { skip , build )'
         required: false
         type: choice
-        default: build
+        default: skip
         options:
           - skip
           - build
