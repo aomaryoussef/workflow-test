@@ -12,7 +12,7 @@ on:
           - stg
           - stg-outposts
           - outposts
-      action:
+      build-action:
         description: 'Please Select The build action To Run { skip , build )'
         required: false
         type: choice
@@ -78,4 +78,9 @@ jobs:
         run: |
           cd ./platform/conductor/${{ inputs.environment }}
           docker rm -f workflow-migrator-container
+
+          if [[ "${{ inputs.build-action }}" == "build" ]]; then
+            cat config/env.yml
+            docker build -t conductor-workflow-migrator .    
+          fi
           docker run --name workflow-migrator-container -v "$PWD/config:/etc/config/workflow-migrator" conductor-workflow-migrator deploy
