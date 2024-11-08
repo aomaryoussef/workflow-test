@@ -40,13 +40,14 @@ jobs:
 
       - name: Remove existing Docker image
         run: |
-            CONTAINER=$(docker ps -a | grep "conductor-workflow-migrator-container")
-
+            CONTAINER=""
+            
             if [[ ! -z "$CONTAINER" ]]; then
                 echo "build_required=false" >> $GITHUB_ENV
               else
                 echo "build_required=true" >> $GITHUB_ENV
             fi
+        continue-on-error: true
 
       - name: Adjust the config based on selected environment
         run: |
@@ -57,7 +58,7 @@ jobs:
           cat config/env.yml
 
       - name: Build Docker Image
-        if: ${{ env.build_required == 'false' }}
+        if: ${{ env.build_required == 'true' }}
         run: |
           cd ./platform/conductor/${{ inputs.environment }}
           pwd
