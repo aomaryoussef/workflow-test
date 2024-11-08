@@ -12,7 +12,15 @@ on:
           - stg
           - stg-outposts
           - outposts
-
+      action:
+        description: 'Please Select The build action To Run { skip , build )'
+        required: false
+        type: choice
+        default: skip
+        options:
+          - skip
+          - build
+          
 jobs:
   build:
     name: Conductor Migrator
