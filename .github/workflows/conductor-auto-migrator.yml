@@ -40,7 +40,6 @@ jobs:
               else
                 echo "build_required=true" >> $GITHUB_ENV
             fi
-        continue-on-error: true
 
       - name: Adjust the config based on selected environment
         run: |
