@@ -49,7 +49,7 @@ jobs:
 
       - name: Check if Docker container exists
         run: |
-          CONTAINER=$(docker ps -a | grep "conductor-workflow-migrator-container" || true) 
+          CONTAINER="ASDS"
 
           if [[ ! -z "$CONTAINER" ]]; then
               echo "build_required=false" >> $GITHUB_ENV
