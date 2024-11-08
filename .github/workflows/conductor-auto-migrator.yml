@@ -30,7 +30,7 @@ jobs:
 
       - name: Remove existing Docker image
         run: |
-            CONTAINER="Test"
+            CONTAINER=""
             if [[ ! -z "$CONTAINER" ]]; then
                 echo "build_required=false" >> $GITHUB_ENV
               else
