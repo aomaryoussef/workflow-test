@@ -16,7 +16,7 @@ on:
 jobs:
   build:
     name: Conductor Migrator
-    runs-on: ${{ contains('outposts',stg-outposts, inputs.environment) && 'outposts' || 'general-runner' }}
+    runs-on: ${{ inputs.environment == 'outposts' || inputs.environment == 'stg-outposts' && 'outposts' || 'general-runner' }}
     environment:
       name: ${{ inputs.environment }}
     env:
