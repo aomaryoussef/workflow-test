@@ -30,7 +30,7 @@ jobs:
 
       - name: Remove existing Docker image
         run: |
-            CONTAINER=$(docker ps -a | grep "conductor-workflow-migrator-container)
+            CONTAINER='$(docker ps -a | grep "conductor-workflow-migrator-container)'
 
             if [[ ! -z "$CONTAINER" ]]; then
                 echo "build_required=false" >> $GITHUB_ENV
