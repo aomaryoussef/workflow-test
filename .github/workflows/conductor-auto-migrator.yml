@@ -66,4 +66,6 @@ jobs:
           docker build -t conductor-workflow-migrator .
 
       - name: Run the migrator
-        run: docker run --name workflow-migrator-container -v "$PWD/${{ inputs.environment }}/config:/etc/config/workflow-migrator" conductor-workflow-migrator deploy
+        run: |
+          cd ./platform/conductor/${{ inputs.environment }}
+          docker run --name workflow-migrator-container -v "$PWD/config:/etc/config/workflow-migrator" conductor-workflow-migrator deploy
