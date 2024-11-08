@@ -1,0 +1,28 @@
+[
+  {
+    "ownerApp": null,
+    "createTime": 1700420693719,
+    "updateTime": null,
+    "createdBy": "Ahmed.Ghazey@btech.com",
+    "updatedBy": null,
+    "name": "lms_disbursement",
+    "description": "Updates lms account status after disbursement",
+    "retryCount": 3,
+    "timeoutSeconds": 3600,
+    "inputKeys": [],
+    "outputKeys": [],
+    "timeoutPolicy": "TIME_OUT_WF",
+    "retryLogic": "FIXED",
+    "retryDelaySeconds": 60,
+    "responseTimeoutSeconds": 600,
+    "concurrentExecLimit": null,
+    "inputTemplate": {},
+    "rateLimitPerFrequency": 0,
+    "rateLimitFrequencyInSeconds": 1,
+    "isolationGroupId": null,
+    "executionNameSpace": null,
+    "ownerEmail": "Ahmed.Ghazey@betech.com",
+    "pollTimeoutSeconds": null,
+    "backoffScaleFactor": 1
+  }
+]

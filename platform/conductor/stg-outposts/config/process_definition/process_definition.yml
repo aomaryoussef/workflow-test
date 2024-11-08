@@ -1,0 +1,3 @@
+- process: checkout_process
+  depends_on:
+    - some_other_process

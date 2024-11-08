@@ -1,0 +1,35 @@
+{
+  "ownerApp": null,
+  "createTime": 1726913254714,
+  "updateTime": 1727339587967,
+  "createdBy": null,
+  "updatedBy": null,
+  "name": "consumer_onboarding_failure_process",
+  "description": "Workflow to handle failure of consumer_onboarding_process ",
+  "version": 3,
+  "tasks": [
+    {
+      "name": "update_application_state",
+      "taskReferenceName": "update_application_state",
+      "inputParameters": {
+        "phone_number": "${workflow.input.phone_number}",
+        "state": "FAILED"
+      },
+      "type": "SIMPLE",
+      "startDelay": 0,
+      "optional": false
+    }
+  ],
+  "inputParameters": [
+    "phone_number"
+  ],
+  "failureWorkflow": "",
+  "schemaVersion": 2,
+  "restartable": true,
+  "workflowStatusListenerEnabled": false,
+  "ownerEmail": "khalid.ahmed@btech.com",
+  "timeoutPolicy": "ALERT_ONLY",
+  "timeoutSeconds": 3600,
+  "variables": {},
+  "inputTemplate": {}
+}

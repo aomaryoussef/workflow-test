@@ -1,0 +1,83 @@
+{
+  "ownerApp": null,
+  "createTime": 1730284723203,
+  "updateTime": 1730284723203,
+  "createdBy": "mina.ishak@btech.com",
+  "updatedBy": "mina.ishak@btech.com",
+  "name": "merchant_invoices_posting",
+  "description": "Workflow tha performs a periodic merchant invoices generation and posting",
+  "version": 2,
+  "tasks": [
+    {
+      "name": "aggregate_merchant_invoices_task",
+      "taskReferenceName": "aggregate_merchant_invoices_task",
+      "description": null,
+      "inputParameters": {
+        "to_date": "${workflow.input.date_range_end}",
+        "from_date": "${workflow.input.date_range_start}"
+      },
+      "type": "SIMPLE",
+      "dynamicTaskNameParam": null,
+      "caseValueParam": null,
+      "caseExpression": null,
+      "scriptExpression": null,
+      "dynamicForkJoinTasksParam": null,
+      "dynamicForkTasksParam": null,
+      "dynamicForkTasksInputParamName": null,
+      "startDelay": 0,
+      "subWorkflowParam": null,
+      "sink": null,
+      "optional": false,
+      "taskDefinition": null,
+      "rateLimited": null,
+      "asyncComplete": false,
+      "loopCondition": null,
+      "retryCount": null,
+      "evaluatorType": null,
+      "expression": null
+    },
+    {
+      "name": "post_merchant_invoices_task",
+      "taskReferenceName": "post_merchant_invoices_task",
+      "description": null,
+      "inputParameters": {
+        "to_date": "${workflow.input.date_range_end}",
+        "from_date": "${workflow.input.date_range_start}",
+        "merchant_payments": "${aggregate_merchant_invoices_task.output.merchant_payments}"
+      },
+      "type": "SIMPLE",
+      "dynamicTaskNameParam": null,
+      "caseValueParam": null,
+      "caseExpression": null,
+      "scriptExpression": null,
+      "dynamicForkJoinTasksParam": null,
+      "dynamicForkTasksParam": null,
+      "dynamicForkTasksInputParamName": null,
+      "startDelay": 0,
+      "subWorkflowParam": null,
+      "sink": null,
+      "optional": false,
+      "taskDefinition": null,
+      "rateLimited": null,
+      "asyncComplete": false,
+      "loopCondition": null,
+      "retryCount": null,
+      "evaluatorType": null,
+      "expression": null
+    }
+  ],
+  "inputParameters": [
+    "date_range_start",
+    "date_range_end"
+  ],
+  "outputParameters": {},
+  "failureWorkflow": null,
+  "schemaVersion": 2,
+  "restartable": true,
+  "workflowStatusListenerEnabled": false,
+  "ownerEmail": "mina.ishak@btech.com",
+  "timeoutPolicy": "ALERT_ONLY",
+  "timeoutSeconds": 0,
+  "variables": {},
+  "inputTemplate": {}
+}

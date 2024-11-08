@@ -1,0 +1,15 @@
+[
+  {
+    "name": "update_application_state",
+    "description": "Update the application state to 'FAILED' for the consumer",
+    "retryCount": 3,
+    "timeoutSeconds": 300,
+    "inputKeys": ["phone_number", "state"],
+    "outputKeys": [],
+    "timeoutPolicy": "TIME_OUT_WF",
+    "retryLogic": "FIXED",
+    "retryDelaySeconds": 60,
+    "responseTimeoutSeconds": 120,
+    "ownerEmail": "khalid.ahmed@btech.com"
+  }
+]

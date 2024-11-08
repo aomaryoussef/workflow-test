@@ -1,0 +1,51 @@
+[
+  {
+    "name": "is_consumer_in_sanction_list",
+    "description": "Check if the consumer is in the sanction list",
+    "retryCount": 3,
+    "timeoutSeconds": 300,
+    "inputKeys": ["consumer_details", "phone_number", "consumer_id"],
+    "outputKeys": ["is_user_in_list", "list_type", "national_id", "name"],
+    "timeoutPolicy": "TIME_OUT_WF",
+    "retryLogic": "FIXED",
+    "retryDelaySeconds": 60,
+    "responseTimeoutSeconds": 120,
+    "ownerEmail": "khalid.ahmed@btech.com"
+  },
+  {
+    "name": "consumer_is_in_lists",
+    "description": "Handle consumer being in sanction list",
+    "retryCount": 0,
+    "timeoutSeconds": 60,
+    "inputKeys": [
+      "sanction_list_type",
+      "sanction_list_consumer_national_id",
+      "sanction_list_consumer_name",
+      "consumer_details"
+    ],
+    "outputKeys": [],
+    "timeoutPolicy": "TIME_OUT_WF",
+    "retryLogic": "FIXED",
+    "retryDelaySeconds": 10,
+    "responseTimeoutSeconds": 60,
+    "ownerEmail": "khalid.ahmed@btech.com"
+  },
+  {
+    "name": "score_consumer_via_risk_engine",
+    "description": "Score consumer using risk engine",
+    "retryCount": 3,
+    "timeoutSeconds": 3600,
+    "inputKeys": [
+      "consumer_details",
+      "phone_number",
+      "consumer_id",
+      "booking_time"
+    ],
+    "outputKeys": ["consumer_score"],
+    "timeoutPolicy": "TIME_OUT_WF",
+    "retryLogic": "FIXED",
+    "retryDelaySeconds": 60,
+    "responseTimeoutSeconds": 300,
+    "ownerEmail": "khalid.ahmed@btech.com"
+  }
+]

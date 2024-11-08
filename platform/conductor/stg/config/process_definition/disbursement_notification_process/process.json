@@ -1,0 +1,51 @@
+{
+  "ownerApp": null,
+  "createTime": 1700420693719,
+  "updateTime": 1700420693719,
+  "createdBy": "Ahmed.Ghazey@btech.com",
+  "name": "disbursement_notification_process",
+  "description": "Workflow to update lms and partner accounts status after disbursement",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "lms_disbursement",
+      "taskReferenceName": "lms_disbursement_ref",
+      "description": "Updates lms account status after disbursement",
+      "inputParameters": {
+        "merchant_payment_id": "${workflow.input.merchant_payment_id}",
+        "status": "${workflow.input.status}",
+        "status_timestamp": "${workflow.input.status_timestamp}"
+      },
+      "type": "SIMPLE",
+      "dynamicTaskNameParam": null,
+      "caseValueParam": null,
+      "caseExpression": null,
+      "scriptExpression": null,
+      "dynamicForkJoinTasksParam": null,
+      "dynamicForkTasksParam": null,
+      "dynamicForkTasksInputParamName": null,
+      "startDelay": 0,
+      "subWorkflowParam": null,
+      "sink": null,
+      "optional": false,
+      "taskDefinition": null,
+      "rateLimited": null,
+      "asyncComplete": false,
+      "loopCondition": null,
+      "retryCount": null,
+      "evaluatorType": null,
+      "expression": null
+    }
+  ],
+  "inputParameters": ["merchant_payment_id", "status","status_timestamp"],
+  "outputParameters": {},
+  "failureWorkflow": "",
+  "schemaVersion": 2,
+  "restartable": true,
+  "workflowStatusListenerEnabled": false,
+  "ownerEmail": "Ahmed.Ghazey@btech.com",
+  "timeoutPolicy": "ALERT_ONLY",
+  "timeoutSeconds": 0,
+  "variables": {},
+  "inputTemplate": {}
+}
