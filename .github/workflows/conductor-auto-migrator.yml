@@ -41,7 +41,7 @@ jobs:
 
       - name: Adjust the config based on selected environment
         run: |
-          cd ./platform/${{ inputs.environment }}/conductor
+          cd ./platform/conductor/${{ inputs.environment }}
           pwd
           sed -i "s/env: dev/env: ${{ inputs.environment }}/" config/env.yml
           sed -i "s|base_url: \"http://localhost:8080\"|base_url: \"$CONDUCTOR_URL\"|" config/env.yml
@@ -50,6 +50,6 @@ jobs:
       - name: Build Docker Image
         if: ${{ env.build_required == 'true' }}
         run: |
-          cd ./platform/${{ inputs.environment }}/conductor
+          cd ./platform/conductor/${{ inputs.environment }}
           pwd
           cat config/env.yml
