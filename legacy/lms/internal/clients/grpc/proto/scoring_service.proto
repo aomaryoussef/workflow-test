@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package scoring;
+
+option go_package = "pb/minicash_scoring/";
+
+// Interact with the scoring service.
+service ScoringService {
+  // Get existing user credit limit.
+  rpc GetCreditLimit(GetCreditLimitRequest) returns (GetCreditLimitResponse);
+}
+// Request for GetCreditLimit
+message GetCreditLimitRequest {
+  string mobileNumber = 1;
+}
+
+// Response for GetCreditLimit
+message GetCreditLimitResponse {
+  bool user_exists = 1;
+  int32 credit_limit = 2;
+}

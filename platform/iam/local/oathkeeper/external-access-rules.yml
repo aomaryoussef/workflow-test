@@ -1,0 +1,63 @@
+- id: external:fawry:payments
+  description: External Fawry payments APIs
+  upstream:
+    url: http://external:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/external/fawry/api/payments/<**>"
+    methods:
+      - POST
+  authenticators:
+    - handler: oauth2_client_credentials
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: external:fawry:docs
+  description: External Fawry docs APIs
+  upstream:
+    url: http://external:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/external/fawry/<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: external:paymob:checkout
+  description: External paymob checkout APIs
+  upstream:
+    url: http://external:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/external/paymob/api/checkout/<**>"
+    methods:
+      - POST
+  authenticators:
+    - handler: oauth2_client_credentials
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: header
+
+- id: external:paymob:docs
+  description: External Paymob docs APIs
+  upstream:
+    url: http://external:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/external/paymob/api/docs<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop

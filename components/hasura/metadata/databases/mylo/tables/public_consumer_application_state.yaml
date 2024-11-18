@@ -1,0 +1,7 @@
+table:
+  name: consumer_application_state
+  schema: public
+object_relationships:
+  - name: consumer_application
+    using:
+      foreign_key_constraint_on: application_id

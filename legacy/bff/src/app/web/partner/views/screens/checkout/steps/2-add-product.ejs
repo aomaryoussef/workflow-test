@@ -1,0 +1,162 @@
+<div class="checkout-box" id="step-add-product" style="display: none">
+  <div class="col-lg-10">
+    <div class="checkout-details">
+      <div class="custom-checkout-wrapper">
+        <div class="icon">
+          <img src="/public/partner/img/icons/shopping_bag.svg" alt="person" />
+        </div>
+        <div class="text-wrapper">
+          <div class="checkout-title" id="step-add-product-title">إضافة المنتج</div>
+          <div class="checkout-subtitle" id="step-add-product-subtitle">ابدأ بإضافة المنتج إلى سلة التسوق</div>
+        </div>
+      </div>
+
+      <form class="border-form" id="add-product-form" method="POST" action="#">
+        <div class="form-group">
+          <label for="product_name">اسم المنتج </label>
+          <input type="text" name="product_name" class="form-control" id="product_name" placeholder="اسم المنتج"
+            oninput="stateHandle()" />
+        </div>
+
+        <div class="error-msg" id="product_name_error"></div>
+
+        <div class="form-group">
+          <label for="product_price"> سعر المنتج </label>
+          <input type="number" name="product_price" class="form-control" id="product_price" placeholder="سعر المنتج "
+            oninput="stateHandle()" />
+        </div>
+        <div class="error-msg" id="product_price_error" style="display: none"></div>
+
+        <div class="btn-wrapper">
+          <button class="btn primary-green-btn disabled" id="add-product-next-button" onclick="addProductHandler()"
+            type="submit">
+            <img src="/public/shared/img/icons/arrow_forward.svg" class="enabled-img" />
+            <img src="/public/shared/img/icons/arrow_forward_disabled.svg" class="disabled-img" />
+
+            <div class="white-loader" id="step-add-product-loading" hidden="true">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <span class="btn-text"> التالي</span>
+          </button>
+          <button id="add-product-cancel-button" class="btn border-gray-btn show-cancel-popup" type="button"
+            onclick="showCancelPopup('Add Product Step')">
+            رجوع
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+
+  document.getElementById("add-product-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+  });
+
+  const nameInput = document.getElementById("product_name");
+  const priceInput = document.getElementById("product_price");
+  const addProductNextHandler = document.getElementById("add-product-next-button");
+  const productError = document.getElementById("product_price_error");
+  const productNameError = document.getElementById("product_name_error");
+  var downpayment;
+  var adminfee;
+
+  const stateHandle = () => {
+    let productPrice = priceInput.value;
+    if (nameInput.value === "" || priceInput.value === "") {
+      addProductNextHandler.classList.add("disabled");
+      addProductNextHandler.disabled = true;
+      productError.style.display = "none";
+      productNameError.style.display = "none";
+    } else {
+      if (maxProductNameLength()) {
+        addProductNextHandler.disabled = false;
+        addProductNextHandler.classList.remove("disabled");
+      }
+      if (minMaxProductPrice()) {
+        addProductNextHandler.disabled = false;
+        addProductNextHandler.classList.remove("disabled");
+      } else {
+        addProductNextHandler.classList.add("disabled");
+        addProductNextHandler.disabled = true;
+      }
+    }
+  };
+  const minMaxProductPrice = () => {
+    let priceInput = document.getElementById("product_price").value;
+    if (priceInput < 500 || priceInput > 1000000) {
+      addProductNextHandler.classList.add("disabled");
+      addProductNextHandler.disabled = true;
+      productError.innerHTML = "يجب ادخال مبلغ لايقل عن ٥٠٠ جنيه ولايزيد عن ١،٠٠٠،٠٠٠ جنيه";
+      productError.style.display = "block";
+      return false;
+    } else {
+      productError.style.display = "none";
+      return true;
+    }
+  };
+  const maxProductNameLength = () => {
+    let nameInputValue = nameInput.value;
+    if (nameInputValue.length > 30 || nameInputValue.length < 2) {
+      addProductNextHandler.classList.add("disabled");
+      addProductNextHandler.disabled = true;
+      productNameError.innerHTML = "اسم المنتج يجب ان لايقل عن ٢ حرف و لا يزيد عن ٣٠ حرف ";
+      productNameError.style.display = "block";
+      return false;
+    } else {
+      productNameError.style.display = "none";
+      return true;
+    }
+  };
+  const addProductHandler = async () => {
+    const nextHandler = document.getElementById("add-product-next-button");
+    const cancelHandler = document.getElementById("add-product-cancel-button");
+    const spinner = document.getElementById("step-add-product-loading");
+    nameInput.disabled = true;
+    priceInput.disabled = true;
+
+    try {
+      spinner.hidden = false;
+      nextHandler.classList.add("disabled");
+      cancelHandler.classList.add("disabled");
+      const response = await axios.post("/private/partner/checkout/add-product", {
+        consumerId: consumerInfo.id,
+        productName: nameInput.value,
+        productPrice: priceInput.value,
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        params: params
+      });
+      document.getElementById("fees-collection-product-name").innerText = nameInput.value;
+      document.getElementById("fees-collection-product-price").innerText =
+        parseFloat(priceInput.value).toLocaleString("ar-EG") + " جنيه";
+      checkoutSessionId = response.data.checkoutSessionId;
+      const branchId = response.data.branchId;
+      const partnerId = response.data.partnerId;
+      const cashierId = response.data.cashierId;
+      const consumerId = response.data.consumerId;
+      partnerName = response.data.partnerName;
+      currentStep++;
+
+
+      adjustStepper();
+      amplitudeLogEvents("Add Product Details", { name: 'price', input: priceInput.value + "EGP" }, { name: 'consumer_id', input: consumerInfo.id }, { name: 'branch_id', input: branchId }, { name: 'cashier_id', input: cashierId, }, { name: 'partner_id', input: partnerId }, { name: 'partner_name', input: partnerName });
+    } catch (error) {
+      console.error(error);
+
+      amplitudeLogEvents("Failed Add Product Details", { name: 'consumer_id', input: consumerInfo.id }, { name: 'message', input: error.message }, { name: "status", input: error.response.status });
+      showErrorAlert("مشكلة بسيطة", "حدث خطأ في النظام");
+    } finally {
+      nextHandler.classList.remove("disabled");
+      cancelHandler.classList.remove("disabled");
+      spinner.hidden = true;
+      nameInput.disabled = false;
+      priceInput.disabled = false;
+    }
+  };
+</script>

@@ -1,0 +1,27 @@
+<div id="pay-early-alert" style="display: none">
+  <div class="custom-overlay">
+    <div class="popup one-btn-popup">
+      <div class="popup-wrapper">
+        <div class="center-data">
+          <div class="title" id="pay-early-alert-title">تأكيد السداد المبكر؟</div>
+          <div class="notification" id="pay-early-alert-subtitle" style="font-size: 1.2rem;"></div>
+        </div>
+        <div class="btn-wrapper">
+          <div class="col-6">
+            <button class="btn primary-green-btn" id="hidePopup" onclick="closePayEarlyAlert()">رجوع</button>
+          </div>
+          <div class="col-6">
+            <button class="btn secondary-gray-btn action-confirm" id="pay-early-confirm" style="width: 98%">
+              موافقة
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const closePayEarlyAlert = () => {
+    document.getElementById("pay-early-alert").style.display = "none";
+  };
+</script>

@@ -1,0 +1,156 @@
+id: "AQBPM1111T"
+key: "test-product-07-rounded"
+version: "1"
+previous_version: "NIL"
+name: "test-product-07-rounded"
+description: "Test product 07, zero various interest, zero admin fee, no min downpayment, rounded up"
+active_since: "2023-12-29T15:04:05Z"
+active_until: "2099-12-28T15:04:05Z"
+
+approvers:
+  pricing:
+    name: "Noone"
+    email: "noone"
+    date: "2023-09-01T15:04:05Z"
+    comment: "..."
+  finance:
+    name: "Noone"
+    email: "Noone"
+    date: "2023-09-01T15:04:05Z"
+    comment: "..."
+
+creator:
+  name: "Sandor Nagy"
+  email: "sandor.n.external@btech.com"
+  date: "2024-01-30T12:00:00Z"
+  comment: "Only test product facilitating integrated tests"
+
+configuration:
+  interest:
+    type: FIXED
+    methodology: DECLINING
+    compounding_frequency: MONTHLY
+    rounding_up_monthly_to_nearest: true
+
+global_attributes:
+  # Admin Fee is paid by the debtor (consumer)
+  admin_fee:
+    # 2 types are supported: MONETARY | FORMULA
+    # In case of MONETARY, the value means the fixed money itself e.g. EGP 30.08
+    # In case of FORMULA, the value has a fix and a percentage part, separated by the + sign. e.g. 5.00%+30.08 means (5% of principal + EGP30.08)
+    type: "FORMULA"
+    # Only max 2 decimal precision is used, if extra decimal places are added,
+    # then the rest of them will be omitted. No rounding off will be used
+    value: "0.00% + 0.0"
+  bad_debt:
+    type: PERCENT
+    value: "1.00"
+  grace_period:
+    in_days: 7
+  allowed_principal_range:
+    min: "500.00"
+    max: "1000000.00"
+  repayment_days_in_month: "8, 20"
+
+tenor_variants:
+  - key: "6_Months"
+    duration_in_days: 180
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "0.00% + 0.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 0.00"
+    phases:
+      - duration_in_days: 180
+        interest:
+          type: "PERCENT"
+          value: "0.00"
+        late_fee:
+          type: "MONETARY"
+          value: "0.00"
+  
+  - key: "12_Months"
+    duration_in_days: 360
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "0.00% + 0.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 0.00"
+    phases:
+      - duration_in_days: 360
+        interest:
+          type: "PERCENT"
+          value: "0.00"
+        late_fee:
+          type: "MONETARY"
+          value: "0.00"
+
+  - key: "18_Months"
+    duration_in_days: 540
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "0.00% + 0.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 0.00"
+    phases:
+      - duration_in_days: 540
+        interest:
+          type: "PERCENT"
+          value: "24.50"
+        late_fee:
+          type: "MONETARY"
+          value: "0.00"
+
+  - key: "24_Months"
+    duration_in_days: 720
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "0.00% + 0.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 0.00"
+    phases:
+      - duration_in_days: 720
+        interest:
+          type: "PERCENT"
+          value: "32.70"
+        late_fee:
+          type: "MONETARY"
+          value: "0.00"
+
+  - key: "36_Months"
+    duration_in_days: 1080
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "0.00% + 0.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 0.00"
+    phases:
+      - duration_in_days: 1080
+        interest:
+          type: "PERCENT"
+          value: "102.60"
+        late_fee:
+          type: "MONETARY"
+          value: "0.00"
+
+  - key: "48_Months"
+    duration_in_days: 1440
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "0.00% + 0.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 0.00"
+    phases:
+      - duration_in_days: 1440
+        interest:
+          type: "PERCENT"
+          value: "146.40"
+        late_fee:
+          type: "MONETARY"
+          value: "0.00"

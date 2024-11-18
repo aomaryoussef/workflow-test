@@ -1,0 +1,18 @@
+export enum ConsumerStatus {
+  AWAITING_ACTIVATION = "AWAITING_ACTIVATION",
+  ACTIVE = "ACTIVE",
+  BLOCKED = "BLOCKED",
+  WAITING_LIST = "WAITING_LIST",
+}
+
+export enum ScoringStatus {
+  APPROVED_ACTIVE = "APPROVED_ACTIVE",
+  APPROVED_INACTIVE = "APPROVED_INACTIVE",
+  DECLINED = "DECLINED",
+  UNAVAILABLE = "UNAVAILABLE",
+}
+
+export enum SanctionType {
+  SanctionsList = "SANCTION_LIST",
+  TerroristsList = "TERRORIST_LIST",
+}

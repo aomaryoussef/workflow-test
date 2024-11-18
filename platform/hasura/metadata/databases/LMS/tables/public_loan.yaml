@@ -1,0 +1,63 @@
+table:
+  name: loan
+  schema: public
+object_relationships:
+  - name: commercial_offer
+    using:
+      manual_configuration:
+        column_mapping:
+          commercial_offer_id: id
+        insertion_order: null
+        remote_table:
+          name: commercial_offer
+          schema: public
+  - name: merchant_transaction_slip
+    using:
+      foreign_key_constraint_on:
+        column: loan_id
+        table:
+          name: merchant_transaction_slip
+          schema: public
+array_relationships:
+  - name: journals
+    using:
+      foreign_key_constraint_on:
+        column: loan_id
+        table:
+          name: journal
+          schema: public
+  - name: loan_schedules
+    using:
+      foreign_key_constraint_on:
+        column: loan_id
+        table:
+          name: loan_schedule
+          schema: public
+  - name: loan_statuses
+    using:
+      foreign_key_constraint_on:
+        column: loan_id
+        table:
+          name: loan_status
+          schema: public
+remote_relationships:
+  - definition:
+      to_source:
+        field_mapping:
+          consumer_id: id
+        relationship_type: object
+        source: Mylo
+        table:
+          name: consumers
+          schema: public
+    name: consumer
+  - definition:
+      to_source:
+        field_mapping:
+          merchant_global_id: id
+        relationship_type: object
+        source: Mylo
+        table:
+          name: partner
+          schema: public
+    name: partner

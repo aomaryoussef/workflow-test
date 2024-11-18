@@ -1,0 +1,43 @@
+- id: ory:hydra:public
+  description: Ory Hydra Public
+  upstream:
+    url: http://hydra:4444
+    preserve_host: true
+    strip_path: "/.ory/hydra/public"
+  match:
+    url: "http://localhost:4455/.ory/hydra/public/<{oauth2/auth,.well-known/openid-configuration,.well-known/jwks.json,oauth2/token,oauth2/revoke,oauth2/fallbacks/consent,oauth2/fallbacks/error,oauth2/sessions/logout,userinfo}>"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+  errors: []
+
+- id: ory:hydra:admin
+  description: Ory Hydra Admin
+  upstream:
+    url: http://hydra:4445
+    preserve_host: true
+    strip_path: "/.ory/hydra/admin"
+  match:
+    url: "http://localhost:4455/.ory/hydra/admin/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+  errors: []

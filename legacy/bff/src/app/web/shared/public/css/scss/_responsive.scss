@@ -1,0 +1,149 @@
+// special cases//
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 1366px) {
+  .form-control {
+    padding: 0.675rem 0.5rem !important;
+  }
+  .primary-green-btn,
+  .border-gray-btn {
+    padding: 10px 20px;
+  }
+}
+@media (max-width: 992px) {
+  .bg-side {
+    height: auto;
+  }
+  // checkout
+  .stepper {
+    padding: 52px 10px;
+  }
+  .checkout-box {
+    display: flex;
+    justify-content: center;
+    padding: 50px 30px 60px;
+  }
+}
+@media (max-width: 768px) {
+  body,
+  html {
+    font-size: 14px;
+  }
+  .bg-side {
+    min-height: auto;
+  }
+  .stepper {
+    padding: 20px 20px;
+    .stepper-item {
+      margin-bottom: 0 !important;
+    }
+    ul {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .page-padding-25 {
+    padding: 25px 35px;
+  }
+  .stepper {
+    ul {
+      .stepper-item {
+        .circle {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+  }
+  .checkout-box .checkout-details .custom-checkout-wrapper {
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+  .checkout-box .checkout-details .icon {
+    width: 55px;
+    height: 55px;
+    img {
+      width: 30px;
+    }
+  }
+  .installment-card .item-wrapper {
+    padding: 24px 0;
+  }
+  .installment-card .item-wrapper .item-col {
+    text-align: center;
+  }
+  //
+  .timer,
+  .otp-wrapper .resend_otp {
+    margin-top: 25px !important;
+  }
+  .btn-wrapper.mt-145 {
+    margin-top: 60px;
+  }
+  // nav
+  .primary-nav.desktop {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+    .burger-menu {
+      position: absolute;
+      left: 20px;
+      top: 110px;
+      z-index: 5;
+    }
+  }
+  .desktop {
+    display: none;
+  }
+}
+@media (max-width: 440px) {
+  .stepper ul .stepper-item .text {
+    font-size: 0.85rem;
+  }
+}
+//
+@media (max-width: 920px) {
+  .box-wrapper {
+    display: block;
+
+    .white-box {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+  }
+
+  .primary-nav {
+    height: auto;
+  }
+
+  .control-menu-wrapper {
+    .control-menu {
+      .user-data {
+        display: none;
+      }
+
+      .avatar {
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  .additional-info {
+    padding: 0;
+  }
+
+  .internal-bg {
+    .custom-accordition {
+      padding: 0;
+    }
+  }
+
+  .internal-screen-padding {
+    padding: 32px 0;
+  }
+}

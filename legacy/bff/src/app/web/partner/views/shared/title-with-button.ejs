@@ -1,0 +1,18 @@
+<div class="title-with-button">
+  <div class="icon-title-wrapper">
+    <div class="icon-wrapper">
+      <% if(data.showBtn) { %>
+      <img src="/public/partner/img/icons/shopping_bag.svg" />
+      <% } else { %>
+      <img src="/public/partner/img/icons/receipt_long.svg" />
+      <% } %>
+    </div>
+    <div class="title-wrapper">
+      <div class="title"><%= title %></div>
+      <div class="subtitle"><%= subtitle %></div>
+    </div>
+  </div>
+  <% if(data.showBtn) { %>
+  <a href="#" class="link">إلغاء</a>
+  <% } %>
+</div>

@@ -1,0 +1,37 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/public/shared/css/bootstrap.css" />
+  <link rel="stylesheet" href="/public/shared/css/mylo-main.css" />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- <script type="text/javascript">
+    (function (h, o, u, n, d) {
+      h = h[d] = h[d] || { q: [], onReady: function (c) { h.q.push(c) } }
+      d = o.createElement(u); d.async = 1; d.src = n
+      n = o.getElementsByTagName(u)[0]; n.parentNode.insertBefore(d, n)
+    })(window, document, 'script', 'https://www.datadoghq-browser-agent.com/datadog-rum.js', 'DD_RUM')
+    DD_RUM.onReady(function () {
+      DD_RUM.init({
+        applicationId: '<%= process.env.OL_BFF_DATADOG_APPLICATION_ID %>',
+        clientToken: '<%= process.env.OL_BFF_DATADOG_TOKEN %>',
+        site: '<%= process.env.OL_BFF_DATADOG_SITE %>',
+        env: '<%= process.env.OL_BFF_DATADOG_ENVIRONMENT %>',
+        sampleRate: 100,
+        trackInteractions: true,
+        sessionSampleRate: 100,
+        sessionReplaySampleRate: 20,
+        trackUserInteractions: true,
+        trackResources: true,
+        trackLongTasks: true,
+        defaultPrivacyLevel: 'mask-user-input',
+      })
+    })
+  </script> -->
+  <script type="text/javascript" src="https://cdn.amplitude.com/libs/amplitude-7.2.1-min.gz.js"></script>
+  <% if (process.env.OL_BFF_AMPLITUDE_TOKEN) { %>
+  <script type="text/javascript">
+    amplitude?.getInstance()?.init('<%= process.env.OL_BFF_AMPLITUDE_TOKEN %>');
+  </script>
+  <% } %>
+</head>

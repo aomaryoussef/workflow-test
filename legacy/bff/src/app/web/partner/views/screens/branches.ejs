@@ -1,0 +1,139 @@
+<div class="col-12 col-md-10">
+  <div class="row">
+    <div class="col-12">
+      <div class="main-title">
+        <div class="subtitle-wrapper">
+          <div class="subtitle">
+            <i class="icon-manage_accounts"></i>
+          </div>
+          <div class="title">الفروع</div>
+        </div>
+        <div class="title-wrapper">
+          <div class="title">الفروع الخاصة بك</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if (branches.length> 0) { %>
+
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table listing-table">
+        <thead>
+          <tr>
+            <th scope="col">تاريخ الإضافة</th>
+            <th scope="col">اسم الفرع</th>
+            <th scope="col">المحافظة</th>
+            <th scope="col">المدينة</th>
+            <th scope="col">المنطقة</th>
+            <th scope="col">الشارع</th>
+            <th scope="col">الموقع</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% branches.forEach(branch=> { %>
+          <tr id="<%= branch.id %>">
+            <td>
+              <span>
+                <%= branch.created_at %>
+              </span>
+              <span class="time">
+                <%= branch.current_time %>
+              </span>
+            </td>
+            <td>
+              <%= branch.name %>
+            </td>
+            <td>
+              <%= branch.governorate?.name ||"" %>
+            </td>
+            <td>
+              <%= branch.city?.name || "" %>
+            </td>
+            <td>
+              <%= branch.area_lookup?.name || branch.area || "" %>
+            </td>
+            <td>
+              <%= branch.street %>
+            </td>
+            <td>
+              <a href="<%= branch.google_maps_link %>" target="_blank">الرابط</a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <div class="paginator">
+        <% let startRecord=(pageSelected - 1) * perPage + 1; %>
+        <% let endRecord=Math.min(pageSelected * perPage, totalCount); %>
+        <div class="pagination-number">إظهار رقم <%= startRecord %> إلى <%= endRecord %> من <%= totalCount
+                              %> نتيجة.</div>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <% if(pageSelected !=1) { %>
+            <li class="page-item">
+              <a class="page-link" href="<%= url %>?page=<%= pageSelected - 1 %>&per_page=<%= perPage %>"
+                aria-label="Next Page">
+                <img src="/public/shared/img/arrow.svg" alt="arrow">
+              </a>
+            </li>
+            <% }else { %>
+            <li class="page-item">
+              <a class="page-link disabled-arrow" href="<%= url %>?page=<%= pageSelected - 1 %>&per_page=<%= perPage %>"
+                aria-label="Next Page">
+                <img src="/public/shared/img/arrow.svg" alt="arrow">
+              </a>
+            </li>
+            <% } %>
+            <% const numberOfPages=Math.ceil(totalCount / perPage); for(let i=1; i <=numberOfPages;
+                                  i++) { %>
+            <li class="page-item"><a class="page-link" id="item<%= i %>"
+                href="<%= url %>?page=<%= i %>&per_page=<%= perPage %>">
+                <%= i %>
+              </a></li>
+            <% } %>
+            <% if(pageSelected < numberOfPages) { %>
+            <li class="page-item">
+              <a class="page-link invert" href="<%= url %>?page=<%= pageSelected + 1 %>&per_page=<%= perPage %>"
+                aria-label="Next Page">
+                <img src="/public/shared/img/arrow.svg" alt="arrow">
+
+              </a>
+            </li>
+            <% } else {%>
+            <li class="page-item">
+              <a class="page-link disabled-arrow invert"
+                href="<%= url %>?page=<%= pageSelected + 1 %>&per_page=<%= perPage %>" aria-label="Next Page">
+                <img src="/public/shared/img/arrow.svg" alt="arrow">
+
+              </a>
+            </li>
+            <% } %>
+
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <% } %>
+
+  <% if (!branches || branches.length==0) { %>
+  <div class="row">
+    <div class="col-12">
+      <div class="empty-message">
+        <img src="/public/shared/img/Base-icons.svg" />
+        <div class="title">لا يوجد فروع في القائمة</div>
+      </div>
+    </div>
+  </div>
+  <% } %>
+
+</div>
+</div>

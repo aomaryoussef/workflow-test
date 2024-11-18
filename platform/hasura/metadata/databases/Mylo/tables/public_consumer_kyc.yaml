@@ -1,0 +1,7 @@
+table:
+  name: consumer_kyc
+  schema: public
+object_relationships:
+  - name: new_consumer
+    using:
+      foreign_key_constraint_on: consumer_id

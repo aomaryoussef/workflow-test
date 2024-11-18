@@ -1,0 +1,7 @@
+table:
+  name: hydra_oauth2_jti_blacklist
+  schema: public
+object_relationships:
+  - name: network
+    using:
+      foreign_key_constraint_on: nid

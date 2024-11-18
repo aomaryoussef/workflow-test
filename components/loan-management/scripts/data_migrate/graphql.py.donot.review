@@ -1,0 +1,38 @@
+List_CHECKOUTS = """query {
+  checkout_baskets(where: {loan_id: {_is_null: false}}) {
+    id
+    loan {
+      id
+      booked_at
+      commercial_offer_id
+      consumer {
+        full_name
+        id
+        single_payment_day
+      }
+      financial_product_key
+      merchant_global_id
+      loan_statuses{
+        status
+        created_at
+      }
+    }
+    selected_commercial_offer_id
+    commercial_offers
+  }
+}
+"""
+
+
+LIST_PAYMENTS = """query ($loan_id: String) {
+    registry_payment(where: {billing_account: {_eq: $loan_id}}) {
+        amount_currency
+        amount_units
+        id
+        payee_id
+        status
+        created_at
+        created_by
+        billing_account_schedule_id
+    }
+}"""

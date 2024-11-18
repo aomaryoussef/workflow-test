@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Consumer_Suite">
+    <listeners>
+        <listener class-name="utilities.ExtentReportManager"></listener>
+    </listeners>
+
+    <test thread-count="5" name="Consumer">
+        <classes>
+            <class name="consumerTests.CreateLoginFlowTests"/>
+        </classes>
+    </test>
+
+
+</suite>

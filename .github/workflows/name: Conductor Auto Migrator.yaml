@@ -1,0 +1,81 @@
+# name: Conductor Auto Migrator
+
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       environment:
+#         description: 'Please select the environment to run the build on:'
+#         required: true
+#         type: choice
+#         options:
+#           - test
+#           - stg
+#           - stg-outposts
+#           - outposts
+#       build-action:
+#         description: 'Please Select The build action To Run { skip , build )'
+#         required: false
+#         type: choice
+#         default: skip
+#         options:
+#           - skip
+#           - build
+          
+# jobs:
+#   build:
+#     name: Conductor Migrator
+#     runs-on: ${{ inputs.environment == 'outposts' && 'outposts' || inputs.environment == 'stg-outposts' && 'outposts' || 'ubuntu-latest' }}
+#     environment:
+#       name: ${{ inputs.environment }}
+#     env:
+#       CONDUCTOR_URL: ${{ vars.CONDUCTOR_URL }}
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+
+#       - name: Install Docker
+#         run: |
+#           sudo apt-get update
+#           sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+#           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+#           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+#           sudo apt-get update
+#           sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+
+#       - name: Print Conductor URL
+#         run: echo "Conductor URL for environment -> $CONDUCTOR_URL"
+
+
+#       - name: Check if Docker container exists
+#         run: |
+#           CONTAINER=$(docker ps -a | grep "conductor-workflow-migrator-container" || true) 
+
+#           if [[ ! -z "$CONTAINER" ]]; then
+#               echo "build_required=false" >> $GITHUB_ENV
+#           else
+#               echo "build_required=true" >> $GITHUB_ENV
+#           fi
+#         continue-on-error: true
+
+#       - name: Adjust the config based on selected environment
+#         run: |
+#           cd ./platform/conductor/${{ inputs.environment }}
+#           pwd
+#           sed -i "s/env: dev/env: ${{ inputs.environment }}/" config/env.yml
+#           sed -i "s|base_url: \"http://localhost:8080\"|base_url: \"$CONDUCTOR_URL\"|" config/env.yml
+#           cat config/env.yml
+
+#       - name: Build Docker Image
+#         if: ${{ env.build_required == 'true' || inputs.build-action == 'build' }}
+#         run: |
+#           cd ./platform/conductor/${{ inputs.environment }}
+#           pwd
+#           cat config/env.yml
+#           docker build -t conductor-workflow-migrator .
+
+#       - name: Run the migrator
+#         run: |
+#           cd ./platform/conductor/${{ inputs.environment }}
+#           docker rm -f workflow-migrator-container
+#           docker run --name workflow-migrator-container -v "$PWD/config:/etc/config/workflow-migrator" conductor-workflow-migrator deploy

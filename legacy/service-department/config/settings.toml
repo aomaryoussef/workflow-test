@@ -1,0 +1,122 @@
+[app]
+name = "mylo-service-department"
+description = "Mylo Service Department (Checkout - Partner - Consumer)"
+version_major = "1"
+version_minor = "0"
+version_patch = "4"
+use_test_data = false
+
+[database] # postgresql only
+host = "localhost"
+port = "5432"
+name = "mylo_db"
+username = "db_user"
+password = "db_pass"
+
+[log]
+level = 'INFO' # can be 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
+
+[checkout]
+basket-validity = 600 # checkout basket validity in seconds (default 600 seconds = 10 minutes)
+
+[IAM]
+kratos_admin_base_url = "http://localhost:4434"
+keto_read_base_url = "http://localhost:4466"
+keto_write_base_url = "http://localhost:4467"
+
+[Mail]
+server = "127.0.0.1"
+port = 1025
+sender_name = "Mylo"
+sender_email = "info@myloapp.com"
+sender_pass = "test"
+method = "smtp" # can be "smtp" or "ses", with "ses" you need to configure the aws section
+
+[BFF]
+base_url = "http://localhost:3000"
+
+[workflow]
+checkout_process="checkout_process"
+partner_onboarding="merchant_onboarding"
+consumer_onboarding="consumer_onboarding"
+disbursement="disbursement_notification_process"
+consumer_collection="consumer_collection_process"
+base_url= "http://localhost:8080"
+polling_interval=0.1
+is_alpha_onboarding=true
+
+[green_service]
+base_url=""
+api_key=""
+
+[scoring_engine]
+base_url=""
+token=""
+
+[mini_cash]
+base_url=""
+username=""
+password=""
+
+[lms]
+base_url=""
+
+[dynamics]
+base_url="https://btech-test03.sandbox.operations.eu.dynamics.com/api/"
+auth_url="https://login.windows.net/"
+auth_client_id="5d764d3a-a5fe-4153-8d9c-2bc192b87bbf"
+auth_client_secret="change_me_please"
+auth_tenant_id="58191332-4582-42f1-a685-f77f77def707"
+auth_resource_id="https://btech-erp.operations.dynamics.com/"
+
+[echo_service]
+base_url=""
+api_key=""
+
+[dev_only]
+phone_numbers_safe_list = ["01111462422", "01098488223", "01507009664", "01284998608", "01023674218", "01097216739", "01157615617", "01123000747", "01100057374", "01003138613", "01201667332", "01507009664", "01002740215", "01068702228", "01007937791", "01002997178", "0100975873", "01276906394", "01006630731", "01026908985", "01224357779", "01550132422","01022855945"]
+
+[sms_templates]
+consumer_onboarding_otp="fac25f54-5223-4b2d-873f-3fd81851abb5"
+cashier_onboarding_welcome="d26adfee-185b-489e-8063-1fb1a1144b89"
+order_confirmation="95d84058-2254-4383-b7be-6f29344ba6ba"
+consumer_onboarding_welcome="bad3c862-9c47-4d68-8e44-7d47b2c1d4ae"
+partner_reset_password="3bfd77c0-f503-4a6f-977e-31dccc59d478"
+checkout_otp="9ccd555b-e6dc-49ba-887b-b1175997d0ef"
+return_product="af7def8d-efe9-4584-8381-ecd2595cf73a"
+due_today="b1e84ae5-ebab-435e-9a03-7795de0b4c94"
+due_four_days_ago="af7def8d-efe9-4584-8381-ecd2595cf73a"
+due_twenty_one_days_ago="af7def8d-efe9-4584-8381-ecd2595cf73a"
+installment_payment_received="0fc101b4-f3b7-4b24-bd43-997be847fa43"
+loan_settlement_success="6fb781c4-8c61-4740-b504-8a38d6a3d2cf"
+
+[communication_channel]
+sms="" # options: [twilio, green_service]
+voice="" # options: [twilio, green_service] ; for now this is not used
+
+[aws]
+region="eu-west-1"
+
+[slack]
+enable = false # set to true to enable sending
+token=""
+channel_id="C06Q2U5999P"
+
+[hasura]
+base_url="http://localhost:8082/v1/graphql"
+
+[twilio]
+account_sid=""
+auth_token=""
+from_numbers="" # multiple numbers divided by comma, including country code wihtout plus sign. example: 20123456789,20123456789
+flow_sid=""
+template_id=""
+
+[formance]
+base_url="http://localhost:8086"
+require_login=true
+client_id="d7d7d2d0-af3f-45c9-82b1-da347e7acb82"
+client_secret="4ba5b231-4430-431d-b661-a4e38a31a113"
+connector_id="eyJQcm92aWRlciI6IkdFTkVSSUMiLCJSZWZlcmVuY2UiOiJhN2RjYWM2Zi0xZWRjLTQ4MGYtYTBmNi04MmFkYzZjNmU1NzAifQ"
+fawry_account_id="eyJDb25uZWN0b3JJRCI6eyJQcm92aWRlciI6IkdFTkVSSUMiLCJSZWZlcmVuY2UiOiJhN2RjYWM2Zi0xZWRjLTQ4MGYtYTBmNi04MmFkYzZjNmU1NzAifSwiUmVmZXJlbmNlIjoiRkFXUlkifQ"
+btech_store_cash_account_id="eyJDb25uZWN0b3JJRCI6eyJQcm92aWRlciI6IkdFTkVSSUMiLCJSZWZlcmVuY2UiOiJhN2RjYWM2Zi0xZWRjLTQ4MGYtYTBmNi04MmFkYzZjNmU1NzAifSwiUmVmZXJlbmNlIjoiQlRFQ0hfU1RPUkVfQ0FTSCJ9"

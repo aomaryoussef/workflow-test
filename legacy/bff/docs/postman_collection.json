@@ -1,0 +1,465 @@
+{
+	"info": {
+		"_postman_id": "67616872-24a7-4266-b2a0-bb1fd4b0321f",
+		"name": "openloop-bff",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "769126"
+	},
+	"item": [
+		{
+			"name": "get session basket by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$base_url}}/session-basket/7",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create session basket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"header\": {\n    \"idempotency_key\": \"21409298-bee8-4225-aa01-186180ae5e1e PLEASE IGNORE THIS FOR NOW WE DONT DO IT THIS SPRINT\",\n    \"device_info\": {\n      \"brand\": \"Samsung\",\n      \"model\": \"SM-A528B\",\n      \"app_version\": \"1.20\",\n      \"os_version\": \"11.2\"\n    }\n  },\n  \"products\": [\n    {\n      \"name\": \"iPhone 15 pro\",\n      \"count\": 2,\n      \"price\": 1000000,\n      \"category\": \"Electronics\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$base_url}}/session-basket",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "acquire session basket by code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"header\": {\n    \"idempotency_key\": \"21409298-bee8-4225-aa01-186180ae5e1e PLEASE IGNORE THIS FOR NOW WE DONT DO IT THIS SPRINT\",\n    \"device_info\": {\n      \"brand\": \"Samsung\",\n      \"model\": \"SM-A528B\",\n      \"app_version\": \"1.20\",\n      \"os_version\": \"11.2\"\n    }\n  },\n  \"cart_code\": 912106\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$base_url}}/session-basket/acquire",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"acquire"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accept session basket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"db5172a8-e84b-4e7c-b273-94e8ef7e370e\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$base_url}}/session-basket/accept",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"accept"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "basket session status by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$base_url}}/session-basket/ec172031-7a3c-42be-ad34-97dbed099ce0/status",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"ec172031-7a3c-42be-ad34-97dbed099ce0",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get commercial offers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$base_url}}/session-basket/ec172031-7a3c-42be-ad34-97dbed099ce0/commercial-offers",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"ec172031-7a3c-42be-ad34-97dbed099ce0",
+						"commercial-offers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "review order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"session_id\": \"ec172031-7a3c-42be-ad34-97dbed099ce0\",\n    \"selected_offer_id\": \"2ea5acb9-f556-4774-b732-dce2ba376fa0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$base_url}}/session-basket/review-order",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"review-order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel by cashier",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{$base_url}}/session-basket/db5172a8-e84b-4e7c-b273-94e8ef7e370e/cancel-by-cashier",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"db5172a8-e84b-4e7c-b273-94e8ef7e370e",
+						"cancel-by-cashier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "select commercial offer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"session_id\": \"2c11060c-0c4f-4306-97ba-7d85673a48e2\",\n    \"selected_offer_id\": \"86f182ff-2cee-4130-940f-c8310aa9e5f4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$base_url}}/session-basket/accept-commercial-offer",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"accept-commercial-offer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel by consumer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{$base_url}}/session-basket/817361fc-83a6-40c0-9676-e5a36f53a2cb/cancel-by-consumer",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"817361fc-83a6-40c0-9676-e5a36f53a2cb",
+						"cancel-by-consumer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get down payment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$base_url}}/session-basket/2c11060c-0c4f-4306-97ba-7d85673a48e2/down-payment",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"2c11060c-0c4f-4306-97ba-7d85673a48e2",
+						"down-payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accept down payment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{$base_url}}/session-basket/7acffcba-e60b-4988-bab2-e9fc9ac2fe9f/accept-down-payment",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"7acffcba-e60b-4988-bab2-e9fc9ac2fe9f",
+						"accept-down-payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create consumer identity",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"phone_number\": \"01123000784\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$base_url}}/consumers/identity",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"consumers",
+						"identity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send recovery code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"phone_number\": \"01123000789\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$base_url}}/consumers/identity/resend-recovery",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"consumers",
+						"identity",
+						"resend-recovery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get consumer by phone number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$base_url}}/consumers/01123000747",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"consumers",
+						"01123000747"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get branches list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$base_url}}/private/api/consumers/branches",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"static",
+						"branches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "partner list grouped by category",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "ar",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{$base_url}}/private/partner/api/grouped-by-category",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"partner",
+						"grouped-by-category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "categories list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "ar",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{$base_url}}/private/partner/api/categories",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"partner",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "top partners list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "ar",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{$base_url}}/private/partner/api/top-partners",
+					"host": [
+						"{{$base_url}}"
+					],
+					"path": [
+						"partner",
+						"top-partners"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "$base_url",
+			"value": "http://localhost:3000"
+		}
+	]
+}

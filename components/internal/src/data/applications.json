@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "requestedAt": "2022-01-01",
+    "number": "1234567890",
+    "status": "approved",
+    "requestedLoanAmount": 1000,
+    "requestedLoanTerm": 12,
+    "approvedLoanAmount": 1000,
+    "approvedLoanTerm": 12
+  },
+  {
+    "id": 2,
+    "requestedAt": "2024-05-01",
+    "number": "1234567890",
+    "status": "pending",
+    "requestedLoanAmount": 10000,
+    "requestedLoanTerm": 12,
+    "approvedLoanAmount": 10000,
+    "approvedLoanTerm": 12
+  }
+]

@@ -1,0 +1,256 @@
+## Pre-conditions:
+## - All defined below
+
+## Unique identifier to be used internally for mapping
+id: "FGHJ43293C"
+
+## Human readable identifier (unique with key + version)
+key: "electronics-medical-financial-product"
+
+## Version of the financial product
+## Any change to the financial product changes the version
+version: "5"
+previous_version: "NIL"
+
+## Given name max 100 chars
+name: "electronics-medical-financial-product"
+
+## Description max 500 chars
+description: "Electronics and Medical Financial Product version 5"
+
+## Active time range. Can also be in future
+active_since: "2024-07-29T09:00:00Z"
+active_until: "2099-09-28T15:04:05Z"
+
+## Approvers responsible for ensuring the
+## correctness and financial viability
+approvers:
+  pricing:
+    name: "Mohamed Hashish"
+    email: "mohamed.hashish@btech.com"
+    date: "2023-09-01T15:04:05Z"
+    comment: "Approved. GH_PR: https://github.com/btechlabs/consumer-finance-lms-lite/pull/XX"
+  finance:
+    name: "Marie Khalil"
+    email: "marie.khalil@btech.com"
+    date: "2023-09-01T15:04:05Z"
+    comment: "Approved. GH_PR: https://github.com/btechlabs/consumer-finance-lms-lite/pull/XX"
+
+
+configuration:
+  # Interest configs
+  # Currently only supported INTEREST mechanism is FIXED, DECLINING and MONTHLY compounding
+  interest:
+    # This means that the interest rate does not change over time.
+    type: FIXED
+
+    # This means that the interest rate calculation is done on the declining outstanding balance.
+    methodology: DECLINING
+
+    # This means that the interest rate calculation is done based on a monthly compounding frequency.
+    compounding_frequency: MONTHLY
+    # This means that monthly interest needs to be rounded up to nearest pounds
+    rounding_up_monthly_to_nearest: true
+
+# Global attributes are loaded by the financial product loader
+global_attributes:
+  # Admin Fee is paid by the debtor (consumer)
+  admin_fee:
+    # 2 types are supported: MONETARY | FORMULA
+    # In case of MONETARY, the value means the fixed money itself e.g. EGP 30.08
+    # In case of FORMULA, the value has a fix and a percentage part, separated by the + sign. e.g. 5.00%+30.08 means (5% of principal + EGP30.08)
+    type: "MONETARY"
+
+    # Only max 2 decimal precision is used, if extra decimal places are added,
+    # then the rest of them will be omitted. No rounding off will be used
+    value: "00.00"
+
+  bad_debt:
+    # 1 type are supported: PERCENT
+    # Only max 2 decimal precision is used, if extra decimal places are added,
+    # then the rest of them will be omitted. No rounding off will be used
+    type: PERCENT
+    value: "1.07"
+
+  grace_period:
+    in_days: 3
+
+  allowed_principal_range:
+    # Only max 2 decimal precision is used, if extra decimal places are added,
+    # then the rest of them will be omitted. No rounding off will be used
+    min: "10.00"
+    max: "1000000.00"
+
+  # This is the actual days of the calendar month (Not yet implemented)
+  # Will be taken up with repayment epics
+  repayment_days_in_month: "8, 20"
+
+# List of all supported tenors
+# Phases within tenor allows to change interest percent / value per phase
+# E.g. for the tenor 12 months, the first 4 months interest = 0, rest interest = 40
+# Currently, only 1 phase is implemented, meaning,
+# for the tenor 12 months, all 12 months the interest = 30%
+#
+# Late fee accounting process not yet implemented.
+# This needs proper definition before starting repayment epic.
+tenor_variants:
+
+  - key: "2_Months"
+    duration_in_days: 60
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "00.00% + 00.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 00.00"
+    phases:
+      - duration_in_days: 60
+        interest:
+          type: "PERCENT"
+          value: "00.00"
+        late_fee:
+          type: "MONETARY"
+          value: "50.00"
+    admin_fee:
+      type: "FORMULA"
+      value: "0.00% + 00.00"
+
+  - key: "3_Months"
+    duration_in_days: 90
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "00.00% + 00.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 00.00"
+    phases:
+      - duration_in_days: 90
+        interest:
+          type: "PERCENT"
+          value: "00.00"
+        late_fee:
+          type: "MONETARY"
+          value: "50.00"
+    admin_fee:
+      type: "FORMULA"
+      value: "0.00% + 00.00"
+
+  - key: "6_Months"
+    duration_in_days: 180
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "00.00% + 00.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 00.00"
+    phases:
+      - duration_in_days: 180
+        interest:
+          type: "PERCENT"
+          value: "00.00"
+        late_fee:
+          type: "MONETARY"
+          value: "50.00"
+    admin_fee:
+      type: "FORMULA"
+      value: "0.00% + 00.00"
+
+  - key: "12_Months"
+    duration_in_days: 360
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "00.00% + 00.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 00.00"
+    phases:
+      - duration_in_days: 360
+        interest:
+          type: "PERCENT"
+          value: "18.50"
+        late_fee:
+          type: "MONETARY"
+          value: "50.00"
+    admin_fee:
+      type: "FORMULA"
+      value: "0.00% + 00.00"
+
+  - key: "18_Months"
+    duration_in_days: 540
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "00.00% + 00.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 00.00"
+    phases:
+      - duration_in_days: 540
+        interest:
+          type: "PERCENT"
+          value: "60.00"
+        late_fee:
+          type: "MONETARY"
+          value: "50.00"
+    admin_fee:
+      type: "FORMULA"
+      value: "0.00% + 00.00"
+
+  - key: "24_Months"
+    duration_in_days: 720
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "00.00% + 00.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 00.00"
+    phases:
+      - duration_in_days: 720
+        interest:
+          type: "PERCENT"
+          value: "84.00"
+        late_fee:
+          type: "MONETARY"
+          value: "0.00"
+    admin_fee:
+      type: "FORMULA"
+      value: "0.00% + 00.00"
+
+  - key: "36_Months"
+    duration_in_days: 1080
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "00.00% + 00.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 00.00"
+    phases:
+      - duration_in_days: 1080
+        interest:
+          type: "PERCENT"
+          value: "144.00"
+        late_fee:
+          type: "MONETARY"
+          value: "0.00"
+    admin_fee:
+      type: "FORMULA"
+      value: "0.00% + 00.00"
+
+  - key: "48_Months"
+    duration_in_days: 1440
+    minimum_downpayment:
+      type: "FORMULA"
+      value: "00.00% + 00.00"
+    maximum_downpayment:
+      type: "FORMULA"
+      value: "80.00% + 00.00"
+    phases:
+      - duration_in_days: 1440
+        interest:
+          type: "PERCENT"
+          value: "200.00"
+        late_fee:
+          type: "MONETARY"
+          value: "0.00"
+    admin_fee:
+      type: "FORMULA"
+      value: "0.00% + 00.00"

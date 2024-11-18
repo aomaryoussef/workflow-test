@@ -1,0 +1,72 @@
+[app]
+name = "risk-engine"
+description = "Mylo Risk Engine"
+port = 5001
+version_major = "0"
+version_minor = "0"
+version_patch = "2"
+environment = "development" # can be 'development', 'testing', 'production'
+enable_tracing = false
+enable_metrics = false
+enable_logging = false
+api_key = "CAS49d103a36844249fd2D32142a8d8EdF2"
+
+[database] # postgresql only
+auto = true # Auto create and migrate database
+schema = "public"
+host = "localhost"
+port = "5432"
+name = "risk"
+username = "db_user"
+password = "db_pass"
+
+[log]
+level = 'DEBUG' # can be 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
+
+[pd_model]
+name = "PDModel"
+version = 7
+path = 'resources/models/PDModel-v7.pkl'
+
+[pd_model.params]
+"GREEN_INCOME_ZONE_THRESHOLD" = 0.1
+"RED_INCOME_ZONE_THRESHOLD" = 0.5
+"FIN_TO_PRED_INCOME_CAP" = 4 #
+
+[income_model]
+name = "IncomeModel"
+version = 7
+path = 'resources/models/IncomeModel-v7.pkl'
+
+[calculation_center_model]
+name = "CalculationCenterModel"
+version = 1
+
+[calculation_center_model.params]
+GREEN_INCOME_ZONE_THRESHOLD = 0.1
+RED_INCOME_ZONE_THRESHOLD = 0.5
+FIN_TO_PRED_INCOME_CAP = 4 # -1 values means there is no cap
+PD_AR_THRESHOLD = 0.145
+CL_MAX_LIMIT = 500000
+CL_MIN_LIMIT = 1000
+LEGACY_CWF = 4
+LEGACY_PD_CWF_SLOPE = 0.007
+
+[calculation_center_model.params.PD_BINS_TO_CWF]
+pd_in = [0.145, 0.09, 0.045, 0.025, 0.01, 0]
+cwf_map = [2, 2.5, 3.5, 6, 8]
+risk_seg_map = ["Tier-5", "Tier-4", "Tier-3", "Tier-2", "Tier-1"]
+
+[feature_store_model]
+name = "FeatureStoreModel"
+version = 1
+
+[salary_mapping]
+path = 'resources/data/job_salary_mapping.json'
+
+
+[iscore]
+url = 'https://minicashbackend.btech.com:553/MC-Iscore/api/SBX/GetIScore'
+user_id = 2
+data_threshold = 180 # in days, data older than this will fetched from iscore again, otherwise from database if available
+enable_iscore_call = false

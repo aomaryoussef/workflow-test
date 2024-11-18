@@ -1,0 +1,5 @@
+apps:
+    - name: bff-express
+      script: ./build/src/app/web/index.js
+      exec_mode: cluster
+      instances: max

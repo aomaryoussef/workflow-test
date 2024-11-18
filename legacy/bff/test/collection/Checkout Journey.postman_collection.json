@@ -1,0 +1,365 @@
+{
+	"info": {
+		"_postman_id": "217b5944-f344-46ad-a36a-091955562f9c",
+		"name": "Checkout Journey",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28421690"
+	},
+	"item": [
+		{
+			"name": "[In case of emergency] Rebuild database from scratch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/schema/rebuild",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"schema",
+						"rebuild"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create session basket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Cart code generated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cart_code).to.not.eql(undefined);",
+							"    pm.environment.set(\"cart_code\", parseInt(jsonData.cart_code))",
+							"});",
+							"pm.test(\"Session id is generated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.not.eql(undefined);",
+							"    pm.environment.set(\"session_basket_id\", jsonData.id)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"header\": {\n    \"device_info\": {\n      \"brand\": \"google\",\n      \"model\": \"sdk_gphone64_arm64\",\n      \"app_version\": \"1.20\",\n      \"os_version\": \"11.2\"\n    }\n  },\n    \"products\": [\n      {\n        \"name\": \"iphone\",\n        \"count\": 1,\n        \"price\": 1000000,\n        \"category\": \"furniture\"\n      }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/session-basket",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"session-basket"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Acquire session basket by code",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"header\": {\n    \"device_info\": {\n      \"brand\": \"Samsung\",\n      \"model\": \"SM-A528B\",\n      \"app_version\": \"1.20\",\n      \"os_version\": \"11.2\"\n    }\n  },\n  \"cart_code\": {{cart_code}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/session-basket/acquire",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"acquire"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept session basket",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"{{session_basket_id}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/session-basket/accept",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"accept"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Commercial offers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"    pm.test(\"Cart code generated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(\"JSON DATA \",jsonData)",
+							"});",
+							"var jsonData=pm.response.json()",
+							"console.log(\"JSON DOFFER\",jsonData.data)",
+							"pm.variables.set(\"selected_offer_id\",jsonData.data.offers[0].id)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"setTimeout(function(){",
+							"}, 1000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/session-basket/{{session_basket_id}}/commercial-offers",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"{{session_basket_id}}",
+						"commercial-offers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Select Commercial Offer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Cart code generated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(\"JSON DATA \",jsonData)",
+							"});",
+							"var jsonData=pm.response.json()",
+							"console.log(jsonData)",
+							"const isCommercialOfferReady = jsonData[\"message\"]!==\"commercial offers not found\"",
+							"console.log(\"isCommercialOfferReady \",isCommercialOfferReady)",
+							"if(!isCommercialOfferReady){",
+							"    console.log(\"NOT READY\")",
+							"    postman.setNextRequest(\"Commerical offers\")",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"session_id\":\"{{session_basket_id}}\",\n    \"selected_offer_id\":\"2a2a55b9-1e92-4830-a3ce-c3a75fa7bb0d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/session-basket/accept-commercial-offer",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"accept-commercial-offer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[COMMERCIAL_OFFER_SELECTED]Get session basket status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"console.log(\"BASKET STATUS \",jsonData)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/session-basket/{{session_basket_id}}/status",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"{{session_basket_id}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept Down Payment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/session-basket/{{session_basket_id}}/accept-down-payment",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"{{session_basket_id}}",
+						"accept-down-payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[DOWN_PAYMENT_ACCEPTED]Get session basket status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"console.log(\"BASKET STATUS \",jsonData)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/session-basket/{{session_basket_id}}/status",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"session-basket",
+						"{{session_basket_id}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

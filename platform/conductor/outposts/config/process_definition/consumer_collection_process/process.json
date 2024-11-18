@@ -1,12 +1,12 @@
 {
   "ownerApp": null,
   "createTime": 1724585735459,
-  "updateTime": 1727417739627,
+  "updateTime": 1731503256983,
   "createdBy": "ibrahim.awad@btech.com",
   "updatedBy": null,
   "name": "consumer_collection_process",
   "description": "Collecting and Processing consumer payments against their active loans",
-  "version": 13,
+  "version": 14,
   "tasks": [
     {
       "name": "fork",
@@ -84,7 +84,7 @@
             "expression": null
           },
           {
-            "name": "update_credit_limit",
+            "name": "vas_update_consumer_credit_limit",
             "taskReferenceName": "vas_update_consumer_credit_limit",
             "description": null,
             "inputParameters": {
@@ -161,18 +161,18 @@
             "caseExpression": null,
             "scriptExpression": null,
             "decisionCases": {
-              "BTECH_STORE_CASH": [
+              "BTECH_STORE": [
                 {
                   "name": "book_collection_to_treasury",
                   "taskReferenceName": "book_collection_to_btech_treasury",
                   "description": null,
                   "inputParameters": {
-                    "treasury_type": "BTECH",
-                    "payment_id": "${workflow.input.payment_details.id}",
-                    "booking_time": "${workflow.input.booking_time}",
-                    "payment_channel": "${workflow.input.payment_channel}",
                     "amount": "${workflow.input.payment_details.amount_units}",
-                    "metadata": "${workflow.input.payment_details.raw_request}"
+                    "booking_time": "${workflow.input.booking_time}",
+                    "metadata": "${workflow.input.payment_details.raw_request}",
+                    "payment_channel": "${workflow.input.payment_channel}",
+                    "payment_id": "${workflow.input.payment_details.id}",
+                    "treasury_type": "BTECH"
                   },
                   "type": "SIMPLE",
                   "dynamicTaskNameParam": null,
@@ -209,7 +209,7 @@
             "loopCondition": null,
             "retryCount": null,
             "evaluatorType": "javascript",
-            "expression": "$.payment_channel"
+            "expression": "$.payment_channel === 'BTECH_STORE_CASH' || $.payment_channel === 'BTECH_STORE_POS' ? 'BTECH_STORE' : 'OTHER'"
           }
         ]
       ],

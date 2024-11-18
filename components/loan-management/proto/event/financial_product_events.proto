@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "common/money.proto";
+
+package event;
+
+option go_package = "github.com/btechlabs/lms/gen/pb/event";
+
+enum FinancialProductState {
+  DRAFT = 0;
+  PENDING_APPROVAL = 1;
+  APPROVED = 2;
+  PUBLISHED = 3;
+  UNPUBLISHED = 4;
+  DELETED = 5;
+}
+
+message FinancialProductCreatedEventPayload {
+  string key = 1;
+  FinancialProductState state = 2;
+  string name = 3;
+  string description = 4;
+  FinancialProductConfig financialProductConfig = 5 [json_name="financial_product_config"];
+  google.protobuf.Timestamp active_since = 6 [json_name="active_since"];
+  google.protobuf.Timestamp active_until = 7 [json_name="active_until"];
+  uint32 vatPercentBasisPoints = 8 [json_name="vat_percent_basis_points"];
+  FinancialProductAdminFee adminFee = 9 [json_name="admin_fee"];
+  uint32 earlySettlementFeeBasisPoints = 10 [json_name="early_settlement_fee_basis_points"];
+  uint32 badDebtAllowanceBasisPoints = 11 [json_name="bad_debt_allowance_basis_points"];
+  repeated FinancialProductTenor tenors = 12;
+}
+
+message FinancialProductUpdatedEventPayload {
+  string name = 1;
+  string description = 2;
+  FinancialProductConfig financialProductConfig = 3 [json_name="financial_product_config"];
+  google.protobuf.Timestamp active_since = 4 [json_name="active_since"];
+  google.protobuf.Timestamp active_until = 5 [json_name="active_until"];
+  uint32 vatPercentBasisPoints = 6 [json_name="vat_percent_basis_points"];
+  FinancialProductAdminFee adminFee = 7 [json_name="admin_fee"];
+  uint32 earlySettlementFeeBasisPoints = 8 [json_name="early_settlement_fee_basis_points"];
+  uint32 badDebtAllowanceBasisPoints = 9 [json_name="bad_debt_allowance_basis_points"];
+  repeated FinancialProductTenor tenors = 10;
+}
+
+message FinancialProductApprovedEventPayload {
+  string comment = 1;
+  FinancialProductState state = 2;
+}
+
+message FinancialProductPublishedEventPayload {
+  string comment = 1;
+  FinancialProductState state = 2;
+}
+
+message FinancialProductUnpublishedEventPayload {
+  string comment = 1;
+  FinancialProductState state = 2;
+}
+
+message FinancialProductDeletedEventPayload {
+  string comment = 1;
+  FinancialProductState state = 2;
+}
+
+message FinancialProductAdminFee {
+  string calculationType = 1 [json_name="calculation_type"];
+  string value = 2;
+}
+
+message FinancialProductConfig {
+  string installmentRoundingType = 1 [json_name="installment_rounding_type"];
+  common.Money minimumPrincipal = 2 [json_name="minimum_principal"];
+  common.Money maximumPrincipal = 3 [json_name="maximum_principal"];
+  uint32 gracePeriodInDays = 4 [json_name="grace_period_in_days"];
+  uint32 minDownPaymentBasisPoints = 5 [json_name="min_down_payment_basis_points"];
+  uint32 maxDownPaymentBasisPoints = 6 [json_name="max_down_payment_basis_points"];
+}
+message FinancialProductTenor {
+  string key = 1;
+  uint32 durationInDays = 2 [json_name="duration_in_days"];
+  uint32 interestBasisPoints = 3 [json_name="interest_basis_points"];
+  FinancialProductAdminFee adminFee = 4 [json_name="admin_fee"];
+}

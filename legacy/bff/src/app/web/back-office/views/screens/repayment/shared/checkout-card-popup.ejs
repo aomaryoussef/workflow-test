@@ -1,0 +1,143 @@
+<div id="checkout-card-popup" style="display: none">
+  <div class="custom-overlay">
+    <div class="popup one-btn-popup">
+      <div class="payment-popup-wrapper">
+        <div class="center-data">
+          <div class="icon">
+            <img src="/public/partner/img/icons/receipt_long.svg" alt="receipt" />
+          </div>
+            <h4 class="title fw-bold fs-4">مراجعة طلب الدفع</h4>
+          </div>
+          <div class="container-fluid row min-w-full">
+            <div class="col-6">
+              <div class="mb-3">
+                <h5 class="title fw-bold fs-5">
+                  اختر طريقة الدفع
+                </h5>
+                <select name="payment-method" id="paymentMethod" onchange="validateSelect(this.value)" class="form-select" id="payment-method">
+                  <option value="" disabled selected style="color: #999; font-style: italic;">اضغط هنا</option>
+                  <option value="BTECH_STORE_CASH">كاش</option>
+                  <option value="BTECH_STORE_POS_BANK_MISR">Card - Bank Misr | الدفع بكارت بنك مصر</option>
+                  <option value="BTECH_STORE_POS_CIB">Card - CIB | الدفع بكارت سي اي بي</option>
+                  <option value="BTECH_STORE_POS_NBE">NBE Smart Wallet | المحفظة الذكية بنك الاهلي</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label>
+                  اخر ٤ ارقام من الكارت
+                </label>
+                <div class="masked-input">
+                  <span class="mask">XXXX XXXX XXXX </span>
+                  <input type="text" id="creditcard" maxlength="4" oninput="validateInput()" class="bg-inherit w-100 h-80 bg-white border disabled-input">
+                </div>
+              </div>
+              <div>
+                <p>
+                  الرقم المرجعى
+                </p>
+                <input type="text" id="referenceNumber" oninput="validateForm()" class="bg-inherit form-control w-100 h-80 bg-white border disabled-input">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex align-items-end justify-content-evenly" style="padding-top:29px">
+                <img src="/public/shared/img/mylo-ar-new.svg" style="width: 40px; height: 20px;" alt="Mylo">
+                <span class="px-4">المبلغ المستحق عن طريق مايلو</span>
+                <span id="currentInstallment"></span>
+              </div>
+              <hr class="mb-0">
+              <div class="d-flex justify-content-between align-items-center px-3" style="color:#0A3D3D; background-color: #D2EEEE; padding-top: 1rem; padding-bottom: 1rem;">
+                <span>اجمالى المبلغ</span>
+                <span id="totalInstallment"></span>
+              </div>
+              <hr class="mt-0">
+              <p>
+                بالضغط على "تأكيد الدفع"، فإنك تقر وتؤكد استلامك للمبالغ المذكورة بالأعلى من العميل.
+              </p>
+              </div>
+            </div>
+            <div class="btn-wrapper d-flex justify-content-start" style="width: 100%;">
+              <div>
+                <button class="btn secondary-gray-btn action-confirm" style="width: 155px;" onclick="closeMyPopup()">
+                  رجوع
+                </button>
+              </div>
+              <div class="mx-3">
+                <button class="btn primary-green-btn" onclick="approve()" id="approveButton" style="width: 155px;" disabled>
+                  تأكيد الدفع
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const cancelmyPopup = document.getElementById("checkout-card-popup");
+  const closeMyPopup = () => {
+    cancelmyPopup.style.display = "none";
+  };
+  const approve = () => {
+    const paymentMethod = document.getElementById("paymentMethod").value;
+    if(paymentMethod == "BTECH_STORE_CASH") {
+      payInstallment(payedInstallment)
+      cancelmyPopup.style.display = "none";
+    }
+    if(paymentMethod.includes("BTECH_STORE_POS")) {
+      const creditCard = document.getElementById("creditcard").value;
+      const referenceNumber = document.getElementById("referenceNumber").value;
+      payInstallment(payedInstallment, referenceNumber, creditCard, paymentMethod);
+      cancelmyPopup.style.display = "none";
+    }
+
+  };
+
+  const validateInput = () => {
+      const input = document.getElementById('creditcard');
+      let value = input.value;
+      validateForm()
+      // Allow only digits
+      value = value.replace(/\D/g, '');
+      input.value = value; // Set the cleaned-up value
+
+      // Limit input to 4 digits
+      if (value.length > 4) {
+          input.value = value.slice(0, 4);
+      }
+  };
+
+  const validateForm = () => {
+    const creditcardInput = document.getElementById('creditcard').value;
+    const referenceNumberInput = document.getElementById('referenceNumber').value;
+    const approveButton = document.getElementById('approveButton');
+    const paymentMethod = document.getElementById('paymentMethod').value;
+    if (paymentMethod === "BTECH_STORE_CASH") {
+      approveButton.disabled = false
+    } else if(!creditcardInput || !referenceNumberInput || creditcardInput==="" || referenceNumberInput==="") {
+      approveButton.disabled = true
+    } else {
+      approveButton.disabled = false
+    }
+  }
+
+  const validateSelect = (value) => {
+    const creditcardInput = document.getElementById('creditcard');
+    const referenceNumberInput = document.getElementById('referenceNumber');
+    
+    if (value === 'BTECH_STORE_CASH') {
+      creditcardInput.disabled = true;
+      referenceNumberInput.disabled = true;
+      creditcardInput.classList.add('disabled-input');
+      referenceNumberInput.classList.add('disabled-input');
+    } else {
+      creditcardInput.disabled = false;
+      referenceNumberInput.disabled = false;
+      creditcardInput.classList.remove('disabled-input');
+      referenceNumberInput.classList.remove('disabled-input');
+    }
+    validateForm();
+  }
+  validateSelect('BTECH_STORE_CASH');
+
+</script>

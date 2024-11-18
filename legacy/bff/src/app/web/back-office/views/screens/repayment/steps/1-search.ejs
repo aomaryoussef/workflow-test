@@ -1,0 +1,141 @@
+<div class="checkout-box row" id="step-search">
+    <div class="col-lg-7">
+        <div class="checkout-details">
+            <div class="custom-checkout-wrapper">
+                <div class="icon">
+                    <img src="/public/partner/img/icons/person_search.svg" alt="person" />
+                </div>
+                <div class="text-wrapper">
+                    <div class="checkout-title" id="step-search-title">سداد أقساط</div>
+                    <div class="checkout-subtitle" id="step-search-subtitle">اكتب رقم موبايل العميل المسجل على مايلو
+                        لإيجاده
+                        أولً</div>
+                </div>
+            </div>
+            <form id="search-form" class="border-form" method="GET" action="#">
+                <div class="form-group">
+                    <label for="phoneInput">رقم موبايل العميل </label>
+                    <input type="text" name="phone_number" class="form-control" id="phoneInput"
+                        oninput="activateSearchButtonAndClearError()"
+                        placeholder="ادخل رقم الموبايل المسجل على مايلو" />
+
+                    <div id="errorMsg" class="error-msg"></div>
+
+                    <button class="primary-green-btn btn disabled" id="searchButton" onclick="searchHandler()"
+                        disabled="true" type="submit">
+                        <img src="/public/partner/img/icons/search.svg" alt="search" id="search" />
+                        <div class="white-loader" id="spinner" hidden="true">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <span class="btn-text"> بحث</span>
+                    </button>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<div class="col-lg-7" id="consumer-data" style="display: none;">
+    <div class="form-with-title">
+        <div class="title">بيانات العميل</div>
+        <div class="form-wrapper">
+            <div class="table-responsive auto-height">
+                <table class="table horizontal-table">
+                    <tbody>
+                        <tr>
+                            <th class="head-item" scope="row">اسم العميل</th>
+                            <td id="consumer-name">
+                            </td>
+
+                            <th class="head-item" scope="row">الرقم القومي</th>
+                            <td id="national-id">
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-7">
+    <div class="btn-wrapper">
+        <button class="btn primary-green-btn " id="search-next-button" onclick="nextBtn(1)" disabled>
+            <img src="/public/shared/img/icons/arrow_forward.svg" class="enabled-img" />
+            <img src="/public/shared/img/icons/arrow_forward_disabled.svg" class="disabled-img" />
+
+            <div class="white-loader" id="step-search-loading" hidden="true">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <span class="btn-text"> التالي</span>
+        </button>
+        <button id="search-cancel-button" class="btn border-gray-btn show-cancel-popup" type="button"
+            onClick="window.location.reload();">
+            رجوع
+        </button>
+    </div>
+</div>
+</div>
+<script>
+    document.getElementById('search-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+    })
+    const moveToNextBtn = document.getElementById("search-next-button")
+    const consumerData = document.getElementById("consumer-data");
+    const searchHandler = async () => {
+        try {
+            const phoneNumber = document.getElementById("phoneInput").value;
+            const response = await axios.get(`/private/back-office/repay/search-consumer?phoneNumber=${phoneNumber.trim()}`);
+            let errorMessage = ""
+            if (response.data.status != "ACTIVE") {
+                consumerData.style.display = "none"
+                errorMessage = "لا يوجد حساب مسجل. يرجى مراجعة الرقم المدخل و المحاولة مرة أخرى";
+                document.getElementById("errorMsg").innerText = errorMessage;
+                moveToNextBtn.disabled = true;
+
+            } else {
+                consumerInfo = response.data;
+                document.getElementById("consumer-name").innerText = consumerInfo.fullName;
+                document.getElementById("national-id").innerText = consumerInfo.nationalId;
+
+
+                getLoans(consumerInfo.id);
+                consumerData.style.display = "block";
+                moveToNextBtn.disabled = false;
+
+            }
+        } catch (error) {
+            if (error.response.status === 404) {
+                consumerData.style.display = "none"
+                errorMessage = "لا يوجد حساب مسجل. يرجى مراجعة الرقم المدخل و المحاولة مرة أخرى";
+                moveToNextBtn.disabled = true;
+            } else {
+                console.error(error);
+                showErrorAlert("مشكلة بسيطة", "حدث خطأ في النظام");
+            }
+            document.getElementById("errorMsg").innerText = errorMessage;
+        } finally {
+        }
+    }
+    const activateSearchButtonAndClearError = () => {
+        const phoneInput = document.getElementById("phoneInput"); 
+        const searchButton = document.getElementById("searchButton");
+        const errorMessageElement = document.getElementById("errorMsg");
+        errorMessageElement.innerText = ""
+        if (phoneInput.value === "" || phoneInput.value.length < 11) {
+            searchButton.classList.add("disabled");
+            searchButton.disabled = true;
+        } else {
+            searchButton.disabled = false;
+            searchButton.classList.remove("disabled");
+        }
+    }
+
+</script>

@@ -1,0 +1,273 @@
+<div class="checkout-box row" id="step-search">
+  <div class="col-lg-12">
+    <div class="checkout-details">
+      <div class="custom-checkout-wrapper">
+        <div class="icon">
+          <img src="/public/partner/img/icons/person_search.svg" alt="person" />
+        </div>
+        <div class="text-wrapper">
+          <div class="checkout-title" id="step-search-title">سداد أقساط</div>
+          <div class="checkout-subtitle" id="step-search-subtitle">سداد أقساط التي تريدها</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-12">
+    <div class="custom-accordition without-padding" id="loans-list">
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+  const showPaymentReceipt = (paymentId) => {
+    window.open(`/public/registry/receipts/${paymentId}`, "_blank");
+  }
+
+  const payInstallment = async (installment, referenceNumber="", creditCard="", paymentMethod="BTECH_STORE_CASH") => {
+    let payBtns = document.querySelectorAll(".payBtnClass");
+
+    payBtns.forEach((item) => {
+      item.id == installment.installmentId ? item.classList.add("disabled") : "";
+    });
+    const installmentData = {
+      "branch_id": "",
+      "payee_id": consumerInfo.id,
+      "payee_type": "CONSUMER",
+      "loan_id": installment.loanId,
+      "loan_scheduel_id": installment.installmentId,
+      "amount_units": installment.amount,
+      "collection_agent_email": "",
+      "reference_number": referenceNumber,
+      "credit_card": creditCard,
+      "payment_method": paymentMethod,
+    };
+    try {
+      response = await axios.post(`/private/back-office/repay/pay-installment`, installmentData);
+      if (response.status === 200) {
+        // popup
+        document.getElementById("checkout-alert").style.display = "block";
+        document.getElementById("checkout-alert-success").style.display = "block";
+        document.getElementById("checkout-alert-title").innerHTML = "تم سداد القسط بنجاح";
+        getLoans(consumerInfo.id);
+        showPaymentReceipt(response.data.id);
+      }
+    }
+    catch (error) {
+      console.error(error.response.data);
+
+      // popup
+      if (error?.response?.status === 500) {
+        document.getElementById("checkout-alert").style.display = "block";
+        document.getElementById("checkout-alert-failure").style.display = "block";
+        document.getElementById("checkout-alert-title").innerHTML = error?.response?.data;
+      } else {
+        document.getElementById("checkout-alert").style.display = "block";
+        document.getElementById("checkout-alert-failure").style.display = "block";
+        document.getElementById("checkout-alert-title").innerHTML = "لا يمكن سداد القسط الآن";
+      }
+
+    }
+
+  };
+
+  const getLoans = async (consumerId) => {
+    try {
+      response = await axios.get(`/private/back-office/repay/get-loans?consumerId=${consumerId}`);
+      displayLoans(response.data);
+    }
+    catch (error) {
+      console.error(error);
+      if (error.response && error.response.status === 404) {
+        consumerData.style.display = "none"
+        errorMessage = "لا يوجد اقساط مسجله للعميل";
+        moveToNextBtn.disabled = true;
+      } else {
+        console.error(error);
+        document.getElementById("checkout-alert").style.display = "block";
+        document.getElementById("checkout-alert-failure").style.display = "block";
+        document.getElementById("checkout-alert-title").innerHTML = "مشكلة بسيطة";
+      }
+      document.getElementById("errorMsg").innerText = errorMessage;
+    } finally {
+    }
+  }
+
+  const showPayEarlyPrompt = async (loan) => {
+    document.getElementById("pay-early-alert").style.display = "block";
+    document.getElementById("pay-early-alert-subtitle").innerText = `استلم قيمة ${loan.early_settlement.total_due.amount / 100} جنيه - مقسمة إلى مبلغ أصلي ${loan.early_settlement.principal_due.amount / 100} جنيه بالإضافة الى عمولة بقيمة ${loan.early_settlement.fees_due.amount / 100} جنيه`;
+    document.getElementById("pay-early-confirm").onclick = () => initEarlyPay(loan);
+  }
+
+
+  const initEarlyPay = async (loan) => {
+    const paymentData = {
+      "branch_id": "",
+      "payee_id": consumerInfo.id,
+      "payee_type": "CONSUMER",
+      "loan_id": loan.loan_id,
+      "amount_units": loan.early_settlement.total_due.amount,
+      "collection_agent_email": "",
+      "payment_method": "BTECH_STORE_CASH",
+      "type": "MYLO",
+      "installment_type": "MYLO",
+      "loan_scheduel_id": "-1",
+      "reference_number": "",
+      "credit_card": "",
+      "card_number": ""
+    };
+
+    try {
+      response = await axios.post(`/private/back-office/repay/early-pay`, paymentData);
+      if (response.status === 200) {
+        document.getElementById("checkout-alert").style.display = "block";
+        document.getElementById("checkout-alert-success").style.display = "block";
+        document.getElementById("checkout-alert-title").innerHTML = "تم السداد المبكر بنجاح";
+        showPaymentReceipt(response.data.id);
+      }
+    }
+    catch (error) {
+      console.error(error);
+      if (error?.response?.status === 500) {
+        document.getElementById("checkout-alert").style.display = "block";
+        document.getElementById("checkout-alert-failure").style.display = "block";
+        document.getElementById("checkout-alert-title").innerHTML = error?.response?.message;
+      } else {
+        document.getElementById("checkout-alert").style.display = "block";
+        document.getElementById("checkout-alert-failure").style.display = "block";
+        document.getElementById("checkout-alert-title").innerHTML = "مشكلة بسيطة";
+      }
+    } finally {
+      closePayEarlyAlert();
+    }
+  };
+
+  const displayLoans = (loans) => {
+    if (loans.length > 0) {
+
+      consumerLoans = loans;
+      const loanItem = document.getElementById("loan-item");
+      const installmentItem = document.getElementById("installment-item");
+      const installments = document.getElementById("loans-list");
+      installments.innerHTML = '';
+
+      for (let i = 0; i < loans.length; i++) {
+        const loan = loans[i];
+        const paymentSchedule = loan?.payment_schedule?.filter(x => x.status !== 'CANCELLED');
+        const card = loanItem.cloneNode(true);
+        card.id = loan.loan_id;
+        card.getElementsByClassName("creation-date")[0].innerText =
+          (new Date(loan.creation_date)).toLocaleString("ar-EG-u-nu-latn", {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            timeZone: "Africa/Cairo",
+          });
+        const paidLoan = paymentSchedule.filter(x => x.status == 'PAID').length;
+        const earlySettelment = paymentSchedule.filter(x => x.status == 'EARLY_SETTLED').length;
+        const totalCountOfEarlySettelment = paidLoan + earlySettelment;
+        if (loan.early_settlement_payment_id) {
+          card.getElementsByClassName("paid-count")[0].innerText = totalCountOfEarlySettelment.toLocaleString("ar-EG") + '/' +
+            totalCountOfEarlySettelment.toLocaleString("ar-EG");
+        } else {
+          const paidInstallments = loan.source === 'minicash' ? loan?.totalPaidInstallments?.toLocaleString("ar-EG") : paymentSchedule.filter(x => x.status == 'PAID').length.toLocaleString("ar-EG");
+          card.getElementsByClassName("paid-count")[0].innerText =
+            paymentSchedule.length.toLocaleString("ar-EG") +
+            '/' + paidInstallments
+
+        }
+
+        card.getElementsByClassName("product-name")[0].innerText = loan.product_name;
+
+        card.getElementsByClassName("partner-name")[0].innerText = loan.partner_name;
+        card.getElementsByClassName("total-amount")[0].innerText =
+          (loan.amount / 100).toLocaleString("ar-EG") + " جنيه";
+
+        // check mylo or minicash
+        card.getElementsByClassName("badge")[0].innerText = loan.source === 'minicash' ? "ميني كاش" : "مايلو";
+        card.getElementsByClassName("badge")[0].style.background = loan.source === 'minicash' ? "yellow" : "green";
+        card.getElementsByClassName("badge")[0].style.color = loan.source === 'minicash' ? "" : "white";
+
+        card.getElementsByClassName("question")[0].addEventListener("click", () => {
+          toggleAccordion(i);
+        });
+        if (loan.early_settlement_payment_id || paymentSchedule?.[0]?.status === "EARLY_SETTLED") {
+          card.getElementsByClassName("pay-early")[0].style.display = "none";
+          card.getElementsByClassName("pay-early-no-tip")[0].style.display = "none";
+          card.getElementsByClassName("pay-early-yes-tip")[0].style.display = "none";
+        } else if (loan.early_settlement && loan.early_settlement.available) {
+          card.getElementsByClassName("pay-early")[0].style.display = "block";
+          card.getElementsByClassName("pay-early-no-tip")[0].style.display = "none";
+          card.getElementsByClassName("pay-early-yes-tip")[0].style.display = "block";
+          card.getElementsByClassName("pay-early-yes-tip")[0].innerText = `للسداد المبكر ادفع قيمة ${loan.early_settlement.total_due.amount / 100} جنيه - مقسمة إلى مبلغ أصلي ${loan.early_settlement.principal_due.amount / 100} جنيه بالإضافة الى عمولة بقيمة ${loan.early_settlement.fees_due.amount / 100} جنيه`;
+          card.getElementsByClassName("pay-early")[0].onclick = () => showPayEarlyPrompt(loan);
+        } else {
+          card.removeChild(card.getElementsByClassName("pay-early")[0]);
+          card.getElementsByClassName("pay-early-yes-tip")[0].style.display = "none";
+          card.getElementsByClassName("pay-early-no-tip")[0].style.display = "block";
+        }
+        const firsUnpaidInstallment = paymentSchedule.find(x => x.status != 'PAID');
+
+        if (paymentSchedule.length > 0) {
+          var html = '';
+          for (let j = 0; j < paymentSchedule.length; j++) {
+            const schedule = paymentSchedule[j];
+            let status = '';
+            switch (schedule.status) {
+              case 'PAID':
+                status = 'مدفوع'
+                break;
+              case 'UPCOMING':
+                status = 'مستحق'
+                break;
+              case 'LATE':
+                status = 'متأخر'
+                break;
+              case 'CANCELLED':
+                status = 'لاغي'
+                break;
+              case 'EARLY_SETTLED':
+                status = 'سداد مبكر'
+                break
+              default:
+                status = 'مستحق'
+            }
+            let disabled = "disabled";
+            if (schedule.status != "PAID" && schedule.installmentId == firsUnpaidInstallment.installmentId) {
+              disabled = "";
+            }
+            let payButton = ``;
+            if (schedule.status == "PAID" && schedule.paymentId) {
+              payButton = `<button class="btn primary-green-btn payBtnClass" onClick="showPaymentReceipt('${schedule.paymentId}')" id="${schedule.paymentId}">ايصال الدفع</button>`
+            } else if (schedule.status === "EARLY_SETTLED") {
+              payButton = `<button class="btn primary-green-btn payBtnClass" onClick="showPaymentReceipt('${loan.early_settlement_payment_id}')" id="${schedule.paymentId}">ايصال السداد المبكر</button>`
+            } else if (schedule.status == "PAID") { // this probably means that the installment is paid, but we can't show a receipt for it right now
+              payButton = `<button class="btn primary-green-btn payBtnClass" ${disabled} id="${schedule.installmentId}">مدفوع</button>`
+            } else {
+              payButton = `<button class="btn primary-green-btn payBtnClass" ${disabled} onClick="showPaymentPopup('${schedule.loanId}', ${schedule.installmentId})" id="${schedule.installmentId}">ادفع</button>`
+            }
+            if (loan.source === 'minicash') {
+              payButton = "";
+            }
+            html += `<div class="installment" id="installment-item" >
+    <div class="price"><span class="title">القسط:</span> <span class="info installment-amount">${(schedule.amount / 100).toLocaleString("ar-EG")} جنيه</span></div>
+    <div class="date"><span class="title">التاريخ:</span> <span class="info installment-date">${(new Date(schedule.dueDate)).toLocaleString("ar-EG-u-nu-latn", {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+              timeZone: "Africa/Cairo",
+            })}</span></div>
+            <div class="price status"><span class="title">الحالة:</span> <span class="info">
+               ${status} </span></div>
+   ${payButton}
+   </div>`
+          }
+          card.getElementsByClassName("installments-wrapper")[0].innerHTML = html;
+        }
+        installments.appendChild(card);
+      }
+      document.getElementById("loans-list").style.display = "block";
+    }
+  };
+</script>

@@ -1,0 +1,18 @@
+table:
+  name: governorates
+  schema: public
+array_relationships:
+  - name: areas
+    using:
+      foreign_key_constraint_on:
+        column: governorate_id
+        table:
+          name: areas
+          schema: public
+  - name: cities
+    using:
+      foreign_key_constraint_on:
+        column: governorate_id
+        table:
+          name: cities
+          schema: public

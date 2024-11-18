@@ -1,0 +1,96 @@
+serve:
+  public:
+    base_url: http://localhost:4455/.ory/kratos/public/
+    cors:
+      enabled: true
+      allowed_origins:
+        - http://localhost:4455
+      allowed_methods:
+        - POST
+        - GET
+        - PUT
+        - PATCH
+        - DELETE
+        - OPTIONS
+      allowed_headers:
+        - Authorization
+        - Cookie
+        - Content-Type
+      exposed_headers:
+        - Content-Type
+        - Set-Cookie
+  admin:
+    base_url: http://kratos:4434/
+
+selfservice:
+  default_browser_return_url: http://localhost:4455
+  allowed_return_urls:
+    - http://localhost:4455
+
+  methods:
+    password:
+      enabled: true
+      config:
+        haveibeenpwned_enabled: false
+        min_password_length: 6
+        identifier_similarity_check_enabled: false
+    code:
+      enabled: true
+      config:
+        lifespan: 15m
+    link:
+      enabled: false
+
+  flows:
+    error:
+      ui_url: http://localhost:4455/error
+    registration:
+      enabled: false
+    recovery:
+      enabled: true
+      use: code
+      lifespan: 15m
+      after:
+        hooks:
+        - hook: revoke_active_sessions
+    settings:
+      lifespan: 15m
+      privileged_session_max_age: 15m
+      after:
+        hooks:
+          - hook: web_hook
+            config:
+              url: http://mylo-service-department:1337/v1/consumers/mark-set-password # Webhook URL.
+              method: POST # HTTP method used to send request to the webhook URL.
+              body: base64://ZnVuY3Rpb24oY3R4KSB7IHVzZXJfaWQ6IGN0eC5pZGVudGl0eS5pZCB9 # Encoded Jsonnet template used to render payload.
+              response:
+                ignore: false # Defines if the webhook response should be ignored and run async. Boolean. OPTIONAL
+                parse: false # Defines if the webhook response should be parsed and interpreted. Boolean. OPTIONAL
+    login:
+      after:
+        hooks:
+          - hook: require_verified_address
+
+log:
+  level: debug
+  leak_sensitive_values: true
+
+hashers:
+  argon2:
+    parallelism: 8
+    memory: 640MB
+    iterations: 3
+    salt_length: 16
+    key_length: 32
+
+identity:
+  default_schema_id: "email_schema_v0"
+  schemas:
+    - id: email_schema_v0
+      url: file:///etc/ory-config/identity.email_schema_v0.json
+    - id: phone_schema_v0
+      url: file:///etc/ory-config/identity.phone_schema_v0.json
+
+courier:
+  smtp:
+    connection_uri: smtp://Mylo:123456@fake-smtp:1025/?skip_ssl_verify=true

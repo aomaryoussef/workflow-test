@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:${POSTGRES_VERSION}
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - mylo
+
+  redis:
+    container_name: redis
+    image: redis:${REDIS_VERSION}
+    restart: on-failure
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - rddata:/data
+    networks:
+      - mylo
+
+  orkes:
+    container_name: orkes
+    image: orkesio/orkes-conductor-community:${ORKES_VERSION}
+    restart: on-failure
+    environment:
+      - CONDUCTOR_REDIS_LOCK_SERVER_ADDRESS=redis://redis:6379
+      - CONDUCTOR_REDIS_HOSTS=redis:6379:rackNameLocal
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/orkes
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - '8080:8080'
+      # DO NOT CHANGE 5001 to 5000
+      # MacOS has 5000 port in use: https://developer.apple.com/forums/thread/682332
+      - '5001:5000'
+    networks:
+      - mylo
+    depends_on:
+      - redis
+      - postgres
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  pgdata:
+  rddata:
+
+networks:
+  mylo:
+    driver: bridge

@@ -1,0 +1,19 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: file_logs
+    static_configs:
+      - targets:
+          - /etc/promtail/app_loggins/combined.log # Update with the path to your log file
+    relabel_configs:
+      - source_labels: ["__path__"]
+        target_label: "__path__"
+        replacement: /etc/promtail/app_loggins/combined.log # Replace with the desired target log file path

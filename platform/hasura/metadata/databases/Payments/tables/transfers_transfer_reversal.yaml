@@ -1,0 +1,10 @@
+table:
+  name: transfer_reversal
+  schema: transfers
+object_relationships:
+  - name: connector
+    using:
+      foreign_key_constraint_on: connector_id
+  - name: transfer_initiation
+    using:
+      foreign_key_constraint_on: transfer_initiation_id

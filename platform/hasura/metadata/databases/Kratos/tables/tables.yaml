@@ -1,0 +1,2 @@
+- "!include public_identities.yaml"
+- "!include public_identity_verifiable_addresses.yaml"

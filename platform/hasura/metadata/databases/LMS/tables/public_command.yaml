@@ -1,0 +1,11 @@
+table:
+  name: command
+  schema: public
+array_relationships:
+  - name: entries
+    using:
+      foreign_key_constraint_on:
+        column: command_id
+        table:
+          name: entry
+          schema: public

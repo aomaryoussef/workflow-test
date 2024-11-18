@@ -1,0 +1,32 @@
+table:
+  name: user_detail
+  schema: public
+array_relationships:
+  - name: addresses
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: address
+          schema: public
+  - name: consumer_user_mappings
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: consumer_user_mapping
+          schema: public
+  - name: guarantor_user_mappings
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: guarantor_user_mapping
+          schema: public
+  - name: phones
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: phone
+          schema: public

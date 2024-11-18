@@ -1,0 +1,11 @@
+table:
+  name: phone_type
+  schema: public
+array_relationships:
+  - name: phones
+    using:
+      foreign_key_constraint_on:
+        column: phone_type_id
+        table:
+          name: phone
+          schema: public

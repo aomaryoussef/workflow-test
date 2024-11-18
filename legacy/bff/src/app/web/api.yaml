@@ -1,0 +1,1035 @@
+openapi: 3.0.3
+info:
+  title: Mylo BFF
+  description: |-
+    ---
+    ### Mylo BFF
+    ### Open API Editor
+    Use the [Online Editor](https://editor-next.swagger.io/)
+    ---
+  termsOfService: http://blabs.com/engineering/terms/
+  contact:
+    email: engineering@blabs.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+externalDocs:
+  description: Checkout process documents
+  url: https://github.com/btechlabs/consumer-finance-root/tree/main/docs/04_bounded-contexts/01_lms-lite
+tags:
+  - name: session-basket
+    description: Everything about the session basket
+  - name: consumer
+    description: Everything about the consumer
+paths:
+  /private/api/session-basket:
+    post:
+      tags:
+        - session-basket
+      security:
+        - BearerAuth: []
+      summary: Api used by merchants to create a new session basket (Merchant Application)
+      description: Merchant Application <br/> JWT is always sent for now we use a static value, the token will contain merchantId,cashierId and storeId Sample token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYXNoaWVySWQiOjEyMzQ1LCJzdG9yZUlkIjoxMiwibWVyY2hhbnRJZCI6MSwiaWF0IjoxNTE2MjM5MDIyfQ.VCgzf9L214s7jxWTPLk0cihqNW9dzMwQ-HCvzYcSty4
+      operationId: createSessionBasket
+      requestBody:
+        description: Session basket
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSessionBasket"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionBasketCartCode"
+        "400":
+          description: Invalid input
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "500":
+          description: Internal server error
+
+  /private/api/session-basket/{id}:
+    get:
+      security:
+        - BearerAuth: []
+      tags:
+        - session-basket
+      summary: Get session basket by basket id
+      operationId: getSessionBasket
+      parameters:
+        - name: id
+          in: path
+          description: ID UUID of session basket to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionBasket'
+        "400":
+          description: Invalid input
+        "401":
+          description: Unauthorized
+        "404":
+          description: Session basket not found
+        "403":
+          description: Forbidden
+        "500":
+          description: Internal server error
+
+  /public/api/consumers/identity:
+    post:
+      tags:
+        - consumer
+      security:
+        - BearerAuth: []
+      summary: Onboard a new consumer
+      operationId: createConsumer
+      requestBody:
+        description:  Onboard a new consumer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateConsumer"
+      responses:
+        "200":
+          description: Consumer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateConsumerResponse"
+        "409":
+          description: Consumer already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: "Conflict identity already created for +201000000003"
+
+  /public/api/consumers/identity/resend-recovery:
+    post:
+      tags:
+        - consumer
+      security:
+        - BearerAuth: []
+      summary: Resend recovery code to consumer
+      operationId: resendRecoveryCode
+      requestBody:
+        description: Resend recovery code to consumer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateConsumer"
+      responses:
+        "200":
+          description: Recovery code sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateConsumerResponse"
+  /public/api/consumers/identity/callme:
+    post:
+      tags:
+        - consumer
+      security:
+        - BearerAuth: []
+      summary: Callme option recovery code to consumer
+      operationId: callmeRecoveryCode
+      requestBody:
+        description: Resend recovery code to consumer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateConsumer"
+      responses:
+        "200":
+          description: Call triggered successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CallMeResponse"
+  /private/api/consumers/{phone_number}:
+    get:
+      tags:
+        - consumer
+      security:
+        - BearerAuth: []
+      summary: Get consumer data
+      operationId: getConsumer
+      parameters:
+        - in: path
+          name: phone_number
+          schema:
+            type: string
+          required: true
+          description: Phone number of the consumer
+      responses:
+        "200":
+          description: Consumer data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetConsumerBasicInfoResponse"
+        "404":
+          description: Missing consumer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: Consumer not found
+                status_code: 400
+
+  /private/api/consumers/basic-info/{phone_number}:
+    get:
+      tags:
+        - consumer
+      security:
+        - BearerAuth: []
+      summary: Get consumer basic info
+      operationId: getConsumerBasicInfo
+      parameters:
+        - in: path
+          name: phone_number
+          schema:
+            type: string
+          required: true
+          description: Phone number of the consumer
+      responses:
+        "200":
+          description: Consumer basic info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetConsumerBasicInfoResponse"
+        "404":
+          description: Missing consumer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: Consumer not found
+                status_code: 404
+
+  /private/api/consumers/credit-limits/{consumer_id}:
+    get:
+      tags:
+        - consumer
+      security:
+        - BearerAuth: []
+      summary: Get consumer credit limits
+      operationId: getConsumerCreditLimits
+      parameters:
+        - in: path
+          name: consumer_id
+          schema:
+            type: string
+          required: true
+          description: Consumer id
+      responses:
+        "200":
+          description: Consumer data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetConsumerCreditLimitsResponse"
+        "404":
+          description: Missing consumer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: Consumer not found
+                status_code: 400
+  /private/api/consumer/loans/{consumer_id}:
+    get:
+      tags:
+        - consumer
+      security:
+        - BearerAuth: []
+      summary: Get consumer loans
+      operationId: getConsumerLoans
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            description: loan installment status
+            example: LATE,LATE_FEES_APPLIED,DUE,PAID_WITH_LATE_FEES_APPLIED,PAID,UPCOMING
+        - in: path
+          name: consumer_id
+          schema:
+            type: string
+          required: true
+          description: Consumer id
+      responses:
+        "200":
+          description: Consumer data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetConsumerLoanScheduleResponse"
+        "404":
+          description: Missing consumer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: Consumer not found
+                status_code: 400
+  /private/api/partner/categories:
+    get:
+      tags:
+        - partner
+      security:
+        - BearerAuth: []
+      summary: Get categories
+      operationId: getCategories
+      parameters:
+        - in: query
+          name: governorateId
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Consumer data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCategoryResponse"
+  /private/api/consumers/loan-details/{consumer_id}:
+    get:
+      tags:
+        - consumer
+      security:
+        - BearerAuth: []
+      summary: Get consumer loan details
+      operationId: getConsumerLoanDetails
+      parameters:
+        - in: path
+          name: consumer_id
+          schema:
+            type: string
+          required: true
+          description: Consumer id
+        - in: query
+          name: loanId
+          schema:
+            type: string
+          required: true
+          description: Loan id
+        - in: query
+          name: installmentId
+          schema:
+            type: string
+          required: true
+          description: Installment id
+      responses:
+        "200":
+          description: Loan details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetLoanDetailsResponse"
+        "404":
+          description: Missing loan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: Loan not found
+                status_code: 400
+
+  /private/api/partner:
+    get:
+      tags:
+        - partner
+      security:
+        - BearerAuth: []
+      summary: Get partners by category and governorate
+      operationId: getPartners
+      parameters:
+        - in: header
+          name: Accept-Language
+          schema:
+            type: string
+            enum: [ar, en]
+          required: false
+          description: Language preference for the names in the response. Defaults to 'ar'.
+        - in: query
+          name: category
+          schema:
+            type: string
+          required: false
+          description: Category of the partner (e.g., ELECTRONICS, AUTO_SPARE_PARTS).
+        - in: query
+          name: governorateId
+          schema:
+            type: integer
+          required: false
+          description: ID of the governorate to filter partners by.
+        - in: query
+          name: search
+          schema:
+            type: string
+          required: false
+          description: search string to match with pre specified fields.
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: Page number for pagination.
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+            default: 10
+          required: true
+          description: Number of records per page.
+      responses:
+        "200":
+          description: A list of partners
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetPartnersResponse"
+        "404":
+          description: No partners found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: Partners not found
+                status_code: 404
+
+  /private/api/partner/top-partners:
+    get:
+      tags:
+        - partner
+      security:
+        - BearerAuth: []
+      summary: Get top partners 
+      operationId: getTopPartners
+      parameters:
+        - in: header
+          name: Accept-Language
+          schema:
+            type: string
+            enum: [ar, en]
+          required: false
+          description: Language preference for the names in the response. Defaults to 'ar'.
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: Page number for pagination.
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+            default: 10
+          required: true
+          description: Number of records per page.
+        - in: query
+          name: governorateId
+          schema:
+            type: integer
+          required: false
+          description: ID of the governorate to filter partners by.
+      responses:
+        "200":
+          description: A list of top partners
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetTopResponse"
+        "404":
+          description: No partners found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: Partners not found
+                status_code: 404
+
+
+  /public/api/lookups/governorates:
+    get:
+      tags:
+        - lookups
+      security:
+        - BearerAuth: []
+      summary: Get all governorates
+      operationId: getGovernorates
+      parameters:
+        - in: header
+          name: Accept-Language
+          schema:
+            type: string
+            enum: [ar, en]
+          required: false
+          description: Language preference for the names in the response. Defaults to 'ar'.
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: Page number for pagination.
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+            default: 10
+          required: true
+          description: Number of records per page.
+
+      responses:
+        "200":
+          description: A list of governorates
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetGovernoratesResponse"
+   
+  /public/api/lookups/cities:
+    get:
+      tags:
+        - lookups
+      security:
+        - BearerAuth: []
+      summary: Get all cities
+      operationId: getCities
+      parameters:
+        - in: header
+          name: Accept-Language
+          schema:
+            type: string
+            enum: [ar, en]
+          required: false
+          description: Language preference for the names in the response. Defaults to 'ar'.
+        - in: query
+          name: governorateId
+          schema:
+            type: integer
+          required: false
+          description: ID of the governorate to filter cities by.
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: Page number for pagination.
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+            default: 10
+          required: true
+          description: Number of records per page.
+
+      responses:
+        "200":
+          description: A list of governorates
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCitiesResponse"
+
+  /public/api/lookups/areas:
+    get:
+      tags:
+        - lookups
+      security:
+        - BearerAuth: []
+      summary: Get all areas
+      operationId: getAreas
+      parameters:
+        - in: header
+          name: Accept-Language
+          schema:
+            type: string
+            enum: [ar, en]
+          required: false
+          description: Language preference for the names in the response. Defaults to 'ar'.
+        - in: query
+          name: governorateId
+          schema:
+            type: integer
+          required: false
+          description: ID of the governorate to filter areas by.
+        - in: query
+          name: cityId
+          schema:
+            type: integer
+          required: false
+          description: ID of the city to filter areas by.
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: Page number for pagination.
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+            default: 10
+          required: true
+          description: Number of records per page.
+
+      responses:
+        "200":
+          description: A list of governorates
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetAreasResponse"
+
+
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    CreateConsumerResponse:
+      title: Create consumer response
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            identity:
+              type: string
+              description: IAM identity
+            flow_id:
+              type: string
+              description: Recovery Flow id
+            recovery_code:
+              type: string
+              description: TEMP ONLY ON DEV
+    CallMeResponse:
+      title: Resend OTP via phone call response
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            phone_number:
+              type: string
+              description: Phone number
+    GetConsumerBasicInfoResponse:
+      title: Consumer basic info response
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: id of the consumer
+            full_name:
+              type: string
+              description: The full name of the consumer
+            national_id:
+              type: string
+              description: The national id of the consumer
+            status:
+              type: string
+              description: consumer status
+
+    GetConsumerCreditLimitsResponse:
+      title: Get consumer credit limits response
+      type: object
+      properties:
+        available_limit:
+          type: integer
+        monthly_limit:
+          type: integer
+    GetCategoryResponse:
+      title: Get categories response
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+          description: The enum key for the gategory and works as id.
+        icon:
+          type: string
+    GetConsumerLoanScheduleResponse:
+      title: Get consumer loan schedule response
+      type: object
+      properties:
+        late_by_days:
+          type: integer
+          example: 5
+        amount:
+          type: integer
+          example: 50000
+        status:
+          type: string
+          example: PAID
+        due_date:
+          type: number
+          example: 1702841115
+        late_fees_amount:
+          type: number
+          example: 5000
+        paid_date:
+          type: string
+          format: date-time
+    GetLoanDetailsResponse:
+      title: Get loan details response
+      type: object
+      properties:
+        amount:
+          type: integer
+        due_date:
+          type: integer
+        status:
+          type: string
+        late_fees_amount:
+          type: integer
+        partner_name:
+          type: string
+        due_date_human:
+          type: string
+        installment_id:
+          type: integer
+        due_by_days:
+          type: integer
+        due_amount:
+          type: integer
+        loan_id:
+          type: string
+    CreateConsumer:
+      title: Create consumer
+      type: object
+      required:
+        - phone_number
+      properties:
+        phone_number:
+          type: string
+    SessionBasketCartCode:
+      description: Cart code for newly created session basket
+      type: object
+      properties:
+        id:
+          description: Basket session id
+          type: integer
+          format: int64
+        cart_code:
+          description: The cart code of the newly created basket
+          type: integer
+          format: int64
+    Category:
+      description: Product category
+      type: string
+    Product:
+      description: A product
+      type: object
+      required:
+        - name
+        - quantity
+        - price
+      properties:
+        name:
+          type: string
+          example: iPhone 15 pro
+          description: The name of the product the consumer wants to buy
+        price:
+          description: Price of product in cents
+          type: integer
+          format: int64
+          example: 1000000
+    ErrorResponse:
+      title: Get loan details response
+      type: object
+    CreateSessionBasket:
+      title: Create session basket
+      type: object
+      required:
+        - product
+        - consumer_id
+      properties:
+        product:
+          $ref: "#/components/schemas/Product"
+        consumer_id:
+          type: string
+    GetPartnersResponse:
+      title: Get partners response
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              categories:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    slug:
+                      type: string
+                      description: The enum key for the gategory and works as id.
+                    icon:
+                      type: string
+              id:
+                type: string
+                format: uuid
+              name:
+                type: string
+              status:
+                type: string
+              partner_branches:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    area_id:
+                      type: integer
+                      nullable: true
+                    city_id:
+                      type: integer
+                      nullable: true
+                    id:
+                      type: string
+                      format: uuid
+                    governorate_id:
+                      type: integer
+                    name:
+                      type: string
+                    location_longitude:
+                      type: string
+                    location_latitude:
+                      type: string
+                    google_maps_link:
+                      type: string
+                    areas:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: The unique identifier of the area.
+                            nullable: true
+                          name: 
+                            type: string
+                            description: The name of the area.
+                            nullable: true
+                    city:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: The unique identifier of the city.
+                            nullable: true
+                          name: 
+                            type: string
+                            description: The name of the city.
+                            nullable: true
+                    governorate:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: The unique identifier of the governorate.
+                            nullable: true
+                          name: 
+                            type: string
+                            description: The name of the governorate.
+                            nullable: true
+
+              partner_user_profiles:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    branch_id:
+                      type: string
+                      format: uuid
+                      nullable: true
+                    email:
+                      type: string
+                      nullable: true
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    id:
+                      type: string
+                      format: uuid
+                    partner_id:
+                      type: string
+                      format: uuid
+                    phone_number:
+                      type: string
+        count:
+          type: integer
+          description: Total number of partners matching the criteria.
+    GetAreasResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the area.
+              id:
+                type: integer
+                description: The unique identifier of the area.
+              governorate_id:
+                type: integer
+                description: The unique identifier of the governorate that the area belongs to.
+              city_id:
+                type: integer
+                description: The unique identifier of the city that the area belongs to.
+        totalCount:
+          type: integer
+          description: The total number of areas.
+    GetCitiesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the city.
+              id:
+                type: integer
+                description: The unique identifier of the city.
+              governorate_id:
+                type: integer
+                description: The unique identifier of the governorate that the city belongs to.
+        totalCount:
+          type: integer
+          description: The total number of cities.
+    GetGovernoratesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the governorate.
+              id:
+                type: integer
+                description: The unique identifier of the governorate.
+        totalCount:
+          type: integer
+          description: The total number of governorate.
+    GetTopResponse:
+      title: Get top partners response
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              partner:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    categories:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          slug:
+                            type: string
+                            description: The enum key for the gategory and works as id.
+                          icon:
+                            type: string
+                    id:
+                      type: string
+                      format: uuid
+                    name:
+                      type: string
+                    status:
+                      type: string
+        count:
+
+    SessionBasket:
+      title: Session basket details
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the session basket
+          example: acquired
+        merchant_name:
+          type: string
+          example: BTech
+        number_of_items:
+          type: number
+          example: 3
+        total_amount:
+          type: integer
+          format: int64
+          example: 5500000
+          description: total amount in cents
+        cart_code:
+          type: number
+          example: 523412
+          description: This code is used for consumer to type out (We need to define how its generated, should be a short code)
+        id:
+          type: number
+          example: 1234567
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"

@@ -1,0 +1,17 @@
+table:
+  name: hydra_oauth2_logout_request
+  schema: public
+object_relationships:
+  - name: hydra_client
+    using:
+      manual_configuration:
+        column_mapping:
+          client_id: id
+          nid: nid
+        insertion_order: null
+        remote_table:
+          name: hydra_client
+          schema: public
+  - name: network
+    using:
+      foreign_key_constraint_on: nid

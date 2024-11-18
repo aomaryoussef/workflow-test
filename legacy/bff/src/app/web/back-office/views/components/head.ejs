@@ -1,0 +1,15 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/public/shared/css/bootstrap.css" />
+  <link rel="stylesheet" href="/public/shared/css/mylo-main.css" />
+  <link rel="stylesheet" href="/public/back-office/css/styles.css" />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="https://cdn.amplitude.com/libs/amplitude-7.2.1-min.gz.js"></script>
+  <% if (process.env.OL_BFF_AMPLITUDE_TOKEN) { %>
+  <script type="text/javascript">
+    amplitude?.getInstance()?.init('<%= process.env.OL_BFF_AMPLITUDE_TOKEN %>');
+  </script>
+  <% } %>
+</head>

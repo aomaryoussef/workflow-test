@@ -1,0 +1,15 @@
+table:
+  name: guarantor
+  schema: public
+object_relationships:
+  - name: consumer
+    using:
+      foreign_key_constraint_on: guarantor_of
+array_relationships:
+  - name: guarantor_user_mappings
+    using:
+      foreign_key_constraint_on:
+        column: guarantor_id
+        table:
+          name: guarantor_user_mapping
+          schema: public

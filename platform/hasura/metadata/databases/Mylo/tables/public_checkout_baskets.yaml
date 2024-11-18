@@ -1,0 +1,60 @@
+table:
+  name: checkout_baskets
+  schema: public
+object_relationships:
+  - name: cashier
+    using:
+      manual_configuration:
+        column_mapping:
+          cashier_id: id
+        insertion_order: null
+        remote_table:
+          name: partner_user_profile
+          schema: public
+  - name: consumer
+    using:
+      manual_configuration:
+        column_mapping:
+          consumer_id: id
+        insertion_order: null
+        remote_table:
+          name: consumers
+          schema: public
+  - name: partner
+    using:
+      manual_configuration:
+        column_mapping:
+          partner_id: id
+        insertion_order: null
+        remote_table:
+          name: partner
+          schema: public
+  - name: partner_branch
+    using:
+      manual_configuration:
+        column_mapping:
+          branch_id: id
+        insertion_order: null
+        remote_table:
+          name: partner_branch
+          schema: public
+  - name: session_basket
+    using:
+      manual_configuration:
+        column_mapping:
+          session_basket_id: id
+        insertion_order: null
+        remote_table:
+          name: session_baskets
+          schema: public
+remote_relationships:
+  - definition:
+      to_source:
+        field_mapping:
+          loan_id: id
+        relationship_type: object
+        source: LMS
+        table:
+          name: loan
+          schema: public
+    name: loan

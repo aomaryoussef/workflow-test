@@ -1,0 +1,56 @@
+- id: ory:keto:read
+  description: Ory Keto Read
+  upstream:
+    url: http://keto:4466
+    preserve_host: true
+    strip_path: "/.ory/keto/read"
+  match:
+    url: "http://localhost:4455/.ory/keto/read/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+  errors: []
+
+- id: ory:keto:write
+  description: Ory Keto Write
+  upstream:
+    url: http://keto:4467
+    preserve_host: true
+    strip_path: "/.ory/keto/write"
+  match:
+    url: "http://localhost:4455/.ory/keto/write/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: remote_json
+    config:
+      remote: http://keto:4466/relation-tuples/check
+      payload: |
+              {
+                "namespace": "Group",
+                "subject_id": "{{ print .Subject }}",
+                "object": "admins",
+                "relation": "members"
+              } 
+  mutators:
+    - handler: noop
+  errors:
+    - handler: redirect
+      config:
+        to: /public/back-office/login

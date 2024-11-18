@@ -1,0 +1,73 @@
+<body class="gray-bg">
+  <div><%- include('./common/header',{userInfo: userInfo, logoutUrl: logoutUrl});%></div>
+  <div id="step-1" class="step"><%- include('./steps/1-search');%></div>
+  <div id="step-2" class="step" style="display: none"><%- include('./steps/2-repay-details');%></div>
+  <%- include('./shared/alert');%>
+  <%- include('./shared/loan');%>
+  <%- include('./shared/confirmation-message');%>
+  <%- include('./shared/checkout-card-popup');%>
+  <%- include('./shared/pay-early-confirmation-message');%>
+  <div id="warning-popup" style="display: none;">
+    <%- include('./screens/popups/warning-popup',{data:{valid:false,title:`بعد نجاح العملية ستقوم بتسليم العميل مبلغ جنيه`,subtitle:""}}); %>
+  </div>
+
+  <script>
+    const nextBtn = (id) => {
+      let stepIndex = id;
+      let steps = document.querySelectorAll(".step");
+      steps.forEach((item, index) => {
+        if (index === stepIndex) {
+          steps[stepIndex].style.display = "block";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    };
+    let consumerLoans = {}
+    let consumerInfo = {}
+    let payedInstallment = {}
+
+    const showConfirmation = (loanId, installmentId) => {
+      payedLoan = consumerLoans.find(x => x.loan_id == loanId);
+      payedInstallment = payedLoan.payment_schedule.find(x => x.installmentId == installmentId);
+      document.getElementById("checkout-back-alert").style.display = "block";
+    }
+
+    const showPaymentPopup  = (loanId, installmentId) => {
+      payedLoan = consumerLoans.find(x => x.loan_id == loanId);
+      payedInstallment = payedLoan.payment_schedule.find(x => x.installmentId == installmentId);
+      document.getElementById("checkout-card-popup").style.display = "block";
+      document.getElementById("currentInstallment").innerText = (payedInstallment.amount / 100).toLocaleString('ar-EG') + 'جنيه'; 
+      document.getElementById("totalInstallment").innerText = (payedInstallment.amount / 100).toLocaleString('ar-EG') + 'جنيه'; 
+      
+    }
+
+    const toggleAccordion = (id) => {
+      var answers = document.querySelectorAll(".question-wrapper");
+
+      if (answers[id].classList.contains("active")) {
+        answers.forEach((element) => {
+          element.classList.remove("active");
+        });
+      } else {
+        answers[id].classList.add("active");
+      }
+    };
+
+    // show popup
+    const warningPopup = document.getElementById("warning-popup");
+    const hidePopup = document.getElementById("hidePopup");
+    const payEarly = () => {
+      payEarlyBtn = document.getElementById("pay-early");
+    }
+    const showConfirmationPopup = (show = true) => {
+      if (show) {
+        warningPopup.style.display = "block"
+      } else {
+        warningPopup.style.display = "none"
+      }
+    }
+    hidePopup.addEventListener('click', () => showConfirmationPopup(false));
+
+  </script>
+</body>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Partner_and_cashier_Suite">
+    <listeners>
+        <listener class-name="utilities.ExtentReportManager"></listener>
+    </listeners>
+
+    <test thread-count="5" name="Mylo Service Department">
+        <classes>
+
+            <class name="Tests.partnerTests.PartnerTests"></class>
+            <class name="Tests.partnerTests.PartnerUsersTests"></class>
+            <class name="Tests.cashierTests.CashierTests"></class>
+            <class name="Tests.serviceDepTests.ServiceDepTests"></class>
+            <class name="Tests.ory.keto.KetoMetaDataTests"></class>
+            <class name="Tests.ory.kratos.KratosMetaDataTests"></class>
+            <class name="Tests.ory.oathkeeper.OauthMetaDataTests"></class>
+        </classes>
+    </test>
+</suite>

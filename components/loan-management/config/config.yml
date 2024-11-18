@@ -1,0 +1,58 @@
+app:
+  name: lms
+  version: 0.0.1
+  env: prod
+  http:
+    port: 3010
+  rpc:
+    port: 3011
+    host: localhost
+  metrics:
+    port: 2223
+
+log:
+  level: debug
+  format: json
+  debug_sql: false
+  multi_fan_out: false
+  add_source: true
+
+pg:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: admin
+  database: mylo
+  schema: _services
+  ssl_disable: true
+  max_open_conn: 10
+  max_idle_conn: 5
+
+jobs:
+  concurrency: 100
+  ## 50% of the total concurrency
+  high_priority_concurrency: .5
+  ## 30% of the total concurrency
+  medium_priority_concurrency: .3
+  ## 20% of the total concurrency
+  low_priority_concurrency: .2
+
+telemetry:
+  enabled: true
+  otel_grpc_endpoint: localhost:4317
+
+gl:
+  auth:
+    url: "https://login.windows.net"
+    tenant_id: "58191332-4582-42f1-a685-f77f77def707"
+    grant_type: "client_credentials"
+    client_id: "5d764d3a-a5fe-4153-8d9c-2bc192b87bbf"
+    client_secret: "Ueg8Q~dtflpSdlIeii7c7cTBRbLE4klwjg1O1aq5"
+    resource: "https://btech-test03.sandbox.operations.eu.dynamics.com/"
+  ledger:
+    url: "https://btech-test03.sandbox.operations.eu.dynamics.com"
+
+feature_flags:
+  disable_gl_integration: false
+  allow_loan_cancellation_after_interest_recognition: false
+

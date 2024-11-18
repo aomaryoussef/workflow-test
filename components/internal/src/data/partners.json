@@ -1,0 +1,482 @@
+[
+  {
+    "id": "1",
+    "key": "blabzz",
+    "name": "Tech Solutions Inc.",
+    "status": "pending",
+    "phoneNumber": [
+      {
+        "type": "contactable",
+        "number": "+12015551234",
+        "isPrimary": true
+      }
+    ],
+    "legalIdentifiers": {
+      "commercialRegistrationNumber": "1234567890",
+      "taxRegistrationNumber": "0987654321"
+    },
+    "address": {
+      "street": "Silicon Valley",
+      "city": "San Francisco",
+      "governorate": "California",
+      "lat": "37.7749",
+      "lng": "-122.4194"
+    },
+    "legalOwners": [
+      {
+        "firstName": "Alice",
+        "lastName": "Smith",
+        "phone": "+12015557689",
+        "email": "alice.smith@techsolutions.com"
+      }
+    ],
+    "linkedIdentities": [
+      {
+        "id": "1",
+        "firstName": "Alice",
+        "lastName": "Smith",
+        "role": "admin",
+        "phone": "+12015557689",
+        "email": "alice.smith@techsolutions.com"
+      }
+    ],
+    "bankInfo": {
+      "bankName": "Chase Bank",
+      "branch": "Downtown Branch",
+      "beneficiaryName": "Tech Solutions Inc.",
+      "iban": "US123456789",
+      "swiftCode": "CHASUS33",
+      "accountNumber": "9876543210"
+    },
+    "stores": [
+      {
+        "id": "1",
+        "name": "Tech Store",
+        "workingHours": "Monday - Friday, 9:00 AM - 5:00 PM",
+        "address": {
+          "street": "Silicon Valley",
+          "city": "San Francisco",
+          "governorate": "California",
+          "lat": "37.7749",
+          "lng": "-122.4194"
+        },
+        "bankInfo": null,
+        "phoneNumber": [
+          {
+            "type": "contactable",
+            "number": "+12015551234",
+            "isPrimary": true
+          }
+        ],
+        "commercialActivity": [
+          {
+            "key": "tech",
+            "name": "Technology"
+          },
+          {
+            "key": "office",
+            "name": "Office Supplies"
+          }
+        ],
+        "linkedIdentities": [
+          {
+            "id": "1",
+            "firstName": "Alice",
+            "lastName": "Smith",
+            "role": "store-admin",
+            "phone": "+12015557689",
+            "email": "alice.smith@techsolutions.com"
+          },
+          {
+            "id": "2",
+            "firstName": "Bob",
+            "lastName": "Johnson",
+            "role": "cashier",
+            "phone": "+12015558765",
+            "email": "bob.johnson@techsolutions.com"
+          },
+          {
+            "id": "3",
+            "firstName": "Eve",
+            "lastName": "Williams",
+            "role": "sales",
+            "phone": "+12015559876",
+            "email": "eve.williams@techsolutions.com"
+          },
+          {
+            "id": "4",
+            "firstName": "Charlie",
+            "lastName": "Brown",
+            "role": "manager",
+            "phone": "+12015556789",
+            "email": "charlie.brown@techsolutions.com"
+          },
+          {
+            "id": "5",
+            "firstName": "Grace",
+            "lastName": "Davis",
+            "role": "assistant",
+            "phone": "+12015555678",
+            "email": "grace.davis@techsolutions.com"
+          },
+          {
+            "id": "6",
+            "firstName": "David",
+            "lastName": "Miller",
+            "role": "security",
+            "phone": "+12015554567",
+            "email": "david.miller@techsolutions.com"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "key": "partner2",
+    "name": "Fashion Trends Ltd.",
+    "status": "approved",
+    "phoneNumber": [
+      {
+        "type": "contactable",
+        "number": "+12015552345",
+        "isPrimary": true
+      }
+    ],
+    "legalIdentifiers": {
+      "commercialRegistrationNumber": "9876543210",
+      "taxRegistrationNumber": "1234567890"
+    },
+    "address": {
+      "street": "Fashion Avenue",
+      "city": "New York",
+      "governorate": "New York",
+      "lat": "40.7128",
+      "lng": "-74.0060"
+    },
+    "legalOwners": [
+      {
+        "firstName": "Emma",
+        "lastName": "Johnson",
+        "phone": "+12015553456",
+        "email": "emma.johnson@fashiontrends.com"
+      }
+    ],
+    "linkedIdentities": [
+      {
+        "id": "1",
+        "firstName": "Emma",
+        "lastName": "Johnson",
+        "role": "admin",
+        "phone": "+12015553456",
+        "email": "emma.johnson@fashiontrends.com"
+      }
+    ],
+    "bankInfo": {
+      "bankName": "Bank of America",
+      "branch": "Fashion District Branch",
+      "beneficiaryName": "Fashion Trends Ltd.",
+      "iban": "US987654321",
+      "swiftCode": "BOFAUS33",
+      "accountNumber": "1234567890"
+    },
+    "stores": [
+      {
+        "id": "1",
+        "name": "Fashion Store",
+        "address": {
+          "street": "Fashion Avenue",
+          "city": "New York",
+          "governorate": "New York",
+          "lat": "40.7128",
+          "lng": "-74.0060"
+        },
+        "bankInfo": {
+          "bankName": "City Bank",
+          "branch": "New York Branch",
+          "beneficiaryName": "Fashion Trends Ltd.",
+          "iban": "US123456789",
+          "swiftCode": "CTYUS33",
+          "accountNumber": "9876543210"
+        },
+        "phoneNumber": [
+          {
+            "type": "contactable",
+            "number": "+12015552345",
+            "isPrimary": true
+          }
+        ],
+        "commercialActivity": [
+          {
+            "key": "fashion",
+            "name": "Fashion"
+          },
+          {
+            "key": "accessories",
+            "name": "Accessories"
+          }
+        ],
+        "linkedIdentities": [
+          {
+            "id": "1",
+            "firstName": "Emma",
+            "lastName": "Johnson",
+            "role": "store-admin",
+            "phone": "+12015553456",
+            "email": "emma.johnson@fashiontrends.com"
+          },
+          {
+            "id": "2",
+            "firstName": "Sophia",
+            "lastName": "Williams",
+            "role": "cashier",
+            "phone": "+12015554567",
+            "email": "sophia.williams@fashiontrends.com"
+          },
+          {
+            "id": "3",
+            "firstName": "Oliver",
+            "lastName": "Brown",
+            "role": "sales",
+            "phone": "+12015555678",
+            "email": "oliver.brown@fashiontrends.com"
+          },
+          {
+            "id": "4",
+            "firstName": "Lily",
+            "lastName": "Davis",
+            "role": "manager",
+            "phone": "+12015556789",
+            "email": "lily.davis@fashiontrends.com"
+          },
+          {
+            "id": "5",
+            "firstName": "Noah",
+            "lastName": "Miller",
+            "role": "assistant",
+            "phone": "+12015559876",
+            "email": "noah.miller@ffashiontrends.com"
+          },
+          {
+            "id": "6",
+            "firstName": "Ava",
+            "lastName": "Martinez",
+            "role": "security",
+            "phone": "+12015558765",
+            "email": "ava.martinez@fashiontrends.com"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "key": "partner3",
+    "name": "Food Delights LLC",
+    "status": "pending",
+    "phoneNumber": [
+      {
+        "type": "contactable",
+        "number": "+12015553456",
+        "isPrimary": true
+      }
+    ],
+    "legalIdentifiers": {
+      "commercialRegistrationNumber": "2468101357",
+      "taxRegistrationNumber": "9876543210"
+    },
+    "address": {
+      "street": "Food Street",
+      "city": "Chicago",
+      "governorate": "Illinois",
+      "lat": "41.8781",
+      "lng": "-87.6298"
+    },
+    "legalOwners": [
+      {
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "phone": "+12015557689",
+        "email": "michael.brown@fooddelights.com"
+      }
+    ],
+    "linkedIdentities": [
+      {
+        "id": "1",
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "role": "admin",
+        "phone": "+12015557689",
+        "email": "michael.brown@fooddelights.com"
+      }
+    ],
+    "bankInfo": {
+      "bankName": "Wells Fargo",
+      "branch": "Downtown Branch",
+      "beneficiaryName": "Food Delights LLC",
+      "iban": "US246810135",
+      "swiftCode": "WFUS33",
+      "accountNumber": "1357924680"
+    },
+    "stores": [
+      {
+        "id": "1",
+        "name": "Food Store",
+        "address": {
+          "street": "Food Street",
+          "city": "Chicago",
+          "governorate": "Illinois",
+          "lat": "41.8781",
+          "lng": "-87.6298"
+        },
+        "bankInfo": null,
+        "phoneNumber": [
+          {
+            "type": "contactable",
+            "number": "+12015553456",
+            "isPrimary": true
+          }
+        ],
+        "commercialActivity": [
+          {
+            "key": "food",
+            "name": "Food"
+          },
+          {
+            "key": "beverages",
+            "name": "Beverages"
+          }
+        ],
+        "linkedIdentities": [
+          {
+            "id": "1",
+            "firstName": "Michael",
+            "lastName": "Brown",
+            "role": "store-admin",
+            "phone": "+12015557689",
+            "email": "michael.brown@fooddelights.com"
+          },
+          {
+            "id": "2",
+            "firstName": "Sophie",
+            "lastName": "Johnson",
+            "role": "cashier",
+            "phone": "+12015558765",
+            "email": "sophie.johnson@fooddelights.com"
+          },
+          {
+            "id": "3",
+            "firstName": "Olivia",
+            "lastName": "Martinez",
+            "role": "sales",
+            "phone": "+12015559876",
+            "email": "olivia.martinez@fooddelights.com"
+          },
+          {
+            "id": "4",
+            "firstName": "Lucas",
+            "lastName": "Davis",
+            "role": "manager",
+            "phone": "+12015556789",
+            "email": "lucas.davis@fooddelights.com"
+          },
+          {
+            "id": "5",
+            "firstName": "Nora",
+            "lastName": "Miller",
+            "role": "assistant",
+            "phone": "+12015555678",
+            "email": "nora.miller@fooddelights.com"
+          },
+          {
+            "id": "6",
+            "firstName": "Aiden",
+            "lastName": "Williams",
+            "role": "security",
+            "phone": "+12015554567",
+            "email": "aiden.williams@fooddelights.com"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "name": "Bakery Store",
+        "address": {
+          "street": "Bakery Street",
+          "city": "New York",
+          "governorate": "New York",
+          "lat": "40.7128",
+          "lng": "-74.0060"
+        },
+        "bankInfo": null,
+        "phoneNumber": [
+          {
+            "type": "contactable",
+            "number": "+12015551234",
+            "isPrimary": true
+          }
+        ],
+        "commercialActivity": [
+          {
+            "key": "bakery",
+            "name": "Bakery"
+          },
+          {
+            "key": "pastries",
+            "name": "Pastries"
+          }
+        ],
+        "linkedIdentities": [
+          {
+            "id": "1",
+            "firstName": "Emma",
+            "lastName": "White",
+            "role": "store-admin",
+            "phone": "+12015557689",
+            "email": "emma.white@bakerystore.com"
+          },
+          {
+            "id": "2",
+            "firstName": "Jack",
+            "lastName": "Brown",
+            "role": "cashier",
+            "phone": "+12015558765",
+            "email": "jack.brown@bakerystore.com"
+          },
+          {
+            "id": "3",
+            "firstName": "Sophia",
+            "lastName": "Martinez",
+            "role": "sales",
+            "phone": "+12015559876",
+            "email": "sophia.martinez@bakerystore.com"
+          },
+          {
+            "id": "4",
+            "firstName": "Oliver",
+            "lastName": "Davis",
+            "role": "manager",
+            "phone": "+12015556789",
+            "email": "oliver.davis@bakerystore.com"
+          },
+          {
+            "id": "5",
+            "firstName": "Lily",
+            "lastName": "Miller",
+            "role": "assistant",
+            "phone": "+12015555678",
+            "email": "lily.miller@bakerystore.com"
+          },
+          {
+            "id": "6",
+            "firstName": "Noah",
+            "lastName": "Williams",
+            "role": "security",
+            "phone": "+12015554567",
+            "email": "noah.williams@bakerystore.com"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,416 @@
+<body>
+    <div class="logout">
+        <div class="container">
+            <div class="center-form">
+                <div class="col-12 col-lg-8">
+                    <form method="POST" action="/private/back-office/create-store" class="form-box" id="store_form">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="required">اسم الشريك:</label>
+
+                                    <select name="partner_name" class="form-select" id="partner_name">
+                                        <% partners.forEach(function(partner) { %>
+                                        <option value="<%= partner.id %>"><%= partner.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="required">اسم الفرع</label>
+                                    <input type="text" name="branch_name" class="form-control" id="branch_name"
+                                        aria-describedby="emailHelp" placeholder="اسم الفرع"
+                                        oninput="checkNumberValidation(this,'validBranchName', areaElement, 3, 30, 'validBranchName', '٣', '٣٠', true)" />
+                                    <div class="error error-msg" style="display: none;"></div>
+                                    <% if(errors && errors.area){ %>
+                                    <div class="error-msg">
+                                        <%=errors.area.msg%>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="required">المحافظة:</label>
+                                    <select id="governorate" name="governorate_id" class="form-select"
+                                    onchange="checkSelect(this, 'validGovernorateId')"
+                                    >
+                                        <option value="">-- اختر المحافظة --</option>
+                                    </select>
+                                     <div class="error error-msg" style="display: none;"></div>
+
+                                    <% if(errors && errors.city_id){ %>
+                                    <div class="error-msg">
+                                        <%=errors.city_id.msg%>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="required">المدينة</label>
+                                    <select id="city" name="city_id" class="form-select" 
+                                    onchange="checkSelect(this, 'validCityId')"
+
+                                    disabled>
+                                        <option value="">-- اختر المدينة --</option>
+                                    </select>
+                                    <div class="error error-msg" style="display: none;"></div>
+
+                                    <% if(errors && errors.city_id){ %>
+                                    <div class="error-msg">
+                                        <%=errors.city_id.msg%>
+                                    </div>
+                                    <% } %>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="required">المنطقة</label>
+                                    <select id="area" name="area_id" class="form-select" 
+                                    onchange="checkSelect(this, 'validAreaId' )"
+                                    disabled>
+                                        <option value="">-- اختر المنطقة --</option>
+                                    </select>
+                                    <div class="error error-msg" style="display: none;"></div>
+
+                                    <% if(errors && errors.area_id){ %>
+                                    <div class="error-msg">
+                                        <%=errors.area_id.msg%>
+                                    </div>
+                                    <% } %>
+                                 </div>
+                            </div>
+                                 
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="required">الشارع</label>
+                                    <input type="text" name="street_name" class="form-control" id="street_name"
+                                        aria-describedby="emailHelp" placeholder="الشارع"
+                                        oninput="checkNumberValidation(this,'streetValue', streetElement, 3, 90, 'validStreet', '٣', '٨٠', true)" />
+                                    <div class="error error-msg" style="display: none;"></div>
+
+                                    <% if(errors && errors.street_name){ %>
+                                    <div class="error-msg">
+                                        <%=errors.street_name.msg%>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="required">ادخل رابط الموقع</label>
+                                    <input type="text" name="location_link" class="form-control" id="location_link"
+                                        aria-describedby="emailHelp" placeholder="ادخل رابط الموقع"
+                                        oninput="checkLink()" />
+                                    <div class=" error error-msg" style="display: none;">
+                                    </div>
+                                    <% if(errors && errors.location_link){ %>
+                                    <div class="error-msg">
+                                        <%=errors.location_link.msg%>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+
+                            <input type="text" name="location_longitude" class="form-control" id="location_longitude"
+                                style="visibility: hidden;height: 0;padding: 0;margin: 0;" />
+                            <input type="text" name="location_latitude" class="form-control" id="location_latitude"
+                                style="visibility: hidden;height: 0;padding: 0;margin: 0;" />
+                            <div class="center-btn">
+                                <button class="btn btn-primary disabled" id="submitBtn" disabled>تسجيل فرع</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="togglePopup">
+        <% if(showPopup) {%>
+        <% if(validForm) { %>
+        <div>
+            <%-include("./screens/create-partner-success",{title:'تم اضافه فرع للعميل',success:true,btnName:'اضف فرع اخر'})%>
+        </div>
+        <% } else { %>
+        <div>
+            <%-include("./screens/create-partner-success",{title:'لم يتم اضافه فرع برجاء التاكد من البيانات المدخله',success:false})%>
+        </div>
+        <% } %>
+        <% } %>
+    </div>
+</body>
+<script>
+    const governorateElement = document.getElementById("governorate");
+    const streetElement = document.getElementById("street_name");
+    const areaElement = document.getElementById("area");
+    const cityElement = document.getElementById("city");
+    const locationLinkUrlElement = document.getElementById("location_link");
+    const branchNameElement = document.getElementById("branch_name");
+    const formElement = document.getElementById("store_form");
+    const lat = document.getElementById("location_latitude");
+    const long = document.getElementById("location_longitude");
+    let schemaValidation = {
+        "validGovernorateId": false,
+        "validAreaId": false,
+        "validCityId": false,
+        "validStreet": false,
+        "validLocationLink": false,
+        "validBranchName": false
+    }
+    const setErrorFunction = (input, message) => {
+        const formControl = input.parentElement;
+        const error = formControl.querySelector('.error');
+
+        error.innerText = message;
+        error.style.display = "block"
+    }
+
+    const setErrorSuccess = (input) => {
+        const formControl = input.parentElement;
+        const error = formControl.querySelector('.error');
+        error.style.display = "none"
+    }
+
+    const checkNumberValidation = (htmlElement, validatorName, validatorPlace, minNumber, maxNumber, validValidator, arabicMin, arabicMax, emptyFieldRequired) => {
+        let validatorChecker = validatorName;
+        validatorChecker = htmlElement.value.trim().toString();
+        if (validatorChecker === '') {
+            if (!emptyFieldRequired) {
+                setErrorSuccess(htmlElement)
+                schemaValidation[validValidator] = true;
+            } else {
+                setErrorFunction(htmlElement, "الخانة مطلوبة")
+                schemaValidation[validValidator] = false;
+            }
+        }
+        else if (validatorChecker.length < minNumber || validatorChecker.length > maxNumber) {
+            if (minNumber == maxNumber) {
+                setErrorFunction(htmlElement, `برجاء ادخال  ${arabicMax} أرقام`)
+                schemaValidation[validValidator] = false;
+            } else {
+                setErrorFunction(htmlElement, `برجاء ادخال من ${arabicMin} الي ${arabicMax} حرف`)
+                schemaValidation[validValidator] = false;
+            }
+        }
+        else {
+            setErrorSuccess(htmlElement)
+            schemaValidation[validValidator] = true;
+        }
+    }
+
+    const checkLink = () => {
+        const LinkValue = locationLinkUrlElement.value.trim();
+        if (LinkValue === '') {
+            setErrorFunction(locationLinkUrlElement, "الخانة مطلوبة")
+            schemaValidation["validLocationLink"] = false;
+        }
+        else if (!checkLinkInString(LinkValue)) {
+            setErrorFunction(locationLinkUrlElement, "من فضلك ادخل لينك صحيح")
+            schemaValidation["validLocationLink"] = false;
+        }
+        else {
+            setErrorSuccess(locationLinkUrlElement)
+            schemaValidation["validLocationLink"] = true;
+            // set value for lat and long
+
+            const safeLink = decodeURI(LinkValue)
+            const urlRegex = /@/;
+            if (urlRegex) {
+                const latitude = safeLink.split("@")[1].split(",")[0]
+                const longitude = safeLink.split("@")[1].split(",")[1]
+                lat.value = latitude;
+                long.value = longitude;
+            } else {
+                lat.value = 0;
+                long.value = 0;
+            }
+        }
+    }
+    const checkSelect = (htmlElement,validValidator) => {
+            const value = htmlElement.value.trim();
+            if (value === '') {
+                setErrorFunction(htmlElement, "الخانة مطلوبة")
+                schemaValidation[validValidator] = false;
+            }
+            else {
+                setErrorSuccess(htmlElement)
+                schemaValidation[validValidator] = true;
+            }
+            
+        }
+
+
+    function checkLinkInString(text) {
+        var re = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+        return re.test(text);
+    }
+    // checkers //
+    const checkValidations = () => {
+        var element = document.getElementById("submitBtn");
+        if (schemaValidation.validAreaId&& schemaValidation.validCityId&& schemaValidation.validGovernorateId && schemaValidation.validStreet && schemaValidation.validLocationLink && schemaValidation.validBranchName
+        ) {
+            element.classList.remove("disabled");
+            element.disabled=false
+        }
+        else {
+            element.classList.add("disabled");
+            element.disabled=true
+        }
+    }
+    formElement.addEventListener("input", () => {
+        checkValidations();
+    })
+    // popup
+    let formStatusSuccess = "<%= validForm %>"
+    let existPopup = "<%= showPopup %>"
+
+    const checkValidForm = () => {
+        if (formStatusSuccess == 'false' && "<%- submittedData.governorate_id %>" ) {
+            governorateElement.value = "<%- submittedData.governorate_id %>";
+            branchNameElement.value = "<%- submittedData.name %>";
+            cityElement.value = "<%- submittedData.city_id %>";
+            areaElement.value = "<%- submittedData.area_id %>";
+            streetElement.value = "<%- submittedData.street %>";
+            locationLinkUrlElement.value = "<%- submittedData.google_maps_link %>";
+            lat.value = "<%- submittedData.location_latitude %>";
+            long.value ="<%- submittedData.location_longitude %>";
+
+            schemaValidation = {
+                "validGovernorateId": true,
+                "validCityId": true,
+                "validAreaId": true,
+                "validStreet": true,
+                "validLocationLink": true,
+                "validBranchName": true
+            }
+            checkValidations()
+        }
+    }
+    checkValidForm()
+    let currentGovernoratePage = 1;
+    let currentCityPage = 1;
+    let currentAreaPage = 1;
+    const perPage = 30; // Number of options per page
+    let isLoadingGovernorates = false;
+    let isLoadingCities = false;
+    let isLoadingAreas = false;
+
+    // Fetch paginated data from the server
+    async function fetchPaginatedData(url, page) {
+        const response = await fetch(`${url}page=${page}&perPage=${perPage}`);
+        const data = await response.json();
+        return data;
+    }
+
+    // Render options in select element
+    function renderOptions(selectElement, options) {
+        
+        options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option.id;
+            optionElement.textContent = option.name;
+            selectElement.appendChild(optionElement);
+        });
+    }
+
+    // Reset and disable select boxes
+    function resetSelect(selectElement, text= 'اختر') {
+        selectElement.innerHTML = `<option value="">-- ${text} --</option>`; // Add default option
+        selectElement.disabled = true; // Disable the select box
+    }
+
+    function handleScroll(event, fetchMoreData) {
+        const selectBox = event.target;
+        if (selectBox.scrollTop + selectBox.clientHeight >= selectBox.scrollHeight - 10) {
+            fetchMoreData();
+        }
+    }
+        const hidePopup = () => {
+            let hidePopup = document.querySelector(".togglePopup")
+            if (!formStatusSuccess) {
+            }
+            hidePopup.style.display = "none"
+        }
+    document.addEventListener('DOMContentLoaded', function () {
+        const governorateSelect = governorateElement;
+        const citySelect = cityElement;
+        const areaSelect = areaElement;
+        
+        // Initially disable city and area select boxes
+        resetSelect(citySelect,"اختر المدينه");
+        resetSelect(areaSelect,"اختر المنطقه");
+
+        // Load paginated governorates
+        async function loadGovernorates(page = 1) {
+            if (isLoadingGovernorates) return;
+            isLoadingGovernorates = true;
+            const result = await fetchPaginatedData('/public/api/lookups/governorates?', page);
+            renderOptions(governorateSelect, result.data);
+            isLoadingGovernorates = false;
+        }
+
+        // Load paginated cities based on selected governorate
+        async function loadCities(governorateId, page = 1) {
+            if (isLoadingCities) return;
+            isLoadingCities = true;
+            const result = await fetchPaginatedData(`/public/api/lookups/cities?governorateId=${governorateId}&`, page);
+            renderOptions(citySelect, result.data);
+            isLoadingCities = false;
+        }
+
+        // Load paginated areas based on selected city and governorate
+        async function loadAreas(governorateId, cityId, page = 1) {
+            if (isLoadingAreas) return;
+            isLoadingAreas = true;
+            const result = await fetchPaginatedData(`/public/api/lookups/areas?governorateId=${governorateId}&cityId=${cityId}&`, page);
+            renderOptions(areaSelect, result.data);
+            isLoadingAreas = false;
+        }
+
+        // Load the first page of governorates initially
+        loadGovernorates(currentGovernoratePage);
+
+        // Scroll to load more governorates
+        governorateSelect.addEventListener('scroll', () => {
+            handleScroll(event, () => loadGovernorates(++currentGovernoratePage));
+        });
+
+        // Load cities when a governorate is selected
+        governorateSelect.addEventListener('change', async function () {
+            const governorateId = this.value;
+            resetSelect(citySelect,'اختر المدينه'); // Reset and disable the city select
+            resetSelect(areaSelect,'اختر المنطقه'); // Reset and disable the area select
+            if (governorateId) {
+                currentCityPage = 1;
+                const cities = await loadCities(governorateId, currentCityPage);
+                citySelect.disabled = false; // Enable city select
+                citySelect.addEventListener('scroll', () => {
+                    handleScroll(event, () => loadCities(governorateId, ++currentCityPage));
+                });
+            }
+        });
+
+        // Load areas when a city is selected
+        citySelect.addEventListener('change', async function () {
+            const cityId = this.value;
+            const governorateId = governorateSelect.value;
+            resetSelect(areaSelect,'اختر المنطقه'); // Reset and disable the area select
+
+            if (cityId) {
+                currentAreaPage = 1;
+                await loadAreas(governorateId, cityId, currentAreaPage);
+                areaSelect.disabled = false; // Enable area select
+                areaSelect.addEventListener('scroll', () => {
+                    handleScroll(event, () => loadAreas(governorateId, cityId, ++currentAreaPage));
+                });
+            }
+        });
+    });
+</script>

@@ -1,0 +1,196 @@
+<div class="col-12 col-md-10">
+  <div class="row transaction-details">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-internal-title vertical">
+          <div class="subtitle">المبيعات</div>
+          <div class="title">قائمة المعاملات</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <form class="d-flex custom-search">
+          <input class="form-control mr-sm-2" type="search" placeholder="بحث برقم الهاتف أو رقم المعاملة" aria-label="Search"
+            id="consumerPhoneInput" value="<%= consumerPhoneNumber ? consumerPhoneNumber : transactionIdSearch %>" onkeyup="enableSearchButton()"
+            onsearch="enableSearchButton()">
+          <button disabled class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchHandler"
+            onclick="initConsumerSearch()">بحث</button>
+        </form>
+      </div>
+    </div>
+    <div class="internal-content">
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table listing-table">
+            <thead>
+              <tr>
+                <th scope="col">الوقت والتاريخ</th>
+                <th scope="col">الفرع</th>
+                <th scope="col">مسؤول البيع</th>
+                <th scope="col">قيمة المنتج</th>
+                <th scope="col">تم تحصيل</th>
+                <th scope="col">قيمة التحويل</th>
+                <th scope="col">الحالة</th>
+                <th scope="col">التفاصيل</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% transactions.forEach(transactionDetail=> { %>
+              <tr>
+                <td>
+                  <span> <%= transactionDetail.transaction_date %> </span>
+                  <span class="time"> <%= transactionDetail.current_time %> </span>
+                </td>
+                <td>
+                  <span> <%= transactionDetail.branch %> </span>
+                </td>
+                <td>
+                  <span> <%= transactionDetail.cashier_name %> </span>
+                </td>
+                <td><b> <%= transactionDetail.amount_financed %> جنيه </b></td>
+                <td>
+                  <span> <%= transactionDetail.admin_fees %> جنيه مصاريف </span>
+                  <span>مقدم <%= transactionDetail.down_payment %> جنيه</span>
+                </td>
+                <td><%= transactionDetail.transferred_amount %> جنيه</td>
+                <td>
+                  <% if(transactionDetail.status==='PAID' ) { %>
+                  <span class="badge badge-primary">تم التحويل</span>
+                  <% } else if(transactionDetail.status==='PAYMENT_IN_PROCESS' ) { %>
+                  <span class="badge badge-warning">يتم التحويل </span>
+                  <% } else if(transactionDetail.status==='PAYMENT_REVERSED' ) { %>
+                  <span class="badge badge-danger">مرتجعات</span>
+                  <% } else if(transactionDetail.status==='PAYMENT_CANCELLED' ) { %>
+                  <span class="badge badge-danger">ملغية</span>
+                  <% } else if(transactionDetail.status==='ERROR' ) { %>
+                  <span class="badge badge-danger">خطأ</span>
+                  <% } %>
+                </td>
+                <td>
+                  <a href="<%= transactionDetail.status === 'ERROR' ? '#' : `/private/partner/transactions/${transactionDetail.transaction_id}` %>"
+                    class="icon">
+                    <img src="/public/shared/img/visibility.svg" />
+                  </a>
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <% if(transactions && transactions.length > 1) { %>
+      <div class="row">
+        <div class="col-12">
+          <div class="paginator">
+            <% let startRecord=(pageSelected - 1) * perPage + 1; %> <% let endRecord=Math.min(pageSelected * perPage,
+            totalCount); %>
+            <div class="pagination-number">
+              إظهار رقم <%= startRecord %> إلى <%= endRecord %> من <%= totalCount %> نتيجة.
+            </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <% if(pageSelected !=1) { %>
+                <li class="page-item">
+                  <a class="page-link" <% if (typeof consumerPhoneNumber != 'undefined' && consumerPhoneNumber) { %>
+                    href="<%= getTransactionsUrl %>?page=<%= pageSelected - 1 %>&perPage=<%= perPage %>&consumerPhoneNumber=<%= consumerPhoneNumber %>"
+                    <% } else { %> href="<%= getTransactionsUrl %>?page=<%= pageSelected - 1 %>&perPage=<%= perPage %>"
+                    <% }%> aria-label="Next Page">
+                    <img src="/public/shared/img/arrow.svg" alt="arrow" />
+                  </a>
+                </li>
+                <% }else { %>
+                <li class="page-item">
+                  <a class="page-link disabled-arrow"
+                    <% if ((typeof consumerPhoneNumber != 'undefined' && consumerPhoneNumber) || (typeof transactionIdSearch != 'undefined' && transactionIdSearch)) { %>
+                    href="<%= getTransactionsUrl %>?page=<%= pageSelected - 1 %>&perPage=<%= perPage %>&consumerPhoneNumber=<%= consumerPhoneNumber %>"
+                    <% } else { %> href="<%= getTransactionsUrl %>?page=<%= pageSelected - 1 %>&perPage=<%= perPage %>"
+                    <% }%> aria-label="Next Page">
+                    <img src="/public/shared/img/arrow.svg" alt="arrow" />
+                  </a>
+                </li>
+                <% } %> <% const numberOfPages=Math.ceil(totalCount / perPage); for(let i=1; i <=numberOfPages; i++) {
+                %>
+                <li class="page-item">
+                  <a class="page-link" id="item<%= i %>"
+                    <% if ((typeof consumerPhoneNumber != 'undefined' && consumerPhoneNumber) || (typeof transactionIdSearch != 'undefined' && transactionIdSearch)) { %>
+                    href="<%= getTransactionsUrl %>?page=<%= i %>&perPage=<%= perPage %>&consumerPhoneNumber=<%= consumerPhoneNumber %>">
+                    <% } else { %>
+                    href="<%= getTransactionsUrl %>?page=<%= i %>&perPage=<%= perPage %>">
+                    <% }%>
+                    <%= i %>
+                  </a>
+                </li>
+                <% } %> <% if(pageSelected < numberOfPages) { %>
+                <li class="page-item">
+                  <a class="page-link invert"
+                    <% if ((typeof consumerPhoneNumber != 'undefined' && consumerPhoneNumber) || (typeof transactionIdSearch != 'undefined' && transactionIdSearch)) { %>
+                    href="<%= getTransactionsUrl %>?page=<%= pageSelected + 1 %>&perPage=<%= perPage %>&consumerPhoneNumber=<%= consumerPhoneNumber %>"
+                    <% } else { %> href="<%= getTransactionsUrl %>?page=<%= pageSelected + 1 %>&perPage=<%= perPage %>"
+                    <% }%> aria-label="Next Page">
+                    <img src="/public/shared/img/arrow.svg" alt="arrow" />
+                  </a>
+                </li>
+                <% } else {%>
+                <li class="page-item">
+                  <a class="page-link disabled-arrow invert"
+                    <% if ((typeof consumerPhoneNumber != 'undefined' && consumerPhoneNumber) || (typeof transactionIdSearch != 'undefined' && transactionIdSearch)) { %>
+                    href="<%= getTransactionsUrl %>?page=<%= pageSelected + 1 %>&perPage=<%= perPage %>&consumerPhoneNumber=<%= consumerPhoneNumber %>"
+                    <% } else { %> href="<%= getTransactionsUrl %>?page=<%= pageSelected + 1 %>&perPage=<%= perPage %>"
+                    <% }%> aria-label="Next Page">
+                    <img src="/public/shared/img/arrow.svg" alt="arrow" />
+                  </a>
+                </li>
+                <% } %>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <% } else if (transactions.length === 0){%>
+        <div class="row">لا توجد نتائج للبحث</div>
+      <% } %> 
+    </div>
+  </div>
+</div>
+<script>
+  const enableSearchButton = () => {
+    const searchValue = document.getElementById("consumerPhoneInput").value;
+    const searchButton = document.getElementById("searchHandler");
+    if (searchValue.length === 16 || searchValue.length === 11 || searchValue.length === 0) {
+      searchButton.removeAttribute("disabled");
+    } else {
+      searchButton.setAttribute("disabled", true);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    activeItem(`item<%= pageSelected %>`);
+    enableSearchButton();
+  });
+  const activeItem = (itemId) => {
+    document.querySelector(".page-link").classList.remove("active");
+    document.querySelector(`#${itemId}`).classList.add("active");
+  };
+
+
+  const initConsumerSearch = () => {
+    const searchValue = document.getElementById("consumerPhoneInput").value;
+    const parser = new URL(location.href || window.location);
+    
+    if (searchValue.length === 16)  {
+      parser.searchParams.delete("consumerPhoneNumber");
+      parser.searchParams.set("transactionIdSearch", searchValue);
+      window.location = parser.href;
+      return;
+    }
+
+    if (searchValue === "" || searchValue.length < 11) {
+      parser.searchParams.delete("consumerPhoneNumber");
+    } else {
+      parser.searchParams.delete("transactionIdSearch");
+      parser.searchParams.set("consumerPhoneNumber", searchValue);
+    }
+    window.location = parser.href;
+  }
+</script>

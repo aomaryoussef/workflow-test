@@ -1,0 +1,234 @@
+<div class="col-12 col-md-10">
+  <div class="row">
+    <div class="col-12">
+      <div class="main-internal-title">
+        <a href="/private/partner/transactions"><img src="/public/shared/img/back-btn.svg" /></a>
+        <div class="title">تفاصيل المعاملة</div>
+        <% if(transaction.status==='PAID' ) { %>
+        <div class="status paid">تم التحويل</div>
+        <% } else if(transaction.status==='PAYMENT_REVERSED' ) { %>
+        <div class="status returned">مرتجعات</div>
+        <% } else if(transaction.status==='PAYMENT_CANCELLED' ) { %>
+        <div class="status returned">ملغية</div>
+        <% } else if (transaction.status==='PAYMENT_IN_PROCESS' ) { %>
+        <div class="status created">يتم التحويل </div>
+        <% } else if (transaction.status==='ERROR' ) { %>
+        <div class="status returned">خطأ</div>
+        <% } %>
+      </div>
+    </div>
+    <% if(transaction){ %>
+    <div class="internal-content">
+      <div class="internal-table">
+        <div class="title">المنتج</div>
+        <div class="white-wrapper">
+          <div class="row center-items">
+            <div class="col-12 col-lg-3">
+              <div class="data-wrapper">
+                <div class="title">الوقت والتاريخ</div>
+                <div class="subTitle">
+                  <span class="date">
+                    <%= transaction.transaction_date %><span>
+                      <span class="time">
+                        <%= transaction.transaction_time %>
+                      </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-3">
+              <div class="data-wrapper">
+                <div class="title">الفرع</div>
+                <div class="subTitle">
+                  <%= transaction.branch %>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-3">
+              <div class="data-wrapper">
+                <div class="title">مسؤول البيع</div>
+                <div class="subTitle">
+                  <%= transaction.cashier_name %>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-3">
+              <div class="data-wrapper">
+                <div class="title">اسم المنتج</div>
+                <div class="subTitle">
+                  <%= transaction.name %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="internal-table">
+        <div class="title">التفاصيل المالية</div>
+        <div class="white-wrapper">
+          <div class="row center-items">
+            <div class="col-12 col-lg-2">
+              <div class="data-wrapper">
+                <div class="title">قيمة المنتج</div>
+                <div class="subTitle">
+                  <%= transaction.amount_financed %> جنيه
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-2">
+              <div class="data-wrapper">
+                <div class="title">المقدم</div>
+                <div class="subTitle">
+                  <%= transaction.down_payment %> جنيه
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-2">
+              <div class="data-wrapper">
+                <div class="title">المصاريف</div>
+                <div class="subTitle">
+                  <%= transaction.admin_fees %> جنيه
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-2">
+              <div class="data-wrapper">
+                <div class="title">قيمة التحويل</div>
+                <% if(transaction.amount_collected !==0 ) { %>
+                <div class="inc-money">
+                  <%= transaction.amount_collected %> جنيه<img src="/public/shared/img/green-arrow.svg" alt="green" />
+                </div>
+                <% } else if(transaction.transferred_amount !==0 ) { %>
+                <div class="dec-money">
+                  <%= transaction.transferred_amount %> جنيه<img src="/public/shared/img/red-arrow.svg" alt="green" />
+                </div>
+                <% } else { %>
+                <div class="subTitle">
+                  -
+                </div>
+                <% } %>
+
+              </div>
+            </div>
+            <div class="col-12 col-lg-2">
+              <div class="data-wrapper">
+                <div class="title">الحساب البنكي</div>
+                <% if(transaction.status==='PAID' ) { %>
+                <div class="subTitle">
+                  <span class="bank">
+                    <%= transaction.bank_name %>
+                  </span>
+                  <span class="time">
+                    <%= transaction.bank_account_number %>
+                  </span>
+                </div>
+                <% } else if(transaction.status==='PAYMENT_REVERSED' ) { %>
+                <div class="subTitle">
+                  <span class="bank">
+                    <%= transaction.bank_name %>
+                  </span>
+                  <span class="time">
+                    <%= transaction.bank_account_number %>
+                  </span>
+                </div>
+                <% } else { %>
+                <div class="subTitle">
+                  <span class="bank">-</span>
+                  <span class="time"></span>
+                </div>
+                <% } %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="internal-table">
+        <div class="title">بيانات تكميلية</div>
+        <div class="white-wrapper">
+          <div class="row center-items">
+            <div class="col-12 col-lg-4">
+              <div class="data-wrapper">
+                <div class="title">الكود التعريفي للمعاملة</div>
+                <div class="subTitle">
+                  <%= transaction.basket_id %>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <div class="data-wrapper">
+                <div class="title">الكود التعريفي للقرض</div>
+                <div class="subTitle">
+                  <%= transaction.loan_id %>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <div class="data-wrapper">
+                <div class="title">الرقم التعريفي للمعاملة</div>
+                <div class="subTitle subTitle-number">
+                  <%= transaction.transaction_id %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="internal-table">
+        <div class="title">اختيارات إضافية</div>
+        <% if (activateReturnButton && partnerStatus === "ACTIVE") { %>
+        <button class="btn secondary-btn red-btn btn-danger" onclick="showConfirmationPopup(true)">استرجاع
+          المنتج</button>
+        <% } else { %>
+        <button class="btn secondary-btn red-btn btn-danger" disabled>استرجاع
+          المنتج</button>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <div id="warning-popup" style="display: none;">
+    <%- include('./screens/popups/warning-popup',{data:{valid:false,title:`بعد نجاح العملية ستقوم بتسليم العميل مبلغ ${((parseFloat(transaction.admin_fees) + parseFloat(transaction.down_payment)))} جنيه`,subtitle:""}}); %>
+  </div>
+  <div id="success-popup" style="display: none;">
+    <%- include('./screens/popups/popup-one-btn', { data: { valid: true, title: "تمت العملية بنجاح", subtitle: "", secondLine: ""}}); %>
+  </div>
+  <div id="error-popup" style="display: none;">
+    <%- include('./screens/popups/popup-one-btn', { data: { valid: false, title: "لا يمكن استرجاع المنتج حاليا", subtitle: "لا تقم بتسليم المبلغ إلى العميل", secondLine: "من فضلك حاول في وقت لاحق"}}); %>
+  </div>
+
+  <script>
+    const warningPopup = document.getElementById("warning-popup");
+    const hidePopup = document.getElementById("hidePopup");
+    const showConfirmationPopup = (show = true) => {
+      if (show) {
+        warningPopup.style.display = "block"
+      } else {
+        warningPopup.style.display = "none"
+      }
+    }
+
+    hidePopup.addEventListener('click', () => showConfirmationPopup(false));
+
+    const initReturn = async () => {
+      try {
+        const response = await axios.post("/private/partner/return", {
+          consumerId: "<%= transaction.consumer_id %>",
+          loanId: "<%= transaction.loan_id %>",
+        });
+        showConfirmationPopup(false);
+        document.getElementById("success-popup").style.display = "block";
+      } catch (error) {
+        console.error(error);
+        document.getElementById("error-popup").style.display = "block";
+      }
+    };
+
+    const confirmButtonHandler = document.getElementById("confirmPopupYes");
+    confirmButtonHandler.onclick = initReturn;
+
+    const successButtonHandlers = document.getElementsByClassName("popupMainPageLink");
+    for (let i = 0; i < successButtonHandlers.length; i++) {
+      successButtonHandlers[i].href = "/private/partner/transactions";
+    }
+
+  </script>

@@ -1,0 +1,123 @@
+<body>
+  <div class="login mylo-login">
+    <div class="container">
+      <div class="center-form row">
+        <div class="col-12 col-md-6 col-lg-4 col-xl-5">
+          <div class="custom-form-wrapper">
+            <div class="logo-wrapper">
+              <img src="/public/shared/img/mylo-logo-ar.svg" alt="Mylo">
+            </div>
+            <% if(typeof errorOTP !='undefined' && errorOTP) { %>
+              <form class="otp-wrapper error" id="otp_wrapper">
+                <% }else{ %>
+                  <form class="otp-wrapper" id="otp_wrapper">
+                    <% } %>
+
+                      <h2>إعادة تعيين كلمة المرور
+                      </h2>
+                      <div class="message">أدخل OTP المستلم على هاتفك المحمول.
+                      </div>
+                      <div class="inputs-wrapper" id="otp_inputs_wrapper">
+                        <input type="text" class="form-control custom-otp-input" id="otp_input_6" size="1" maxlength="1"
+                          pattern="[0-9]*" onkeyup="focusNextHandler('verifyHandler')" />
+                        <input type="text" class="form-control custom-otp-input" id="otp_input_5" size="1" maxlength="1"
+                          pattern="[0-9]*" onkeyup="focusNextHandler('otp_input_6')" />
+                        <input type="text" class="form-control custom-otp-input" id="otp_input_4" size="1" maxlength="1"
+                          pattern="[0-9]*" onkeyup="focusNextHandler('otp_input_5')" />
+                        <input type="text" class="form-control custom-otp-input" id="otp_input_3" size="1" maxlength="1"
+                          pattern="[0-9]*" onkeyup="focusNextHandler('otp_input_4')" />
+                        <input type="text" class="form-control custom-otp-input" id="otp_input_2" size="1" maxlength="1"
+                          pattern="[0-9]*" onkeyup="focusNextHandler('otp_input_3')" />
+                        <input type="text" class="form-control custom-otp-input" id="otp_input_1" size="1" maxlength="1"
+                          pattern="[0-9]*" onkeyup="focusNextHandler('otp_input_2')" autofocus />
+                      </div>
+                      <div class="errorOTP">إدخال خاطئ، برجاء إعادة المحاولة.</div>
+
+                      <div class="timer" id="counter" style="display: none;">يمكنك إعادة إرسال الكود بعد <span
+                          id="timer">00:30</span></div>
+                      <div class="resend_otp" id="resend_otp" onclick="resetOtpTimer()">أعد إرسال الكود</div>
+                  </form>
+                  <div class="rounded-btn">
+                    <button class="btn btn-primary" id="verifyHandler">متابعه</button>
+                  </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    const activeResendCounter = () => {
+      const timerElement = document.getElementById("timer");
+      const counterElement = document.getElementById("counter");
+      const resendElement = document.getElementById("resend_otp");
+      counterElement.style.display = "block";
+      const countdown = 30;
+      setInterval(() => {
+        ele.innerHTML = "00:" + countdown;
+        countdown--;
+        if (countdown === -2) {
+          counterElement.style.display = "none";
+          resendElement.style.display = "block";
+          countdown = 30;
+        }
+      }, 1000);
+    }
+
+    const focusNextHandler = (handlerId) => {
+      document.getElementById(handlerId).focus();
+    }
+
+    const showErrorEffect = () => {
+      document.getElementById("otp_inputs_wrapper").classList.add('shakeError');
+      document.getElementById("otp_inputs_wrapper").on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
+        $('form').delay(200).removeClass('shakeError');
+        document.getElementById("otp_input_1").focus();
+      })
+    }
+
+    const completeRecoveryFlow = async () => {
+      try {
+        const recoveryFlowUrl = "<%= recoveryFlowUrl %>";
+        const recoveryCode = document.getElementById("otp_input_1").value + document.getElementById("otp_input_2").value + document.getElementById("otp_input_3").value + document.getElementById("otp_input_4").value + document.getElementById("otp_input_5").value + document.getElementById("otp_input_6").value;
+        const response = await axios.post(
+          recoveryFlowUrl,
+          {
+            method: "code",
+            code: recoveryCode,
+          },
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          },
+        );
+        if (response.data.ui.messages[0].id == 4060005) {
+          // Kratos error message id for expired flow
+          window.alert("كود منتهي الصلاحية");
+          window.location = "/public/partner/forget-password";
+        }
+        if (response.data.ui.messages[0].id == 4060006) {
+          // Kratos error message id for incorrect or already used OTP
+          document.getElementById("otp_wrapper").classList.add('error');
+          activeResendCounter();
+        }
+        showErrorEffect();
+      } catch (error) {
+        if (error.response.status === 422) {
+          // This is the correct and expected response
+          window.location = "/private/partner/set-password";
+        } else {
+          console.error(error);
+          showErrorEffect();
+        }
+      }
+    };
+
+    document.getElementById("verifyHandler").onclick = completeRecoveryFlow;
+
+  </script>
+
+</body>

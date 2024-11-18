@@ -1,0 +1,58 @@
+version: v1.1.0
+dsn: postgres://postgres:admin@localhost:5432/kratos
+
+log:
+  level: debug
+  format: text
+  leak_sensitive_values: false
+
+selfservice:
+  default_browser_return_url: http://localhost:4434/
+  allowed_return_urls:
+    - http://localhost:8080
+
+  methods:
+    password:
+      enabled: false
+    code:
+      enabled: false
+    link:
+      enabled: false
+
+  flows:
+    error:
+      ui_url: http://localhost:8080/error
+    settings:
+      ui_url: http://localhost:8080/settings
+      privileged_session_max_age: 15m
+      required_aal: highest_available
+    recovery:
+      enabled: false
+    verification:
+      enabled: false
+    logout:
+      after:
+        default_browser_return_url: http://localhost:8080/login
+    login:
+      ui_url: http://localhost:8080/login
+    registration:
+      ui_url: http://localhost:8080/registration
+
+courier:
+  smtp:
+    connection_uri: smtps://test:test@mailhog:1025/?skip_ssl_verify=true
+  sms:
+    enabled: true
+    from: mylo
+    request_config:
+      url: http://sms-gateway:8080/send
+      method: POST
+      headers:
+        Content-Type: application/json
+      body: "base64://ZnVuY3Rpb24oY3R4KSB7CiAgaWRlbnRpdHlfaWQ6IGlmIGN0eFsiaWRlbnRpdHkiXSAhPSBudWxsIHRoZW4gY3R4LmlkZW50aXR5LmlkLAp9="
+
+identity:
+  default_schema_id: "invalid_v0"
+  schemas:
+    - id: invalid_v0
+      url: "base64://ewogICIkc2NoZW1hIjogImh0dHA6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQtMDcvc2NoZW1hIyIsCiAgInR5cGUiOiAib2JqZWN0IiwKICAicHJvcGVydGllcyI6IHsKICAgICJ0cmFpdHMiOiB7CiAgICAgICJ0eXBlIjogIm9iamVjdCIsCiAgICAgICJwcm9wZXJ0aWVzIjogewogICAgICAgICJ1c2VybmFtZSI6IHsKICAgICAgICAgICJ0aXRsZSI6ICJVc2VybmFtZSIsCiAgICAgICAgICAidHlwZSI6ICJzdHJpbmciLAogICAgICAgICAgIm9yeS5zaC9rcmF0b3MiOiB7CiAgICAgICAgICAgICJjcmVkZW50aWFscyI6IHsKICAgICAgICAgICAgICAicGFzc3dvcmQiOiB7CiAgICAgICAgICAgICAgICAiaWRlbnRpZmllciI6IHRydWUKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICAgIH0KICAgICAgICB9CiAgICAgIH0KICAgIH0KICB9Cn0="

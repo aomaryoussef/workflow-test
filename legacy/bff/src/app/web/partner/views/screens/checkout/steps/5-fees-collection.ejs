@@ -1,0 +1,166 @@
+<div class="row">
+  <div class="col-lg-8 offset-lg-2">
+    <div class="title-with-button">
+      <div class="icon-title-wrapper">
+        <div class="icon-wrapper">
+          <img src="/public/partner/img/icons/receipt_long.svg" />
+        </div>
+        <div class="title-wrapper">
+          <div class="title">مراجعة الطلب</div>
+          <div class="subtitle">يرجى مراجعة الطلب بالتفصيل مع العميل واستلام المبلغ المطلوب تحصيله قبل التأكيد.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkout-bill">
+      <div class="cash-wrapper">
+        <div class="item-cont">
+          <div class="item-data">
+            <div class="item-name" id="fees-collection-product-name"></div>
+            <div class="item-value" id="fees-collection-product-price"></div>
+          </div>
+          <div class="item-data">
+            <div class="item-name">نسبة الأرباح السنوية</div>
+            <div class="item-value" id="fees-collection-interest-rate"></div>
+          </div>
+          <div class="item-data">
+            <div class="item-name">إجمالي قيمة الأرباح</div>
+            <div class="item-value" id="fees-collection-total-interest"></div>
+          </div>
+        </div>
+        <div class="item-purchased">
+          <div class="item-wrapper">
+            <div class="item-name">القسط الشهري للعميل</div>
+            <div class="item-subtitle">أول قسط يوم <span class="start-date"></span> </div>
+          </div>
+          <div class="item-value" id="fees-collection-monthly-installment"></div>
+        </div>
+      </div>
+
+      <div id="fees-collection-pay-upfront" style="display: none">
+        <div class="installment-wrapper">
+          <div class="item-cont">
+            <div class="item-data">
+              <div class="item-name">المقدم</div>
+              <div class="item-value" id="fees-collection-downpayment"></div>
+            </div>
+            <div class="item-data">
+              <div class="item-name">المصاريف الإدارية (تدفع مره واحدة)</div>
+              <div class="item-value" id="fees-collection-admin-fees"></div>
+            </div>
+          </div>
+          <div class="item-purchased green">
+            <div class="item-wrapper">
+              <div class="item-name">حصل الآن</div>
+            </div>
+            <div class="item-value" id="fees-collection-total"></div>
+          </div>
+        </div>
+        <div class="note custom-note">
+          <div class="item-cont">
+            بالضغط على <b>"تأكيد"</b>، فإنك تقر وتؤكد استلامك للمبالغ المذكورة بالأعلى من العميل.
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-wrapper">
+        <button class="btn primary-green-btn" id="fees-collection-next-button" onclick="handleFeesCollectionSubmit()">
+          <div class="white-loader" id="fees-collection-spinner" style="display: none">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <span class="btn-text"> تأكيد</span>
+        </button>
+        <a class="btn border-gray-btn w-50" id="step-fees-collection-cancel"
+          onclick="showCancelPopup('Fees Collection Step')" href="#">الغاء</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const feesCollectionLoadingElement = document.getElementById("fees-collection-spinner");
+  const feesCollectionNextElement = document.getElementById("fees-collection-next-button");
+  const feesCollectionCancelElement = document.getElementById("step-fees-collection-cancel");
+
+  function showFeesCollectionSpinner(show) {
+    if (show) {
+      feesCollectionNextElement.classList.add("disabled");
+      feesCollectionCancelElement.classList.add("disabled");
+      feesCollectionLoadingElement.style.display = "block";
+    } else {
+      feesCollectionNextElement.classList.remove("disabled");
+      feesCollectionCancelElement.classList.remove("disabled");
+      feesCollectionLoadingElement.style.display = "none";
+    }
+  }
+
+
+  const handleFeesCollectionSubmit = async () => {
+    showFeesCollectionSpinner(true);
+    let loanActivated = false;
+    try {
+      await axios.post("/private/partner/checkout/collect-fees", {
+        checkoutSessionId: checkoutSessionId,
+      });
+      for (let i = 0; i < 80; i++) {
+        try {
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+          const response = await axios.get(
+            `/private/partner/checkout/get-checkout-status?checkoutSessionId=${checkoutSessionId}`,
+          );
+          const checkoutStatus = response.data.status;
+          transactionId = response.data.transactionId;
+          if (
+            checkoutStatus === "RISK_CHECK_FAILED" ||
+            checkoutStatus === "COMMERCIAL_OFFERS_FAILURE" ||
+            checkoutStatus === "LOAN_ACTIVATION_FAILURE" ||
+            checkoutStatus === "CREDIT_LIMIT_UPDATE_FAILURE" ||
+            checkoutStatus === "IN_ACTIVE_CONSUMER_FAILURE" ||
+            checkoutStatus === "IN_ACTIVE_PARTNER_FAILURE" ||
+            checkoutStatus === "IN_PROGRESS_CHECKOUT_FOUND_FAILURE" ||
+            checkoutStatus === "NO_GENERATED_COMMERCIAL_OFFERS_FAILURE" ||
+            checkoutStatus === "NO_COMMERCIAL_OFFER_SELECTED_FAILURE" ||
+            checkoutStatus === "OTP_FAILURE" ||
+            checkoutStatus === "FAILURE" ||
+            checkoutStatus === "CANCELLED_BY_CASHIER" ||
+            checkoutStatus === "CANCELLED_BY_CONSUMER"
+          ) {
+            showErrorAlert("مشكلة بسيطة", "حدث خطأ في النظام");
+            break;
+          } else if (checkoutStatus === "LOAN_ACTIVATED") {
+            loanActivated = true;
+            break;
+          } else {
+            continue;
+          }
+        } catch (error) {
+          console.error(error);
+          amplitudeLogEvents("Faild Confirm Purchase", { name: 'consumer_id', input: consumerInfo.id }, { name: 'message', input: error.message }, { name: 'dev_message', input: error.response.data.message }, { name: "status", input: error.response.status });
+          showErrorAlert("مشكلة بسيطة", "حدث خطأ في النظام");
+        }
+      }
+      if (loanActivated) {
+        showSuccessAlert(
+          "الطلب تم بنجاح",
+          "شكرا لثقتك في التمويل الاستهلاكي." + "<br>" + " يمكنك الآن تسليم المنتج الى عميلك."+"<br>"+"الرقم المرجعي للعملية: " + transactionId
+        );
+      } else {
+        showErrorAlert("مشكلة بسيطة", "حدث خطأ في النظام");
+
+      }
+    } catch (error) {
+      console.error(error);
+      amplitudeLogEvents("Faild Confirm Purchase", { name: 'consumer_id', input: consumerInfo.id }, { name: 'message', input: error.response.data.message }, { name: "status", input: error.response.data.status });
+      showErrorAlert("مشكلة بسيطة", error.response.data.message);
+    } finally {
+      showFeesCollectionSpinner(false);
+    }
+  };
+
+  const feesCollectionCancelHandler = () => {
+    window.location.href = `/private/partner/checkout/cancel-checkout?session_id=${checkoutSessionId}${userIamIdQueryParamString}`;
+  };
+</script>

@@ -1,0 +1,567 @@
+<body>
+  <div class="logout">
+    <div class="container">
+      <div class="center-form">
+        <div class="col-12 col-lg-8">
+          <form method="POST" action="/private/back-office/create-partner" class="form-box" id="partner_form">
+            <div class="row">
+              <!-- store name -->
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required" class="required">اسم المحل</label>
+                  <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp"
+                    placeholder="اسم المحل"
+                    oninput="checkNumberValidation(this,'username',name, 3, 30, 'validStoreName', '٣' , '٣٠' , true)" />
+                  <div class="error error-msg" style="display: none;">
+                  </div>
+                  <% if(errors && errors.name){ %>
+                  <div class="error-msg">
+                    <%=errors.name.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+              <!--commercial number-->
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">رقم السجل التجاري </label>
+                  <input type="number" name="commercial_registration_number" class="form-control"
+                    id="commercial_registration_number" aria-describedby="emailHelp" placeholder="رقم السجل التجاري "
+                    oninput="checkNumberValidation(this,'commercialValue', commercial, 4, 30, 'validCommercials', '٤','٣٠', true) " />
+                  <div class="error error-msg" style="display: none;"></div>
+
+                  <% if(errors && errors.commercial_registration_number){ %>
+                  <div class="error-msg">
+                    <%=errors.commercial_registration_number.msg%>
+                  </div>
+                  <% } %>
+
+                </div>
+              </div>
+              <!-- tax id -->
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">رقم التسجيل الضريبي (٩ أرقام)</label>
+                  <input type="number" name="tax_registration_number" class="form-control" id="tax_registration_number"
+                    aria-describedby="emailHelp" placeholder="رقم التسجيل الضريبي"
+                    oninput="checkNumberValidation(this,'taxValue', tax, 9, 9, 'validTax', '٩', '٩', true)" />
+                  <div class=" error error-msg" style="display: none;">
+                  </div>
+
+                  <% if(errors && errors.tax_registration_number){ %>
+                  <div class="error-msg">
+                    <%=errors.tax_registration_number.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+
+              <!--categories-->
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">نوع النشاط التجاري:</label>
+
+                  <select class="form-select" name="categories" id="categories" onchange="CheckCategoryName()">
+                    <option value="ELECTRONICS" id="ELECTRONICS">أجهزة منزلية</option>
+                    <option value="FASHION" id="FASHION">ملابس</option>
+                    <option value="HOME_WARE" id="HOME_WARE">أدوات منزلية</option>
+                    <option value="TOURISM_AND_ENTERTAINMENT" id="TOURISM_AND_ENTERTAINMENT">سياحة و ترفيه</option>
+                    <option value="OPTICS" id="OPTICS">بصريات</option>
+                    <option value="WEDDING_HALLS" id="WEDDING_HALLS">قاعات أفراح</option>
+                    <option value="AUTO_SPARE_PARTS" id="AUTO_SPARE_PARTS">قطع غيار السيارات / خدمة السيارات</option>
+                    <option value="ACCESSORIES" id="ACCESSORIES">إكسسوارات</option>
+                    <option value="MEDICAL" id="MEDICAL">خدمات طبية</option>
+                    <option value="FURNITURE" id="FURNITURE">أثاث منزلي</option>
+                    <option value="SPORTS" id="SPORTS">رياضة</option>
+                    <option value="FINISHING" id="FINISHING">تشطيبات</option>
+                    <option value="EDUCATION" id="EDUCATION">تعليم</option>
+                    <option value="MOBILE" id="MOBILE">موبايلات وإلكترونيات</option>
+                    <option value="SHOPPING_HUBS" id="SHOPPING_HUBS">مراكز تسوق</option>
+                    <option value="MOTORCYCLES" id="MOTORCYCLES">موتوسيكلات</option>
+
+                  </select>
+                  <% if(errors && errors.categories){ %>
+                  <div class="error-msg">
+                    <%=errors.categories.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+
+
+              <input type="text" name="location_longitude" class="form-control" id="location_longitude"
+                style="visibility: hidden;height: 0;padding: 0;margin: 0;" />
+              <input type="text" name="location_latitude" class="form-control" id="location_latitude"
+                style="visibility: hidden;height: 0;padding: 0;margin: 0;" />
+            </div>
+
+            <table width=" 100%">
+              <td>
+                <hr />
+              </td>
+              <td style="width: 1px; padding: 0 10px; white-space: nowrap">بيانات بنكية</td>
+              <td>
+                <hr />
+              </td>
+            </table>
+
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">البنك</label>
+
+                  <select name="bank_name" class="form-select" id="bank_name">
+                    <option value="CIB">البنك التجاري الدولي CIB</option>
+                    <option value="NBE">البنك الأهلي المصري NBE</option>
+                    <option value="MISR">بنك مصر</option>
+                    <option value="BDC">بنك القاهرة</option>
+                    <option value="AAIB">البنك العربى الأفريقي الدولى AAIB</option>
+                    <option value="FAIB">بنك فيصل الإسلامي المصري</option>
+                    <option value="BOA">بنك الإسكندرية</option>
+                    <option value="ADIB">بنك أبوظبي الإسلامي ADIB</option>
+                    <option value="ADCB">بنك أبوظبي التجاري ADCB</option>
+                    <option value="ARAB">البنك العربي</option>
+                    <option value="CAE">بنك كريدي أجريكول</option>
+                    <option value="HSBC">بنك إتش إس بي سي HSBC</option>
+                    <option value="QNB">بنك كيو ان بي الأهلي QNB</option>
+                    <option value="SCB">بنك قناة السويس</option>
+                    <option value="EGB">البنك المصري الخليجي EGB</option>
+                    <option value="HDB">بنك التعمير والإسكان HDB</option>
+                    <option value="UB">المصرف المتحد</option>
+                    <option value="EBE">بنك تنمية الصادرات EBE</option>
+                    <option value="ABK">البنك الأهلي الكويتي ABK</option>
+                    <option value="AUB">البنك الأهلي المتحد AUB</option>
+                    <option value="PDAC">البنك الزراعى المصرى PDAC</option>
+                    <option value="AIB">بنك الاستثمار العربي - AIB</option>
+                    <option value="BBE">التجاري وفا بنك</option>
+                    <option value="ARIB"> المصرف العربى الدولى </option>
+                    <option value="SC"> ستاندرد تشارترد - SC</option>
+                    <option value="EALB"> البنك العقاري المصري - EALB </option>
+                    <option value="NBK"> بنك الكويت الوطني - NBK </option>
+                    <option value="ABC"> أيه بي سي - ABC </option>
+                    <option value="FAB"> بنك أبوظبي الأول - FAB </option>
+                    <option value="MIDB"> ميد بنك - MIDB </option>
+                    <option value="IDB"> بنك التنمية الصناعية - IDB </option>
+                    <option value="MASH"> بنك المشرق </option>
+                    <option value="ENBD"> بنك الإمارات دبي الوطني - ENBD </option>
+                    <option value="SAIB"> بنك سايب - SAIB </option>
+                    <option value="ABRK"> بنك البركة - مصر </option>
+                    <option value="NBG"> البنك الأهلي اليوناني</option>
+                    <option value="NSB"> بنك ناصر الاجتماعي </option>
+                    <option value="POST"> البريد المصري </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">الفرع</label>
+                  <input type="text" name="branch_name" class="form-control" id="branch_name"
+                    aria-describedby="emailHelp" placeholder="الفرع"
+                    oninput="checkNumberValidation(this,'branchValue', branch_name, 3, 30, 'validBranch', '٣', '٣٠', true)" />
+                  <div class="error error-msg" style="display: none;"></div>
+                  <% if(errors && errors.branch_name){ %>
+                  <div class="error-msg">
+                    <%=errors.branch_name.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">اسم المستفيد</label>
+                  <input type="text" name="beneficiary_name" class="form-control" id="beneficiary_name"
+                    aria-describedby="emailHelp" placeholder="اسم المستفيد"
+                    oninput="checkNumberValidation(this,'beneficiaryValue', beneficiary_name, 3, 30, 'validBen', '٣','٣٠', true) " />
+                  <div class="error error-msg" style="display: none;"></div>
+
+                  <% if(errors && errors.beneficiary_name){ %>
+                  <div class="error-msg">
+                    <%=errors.beneficiary_name.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">(IBAN) رقم الحساب المصرفي الدولي </label>
+                  <input type="text" name="iban" class="form-control" id="iban" aria-describedby="emailHelp"
+                    placeholder="(IBAN) رقم الحساب المصرفي الدولي"
+                    oninput=" checkNumberValidation(this,'ibanValue', iban, 20, 29, 'validIban', '٢٠', '٢٩', true)" />
+                  <div class="error error-msg" style="display: none;"></div>
+
+                  <% if(errors && errors.iban){ %>
+                  <div class="error-msg">
+                    <%=errors.iban.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label>سويفت كود</label>
+                  <input type="text" name="swift_code" class="form-control" id="swift_code" aria-describedby="emailHelp"
+                    placeholder="سويفت كود"
+                    oninput="checkNumberValidation(this,'swiftValue', swift_code, 8, 11, 'validSwift', '٨', '١١', false)" />
+                  <div class="error error-msg" style="display: none;"></div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">رقم الحساب</label>
+                  <input type="number" name="account_number" class="form-control" id="account_number"
+                    aria-describedby="emailHelp" placeholder="رقم الحساب"
+                    oninput="checkNumberValidation(this,'accountNumberValue', account_number, 5, 29, 'validAccountNumber', '٥', '٢٩', true)" />
+                  <div class="error error-msg" style="display: none;"></div>
+
+                  <% if(errors && errors.account_number){ %>
+                  <div class="error-msg">
+                    <%=errors.account_number.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+
+            <table width="100%">
+              <td>
+                <hr />
+              </td>
+              <td style="width: 1px; padding: 0 10px; white-space: nowrap">مسئول الاتصال</td>
+              <td>
+                <hr />
+              </td>
+            </table>
+
+            <div class="row">
+              <!-- contact person -->
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">الاسم الاول</label>
+                  <input type="text" name="admin_first_name" class="form-control" id="admin_first_name"
+                    aria-describedby="emailHelp" placeholder="اسم مسؤول الاتصال"
+                    oninput="checkNumberValidation(this,'adminFirstName', admin_first_name, 3, 30, 'validAdminFirstName', '٣', '٣٠', true)" />
+                  <div class="error error-msg" style="display: none;"></div>
+
+                  <% if(errors && errors.admin_first_name){ %>
+                  <div class="error-msg">
+                    <%=errors.admin_first_name.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">الاسم الاخير</label>
+                  <input type="text"
+                    oninput="checkNumberValidation(this,'adminSecondName', admin_last_name, 3, 30, 'validAdminSecondName', '٣', '٣٠', true)"
+                    name="admin_last_name" class="form-control" id="admin_last_name" aria-describedby="emailHelp"
+                    placeholder="اسم مسؤول الاتصال" />
+                  <div class="error error-msg" style="display: none;"></div>
+
+                  <% if(errors && errors.admin_last_name){ %>
+                  <div class="error-msg">
+                    <%=errors.admin_last_name.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+              <!-- email -->
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">البريد الإلكتروني</label>
+                  <input type="email" oninput="checkEmail()" name="admin_email" class="form-control" id="admin_email"
+                    aria-describedby="emailHelp" placeholder="البريد الالكتروني" />
+                  <div class="error error-msg" style="display: none;"></div>
+
+                  <% if(errors && errors.admin_email){ %>
+                  <div class="error-msg">
+                    <%=errors.admin_email.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+              <!-- contact person -->
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="required">رقم موبايل</label>
+                  <input type="number" name="admin_phone_number" class="form-control" id="admin_phone_number"
+                    aria-describedby="emailHelp" placeholder="رقم موبايل" oninput="checkPhoneNumber()" />
+                  <div class="error error-msg" style="display: none;"></div>
+
+                  <% if(errors && errors.admin_phone_number){ %>
+                  <div class="error-msg">
+                    <%=errors.admin_phone_number.msg%>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+            <div class="center-btn">
+              <button class="btn btn-primary disabled" id="submitBtn">انشاء حساب</button>
+              <!-- <a href="/login">الدخول علي الحساب</a> -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="togglePopup">
+    <% if(showPopup) {%>
+    <% if(validForm) { %>
+    <div>
+      <%-include("./screens/create-partner-success",{title:'تم إنشاء الحساب بنجاح',success:true,btnName:'اضف شريك اخر'})%>
+    </div>
+    <% } else { %>
+    <div>
+      <%-include("./screens/create-partner-success",{title:'لم يتم انشاء حساب برجاء التاكد من البيانات المدخله',success:false})%>
+    </div>
+    <% } %>
+    <% } %>
+  </div>
+  <script type="application/javascript">
+
+    const form = document.getElementById("partner_form");
+    const name = document.getElementById("name");
+    const commercial = document.getElementById("commercial_registration_number");
+    const tax = document.getElementById("tax_registration_number");
+    const categories = document.getElementById("categories");
+    const bank_name = document.getElementById("bank_name");
+    const branch_name = document.getElementById("branch_name");
+    const beneficiary_name = document.getElementById("beneficiary_name");
+    const iban = document.getElementById("iban");
+    const swift_code = document.getElementById("swift_code");
+    const account_number = document.getElementById("account_number");
+    const admin_first_name = document.getElementById("admin_first_name");
+    const admin_last_name = document.getElementById("admin_last_name");
+    const admin_email = document.getElementById("admin_email");
+    const admin_phone_number = document.getElementById("admin_phone_number");
+
+    let schemaValidation = {
+      "validStoreName": false,
+      "validCommercials": false,
+      "validTax": false,
+      "validBranch": false,
+      "validBen": false,
+      "validIban": false,
+      "validSwift": true,
+      "validAccountNumber": false,
+      "validAdminFirstName": false,
+      "validAdminSecondName": false,
+      "validEmail": false,
+      "validPhoneNumber": false
+    }
+
+    // helpers
+    const checkNumberValidation = (htmlElement, validatorName, validatorPlace, minNumber, maxNumber, validValidator, arabicMin, arabicMax, emptyFieldRequired) => {
+      let validatorChecker = validatorName;
+      validatorChecker = htmlElement.value.trim().toString();
+      if (validatorChecker === '') {
+        if (!emptyFieldRequired) {
+          setErrorSuccess(htmlElement)
+          schemaValidation[validValidator] = true;
+        } else {
+          setErrorFunction(htmlElement, "الخانة مطلوبة")
+          schemaValidation[validValidator] = false;
+        }
+      }
+      else if (validatorChecker.length < minNumber || validatorChecker.length > maxNumber) {
+        if (minNumber == maxNumber) {
+          setErrorFunction(htmlElement, `برجاء ادخال  ${arabicMax} أرقام`)
+          schemaValidation[validValidator] = false;
+        } else {
+          setErrorFunction(htmlElement, `برجاء ادخال من ${arabicMin} الي ${arabicMax} حرف`)
+          schemaValidation[validValidator] = false;
+        }
+      }
+      else {
+        setErrorSuccess(htmlElement)
+        schemaValidation[validValidator] = true;
+      }
+    }
+    // checkers //
+
+    const checkEmail = () => {
+      const emailValue = admin_email.value.trim();
+      if (emailValue === '') {
+        setErrorFunction(admin_email, "الخانة مطلوبة")
+        schemaValidation["validEmail"] = false;
+      }
+      else if (!checkIfEmailInString(emailValue)) {
+        setErrorFunction(admin_email, "من فضلك ادخل ايميل صحيح")
+        schemaValidation["validEmail"] = false;
+      }
+      else {
+        setErrorSuccess(admin_email)
+        schemaValidation["validEmail"] = true;
+      }
+    }
+
+    const checkLink = () => {
+      const LinkValue = location_link_url.value.trim();
+      if (LinkValue === '') {
+        setErrorFunction(location_link_url, "الخانة مطلوبة")
+        schemaValidation["validLocationLink"] = false;
+      }
+      else if (!checkLinkInString(LinkValue)) {
+        setErrorFunction(location_link_url, "من فضلك ادخل لينك صحيح")
+        schemaValidation["validLocationLink"] = false;
+      }
+      else {
+        setErrorSuccess(location_link_url)
+        schemaValidation["validLocationLink"] = true;
+        // set value for lat and long
+        const lat = document.getElementById("location_latitude");
+        const long = document.getElementById("location_longitude");
+        const safeLink = decodeURI(LinkValue)
+        const urlRegex = /@/;
+        if (urlRegex) {
+          const latitude = safeLink.split("@")[1].split(",")[0]
+          const longitude = safeLink.split("@")[1].split(",")[1]
+          lat.value = latitude;
+          long.value = longitude;
+        } else {
+          lat.value = 0;
+          long.value = 0;
+        }
+      }
+    }
+    const CheckCategoryName = () => {
+      const categorySelect = document.getElementById('categories');
+      const selectedCategory = categorySelect.options[categorySelect.selectedIndex].value;
+      if (selectedCategory === 'MEDICAL') {
+        commercial.value = '';
+        commercial.disabled = true;
+        commercial.classList.add('disabled');
+        checkNumberValidation(commercial, 'commercialValue', commercial, 4, 30, 'validCommercials', '٤', '٢٩', false)
+        schemaValidation.validCommercials = true;
+      } else {
+        commercial.disabled = false;
+      }
+    }
+
+    const checkPhoneNumber = () => {
+      const phoneValue = admin_phone_number.value.trim().toString();
+      if (phoneValue === '') {
+        setErrorFunction(admin_phone_number, "الخانة مطلوبة")
+        schemaValidation["validPhoneNumber"] = false;
+      }
+      else if (phoneValue.length != 11) {
+        setErrorFunction(admin_phone_number, "من فضلك ادخل رقم مصري صحيح")
+        schemaValidation["validPhoneNumber"] = false;
+      }
+      else {
+        setErrorSuccess(admin_phone_number)
+        schemaValidation["validPhoneNumber"] = true;
+      }
+    }
+
+    const checkValidations = () => {
+      var element = document.getElementById("submitBtn");
+      if (schemaValidation.validStoreName && schemaValidation.validCommercials && schemaValidation.validTax
+        && schemaValidation.validBranch && schemaValidation.validBen && schemaValidation.validIban && schemaValidation.validSwift && schemaValidation.validAccountNumber
+        && schemaValidation.validAdminFirstName && schemaValidation.validAdminSecondName && schemaValidation.validEmail && schemaValidation.validPhoneNumber) {
+        element.classList.remove("disabled");
+      }
+      else {
+        element.classList.add("disabled");
+      }
+    }
+
+    // check all inputs validaiton
+    form.addEventListener("input", () => {
+      checkValidations();
+    })
+    const setErrorFunction = (input, message) => {
+      const formControl = input.parentElement;
+      const error = formControl.querySelector('.error');
+
+      error.innerText = message;
+      error.style.display = "block"
+    }
+
+    const setErrorSuccess = (input) => {
+      const formControl = input.parentElement;
+      const error = formControl.querySelector('.error');
+      error.style.display = "none"
+    }
+
+    //// validator 
+
+    function checkIfEmailInString(text) {
+      var re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+      return re.test(text);
+    }
+
+    function checkLinkInString(text) {
+      var re = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+      return re.test(text);
+    }
+    // });
+
+    // close popup
+
+    let popupBtn = document.querySelector(".add-new-partner");
+    let formStatusSuccess = "<%= validForm %>"
+    let existPopup = "<%= showPopup %>"
+
+    const clearFields = () => {
+      let hidePopup = document.querySelector(".togglePopup")
+      if (!formStatusSuccess) {
+      }
+      hidePopup.style.display = "none"
+    }
+
+    popupBtn.addEventListener("click", clearFields)
+
+    const checkValidForm = () => {
+      if (formStatusSuccess == 'false') {
+        name.value = "<%- submittedData.name %>";
+        commercial.value =
+          "<%- submittedData.commercial_registration_number %>";
+        tax.value = "<%- submittedData.tax_registration_number %>";
+        categories.value = "<%- submittedData.categories %>";
+        bank_name.value = "<%- submittedData.bank_account.bank_name %>";
+        branch_name.value = "<%- submittedData.bank_account.branch_name %>";
+        beneficiary_name.value = "<%- submittedData.bank_account.beneficiary_name %>";
+        iban.value = "<%- submittedData.bank_account.iban %>";
+        swift_code.value = "<%- submittedData.bank_account.swift_code %>";
+        account_number.value = "<%- submittedData.bank_account.account_number %>";
+        admin_first_name.value = "<%- submittedData.admin_user_profile.first_name %>";
+        admin_last_name.value = "<%- submittedData.admin_user_profile.last_name %>";
+        admin_email.value = "<%- submittedData.admin_user_profile.email %>";
+        admin_phone_number.value = "<%- submittedData.admin_user_profile.phone_number %>";
+        if (categories.value === 'MEDICAL') {
+          commercial.disabled = true;
+          commercial.classList.add('disabled');
+        } else {
+          commercial.disabled = false;
+          commercial.classList.remove('disabled');
+        }
+
+        schemaValidation = {
+          "validStoreName": true,
+          "validCommercials": true,
+          "validTax": true,
+          "validBranch": true,
+          "validBen": true,
+          "validIban": true,
+          "validSwift": true,
+          "validAccountNumber": true,
+          "validAdminFirstName": true,
+          "validAdminSecondName": true,
+          "validEmail": true,
+          "validPhoneNumber": true
+        }
+        checkValidations()
+      }
+    }
+    checkValidForm()
+
+  </script>
+</body>

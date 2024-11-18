@@ -1,0 +1,10 @@
+table:
+  name: guarantor_user_mapping
+  schema: public
+object_relationships:
+  - name: guarantor
+    using:
+      foreign_key_constraint_on: guarantor_id
+  - name: user_detail
+    using:
+      foreign_key_constraint_on: user_id

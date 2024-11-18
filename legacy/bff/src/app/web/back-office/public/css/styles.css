@@ -1,0 +1,71 @@
+.form-details {
+  padding: 30px 0;
+}
+.form-details.p-t-50 {
+  padding: 50px 0;
+}
+.form-details img {
+  margin-bottom: 20px;
+}
+.form-details h2 {
+  font-size: 20px;
+}
+.form-details .subtitle {
+  color: var(--dark-gray);
+}
+
+.form-with-title .title {
+  margin-bottom: 15px;
+}
+.form-with-title .form-wrapper {
+  background: var(--white-color);
+  border: 1px solid #eaecf0;
+  padding: 25px;
+}
+.form-with-title .form-wrapper .title {
+  font-size: 0.875rem;
+  margin-bottom: 8px;
+}
+
+.horizontal-table tr td {
+  border: 1px solid #eaecf0;
+}
+.horizontal-table tr td .status {
+  display: inline-flex;
+  padding: 5px 15px;
+  border-radius: 30px;
+}
+.horizontal-table tr td .status.not-activated {
+  background: #f2f4f7;
+}
+.horizontal-table tr td .status.activated {
+  background: #ecfdf3;
+  color: #027a48;
+}
+.horizontal-table .head-item {
+  background-color: #f9fafb;
+  vertical-align: middle;
+  font-weight: 100;
+}
+
+.credit-limit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #e6fef6;
+  padding: 20px;
+  border-radius: 12px;
+  color: #006644;
+  margin: 35px 0;
+}
+.credit-limit .subtitle {
+  font-size: 20px;
+}
+.credit-limit .payment {
+  font-size: 20px;
+}
+.credit-limit .payment .remaining-amount {
+  font-size: 44px;
+  display: inline-block;
+}/*# sourceMappingURL=styles.css.map */

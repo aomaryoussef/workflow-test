@@ -1,0 +1,79 @@
+- id: internal-bff:consumers:public
+  description: Consumers public APIs
+  upstream:
+    url: http://internal-bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/public/consumers/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: internal-bff:consumers:protected
+  description: Consumers protected APIs
+  upstream:
+    url: http://internal-bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/private/consumers/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: header
+  errors:
+    - handler: redirect
+      config:
+        to: /consumers/login
+
+- id: internal-bff:consumers:docs
+  description: Internal BFF docs API
+  upstream:
+    url: http://internal-bff:3000/
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/internal-bff/api/docs<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: internal-bff:partners:protected
+  description: Partners protected APIs
+  upstream:
+    url: http://internal-bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/private/partners/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: header
+  errors:
+    - handler: redirect
+      config:
+        to: /consumers/login

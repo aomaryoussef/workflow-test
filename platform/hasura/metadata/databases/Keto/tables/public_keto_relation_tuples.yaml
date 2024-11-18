@@ -1,0 +1,3 @@
+table:
+  name: keto_relation_tuples
+  schema: public

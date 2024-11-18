@@ -1,0 +1,29 @@
+<div class="main-nav">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <div class="img-wrapper">
+          <img src="/public/shared/img/mylo-ar-new.svg" alt="mylo" />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="control-menu-wrapper">
+          <div class="control-menu">
+            <div class="avatar">
+              <div class="img-wrapper">
+                <div class="letters"><%= userInfo.userInitials %></div>
+              </div>
+            </div>
+            <div class="user-data">
+              <div class="user-name" title="<%= userInfo.userTag %>"><%= userInfo.userTag %></div>
+              <div class="email" title="<%= userInfo.userSubTag %>"><%= userInfo.userSubTag %></div>
+            </div>
+            <a href="<%= logoutUrl %>" class="logout">
+              <img src="/public/shared/img/icons/logout.svg" width="20" alt="down" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+FROM sqitch/sqitch:v1.4.0.2
+
+COPY migrations/db ./
+
+ENTRYPOINT [ "/bin/sh", "-c", "sqitch deploy" ]

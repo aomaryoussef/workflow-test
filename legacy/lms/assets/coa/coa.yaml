@@ -1,0 +1,47 @@
+# late payments (LAT23) , interest earned (INT23) , collections (COLL23)
+journals:
+  - name: ACT24
+    gl_transaction_type: Loan activation
+    lms_transaction_type: LOAN_ACTIVATION
+    journal_lines:
+      - gl_account_id: 120101006
+        lms_account_name: MurabhaPurchase
+      - gl_account_id: 120301033
+        lms_account_name: MurabhaPrincipalReceivable
+      - gl_account_id: 120301034
+        lms_account_name: MurabhaInterestReceivable
+      - gl_account_id: 230406005
+        lms_account_name: MurabhaUnearnedRevenue
+      - gl_account_id: 510501017
+        lms_account_name: Doubtful
+      - gl_account_id: 120403007
+        lms_account_name: DoubtfulReceivable
+  - name: AD24
+    gl_transaction_type: Admin Fees
+    lms_transaction_type: ADMIN_FEE
+    journal_lines:
+      - gl_account_id: 410101006
+        lms_account_name: AdminFeeReceivable
+      - gl_account_id: 230202012 # merchants due account
+        lms_account_name: MerchantDue
+        sub_account_format: "{GL_ACCOUNT_ID}|{MERCHANT_ID}|MISC"
+      - gl_account_id: 230408002 # tax payables
+        lms_account_name: TaxDue
+        gl_account_description: "Value added Tax"
+  - name: PR24
+    gl_transaction_type: Purchase
+    lms_transaction_type: PURCHASING_FROM_MERCHANT
+    journal_lines:
+      - gl_account_id: 120101006
+        lms_account_name: MurabhaPurchase
+      - gl_account_id: 230202012
+        lms_account_name: MerchantDue
+        sub_account_format: "{GL_ACCOUNT_ID}|{MERCHANT_ID}|MISC"
+  - name: INT24
+    gl_transaction_type: Due
+    lms_transaction_type: INTEREST_EARNED
+    journal_lines:
+      - gl_account_id: 410201001
+        lms_account_name: InterestRevenue
+      - gl_account_id: 230406003
+        lms_account_name: MurabhaUnearnedRevenue

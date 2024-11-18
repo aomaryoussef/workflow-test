@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      .container {
+        padding: 20px;
+      }
+      .content {
+        direction: rtl;
+        font-family: "Tajawal";
+        box-sizing: border-box;
+        color: #000;
+        line-height: 1.5;
+      }
+      h2 {
+        text-align: center;
+        font-size: 21px;
+      }
+      p {
+        text-align: right;
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 2px;
+      }
+      .btech {
+        transform-origin: bottom left;
+        white-space: pre;
+        overflow: visible;
+        line-height: 1.5;
+        font-size: 37px;
+        font-weight: 700;
+        color: orange;
+        letter-spacing: -0.17px;
+        padding: 3px;
+      }
+      .finance {
+        transform-origin: bottom left;
+        white-space: pre;
+        overflow: visible;
+        line-height: 1.5;
+        font-size: 37px;
+        font-weight: 700;
+        color: #000;
+        letter-spacing: -0.17px;
+        padding: 3px;
+      }
+      .sae {
+        transform-origin: bottom left;
+        white-space: pre;
+        font-weight: bold;
+        overflow: visible;
+        line-height: 1.5;
+        font-size: 18px;
+        color: #000;
+        letter-spacing: 0.16px;
+        padding: 3px;
+        margin-top: 15px;
+      }
+      .header {
+        border-bottom: 1px solid #000;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+      }
+      .footer {
+        border-top: 1px solid #000;
+        position: absolute;
+        bottom: 30px;
+        left: 20px;
+        right: 20px;
+      }
+      .footer-content {
+        padding-top: 15px; /* Add space between footer content and top border */
+        font-size: 10px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <span class="btech">B.TECH</span>
+        <span class="finance">Finance</span>
+        <span class="sae">S.A.E</span>
+      </div>
+      <div class="content">
+        <h2>سند اذنى</h2>
+        <p>انة في يوم <%=day_name%> الموافق <%=date%></p> 
+        <br />
+        <p>اتعهد انا الموقع ادناه / <%=full_name%></p>
+        <br />
+        <p>المقيم في / <%=address%></p>
+        <br />
+        <p>وحامل بطاقة رقم قومى / <%=national_id%></p>
+        <br />
+        <p>بان ادفع بموجب هذا السند بدون قيد او شرط مبلغ وقدره <%=credit_limit?credit_limit+" ("+credit_limit_arabic_text+" جنيهًا مصريًا فقط لاغير)" : "جنيهًا مصريًا فقط لاغير........................." %></p>
+        <br />
+        <p>لامر شركة بى تك للتمويل ش م م</p>
+        <br />
+        <p>وذلك في تاريخ /</p>
+        <br />
+        <p class="paragraph">
+          وما يستحق عليه من مصروفات بمقر الشركة الكائن بالعنوان :<br>
+          قطعة رقم 2 N الدور األول بالبرج
+          رقم (O215) تقسيم الاستثمار بمنطقة القطامية مشروع وان قطامية – محافظة القاهرة والتقاضى محل المدين او ب المركز
+          الرئيسي للدائن او بمحل احد فروعه بجميع انحاء الجمهورية والرجوع بال مصاريف. هذا تعهد منى بذلك ،،،
+        </p>
+        <br />
+        <p>الاسم / <%=full_name%></p>
+        <br />
+        <p>التوقيع /</p>
+      </div>
+      <div class="footer">
+        <div class="footer-content">
+          <span> Plot No. (N2), Tower No. (O215), One Kattmeya, Ring Road, Kattmeya, Cairo.</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+table:
+  name: transfer_initiation_adjustments
+  schema: transfers
+object_relationships:
+  - name: transfer_initiation
+    using:
+      foreign_key_constraint_on: transfer_initiation_id

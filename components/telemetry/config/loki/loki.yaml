@@ -1,0 +1,37 @@
+auth_enabled: false ## disable authentication
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+
+common:
+  instance_addr: 127.0.0.1 ## instance address meaning you can't access loki from outside
+  path_prefix: /tmp/loki
+  storage: ## Storage configurations 
+    filesystem:
+      chunks_directory: /tmp/loki/chunks
+      rules_directory: /tmp/loki/rules
+  replication_factor: 1 ## number of replactions for the chunks (1 means no replication)
+  ring:
+    kvstore:
+      store: inmemory
+
+query_range:
+  results_cache: ## caching query results configurations
+    cache:
+      embedded_cache:
+        enabled: true
+        max_size_mb: 100
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: boltdb-shipper ## type of store used for storing logs
+      object_store: filesystem
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h ## retentions period for indexes
+
+analytics:
+  reporting_enabled: false ## disable analytics reporting

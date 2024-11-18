@@ -1,0 +1,70 @@
+{
+  "business-owner": {
+    "job_map_min_salary": 10000,
+    "job_map_max_salary": 20000
+  },
+  "construction-trades": {
+    "job_map_min_salary": 5000,
+    "job_map_max_salary": 10000
+  },
+  "engineer": {
+    "job_map_min_salary": 10000,
+    "job_map_max_salary": 30000
+  },
+  "finance": {
+    "job_map_min_salary": 6000,
+    "job_map_max_salary": 12500
+  },
+  "governmental-employee": {
+    "job_map_min_salary": 7667,
+    "job_map_max_salary": 11333
+  },
+  "healthcare": {
+    "job_map_min_salary": 12500,
+    "job_map_max_salary": 37500
+  },
+  "legal": {
+    "job_map_min_salary": 20000,
+    "job_map_max_salary": 35000
+  },
+  "manager": {
+    "job_map_min_salary": 12333,
+    "job_map_max_salary": 28333
+  },
+  "military": {
+    "job_map_min_salary": 9000,
+    "job_map_max_salary": 22500
+  },
+  "other-employed": {
+    "job_map_min_salary": 9167,
+    "job_map_max_salary": 24167
+  },
+  "other-freelancer": {
+    "job_map_min_salary": 5667,
+    "job_map_max_salary": 16667
+  },
+  "retired": {
+    "job_map_min_salary": 3750,
+    "job_map_max_salary": 7250
+  },
+  "sales": {
+    "job_map_min_salary": 4429,
+    "job_map_max_salary": 10714
+  },
+  "student": {
+    "job_map_min_salary": 2500,
+    "job_map_max_salary": 2500
+  },
+  "teaching": {
+    "job_map_min_salary": 8500,
+    "job_map_max_salary": 22500
+  },
+  "unemployed": {
+    "job_map_min_salary": 0,
+    "job_map_max_salary": 0
+  },
+  "police-officer": {
+    "job_map_min_salary": 10000,
+    "job_map_max_salary": 15000
+  }
+}

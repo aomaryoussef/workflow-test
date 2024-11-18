@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    .header {
+      margin-top: 10px;
+      margin-bottom: 0pt;
+      line-height: normal;
+      font-size: 11pt;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .container {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      grid-template-columns: 1fr;
+    }
+
+    .pagebreak {
+      display: block;
+      clear: both;
+      page-break-after: always;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 6pt;
+    }
+
+    .page1 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 10px;
+      padding-top: 0;
+      direction: rtl;
+      font-size: 6pt;
+    }
+
+    .page2 {
+      display: grid;
+      padding: 10px;
+      padding-top: 0;
+      font-size: 6pt;
+      direction: rtl;
+    }
+
+    .box {
+      border: 1px solid black;
+    }
+
+    span {
+      font-family: "Tajawal";
+    }
+
+    .paragraph_title {
+      margin-bottom: 0pt;
+      line-height: normal;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .paragraph_1 {
+      margin-bottom: 0pt;
+      line-height: normal;
+      font-size: 7pt;
+    }
+
+    .paragraph_2 {
+      text-align: center;
+      line-height: normal;
+      font-size: 8pt;
+    }
+
+    .paragraph_3 {
+      margin-bottom: 0pt;
+      line-height: normal;
+      font-size: 6pt;
+    }
+
+    .paragraph_large {
+      margin-bottom: 0pt;
+      text-align: justify;
+      line-height: normal;
+    }
+
+    .title {
+      margin-bottom: 0pt;
+      line-height: normal;
+      font-size: 9pt;
+    }
+
+    .logo {
+      margin-bottom: 0pt;
+      text-align: center;
+      line-height: normal;
+      padding-bottom: 1pt;
+      margin-top: 5px;
+      font-size: 24pt;
+    }
+
+    .bold-text {
+      font-weight: bold;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .middle {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30%;
+      text-align: center;
+      border: 1px solid black;
+      background-color: white;
+    }
+
+    .signature-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-left: 10px;
+      padding-right: 10px;
+      direction: rtl;
+      border: 1px solid black;
+      background-color: white;
+      width: 50%;
+
+      margin: auto;
+      margin-top: 10px;
+    }
+
+    .signature-section {
+      font-size: 6pt;
+    }
+
+    .border-left {
+      border-left: 1px solid black;
+    }
+
+    .signature-title {
+      border-bottom: 1px solid black;
+      text-align: center;
+      font-size: 7pt;
+    }
+
+    .table-container {
+      text-align: center;
+      border: 1px solid black;
+      border-top: none;
+      background-color: white;
+      grid-column: 1 / 3;
+      /* Span the table across both columns */
+      display: flex;
+      justify-content: center;
+      /* Center horizontally */
+    }
+
+    .border-bottom {
+      border-bottom: 1px solid black;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .table-signature-panel {
+      width: 30%;
+      border: 1px solid black;
+      border-bottom: none;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      padding: 5px;
+    }
+
+    .grid-item {
+      padding-top: 5px;
+    }
+
+    .paragraph_section {
+      border: 1px solid black;
+      padding: 5px;
+    }
+
+    .grid-container-3 {
+      display: grid;
+      grid-template-columns: 40% 1fr 1fr;
+      /* First column 40%, the other two columns share the remaining space equally */
+      padding: 5px;
+    }
+
+    .head-text {
+      font-size: 18pt;
+      font-weight: bold;
+    }
+  </style>
+  <title>contract</title>
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <p class="logo">
+        <strong><span style="font-family: Franklin Gothic Demi; color: orange">B.TECH </span></strong><strong><span
+            style="font-family: Franklin Gothic Demi">Finance</span></strong><strong><span
+            style="font-family: Franklin Gothic Demi; font-size: 22pt"> </span></strong><strong><span
+            style="font-size: 14pt">S.A.E</span></strong>
+      </p>
+    </header>
+    <main class="page1">
+      <div class="box">
+        <div style="padding: 10px; padding-top: 20px">
+          <div class="paragraph_title text-center">
+            <span>نموذج اعرف عميلك (KYC)</span>
+          </div>
+          <div class="grid-container">
+            <div class="grid-item">
+              <span>اسم الفرع /<%=branch_name || "................" %></span>
+            </div>
+            <div class="grid-item">
+              <span>تاريخ التحديث <%=date || "................" %></span>
+            </div>
+          </div>
+          <div class="paragraph_section">
+            <div class="grid-container">
+              <div class="grid-item">
+                <span> اسم العميل رباعي / <%=full_name || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>رقم البطاقة القومي / <%=national_id || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>عنوان السكن الفعلى/ <%=address || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>عنوان بطاقة الرقم القومي / <%=national_id_address || "................................." %>
+                </span>
+              </div>
+              <div class="grid-item">
+                <span>تليفون المنزل / <%=home_phone_number || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>المحمول / <%=phone_number || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>وظيفة العميل / <%=job_name || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>اسم جهة العمل / <%=company_name || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>عنوان جهة العمل / <%=company_address || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>تليفون العمل / <%=work_phone_number || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>صافي الدخل الشهري للعميل / <%=salary || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>قيمة الدخل الاضافي / <%=additional_salary || "................................." %> </span>
+              </div>
+              <div class="grid-item">
+                <span>مصدر الدخل االضافي / <%=additional_salary_source || "................................." %>
+                </span>
+              </div>
+              <div class="grid-item">
+                <span>اسم الضامن / .................................</span>
+              </div>
+              <div class="grid-item">
+                <span>الرقم القومي للضامن / .................................</span>
+              </div>
+              <div class="grid-item">
+                <span>الوظيفة الضامن / .................................</span>
+              </div>
+              <div class="grid-item">
+                <span>رقم هاتف الضامن / .................................</span>
+              </div>
+              <div class="grid-item">
+                <span>عنوان سكن الضامن/ .................................</span>
+              </div>
+            </div>
+          </div>
+          <div class="grid-container">
+            <div class="grid-item">
+              <span class="paragraph_3">
+                هل تشغل – او سبق لك شغل – منصب عام رفيع فى الحقل السياسي او العسكرى او الحكومى او القضائى او علي علاقة
+                باحد الاشخاص المذكورة
+              </span>
+            </div>
+            <div class="grid-item text-center">
+              <span>نعم :
+                (&nbsp&nbsp&nbsp&nbsp&nbsp)</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span>لاينطبق
+                :(&nbsp&nbsp&nbsp&nbsp&nbsp)</span>
+            </div>
+          </div>
+          <div class="grid-container">
+            <div class="grid-item">
+              <span class="paragraph_3"> هل انت المستفيد الحقيقي من التعامل مع الشركة </span>
+            </div>
+            <div class="grid-item text-center">
+              <span>نعم :
+                (&nbsp&nbsp&nbsp&nbsp&nbsp)</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span>لاينطبق
+                :(&nbsp&nbsp&nbsp&nbsp&nbsp)</span>
+            </div>
+          </div>
+          <div class="grid-container">
+            <div class="grid-item">
+              <span class="paragraph_3"> في حالة لا ينطبق - اسم المستفيد الحقيقي ان وجد </span>
+            </div>
+            <div class="grid-item text-center">
+              <span>.................................................................. </span>
+            </div>
+          </div>
+          <div class="paragraph_title text-center">
+            <p><span>تعهد واقرار العميل</span></p>
+          </div>
+          <span>ملحوظة : بعد ان اقر العميل بكامل اهليتة القانونية وخلوها من كافة عيوب الارادة اقر بالاتى : </span>
+          <div class="paragraph_section">
+            <div>
+              <span>1- اقر بان كافة البيانات والمعلومات المدونة اعلاة حقيقية وكاملة كما اقر بان كافة اصول او صور
+                المستندات المرفقة بهذا النموذج صحيحة ومطابقة للواقع والقانون .
+                التزم واتعهد بابلاغ الشركة باى تعديلات تطرأ على البيانات الشخصية وذلك خلال 30 يوم بحد اقصى من تاريخ حدوث
+                او اجراء اى تعديل لآى من تلك البيانات . كما التزم بتنفيذ وتلبية كافة متطلبات وتعليمات الشركة فى شان
+                تحديث تلك البيانات .
+              </span><br />
+              <span>2- اقر باننى اقبل قيام شركة بى تك للتمويل بالاستعلام عنى لدى كافة البنوك العاملة بجمهورية مصر
+                العربية وخارجها ولدى البنك المركزى المصرى وكافة الجهات الحكومية وغير الحكومية . وكذلك الشركة المصرية
+                للاستعلام الائتمانى والجهات المماثلة او من خلال اى مصادر اخرى قد تراها الشركة مناسبة للوصول على
+                المعلومات والبيانات كما اننى افوض شركة بى تك بالاطلاع على حساباتى الدائنة والمدينة بالبنوك والمعاملات
+                الخاصة بها سواء عن طريق موظفية او وكلائة .</span><br />
+              <span>3- سداد مصاريف فتح حساب (ان وجدت)</span><br />
+              <span>4- اقر بانني اوافق على تصويرى صورة شخصية بالرقم القومي اثناء عملية الشراء بالتقسيط. </span>
+            </div>
+            <div class="paragraph_title text-center">
+              <p><span>توقيع العميل</span></p>
+            </div>
+            <div class="grid-container-3 bold-text">
+              <div class="grid-item">
+                <span>اسم العميل / <%=full_name || "" %> </span>
+              </div>
+              <div class="grid-item">
+                <span>التوقيع / </span>
+              </div>
+              <div class="grid-item">
+                <span>تاريخ التحديث <%=date || "" %> </span>
+              </div>
+            </div>
+          </div>
+          <div class="paragraph_title text-center">
+            <p><span> اقرار الموظف القائم بالتحقق من هويه العميل</span></p>
+          </div>
+          <div class="paragraph_section">
+            <div>
+              <div class="grid-container bold-text">
+                <div class="grid-item"><span>اقر انا الموظف /</span></div>
+                <div class="grid-item">
+                  <span>واعمل بوظيفة /</span>
+                </div>
+                <span>بان العميل قد قام بالتوقيع امامي وتم التحقق من شخصيته. </span>
+              </div>
+            </div>
+            <div class="grid-container-3 bold-text">
+              <div class="grid-item">
+                <span>اسم الموظف /</span>
+              </div>
+              <div class="grid-item">
+                <span>التوقيع / </span>
+              </div>
+
+              <div class="grid-item">
+                <span>تاريخ التحديث <%=date || "" %> </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div style="padding: 10px; padding-top: 20px">
+          <div class="paragraph_title text-center">
+            <span class="head-text">اقرار</span>
+          </div>
+
+          <p class="paragraph_large">
+            <span> أقر أنا الموقع أدناه
+              (<%=full_name || ".............................." %>) بموافقتي علي منح شركة بي تك للتمويل ش.م.م سجل تجاري
+                رقم (33300) والحاصلة
+                على ترخيص ممارسة نشاط التمويل الاستهلاكي من الهيئة العامة للرقابة المالية رقم 48 لسنة 2024) والتي تمارس
+                نشاط التمويل الاستهلاكي من خلال التطبيق المعروف ب "مايلو" " “mylo” حق الاطلاع علي الملف الشخصي الخاص بي
+                لدى شركة بي تك للتجارة والتوزيع ش.م.م (سجل تجاري رقم 302446 والحاصة على ترخيص بممارسة نشاط مقدمي خدمات
+                التمويل الاستهلاكي من الهيئة العامة للرقابة المالية رقم 7 لسنة 2020) - والذي يتضمن علي سبيل المثال لا
+                الحصر البيانات الشخصية والمالية الخاصة بي وكذلك بيان عمليات التمويل الممنوحة لي، مع التزامي بكافة بنود
+                العقد مع شركة بي تك للتجارة والتوزيع ش.م.م.</span>.
+          </p>
+          <br />
+          <p class="paragraph_large">
+            <span>
+              وفي حالة رغبتي في الحصول على تمويل لشراء سلع أو منتجات من شبكة التجار/الشركاء المتعاقدة معها شركة بي تك
+              للتمويل ش.م.م (بخلاف شركة بي تك للتجارة والتوزيع ش.م.م)، فإنني سوف أقوم بالتوقيع على عقد التمويل مع شركة
+              بي تك للتمويل ش.م.م بشكل منفصل مع التزامي بكافة بنود العقد مع شركة بي تك للتمويل ش.م.م.</span>
+          </p>
+          <br />
+          <p class="paragraph_large">
+            <span>
+              وفي هذه الحالة، فإنني أقر بموافقتي على أن تصبح كافة البيانات الخاصة بي متاحة للشركتين على نحو سواء، وذلك
+              لاستخدامها في استيفاء البيانات المطلوبة للحصول على تمويل من أي من الشركتين، كما أقر بعلمي أن أي من
+              الشركتين قد تطلب أو تقوم بالاطلاع من حين لآخر على أي مستجدات على ملفي الشخصي لدي الشركة الأخرى وذلك لأغراض
+              تحديث قاعدة البيانات وأقر بموافقتي على نسخ ومشاركة تلك البيانات.</span>
+          </p>
+          <br />
+          <p class="paragraph_large">
+            <span>كما أقر بموافقتي على أن تستخدم البيانات الشخصية المتاحة لدى أي من الشركتين في عمل الاستعلام الائتماني
+              الخاص بي وتحديد الأقساط وقيمتها وسعر العائد وغرامات التأخير والمصاريف الإدارية وكافة الالتزامات الأخرى
+              المنصوص عليها في عقدي الشركتين. كما أقر أن تصبح كافة البيانات الخاصة بي وكذلك البيانات الخاصة بعمليات
+              التمويل الممنوحة من أي من الشركتين (بي تك للتجارة والتوزيع ش.م.م و/أو بي تك للتمويل ش.م.م) متاحة على
+              التطبيق الإلكتروني المعروف باسم "مايلو" “mylo” ، وأقر بأن كافة البيانات الخاصة بعمليات التمويل المتاحة على
+              التطبيق صحيحة. </span>
+          </p>
+          <br />
+          <p class="paragraph_large">
+            <span>كما أقر بعلمي وموافقتي على منح أي من الشركتين الحق (منفردتين أو مجتمعتين) في إجراء الاستعلام الائتماني
+              الخاص بي. كما أوافق على منحهما الحق (مجتمعتين) في تحديد الحد الائتماني الخاص بي في الشركتين والذي بمقتضاه
+              يحق لي الحصول على تمويل من أي منهما كلٌ وفقاً للشروط الواردة في عقده. كما يحق لهما تخفيض أو زيادة الحد
+              الائتماني الخاص بي لديهما بالإرادة المنفردة لهما (مجتمعتين) خلال مدة التعاقد شريطة التزامهما بإخطاري في
+              حالة تخفيض الحد الائتماني بحد أقصى (7) سبعة أيام من اتخاذ القرار بتخفيض أو زيادة الحد الائتماني الخاص بي.
+              ويحق لي طلب تخفيض الحد الائتماني لدى أي منهما أو زيادته، وللشركتين (مجتمعتين) الحق في الموافقة أو الرفض
+              بدون إبداء أسباب. </span>
+          </p>
+          <br />
+          <p class="paragraph_large">
+            <span>كما أقر بموافقتي على أحقية أي من الشركتين (بي تك للتجارة والتوزيع ش.م.م و/أو بي تك للتمويل ش.م.م) في
+              حوالة حق أي منهما في تحصيل قيمة السند الإذني/تظهيره والموقع لصالحها مني للشركة الأخرى وذلك في حالة عدم
+              وفائي بالتزامي بسداد أي أقساط مستحقة لأي من الشركتين.</span>
+          </p>
+          <br />
+          <p class="paragraph_large">
+            <span>كما أقر بعلمي وموافقتي على أن يعد هذا الاقرار جزأ لا يتجزأ من عقد مقدمي خدمات التمويل مع شركة بي تك
+              للتجارة والتوزيع ش.م.م و/أو عقد التمويل الاستهلاكي مع شركة بي تك للتمويل ش.م.م حسب الأحوال.</span>
+          </p>
+          <br />
+          <p class="paragraph_large bold-text">
+            <span>اسم العميل / <%=full_name%></span><br />
+            <span>الرقم القومي / <%=national_id%></span><br />
+            <span>بيانات عقد التمويل / </span><br />
+            <span>التاريخ <%=date%></span><br />
+            <span>التوقيع / </span>
+          </p>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="footer-content">
+        <span> Plot No. (N2), Tower No. (O215), One Kattmeya, Ring Road, Kattmeya, Cairo.</span>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>

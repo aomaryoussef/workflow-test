@@ -1,0 +1,4407 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "a5992f4d-9b17-4030-aff4-bc226ffaa439",
+      "exporter_id": "29158985",
+      "collection_link": "https://blabs-mylo.postman.co/workspace/Mylo-Workspace~f3e44cdf-4f03-4dcb-afc5-32faf48d5366/collection/29158985-a5992f4d-9b17-4030-aff4-bc226ffaa439?action=share&source=collection_link&creator=29158985"
+    },
+    "item": [
+      {
+        "id": "dc94cec8-87bf-472e-917d-d553162d84f1",
+        "name": "Create relationship manager",
+        "request": {
+          "url": {
+            "path": [
+              "admin",
+              "identities"
+            ],
+            "host": [
+              "{{KRATOS_ADMIN_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"relationship_manager@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"relationship_manager@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ]\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "59554091-e7bf-44ef-8c2e-50ce89b23834",
+              "type": "text/javascript",
+              "exec": [
+                "var jsonData = JSON.parse(responseBody);",
+                "postman.setEnvironmentVariable(\"RELATIONSHIP_MANAGER_IDENTITY_ID\", jsonData.id);"
+              ],
+              "_lastExecutionId": "aea9ee1e-61d2-4b2e-b031-575ded85c212"
+            }
+          }
+        ]
+      },
+      {
+        "id": "f670499b-3fee-405b-b822-7b90a1e6be7d",
+        "name": "Create branch employee",
+        "request": {
+          "url": {
+            "path": [
+              "admin",
+              "identities"
+            ],
+            "host": [
+              "{{KRATOS_ADMIN_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"branch_employee@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"branch_employee@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ]\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "c3b036a3-7ac7-417c-a396-dc922cb65614",
+              "type": "text/javascript",
+              "exec": [
+                "var jsonData = JSON.parse(responseBody);",
+                "postman.setEnvironmentVariable(\"BRANCH_EMPLOYEE_IDENTITY_ID\", jsonData.id);"
+              ],
+              "_lastExecutionId": "c865a4d1-075e-4b33-99b5-43ef2bbe97e1"
+            }
+          }
+        ]
+      },
+      {
+        "id": "709efbce-49cc-4ec1-ba0d-d80c68bbd2a3",
+        "name": "Create collection agent",
+        "request": {
+          "url": {
+            "path": [
+              "admin",
+              "identities"
+            ],
+            "host": [
+              "{{KRATOS_ADMIN_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"collection_agent@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"collection_agent@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ],\n    \"metadata_public\": {\n        \"branch_id\": \"Re-4015\"\n    }\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "c067743e-6dd5-4058-a733-22de5a8434c8",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "var jsonData = JSON.parse(responseBody);",
+                "postman.setEnvironmentVariable(\"COLLECTION_AGENT_IDENTITY_ID\", jsonData.id);"
+              ],
+              "_lastExecutionId": "1d08695e-4931-4855-9060-394f5bd58b47"
+            }
+          }
+        ]
+      },
+      {
+        "id": "838e7658-b2c4-4a1c-bcb6-a2232d63b5a9",
+        "name": "Create tech support agent",
+        "request": {
+          "url": {
+            "path": [
+              "admin",
+              "identities"
+            ],
+            "host": [
+              "{{KRATOS_ADMIN_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"tech_support@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"tech_support@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ],\n    \"metadata_public\": {\n        \"group\": \"techSupport\"\n    }\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "d2ed6b2b-50bc-405d-815a-fd2269c49678",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "var jsonData = JSON.parse(responseBody);",
+                "postman.setEnvironmentVariable(\"TECH_SUPPORT_IDENTITY_ID\", jsonData.id);"
+              ],
+              "_lastExecutionId": "4eb05913-5d03-40ba-985f-3866b5ba23fb"
+            }
+          }
+        ]
+      },
+      {
+        "id": "9ace8e30-f907-43b7-9063-058a01abcd2d",
+        "name": "Add Employee to relationshipManagers Group",
+        "request": {
+          "url": {
+            "path": [
+              "admin",
+              "relation-tuples"
+            ],
+            "host": [
+              "{{KETO_WRITE_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"relationshipManagers\",\n    \"relation\": \"members\",\n    \"subject_id\": \"{{RELATIONSHIP_MANAGER_IDENTITY_ID}}\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": []
+      },
+      {
+        "id": "3c1c81d3-8a07-4235-b64d-777a926ab253",
+        "name": "Add Employee to branchEmployees Group",
+        "request": {
+          "url": {
+            "path": [
+              "admin",
+              "relation-tuples"
+            ],
+            "host": [
+              "{{KETO_WRITE_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"branchEmployees\",\n    \"relation\": \"members\",\n    \"subject_id\": \"{{BRANCH_EMPLOYEE_IDENTITY_ID}}\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": []
+      },
+      {
+        "id": "b57fcede-87f5-437a-b87f-d0de0a65127e",
+        "name": "Add Employee to collectionAgents Group",
+        "request": {
+          "url": {
+            "path": [
+              "admin",
+              "relation-tuples"
+            ],
+            "host": [
+              "{{KETO_WRITE_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"collectionAgents\",\n    \"relation\": \"members\",\n    \"subject_id\": \"{{COLLECTION_AGENT_IDENTITY_ID}}\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": []
+      },
+      {
+        "id": "9d01b509-9ea2-4403-a690-c6b6d26a57d5",
+        "name": "Add Employee to techSupport Group",
+        "request": {
+          "url": {
+            "path": [
+              "admin",
+              "relation-tuples"
+            ],
+            "host": [
+              "{{KETO_WRITE_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"techSupport\",\n    \"relation\": \"members\",\n    \"subject_id\": \"{{TECH_SUPPORT_IDENTITY_ID}}\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": []
+      },
+      {
+        "id": "1792f24f-0a99-4650-a82d-ea01ae73d7c7",
+        "name": "Create Partner",
+        "request": {
+          "url": {
+            "path": [
+              "partners"
+            ],
+            "host": [
+              "{{SERVICE_DEPARTMENT_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"2 الشركة العربية المتحدة\",\n  \"categories\": [\n    \"ELECTRONICS\"\n  ],\n  \"tax_registration_number\": \"123456221\",\n  \"commercial_registration_number\": \"123426721\",\n  \"admin_user_profile\": {\n      \"first_name\": \"حسن\",\n      \"last_name\": \"محمد\",\n      \"email\": \"partner_admin@domain.com\",\n      \"phone_number\": \"01234567792\"\n  },\n  \"bank_account\": {\n      \"bank_name\": \"CIB\",\n      \"branch_name\": \"CIB\",\n      \"beneficiary_name\": \"Carrfour\",\n      \"iban\": \"123\",\n      \"swift_code\": \"123\",\n      \"account_number\": \"123\"\n  }\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": "{{SESSION_TOKEN}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "a137691e-3a9c-41f8-a252-e4f730e1c18a",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "var jsonData = JSON.parse(responseBody);",
+                "postman.setEnvironmentVariable(\"PARTNER_ID\", jsonData.id);"
+              ],
+              "_lastExecutionId": "a73a45f6-ed46-45e6-9e92-3bbf81badbc4"
+            }
+          }
+        ]
+      },
+      {
+        "id": "341728c2-115f-4b47-9780-ee21ca0fc242",
+        "name": "Create Partner Branch",
+        "request": {
+          "url": {
+            "path": [
+              "partners",
+              "{{PARTNER_ID}}",
+              "branches"
+            ],
+            "host": [
+              "{{SERVICE_DEPARTMENT_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"name\": \"Main\",\n    \"area\": \"ASSIUT\",\n    \"street\": \"ASSIUT\",\n    \"location\": {\n        \"latitude\": \"123.123\",\n        \"longitude\": \"123.123\"\n    },\n    \"google_maps_link\": \"https://dummy_url\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": "{{SESSION_TOKEN}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "eecd9eb6-1090-41d4-baf3-2d9f1ef0fd4c",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "var jsonData = JSON.parse(responseBody);",
+                "postman.setEnvironmentVariable(\"PARTNER_BRANCH_ID\", jsonData.id);"
+              ],
+              "_lastExecutionId": "782c0728-9fd0-4c65-a051-dfd5a87ad566"
+            }
+          }
+        ]
+      },
+      {
+        "id": "dc3c0bce-6aef-4892-8e95-00487c775049",
+        "name": "Create Partner Cashier",
+        "request": {
+          "url": {
+            "path": [
+              "partners",
+              "{{PARTNER_ID}}",
+              "cashiers"
+            ],
+            "host": [
+              "{{SERVICE_DEPARTMENT_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"first_name\": \"ابراهيم\",\n  \"last_name\": \"عوض\",\n  \"phone_number\": \"01003138614\",\n  \"branch_id\": \"{{PARTNER_BRANCH_ID}}\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": "{{SESSION_TOKEN}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "e1702bb1-4f78-457d-a419-d38283e77b4b",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "var jsonData = JSON.parse(responseBody);",
+                "postman.setEnvironmentVariable(\"PARTNER_CASHIER_ID\", jsonData.iam_id);"
+              ],
+              "_lastExecutionId": "9d305d87-237c-4f01-931c-512467804cfb"
+            }
+          }
+        ]
+      },
+      {
+        "id": "1b957e77-a8ee-43ed-a817-a1d3d0223d54",
+        "name": "Create Consumer",
+        "request": {
+          "url": {
+            "path": [
+              "consumers",
+              "identity"
+            ],
+            "host": [
+              "{{SERVICE_DEPARTMENT_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"phone_number\": \"01111462422\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": "{{SESSION_TOKEN}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "864b46d8-10dc-4691-ae64-f225b0829b88",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "var jsonData = JSON.parse(responseBody);",
+                "postman.setEnvironmentVariable(\"PARTNER_ID\", jsonData.id);"
+              ],
+              "_lastExecutionId": "811aae7d-d063-4cad-aa02-c1c76ebb021f"
+            }
+          }
+        ]
+      },
+      {
+        "id": "f7f4ba53-b43c-4b3b-b73b-84070f61eab8",
+        "name": "Create Payment Registry",
+        "request": {
+          "url": {
+            "path": [
+              "registry",
+              "btech",
+              "payments"
+            ],
+            "host": [
+              "{{SERVICE_DEPARTMENT_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": []
+      },
+      {
+        "id": "3b262ead-18a0-45b4-b21b-66ea7194b93d",
+        "name": "Create Checkout baskets",
+        "request": {
+          "url": {
+            "path": [
+              "checkout_baskets"
+            ],
+            "host": [
+              "{{SERVICE_DEPARTMENT_BASE_URL}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": []
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "a5992f4d-9b17-4030-aff4-bc226ffaa439",
+      "name": "Initial Accounts",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_at": "2024-06-02T17:41:14.015Z",
+      "postman_exported_using": "Postman/10.24.25"
+    },
+    "id": "985670db-213d-4fff-b0e6-35cdf7abfa02",
+    "name": "docker",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://kratos:4434",
+        "key": "KRATOS_ADMIN_BASE_URL"
+      },
+      {
+        "type": "any",
+        "value": "http://kratos:4433",
+        "key": "KRATOS_PUBLIC_BASE_URL"
+      },
+      {
+        "type": "any",
+        "value": "http://keto:4466",
+        "key": "KETO_READ_BASE_URL"
+      },
+      {
+        "type": "any",
+        "value": "http://keto:4467",
+        "key": "KETO_WRITE_BASE_URL"
+      },
+      {
+        "type": "any",
+        "value": "http://mylo-service-department:1337/v1",
+        "key": "SERVICE_DEPARTMENT_BASE_URL"
+      },
+      {
+        "type": "any",
+        "value": null,
+        "key": "RELATIONSHIP_MANAGER_IDENTITY_ID"
+      },
+      {
+        "type": "any",
+        "value": null,
+        "key": "BRANCH_EMPLOYEE_IDENTITY_ID"
+      },
+      {
+        "type": "any",
+        "value": null,
+        "key": "COLLECTION_AGENT_IDENTITY_ID"
+      },
+      {
+        "type": "any",
+        "value": null,
+        "key": "TECH_SUPPORT_IDENTITY_ID"
+      },
+      {
+        "type": "any",
+        "value": null,
+        "key": "PARTNER_ID"
+      },
+      {
+        "type": "any",
+        "value": null,
+        "key": "PARTNER_BRANCH_ID"
+      },
+      {
+        "type": "any",
+        "value": null,
+        "key": "PARTNER_CASHIER_ID"
+      }
+    ]
+  },
+  "globals": {
+    "id": "0eb2209e-f73d-4863-93c2-004fdac22abd",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 14,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 14,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 14,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 14,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 114.14285714285714,
+      "responseMin": 6,
+      "responseMax": 288,
+      "responseSd": 111.39111091930421,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1725258471904,
+      "completed": 1725258473726
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 14,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "ab15e9ab-8308-4049-aabb-1a1ad7324813",
+          "httpRequestId": "7b5db8b3-7854-4d30-accb-113b5ab7e273"
+        },
+        "item": {
+          "id": "dc94cec8-87bf-472e-917d-d553162d84f1",
+          "name": "Create relationship manager",
+          "request": {
+            "url": {
+              "path": [
+                "admin",
+                "identities"
+              ],
+              "host": [
+                "{{KRATOS_ADMIN_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"relationship_manager@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"relationship_manager@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "59554091-e7bf-44ef-8c2e-50ce89b23834",
+                "type": "text/javascript",
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "postman.setEnvironmentVariable(\"RELATIONSHIP_MANAGER_IDENTITY_ID\", jsonData.id);"
+                ],
+                "_lastExecutionId": "aea9ee1e-61d2-4b2e-b031-575ded85c212"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "4434",
+            "path": [
+              "admin",
+              "identities"
+            ],
+            "host": [
+              "kratos"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "99f081ae-6ae7-4d35-a75c-c5833de6b4e6",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "kratos:4434",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "415",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"relationship_manager@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"relationship_manager@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ]\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "ff708317-95d8-4a7c-a371-c38f0100cd2a",
+          "status": "Conflict",
+          "code": 409,
+          "header": [
+            {
+              "key": "Cache-Control",
+              "value": "private, no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 02 Sep 2024 06:27:52 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "185"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              52,
+              48,
+              57,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              67,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              34,
+              44,
+              34,
+              114,
+              101,
+              97,
+              115,
+              111,
+              110,
+              34,
+              58,
+              34,
+              84,
+              104,
+              105,
+              115,
+              32,
+              105,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              99,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              115,
+              32,
+              119,
+              105,
+              116,
+              104,
+              32,
+              97,
+              110,
+              111,
+              116,
+              104,
+              101,
+              114,
+              32,
+              105,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              116,
+              104,
+              97,
+              116,
+              32,
+              97,
+              108,
+              114,
+              101,
+              97,
+              100,
+              121,
+              32,
+              101,
+              120,
+              105,
+              115,
+              116,
+              115,
+              46,
+              34,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              84,
+              104,
+              101,
+              32,
+              114,
+              101,
+              115,
+              111,
+              117,
+              114,
+              99,
+              101,
+              32,
+              99,
+              111,
+              117,
+              108,
+              100,
+              32,
+              110,
+              111,
+              116,
+              32,
+              98,
+              101,
+              32,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              32,
+              100,
+              117,
+              101,
+              32,
+              116,
+              111,
+              32,
+              97,
+              32,
+              99,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              34,
+              125,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 288,
+          "responseSize": 185
+        },
+        "id": "dc94cec8-87bf-472e-917d-d553162d84f1"
+      },
+      {
+        "cursor": {
+          "ref": "2eacc3cd-0a15-4195-8392-b7db1926cb00",
+          "length": 14,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "dd371cac-b1fb-46f9-af13-bb5d3d8d97d3"
+        },
+        "item": {
+          "id": "f670499b-3fee-405b-b822-7b90a1e6be7d",
+          "name": "Create branch employee",
+          "request": {
+            "url": {
+              "path": [
+                "admin",
+                "identities"
+              ],
+              "host": [
+                "{{KRATOS_ADMIN_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"branch_employee@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"branch_employee@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c3b036a3-7ac7-417c-a396-dc922cb65614",
+                "type": "text/javascript",
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "postman.setEnvironmentVariable(\"BRANCH_EMPLOYEE_IDENTITY_ID\", jsonData.id);"
+                ],
+                "_lastExecutionId": "c865a4d1-075e-4b33-99b5-43ef2bbe97e1"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "4434",
+            "path": [
+              "admin",
+              "identities"
+            ],
+            "host": [
+              "kratos"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b5bfff9f-31ad-4504-a8fe-a95f93c9507f",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "kratos:4434",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "405",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"branch_employee@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"branch_employee@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ]\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "333e59b9-23b0-49b6-b19f-641fd92c3b2c",
+          "status": "Conflict",
+          "code": 409,
+          "header": [
+            {
+              "key": "Cache-Control",
+              "value": "private, no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 02 Sep 2024 06:27:52 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "185"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              52,
+              48,
+              57,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              67,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              34,
+              44,
+              34,
+              114,
+              101,
+              97,
+              115,
+              111,
+              110,
+              34,
+              58,
+              34,
+              84,
+              104,
+              105,
+              115,
+              32,
+              105,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              99,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              115,
+              32,
+              119,
+              105,
+              116,
+              104,
+              32,
+              97,
+              110,
+              111,
+              116,
+              104,
+              101,
+              114,
+              32,
+              105,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              116,
+              104,
+              97,
+              116,
+              32,
+              97,
+              108,
+              114,
+              101,
+              97,
+              100,
+              121,
+              32,
+              101,
+              120,
+              105,
+              115,
+              116,
+              115,
+              46,
+              34,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              84,
+              104,
+              101,
+              32,
+              114,
+              101,
+              115,
+              111,
+              117,
+              114,
+              99,
+              101,
+              32,
+              99,
+              111,
+              117,
+              108,
+              100,
+              32,
+              110,
+              111,
+              116,
+              32,
+              98,
+              101,
+              32,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              32,
+              100,
+              117,
+              101,
+              32,
+              116,
+              111,
+              32,
+              97,
+              32,
+              99,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              34,
+              125,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 214,
+          "responseSize": 185
+        },
+        "id": "f670499b-3fee-405b-b822-7b90a1e6be7d"
+      },
+      {
+        "cursor": {
+          "ref": "b4148ea5-e15f-4be8-a9d9-d847f2c10523",
+          "length": 14,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "51238504-494d-447c-8053-f7ccafdf136f"
+        },
+        "item": {
+          "id": "709efbce-49cc-4ec1-ba0d-d80c68bbd2a3",
+          "name": "Create collection agent",
+          "request": {
+            "url": {
+              "path": [
+                "admin",
+                "identities"
+              ],
+              "host": [
+                "{{KRATOS_ADMIN_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"collection_agent@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"collection_agent@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ],\n    \"metadata_public\": {\n        \"branch_id\": \"Re-4015\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c067743e-6dd5-4058-a733-22de5a8434c8",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "postman.setEnvironmentVariable(\"COLLECTION_AGENT_IDENTITY_ID\", jsonData.id);"
+                ],
+                "_lastExecutionId": "1d08695e-4931-4855-9060-394f5bd58b47"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "4434",
+            "path": [
+              "admin",
+              "identities"
+            ],
+            "host": [
+              "kratos"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "57977baa-3871-4a6b-8093-cb310c209282",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "kratos:4434",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "470",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"collection_agent@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"collection_agent@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ],\n    \"metadata_public\": {\n        \"branch_id\": \"Re-4015\"\n    }\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "d33f3d8d-2723-4580-a932-9189229ab961",
+          "status": "Conflict",
+          "code": 409,
+          "header": [
+            {
+              "key": "Cache-Control",
+              "value": "private, no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 02 Sep 2024 06:27:52 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "185"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              52,
+              48,
+              57,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              67,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              34,
+              44,
+              34,
+              114,
+              101,
+              97,
+              115,
+              111,
+              110,
+              34,
+              58,
+              34,
+              84,
+              104,
+              105,
+              115,
+              32,
+              105,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              99,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              115,
+              32,
+              119,
+              105,
+              116,
+              104,
+              32,
+              97,
+              110,
+              111,
+              116,
+              104,
+              101,
+              114,
+              32,
+              105,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              116,
+              104,
+              97,
+              116,
+              32,
+              97,
+              108,
+              114,
+              101,
+              97,
+              100,
+              121,
+              32,
+              101,
+              120,
+              105,
+              115,
+              116,
+              115,
+              46,
+              34,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              84,
+              104,
+              101,
+              32,
+              114,
+              101,
+              115,
+              111,
+              117,
+              114,
+              99,
+              101,
+              32,
+              99,
+              111,
+              117,
+              108,
+              100,
+              32,
+              110,
+              111,
+              116,
+              32,
+              98,
+              101,
+              32,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              32,
+              100,
+              117,
+              101,
+              32,
+              116,
+              111,
+              32,
+              97,
+              32,
+              99,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              34,
+              125,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 216,
+          "responseSize": 185
+        },
+        "id": "709efbce-49cc-4ec1-ba0d-d80c68bbd2a3"
+      },
+      {
+        "cursor": {
+          "ref": "20a814db-530a-4a34-a482-d371e828d076",
+          "length": 14,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "b1aac296-46a9-4d87-9715-383ee56d4dd9"
+        },
+        "item": {
+          "id": "838e7658-b2c4-4a1c-bcb6-a2232d63b5a9",
+          "name": "Create tech support agent",
+          "request": {
+            "url": {
+              "path": [
+                "admin",
+                "identities"
+              ],
+              "host": [
+                "{{KRATOS_ADMIN_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"tech_support@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"tech_support@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ],\n    \"metadata_public\": {\n        \"group\": \"techSupport\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "d2ed6b2b-50bc-405d-815a-fd2269c49678",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "postman.setEnvironmentVariable(\"TECH_SUPPORT_IDENTITY_ID\", jsonData.id);"
+                ],
+                "_lastExecutionId": "4eb05913-5d03-40ba-985f-3866b5ba23fb"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "4434",
+            "path": [
+              "admin",
+              "identities"
+            ],
+            "host": [
+              "kratos"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "3adc3707-c362-4654-9df8-95944ad53d8e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "kratos:4434",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "462",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"schema_id\": \"email_schema_v0\",\n    \"traits\": {\n        \"email\": \"tech_support@btech.com\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"config\": {\n                \"password\": \"123456\"\n            }\n        }\n    },\n    \"verifiable_addresses\": [\n        {\n            \"value\": \"tech_support@btech.com\",\n            \"verified\": true,\n            \"via\": \"email\"\n        }\n    ],\n    \"metadata_public\": {\n        \"group\": \"techSupport\"\n    }\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "12ae1186-2e37-4b7d-b0ea-ac2c9c5f1627",
+          "status": "Conflict",
+          "code": 409,
+          "header": [
+            {
+              "key": "Cache-Control",
+              "value": "private, no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 02 Sep 2024 06:27:52 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "185"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              52,
+              48,
+              57,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              67,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              34,
+              44,
+              34,
+              114,
+              101,
+              97,
+              115,
+              111,
+              110,
+              34,
+              58,
+              34,
+              84,
+              104,
+              105,
+              115,
+              32,
+              105,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              99,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              115,
+              32,
+              119,
+              105,
+              116,
+              104,
+              32,
+              97,
+              110,
+              111,
+              116,
+              104,
+              101,
+              114,
+              32,
+              105,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              116,
+              104,
+              97,
+              116,
+              32,
+              97,
+              108,
+              114,
+              101,
+              97,
+              100,
+              121,
+              32,
+              101,
+              120,
+              105,
+              115,
+              116,
+              115,
+              46,
+              34,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              84,
+              104,
+              101,
+              32,
+              114,
+              101,
+              115,
+              111,
+              117,
+              114,
+              99,
+              101,
+              32,
+              99,
+              111,
+              117,
+              108,
+              100,
+              32,
+              110,
+              111,
+              116,
+              32,
+              98,
+              101,
+              32,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              32,
+              100,
+              117,
+              101,
+              32,
+              116,
+              111,
+              32,
+              97,
+              32,
+              99,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              34,
+              125,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 232,
+          "responseSize": 185
+        },
+        "id": "838e7658-b2c4-4a1c-bcb6-a2232d63b5a9"
+      },
+      {
+        "cursor": {
+          "ref": "1af3dcff-3ecf-4c69-b338-ecc667113185",
+          "length": 14,
+          "cycles": 1,
+          "position": 4,
+          "iteration": 0,
+          "httpRequestId": "4c3611f1-86c6-4b62-a03b-0c7eb3ae31f8"
+        },
+        "item": {
+          "id": "9ace8e30-f907-43b7-9063-058a01abcd2d",
+          "name": "Add Employee to relationshipManagers Group",
+          "request": {
+            "url": {
+              "path": [
+                "admin",
+                "relation-tuples"
+              ],
+              "host": [
+                "{{KETO_WRITE_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"relationshipManagers\",\n    \"relation\": \"members\",\n    \"subject_id\": \"{{RELATIONSHIP_MANAGER_IDENTITY_ID}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "4467",
+            "path": [
+              "admin",
+              "relation-tuples"
+            ],
+            "host": [
+              "keto"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "461036af-f3cb-4e6b-a033-0b6a18ced652",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "keto:4467",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "119",
+              "system": true
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"relationshipManagers\",\n    \"relation\": \"members\",\n    \"subject_id\": \"null\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "37540803-a80b-458e-8775-ca42bbb91117",
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Location",
+              "value": "/relation-tuples?namespace=Group&object=relationshipManagers&relation=members&subject_id=null"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 02 Sep 2024 06:27:52 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "95"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              115,
+              112,
+              97,
+              99,
+              101,
+              34,
+              58,
+              34,
+              71,
+              114,
+              111,
+              117,
+              112,
+              34,
+              44,
+              34,
+              111,
+              98,
+              106,
+              101,
+              99,
+              116,
+              34,
+              58,
+              34,
+              114,
+              101,
+              108,
+              97,
+              116,
+              105,
+              111,
+              110,
+              115,
+              104,
+              105,
+              112,
+              77,
+              97,
+              110,
+              97,
+              103,
+              101,
+              114,
+              115,
+              34,
+              44,
+              34,
+              114,
+              101,
+              108,
+              97,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              109,
+              101,
+              109,
+              98,
+              101,
+              114,
+              115,
+              34,
+              44,
+              34,
+              115,
+              117,
+              98,
+              106,
+              101,
+              99,
+              116,
+              95,
+              105,
+              100,
+              34,
+              58,
+              34,
+              110,
+              117,
+              108,
+              108,
+              34,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 10,
+          "responseSize": 95
+        },
+        "id": "9ace8e30-f907-43b7-9063-058a01abcd2d"
+      },
+      {
+        "cursor": {
+          "ref": "d57f7fe6-a62e-449b-aba0-2a81416acd10",
+          "length": 14,
+          "cycles": 1,
+          "position": 5,
+          "iteration": 0,
+          "httpRequestId": "3765dc14-922d-433b-8ea4-52a115f8c733"
+        },
+        "item": {
+          "id": "3c1c81d3-8a07-4235-b64d-777a926ab253",
+          "name": "Add Employee to branchEmployees Group",
+          "request": {
+            "url": {
+              "path": [
+                "admin",
+                "relation-tuples"
+              ],
+              "host": [
+                "{{KETO_WRITE_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"branchEmployees\",\n    \"relation\": \"members\",\n    \"subject_id\": \"{{BRANCH_EMPLOYEE_IDENTITY_ID}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "4467",
+            "path": [
+              "admin",
+              "relation-tuples"
+            ],
+            "host": [
+              "keto"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "71c406e9-42e9-4ea8-ab0b-4fc9f8041944",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "keto:4467",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "114",
+              "system": true
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"branchEmployees\",\n    \"relation\": \"members\",\n    \"subject_id\": \"null\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "550ccbe0-0f54-453a-b428-26702379a8e8",
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Location",
+              "value": "/relation-tuples?namespace=Group&object=branchEmployees&relation=members&subject_id=null"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 02 Sep 2024 06:27:52 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "90"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              115,
+              112,
+              97,
+              99,
+              101,
+              34,
+              58,
+              34,
+              71,
+              114,
+              111,
+              117,
+              112,
+              34,
+              44,
+              34,
+              111,
+              98,
+              106,
+              101,
+              99,
+              116,
+              34,
+              58,
+              34,
+              98,
+              114,
+              97,
+              110,
+              99,
+              104,
+              69,
+              109,
+              112,
+              108,
+              111,
+              121,
+              101,
+              101,
+              115,
+              34,
+              44,
+              34,
+              114,
+              101,
+              108,
+              97,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              109,
+              101,
+              109,
+              98,
+              101,
+              114,
+              115,
+              34,
+              44,
+              34,
+              115,
+              117,
+              98,
+              106,
+              101,
+              99,
+              116,
+              95,
+              105,
+              100,
+              34,
+              58,
+              34,
+              110,
+              117,
+              108,
+              108,
+              34,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 6,
+          "responseSize": 90
+        },
+        "id": "3c1c81d3-8a07-4235-b64d-777a926ab253"
+      },
+      {
+        "cursor": {
+          "ref": "8230ecea-7710-4fa0-b8ed-70456a9f1da5",
+          "length": 14,
+          "cycles": 1,
+          "position": 6,
+          "iteration": 0,
+          "httpRequestId": "dfb5423e-23c9-49b7-981a-ed215b7ed6a7"
+        },
+        "item": {
+          "id": "b57fcede-87f5-437a-b87f-d0de0a65127e",
+          "name": "Add Employee to collectionAgents Group",
+          "request": {
+            "url": {
+              "path": [
+                "admin",
+                "relation-tuples"
+              ],
+              "host": [
+                "{{KETO_WRITE_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"collectionAgents\",\n    \"relation\": \"members\",\n    \"subject_id\": \"{{COLLECTION_AGENT_IDENTITY_ID}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "4467",
+            "path": [
+              "admin",
+              "relation-tuples"
+            ],
+            "host": [
+              "keto"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "4c1af4d3-f836-464c-9023-d2f4346fe399",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "keto:4467",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "115",
+              "system": true
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"collectionAgents\",\n    \"relation\": \"members\",\n    \"subject_id\": \"null\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "afc05f4b-a5c8-4ea5-bb0e-8a76aae685a1",
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Location",
+              "value": "/relation-tuples?namespace=Group&object=collectionAgents&relation=members&subject_id=null"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 02 Sep 2024 06:27:52 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "91"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              115,
+              112,
+              97,
+              99,
+              101,
+              34,
+              58,
+              34,
+              71,
+              114,
+              111,
+              117,
+              112,
+              34,
+              44,
+              34,
+              111,
+              98,
+              106,
+              101,
+              99,
+              116,
+              34,
+              58,
+              34,
+              99,
+              111,
+              108,
+              108,
+              101,
+              99,
+              116,
+              105,
+              111,
+              110,
+              65,
+              103,
+              101,
+              110,
+              116,
+              115,
+              34,
+              44,
+              34,
+              114,
+              101,
+              108,
+              97,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              109,
+              101,
+              109,
+              98,
+              101,
+              114,
+              115,
+              34,
+              44,
+              34,
+              115,
+              117,
+              98,
+              106,
+              101,
+              99,
+              116,
+              95,
+              105,
+              100,
+              34,
+              58,
+              34,
+              110,
+              117,
+              108,
+              108,
+              34,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 6,
+          "responseSize": 91
+        },
+        "id": "b57fcede-87f5-437a-b87f-d0de0a65127e"
+      },
+      {
+        "cursor": {
+          "ref": "34b94938-1256-457f-a404-98c55b70d72f",
+          "length": 14,
+          "cycles": 1,
+          "position": 7,
+          "iteration": 0,
+          "httpRequestId": "8155df16-d527-4eb7-b7d8-7fa5c12799fc"
+        },
+        "item": {
+          "id": "9d01b509-9ea2-4403-a690-c6b6d26a57d5",
+          "name": "Add Employee to techSupport Group",
+          "request": {
+            "url": {
+              "path": [
+                "admin",
+                "relation-tuples"
+              ],
+              "host": [
+                "{{KETO_WRITE_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"techSupport\",\n    \"relation\": \"members\",\n    \"subject_id\": \"{{TECH_SUPPORT_IDENTITY_ID}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "4467",
+            "path": [
+              "admin",
+              "relation-tuples"
+            ],
+            "host": [
+              "keto"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "8ab296c0-6e37-4450-ae19-366e48f68e63",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "keto:4467",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "110",
+              "system": true
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"namespace\": \"Group\",\n    \"object\": \"techSupport\",\n    \"relation\": \"members\",\n    \"subject_id\": \"null\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "08007fdd-233a-415a-b895-122a42a32675",
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Location",
+              "value": "/relation-tuples?namespace=Group&object=techSupport&relation=members&subject_id=null"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 02 Sep 2024 06:27:53 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "86"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              115,
+              112,
+              97,
+              99,
+              101,
+              34,
+              58,
+              34,
+              71,
+              114,
+              111,
+              117,
+              112,
+              34,
+              44,
+              34,
+              111,
+              98,
+              106,
+              101,
+              99,
+              116,
+              34,
+              58,
+              34,
+              116,
+              101,
+              99,
+              104,
+              83,
+              117,
+              112,
+              112,
+              111,
+              114,
+              116,
+              34,
+              44,
+              34,
+              114,
+              101,
+              108,
+              97,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              109,
+              101,
+              109,
+              98,
+              101,
+              114,
+              115,
+              34,
+              44,
+              34,
+              115,
+              117,
+              98,
+              106,
+              101,
+              99,
+              116,
+              95,
+              105,
+              100,
+              34,
+              58,
+              34,
+              110,
+              117,
+              108,
+              108,
+              34,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 7,
+          "responseSize": 86
+        },
+        "id": "9d01b509-9ea2-4403-a690-c6b6d26a57d5"
+      },
+      {
+        "cursor": {
+          "ref": "7edfd0a4-d5ca-40b9-96ef-4da4bb0f9481",
+          "length": 14,
+          "cycles": 1,
+          "position": 8,
+          "iteration": 0,
+          "httpRequestId": "11cc15b0-d830-4822-8b61-4a16747cafbe"
+        },
+        "item": {
+          "id": "1792f24f-0a99-4650-a82d-ea01ae73d7c7",
+          "name": "Create Partner",
+          "request": {
+            "url": {
+              "path": [
+                "partners"
+              ],
+              "host": [
+                "{{SERVICE_DEPARTMENT_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"2 الشركة العربية المتحدة\",\n  \"categories\": [\n    \"ELECTRONICS\"\n  ],\n  \"tax_registration_number\": \"123456221\",\n  \"commercial_registration_number\": \"123426721\",\n  \"admin_user_profile\": {\n      \"first_name\": \"حسن\",\n      \"last_name\": \"محمد\",\n      \"email\": \"partner_admin@domain.com\",\n      \"phone_number\": \"01234567792\"\n  },\n  \"bank_account\": {\n      \"bank_name\": \"CIB\",\n      \"branch_name\": \"CIB\",\n      \"beneficiary_name\": \"Carrfour\",\n      \"iban\": \"123\",\n      \"swift_code\": \"123\",\n      \"account_number\": \"123\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{SESSION_TOKEN}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a137691e-3a9c-41f8-a252-e4f730e1c18a",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "postman.setEnvironmentVariable(\"PARTNER_ID\", jsonData.id);"
+                ],
+                "_lastExecutionId": "a73a45f6-ed46-45e6-9e92-3bbf81badbc4"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "1337",
+            "path": [
+              "v1",
+              "partners"
+            ],
+            "host": [
+              "mylo-service-department"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer {{SESSION_TOKEN}}",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "0a6271a3-5fe1-40a4-be29-9fc592ec0bdf",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "mylo-service-department:1337",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "558",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"2 الشركة العربية المتحدة\",\n  \"categories\": [\n    \"ELECTRONICS\"\n  ],\n  \"tax_registration_number\": \"123456221\",\n  \"commercial_registration_number\": \"123426721\",\n  \"admin_user_profile\": {\n      \"first_name\": \"حسن\",\n      \"last_name\": \"محمد\",\n      \"email\": \"partner_admin@domain.com\",\n      \"phone_number\": \"01234567792\"\n  },\n  \"bank_account\": {\n      \"bank_name\": \"CIB\",\n      \"branch_name\": \"CIB\",\n      \"beneficiary_name\": \"Carrfour\",\n      \"iban\": \"123\",\n      \"swift_code\": \"123\",\n      \"account_number\": \"123\"\n  }\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": "{{SESSION_TOKEN}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": {
+          "id": "75839800-444b-4361-bca6-20d5f823bd77",
+          "status": "Internal Server Error",
+          "code": 500,
+          "header": [
+            {
+              "key": "content-length",
+              "value": "87"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "alt-svc",
+              "value": ""
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              34,
+              49,
+              48,
+              51,
+              34,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              110,
+              97,
+              98,
+              108,
+              101,
+              32,
+              116,
+              111,
+              32,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              32,
+              97,
+              32,
+              112,
+              97,
+              114,
+              116,
+              110,
+              101,
+              114,
+              32,
+              119,
+              105,
+              116,
+              104,
+              32,
+              101,
+              114,
+              114,
+              111,
+              114,
+              32,
+              100,
+              117,
+              112,
+              108,
+              105,
+              99,
+              97,
+              116,
+              101,
+              32,
+              112,
+              97,
+              114,
+              116,
+              110,
+              101,
+              114,
+              32,
+              110,
+              97,
+              109,
+              101,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 88,
+          "responseSize": 87
+        },
+        "id": "1792f24f-0a99-4650-a82d-ea01ae73d7c7"
+      },
+      {
+        "cursor": {
+          "ref": "832b2584-af65-4a81-92fc-15ec06ff9176",
+          "length": 14,
+          "cycles": 1,
+          "position": 9,
+          "iteration": 0,
+          "httpRequestId": "9faf09f8-dd82-4f8d-aa49-615aba0b1cb3"
+        },
+        "item": {
+          "id": "341728c2-115f-4b47-9780-ee21ca0fc242",
+          "name": "Create Partner Branch",
+          "request": {
+            "url": {
+              "path": [
+                "partners",
+                "{{PARTNER_ID}}",
+                "branches"
+              ],
+              "host": [
+                "{{SERVICE_DEPARTMENT_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Main\",\n     \"area\": \"ASSIUT\",\n    \"street\": \"ASSIUT\",\n    \"location\": {\n        \"latitude\": \"123.123\",\n        \"longitude\": \"123.123\"\n    },\n    \"google_maps_link\": \"https://dummy_url\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{SESSION_TOKEN}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "eecd9eb6-1090-41d4-baf3-2d9f1ef0fd4c",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "postman.setEnvironmentVariable(\"PARTNER_BRANCH_ID\", jsonData.id);"
+                ],
+                "_lastExecutionId": "782c0728-9fd0-4c65-a051-dfd5a87ad566"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "1337",
+            "path": [
+              "v1",
+              "partners",
+              "null",
+              "branches"
+            ],
+            "host": [
+              "mylo-service-department"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer {{SESSION_TOKEN}}",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "8a615aab-3a7a-44e7-b954-ab14bd2805da",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "mylo-service-department:1337",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "251",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"name\": \"Main\",\n      \"area\": \"ASSIUT\",\n    \"street\": \"ASSIUT\",\n    \"location\": {\n        \"latitude\": \"123.123\",\n        \"longitude\": \"123.123\"\n    },\n    \"google_maps_link\": \"https://dummy_url\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": "{{SESSION_TOKEN}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": {
+          "id": "08d93b4e-47be-4714-a90d-24d7625b2036",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "content-length",
+              "value": "50"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "alt-svc",
+              "value": ""
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              34,
+              49,
+              48,
+              49,
+              34,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              123,
+              78,
+              111,
+              110,
+              101,
+              58,
+              32,
+              39,
+              117,
+              110,
+              107,
+              110,
+              111,
+              119,
+              110,
+              32,
+              101,
+              114,
+              114,
+              111,
+              114,
+              39,
+              125,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 26,
+          "responseSize": 50
+        },
+        "id": "341728c2-115f-4b47-9780-ee21ca0fc242"
+      },
+      {
+        "cursor": {
+          "ref": "63c1f5ba-ff24-4354-b61a-794c4bed4dce",
+          "length": 14,
+          "cycles": 1,
+          "position": 10,
+          "iteration": 0,
+          "httpRequestId": "dcd514ad-7ea6-4ce6-8700-9532ce6e1cd8"
+        },
+        "item": {
+          "id": "dc3c0bce-6aef-4892-8e95-00487c775049",
+          "name": "Create Partner Cashier",
+          "request": {
+            "url": {
+              "path": [
+                "partners",
+                "{{PARTNER_ID}}",
+                "cashiers"
+              ],
+              "host": [
+                "{{SERVICE_DEPARTMENT_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"ابراهيم\",\n  \"last_name\": \"عوض\",\n  \"phone_number\": \"01003138614\",\n  \"branch_id\": \"{{PARTNER_BRANCH_ID}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{SESSION_TOKEN}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "e1702bb1-4f78-457d-a419-d38283e77b4b",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "postman.setEnvironmentVariable(\"PARTNER_CASHIER_ID\", jsonData.iam_id);"
+                ],
+                "_lastExecutionId": "9d305d87-237c-4f01-931c-512467804cfb"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "1337",
+            "path": [
+              "v1",
+              "partners",
+              "null",
+              "cashiers"
+            ],
+            "host": [
+              "mylo-service-department"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer {{SESSION_TOKEN}}",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "3e312ca7-4f93-4d07-a91e-3ef8c8b6d394",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "mylo-service-department:1337",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "117",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"first_name\": \"ابراهيم\",\n  \"last_name\": \"عوض\",\n  \"phone_number\": \"01003138614\",\n  \"branch_id\": \"null\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": "{{SESSION_TOKEN}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": {
+          "id": "1d2c78a3-676a-4744-9c9d-22629c6507e6",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "content-length",
+              "value": "50"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "alt-svc",
+              "value": ""
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              34,
+              49,
+              48,
+              49,
+              34,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              73,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              97,
+              108,
+              114,
+              101,
+              97,
+              100,
+              121,
+              32,
+              101,
+              120,
+              105,
+              115,
+              116,
+              115,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 257,
+          "responseSize": 50
+        },
+        "id": "dc3c0bce-6aef-4892-8e95-00487c775049"
+      },
+      {
+        "cursor": {
+          "ref": "725de9e5-bea7-4800-ab26-218c2434e775",
+          "length": 14,
+          "cycles": 1,
+          "position": 11,
+          "iteration": 0,
+          "httpRequestId": "5fce2e1c-20f4-4985-9002-79d6821684da"
+        },
+        "item": {
+          "id": "1b957e77-a8ee-43ed-a817-a1d3d0223d54",
+          "name": "Create Consumer",
+          "request": {
+            "url": {
+              "path": [
+                "consumers",
+                "identity"
+              ],
+              "host": [
+                "{{SERVICE_DEPARTMENT_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"01111462422\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{SESSION_TOKEN}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "864b46d8-10dc-4691-ae64-f225b0829b88",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "postman.setEnvironmentVariable(\"PARTNER_ID\", jsonData.id);"
+                ],
+                "_lastExecutionId": "811aae7d-d063-4cad-aa02-c1c76ebb021f"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "1337",
+            "path": [
+              "v1",
+              "consumers",
+              "identity"
+            ],
+            "host": [
+              "mylo-service-department"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer {{SESSION_TOKEN}}",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "11c536f2-7ad9-4456-a646-dc958040a39e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "mylo-service-department:1337",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "35",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"phone_number\": \"01111462422\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": "{{SESSION_TOKEN}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": {
+          "id": "fb92ee6e-6424-4136-8147-15b11ad0603a",
+          "status": "Conflict",
+          "code": 409,
+          "header": [
+            {
+              "key": "content-length",
+              "value": "88"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "alt-svc",
+              "value": ""
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              111,
+              110,
+              102,
+              108,
+              105,
+              99,
+              116,
+              32,
+              105,
+              100,
+              101,
+              110,
+              116,
+              105,
+              116,
+              121,
+              32,
+              97,
+              108,
+              114,
+              101,
+              97,
+              100,
+              121,
+              32,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              32,
+              102,
+              111,
+              114,
+              32,
+              48,
+              49,
+              49,
+              49,
+              49,
+              52,
+              54,
+              50,
+              52,
+              50,
+              50,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              95,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              34,
+              58,
+              102,
+              97,
+              108,
+              115,
+              101,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 228,
+          "responseSize": 88
+        },
+        "id": "1b957e77-a8ee-43ed-a817-a1d3d0223d54"
+      },
+      {
+        "cursor": {
+          "ref": "9c1b8d16-a1df-4e5b-bc28-98d46366b571",
+          "length": 14,
+          "cycles": 1,
+          "position": 12,
+          "iteration": 0,
+          "httpRequestId": "ef864069-8221-4651-a1b9-2f5e2293fe36"
+        },
+        "item": {
+          "id": "f7f4ba53-b43c-4b3b-b73b-84070f61eab8",
+          "name": "Create Payment Registry",
+          "request": {
+            "url": {
+              "path": [
+                "registry",
+                "btech",
+                "payments"
+              ],
+              "host": [
+                "{{SERVICE_DEPARTMENT_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "1337",
+            "path": [
+              "v1",
+              "registry",
+              "btech",
+              "payments"
+            ],
+            "host": [
+              "mylo-service-department"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b874eef9-e4c7-4f48-8eac-d7d5215839f8",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "mylo-service-department:1337",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "cc9b3dde-1cfd-4579-aa0e-e4eb7e934656",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "content-length",
+              "value": "97"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "alt-svc",
+              "value": ""
+            },
+            {
+              "key": "content-type",
+              "value": "text/plain; charset=utf-8"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              226,
+              154,
+              160,
+              239,
+              184,
+              143,
+              32,
+              52,
+              48,
+              52,
+              32,
+              226,
+              128,
+              148,
+              32,
+              78,
+              111,
+              116,
+              32,
+              70,
+              111,
+              117,
+              110,
+              100,
+              10,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              61,
+              10,
+              82,
+              101,
+              113,
+              117,
+              101,
+              115,
+              116,
+              101,
+              100,
+              32,
+              85,
+              82,
+              76,
+              32,
+              47,
+              118,
+              49,
+              47,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              114,
+              121,
+              47,
+              98,
+              116,
+              101,
+              99,
+              104,
+              47,
+              112,
+              97,
+              121,
+              109,
+              101,
+              110,
+              116,
+              115,
+              32,
+              110,
+              111,
+              116,
+              32,
+              102,
+              111,
+              117,
+              110,
+              100,
+              10,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 7,
+          "responseSize": 97
+        },
+        "id": "f7f4ba53-b43c-4b3b-b73b-84070f61eab8"
+      },
+      {
+        "cursor": {
+          "ref": "248a09fa-a64e-4978-8406-4775d1c1e95f",
+          "length": 14,
+          "cycles": 1,
+          "position": 13,
+          "iteration": 0,
+          "httpRequestId": "7713b3a4-15a9-448e-beda-d242ba8f747a"
+        },
+        "item": {
+          "id": "3b262ead-18a0-45b4-b21b-66ea7194b93d",
+          "name": "Create Checkout baskets",
+          "request": {
+            "url": {
+              "path": [
+                "checkout_baskets"
+              ],
+              "host": [
+                "{{SERVICE_DEPARTMENT_BASE_URL}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "1337",
+            "path": [
+              "v1",
+              "checkout_baskets"
+            ],
+            "host": [
+              "mylo-service-department"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "d27d1931-b658-4216-99a4-b614b9b9f3c5",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "mylo-service-department:1337",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "75e94704-dfc1-43ca-b8ef-647b2234858b",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "content-length",
+              "value": "61"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "alt-svc",
+              "value": ""
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              34,
+              49,
+              48,
+              50,
+              34,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              80,
+              97,
+              114,
+              116,
+              110,
+              101,
+              114,
+              115,
+              32,
+              110,
+              111,
+              116,
+              32,
+              102,
+              111,
+              117,
+              110,
+              100,
+              32,
+              105,
+              110,
+              32,
+              116,
+              104,
+              101,
+              32,
+              100,
+              97,
+              116,
+              97,
+              98,
+              97,
+              115,
+              101,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 13,
+          "responseSize": 61
+        },
+        "id": "3b262ead-18a0-45b4-b21b-66ea7194b93d"
+      }
+    ],
+    "transfers": {
+      "responseTotal": 1535
+    },
+    "failures": [],
+    "error": null
+  }
+}

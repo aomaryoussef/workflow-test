@@ -1,0 +1,10 @@
+table:
+  name: pool_accounts
+  schema: accounts
+object_relationships:
+  - name: account
+    using:
+      foreign_key_constraint_on: account_id
+  - name: pool
+    using:
+      foreign_key_constraint_on: pool_id

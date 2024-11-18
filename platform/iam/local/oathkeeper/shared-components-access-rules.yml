@@ -1,0 +1,46 @@
+- id: ui:shared-components:public:assets
+  description: Shared Components public assets
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/public/shared/<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+- id: ui:shared-api-docs:public
+  description: Shared api-docs public
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/api-docs<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: api:shared-lookups-components:public
+  description: Shared lookups Components public
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/public/api/lookups/<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop

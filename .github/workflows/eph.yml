@@ -1,0 +1,40 @@
+name: Ephemeral Environment Deployment
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ephemeral-env:
+    name: Deploy Ephemeral Environment
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Identify changed components
+      - name: Get Changed Components
+        id: changed_components
+        run: |
+          # Get the list of files changed in the PR
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+
+          # Filter files under the directories of interest
+          COMPONENTS=$(echo "$CHANGED_FILES" | grep -E '^(components|legacy|platform)/' | cut -d'/' -f1-2 | sort -u)
+
+          # Output the list of changed components
+          echo "Changed components:"
+          echo "$COMPONENTS"
+
+          # Save the list as an output for later steps
+          echo "components=$(echo $COMPONENTS | tr '\n' ',')" >> $GITHUB_OUTPUT
+
+      # Step 3: Use the detected components in subsequent steps
+      - name: Deploy Changes
+        run: |
+          echo "Deploying the following components:"
+          echo "${{ steps.changed_components.outputs.components }}"

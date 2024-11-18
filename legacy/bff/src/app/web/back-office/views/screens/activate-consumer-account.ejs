@@ -1,0 +1,756 @@
+<body class="gray-bg">
+  <%- include('./common/header',{userInfo: {userInitials:"B.E", userTag:"B.Tech Staff", userSubTag:"Branch Employee"},
+  logoutUrl:logoutUrl});%>
+
+  <div class="container">
+    <div class="toaster">
+      <% if(showSuccess){ %>
+      <div class="success-toaster" id="success-toaster">
+        <img src="/public/back-office/img/right.svg" alt="" />
+        <%= message %>
+      </div>
+      <% } %> <% if(showError){ %>
+      <div class="failure-toaster" id="failure-toaster">
+        <img src="/public/back-office/img/warning-icon.svg" alt="" />
+        <%= message %>
+      </div>
+      <% } %>
+
+      <div class="success-toaster" id="success-toaster" style="display: none">
+        <img src="/public/back-office/img/right.svg" alt="" />
+        تم تفعيل الحساب بنجاح!
+      </div>
+      <div class="failure-toaster" id="failure-toaster" style="display: none">
+        <img src="/public/back-office/img/warning-icon.svg" alt="" />
+        <span id="failure-span">للأسف، هذا العميل غير مؤهل للحصول على ائتمان من مايلو.</span>
+      </div>
+    </div>
+    <div class="form-details p-t-50">
+      <img src="/public/back-office/img/add-user.svg" alt="add user" />
+      <h2>تفعيل عميل جديد</h2>
+      <div class="subtitle">ابحث عن العميل في قاعدة البيانات باستخدام كل من رقم الموبايل والرقم القومي معًا.</div>
+    </div>
+    <div class="form-with-title">
+      <div class="title">ابحث باستخدام</div>
+      <div class="form-wrapper">
+        <form
+          class="office-form"
+          method="post"
+          action="/private/back-office/activate-consumer-account"
+          id="find-consumer-form"
+        >
+          <div class="<%= centerBtn ? 'row center' : 'row' %>">
+            <div class="col-5">
+              <div class="form-group">
+                <label for="national-id" class="required">الرقم القومي </label>
+                <input
+                  type="text"
+                  name="national_id"
+                  class="form-control"
+                  id="national-id"
+                  aria-describedby="emailHelp"
+                  placeholder=" الرقم القومي "
+                  value="<%= nationalId %>"
+                />
+                <% if(errors && errors.national_id){ %>
+                <div class="error-msg"><%=errors.national_id?.msg%></div>
+                <% } %>
+              </div>
+            </div>
+            <div class="col-5">
+              <div class="form-group">
+                <label for="phone-number" class="required">رقم الموبايل</label>
+                <input
+                  type="text"
+                  name="phone_number"
+                  class="form-control"
+                  id="phone-number"
+                  aria-describedby="emailHelp"
+                  placeholder="رقم الموبايل"
+                  value="<%= phoneNumber %>"
+                />
+                <% if(errors && errors.phone_number){ %>
+                <div class="error-msg"><%=errors.phone_number?.msg%></div>
+                <% } %>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="btn-wrapper">
+                <button type="submit" id="search-btn" class="btn primary-blue-btn disabled">ابحث</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <% if(consumer && consumer.myloStatus !='LOADING' ){ %>
+    <div id="profileData">
+      <div class="form-wrapper">
+        <div class="title">الملف الشخصي للعميل</div>
+        <div class="table-responsive auto-height">
+          <form class="office-form" method="post" action="#" id="activate-consumer-form">
+            <table class="table horizontal-table">
+              <tbody>
+                <tr>
+                  <th class="head-item" scope="row">اسم العميل</th>
+                  <td>
+                    <input
+                      type="text"
+                      name="name"
+                      class="form-control"
+                      id="customerName"
+                      aria-describedby="emailHelp"
+                      placeholder="اسم العميل"
+                      value="<%= consumer.FullName %>"
+                      oninput="checkNumberValidation(this,'customerName',name, 3, 50, 'validCustomerName', '٣' , '٥٠' , true,false)"
+                    />
+                    <div class="error error-msg" style="display: none"></div>
+                    <% if(errors && errors.name){ %>
+                    <div class="error-msg"><%=errors.name.msg%></div>
+                    <% } %>
+                  </td>
+                  <th class="head-item" scope="row">الرقم القومي</th>
+                  <td>
+                    <span
+                      class="form-control"
+                      id="national_id"
+                    ><%= consumer.Ssn || ""%></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="head-item" scope="row">الحالة</th>
+                  <% if(consumer.myloStatus=='AWAITING_ACTIVATION' ){ %>
+                  <td><span class="status not-activated">غير مفعل</span></td>
+                  <% }else if(consumer.myloStatus=='ACTIVE' ){ %>
+                  <td><span class="status activated"> مفعل</span></td>
+                  <% } else{ %>
+                  <td><span class="status not-activated">غير مفعل</span></td>
+                  <% } %>
+                  <th class="head-item" scope="row">تاريخ التفعيل</th>
+                  <% if(consumer.myloStatus=='ACTIVE' ){ %>
+                  <td><%= consumer.ActivatedAt %></td>
+                  <% }else{ %>
+                  <td></td>
+                  <% } %>
+                </tr>
+                <tr>
+                  <th class="head-item" scope="row">محل الاقامه</th>
+                  <td>
+                    
+                    <textarea 
+                      type="text"
+                      name="customer_address"
+                      class="form-control auto_grow_textarea"
+                      id="customer_address"
+                      aria-describedby="emailHelp"
+                      placeholder=" محل الاقامه "
+                      oninput="auto_grow(this);checkNumberValidation(this,'addressValue', customer_address, 3, 100, 'validAddress', '٣', '١٠٠', true,false)"
+                    ><%= consumer.Address %></textarea>
+                    <div class="error error-msg" style="display: none"></div>
+
+                    <% if(errors && errors.customer_address){ %>
+                    <div class="error-msg"><%=errors.customer_address.msg%></div>
+                    <% } %>
+                  </td>
+                  <th class="head-item" scope="row">عنوان بطاقه الرقم القومي</th>
+                  <td>
+                    <textarea
+                      type="text"
+                      name="national_id_address"
+                      class="form-control auto_grow_textarea"
+                      id="national_id_address"
+                      aria-describedby="emailHelp"
+                      placeholder=" عنوان بطاقه الرقم القمومي"
+                      oninput="auto_grow(this);checkNumberValidation(this,'nationalIdAddressValue', national_id_address, 3, 100, 'validNationalIdAddress', '٣', '١٠٠', true,false)"
+                    ><%= consumer.NationalIdAddress %></textarea>
+                    <div class="error error-msg" style="display: none"></div>
+
+                    <% if(errors && errors.national_id_address){ %>
+                    <div class="error-msg"><%=errors.national_id_address.msg%></div>
+                    <% } %>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="head-item" scope="row">رقم هاتف المنزل</th>
+                  <td>
+                    <input
+                      type="number"
+                      name="home_phone_number"
+                      class="form-control"
+                      id="home_phone_number"
+                      value="<%= consumer.HomePhoneNumber %>"
+                      aria-describedby="emailHelp"
+                      oninput="checkPhoneValidation(this, home_phone_number,'validHomePhoneNumber')"
+                      placeholder=" رقم هاتف المنزل "
+                    />
+                    <div class="error error-msg" style="display: none"></div>
+
+                    <% if(errors && errors.home_phone_number){ %>
+                    <div class="error-msg"><%=errors.home_phone_number.msg%></div>
+                    <% } %>
+                  </td>
+                  <th class="head-item" scope="row">رقم الهاتف</th>
+                  <td>
+                    <span 
+                      class="form-control"
+                      id="customer_phone_number"
+                    ><%= consumer.MobileNo || "" %></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="head-item" scope="row">اسم الوظيفة</th>
+                  <td>
+                    <input
+                      type="text"
+                      name="job_name"
+                      class="form-control"
+                      id="job_name"
+                      aria-describedby="emailHelp"
+                      placeholder=" اسم الوظيفة "
+                      value="<%= consumer.JobName %>"
+                      oninput="checkNumberValidation(this,'jobNameValue', job_name, 3, 30, 'validJobName', '٣' , '٣٠', true,false)"
+                    />
+                    <div class="error error-msg" style="display: none"></div>
+
+                    <% if(errors && errors.job_name){ %>
+                    <div class="error-msg"><%=errors.job_name.msg%></div>
+                    <% } %>
+                  </td>
+                  <th class="head-item" scope="row">اسم جهة العمل</th>
+                  <td>
+                    <input
+                      type="text"
+                      name="company"
+                      class="form-control"
+                      id="company"
+                      aria-describedby="emailHelp"
+                      placeholder=" اسم جهة العمل "
+                      value="<%= consumer.Company %>"
+                      oninput="checkNumberValidation(this,'companyValue', company, 3, 30, 'validCompany',  '٣' , '٣٠', true,false)"
+                    />
+                    <div class="error error-msg" style="display: none"></div>
+
+                    <% if(errors && errors.company){ %>
+                    <div class="error-msg"><%=errors.company.msg%></div>
+                    <% } %>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="head-item" scope="row">عنوان جهة العمل</th>
+                  <td>
+                    <textarea
+                      type="text"
+                      name="company_address"
+                      class="form-control auto_grow_textarea"
+                      id="company_address"
+                      aria-describedby="emailHelp"
+                      placeholder=" عنوان جهة العمل "
+                      oninput="auto_grow(this);checkNumberValidation(this,'companyAddressValue', company, 3, 100, 'validCompanyAddress',  '٣' , '١٠٠', false,false)"
+                    ><%= consumer.CompanyAddress %></textarea>
+
+                    <div class="error error-msg" style="display: none"></div>
+
+                    <% if(errors && errors.company_address){ %>
+                    <div class="error-msg"><%=errors.company_address.msg%></div>
+                    <% } %>
+                  </td>
+                  <th class="head-item" scope="row">رقم هاتف العمل</th>
+                  <td>
+                    <input
+                      type="number"
+                      name="work_phone_number"
+                      class="form-control"
+                      id="work_phone_number"
+                      aria-describedby="emailHelp"
+                      placeholder=" رقم هاتف العمل "
+                      value="<%= consumer.WorkPhoneNumber %>"
+                      oninput="checkPhoneValidation(this, work_phone_number,'validWorkPhoneNumber')"
+                    />
+                    <div class="error error-msg" style="display: none"></div>
+
+                    <% if(errors && errors.work_phone_number){ %>
+                    <div class="error-msg"><%=errors.work_phone_number.msg%></div>
+                    <% } %>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="head-item" scope="row">قيمة الدخل الاساسي</th>
+                  <td>
+                    <input
+                      type="number"
+                      name="monthly_net_income"
+                      class="form-control"
+                      id="monthly_net_income"
+                      aria-describedby="emailHelp"
+                      placeholder=" قيمة الدخل الاساسي "
+                      value="<%= consumer.Salary %>"
+                      min="0"
+                      oninput="checkNumberValidation(this,'SalaryValue', monthly_net_income, 0, 1000000, 'validSalary','٣' , '٣٠', false,true)"
+                    />
+                    <div class="error error-msg" style="display: none"></div>
+                    <% if(errors && errors.monthly_net_income){ %>
+                    <div class="error-msg"><%=errors.monthly_net_income.msg%></div>
+                    <% } %>
+                  </td>
+                  <th class="head-item" scope="row">قيمة الدخل الاضافي</th>
+                  <td>
+                    <input
+                      type="number"
+                      name="additional_income"
+                      class="form-control"
+                      id="additional_income"
+                      aria-describedby="emailHelp"
+                      placeholder=" قيمة الدخل الاضافي "
+                      value="<%= consumer.AdditionalSalary=='0'? '' : consumer.AdditionalSalary %>"
+                      min="0"
+                      oninput="checkNumberValidation(this,'AdditionalSalaryValue', additional_income, 0, 1000000, 'validAdditionalSalary','٣' , '٣٠', false,true)"
+                    />
+
+                    <div class="error error-msg" style="display: none"></div>
+                    <% if(errors && errors.additional_income){ %>
+                    <div class="error-msg"></div>
+                    <% } %>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="head-item" scope="row">مصدر الدخل الاضافي</th>
+                  <td>
+                    <input
+                      type="text"
+                      name="additional_salary_source"
+                      class="form-control"
+                      id="additional_salary_source"
+                      aria-describedby="emailHelp"
+                      placeholder=" مصدر الدخل الاضافي "
+                      value="<%= consumer.AdditionalSalarySource %>"
+                      oninput="checkNumberValidation(this,'additionalAdditionalSalarySourceValue', additional_salary_source, 3, 30, 'validAdditionalSalarySource','٣' , '٣٠', false,false)"
+                    />
+                    <div class="error error-msg" style="display: none"></div>
+
+                    <% if(errors && errors.additional_salary_source){ %>
+                    <div class="error-msg"><%=errors.additional_salary_source.msg%></div>
+                    <% } %>
+                  </td>
+                </tr>
+                <% if(consumer.myloStatus!='ACTIVE' ){ %>
+                <tr>
+                  <th class="head-item" scope="row">اسم الفرع</th>
+                  <td>
+                    <select
+                      name="branch_name"
+                      class="form-control"
+                      id="branch_name"
+                      aria-describedby="emailHelp"
+                      onchange="checkNumberValidation(this, 'branchNameValue', branch_name, 3, 30, 'validBranchName', '٣', '٣٠', true,false)"
+                    >
+                      <option value="" disabled selected>اختر الفرع</option>
+
+                      <option value='بي تك - أسيوط'>بي تك - أسيوط</option>
+                      <option value='بي تك إكس - أسيوط'>بي تك إكس - أسيوط</option>
+                      <option value='بي تك ميجا - أسيوط'>بي تك ميجا - أسيوط</option>
+                      <option value='بى تك - قنا'>بى تك - قنا</option>
+                      <option value='بى تك ميجا - نجع حمادى'>بى تك ميجا - نجع حمادى</option>
+                      <option value='بى تك إكس - سوهاج'>بى تك إكس - سوهاج</option>
+                      <option value='بى تك الجديد - سوهاج'>بى تك الجديد - سوهاج</option>
+                      <option value='بى تك - سوهاج'>بى تك - سوهاج</option>
+                      <!-- Add more options as needed -->
+                    </select>
+                    <div class="error error-msg" style="display: none"></div>
+
+                    <% if(errors && errors.branch_name){ %>
+                    <div class="error-msg"><%=errors.branch_name.msg%></div>
+                    <% } %>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </form>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <button type="button" id="downloadButton" class="btn btn-primary-blue">الطباعة</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %> <% if (loading) { %>
+    <div id="loader">
+      <div class="loader">
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <% } %> <% if(consumer && consumer.myloStatus !='LOADING' && consumer.myloStatus !='ACTIVE' ){ %>
+    <div id="creditLimitDiv">
+      <div class="credit-limit">
+        <div class="subtitle">الحد الائتماني</div>
+        <div class="payment">
+          <span class="remaining-amount arabic-number" id="creditLimit"> <%= consumer.CreditLimit || 0 %> </span><br/>
+          <span  id="creditLimitArabic"></span>
+        </div>
+      </div>
+    </div>
+    <% } %> <% if (consumer && consumer.myloStatus !='ACTIVE' ) { %>
+    <div class="activation-btn">
+      <div class="row justify-content-md-center pb-3">
+        <div class="col-6">
+          <button id="activateButton" class="btn btn-primary-blue" disabled>تفعيل حساب العميل</button>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <script>
+    const downloadButton = document.getElementById('downloadButton');
+    const checkScoringUrl = "<%= checkScoringUrl %>"
+    const activateButton = document.getElementById('activateButton');
+    const profileData = document.getElementById('profileData');
+    const activateConsumerForm = document.getElementById('activate-consumer-form');
+    const creditLimitSpan = document.getElementById('creditLimit');
+    const creditLimitArabicSpan = document.getElementById('creditLimitArabic');
+
+    const creditLimitDiv = document.getElementById('creditLimitDiv');
+    const loader = document.getElementById('loader');
+    if (creditLimitDiv) {
+      creditLimitDiv.style.display = 'none';
+    }
+    // trim spaces and activate btn
+    const national_id = document.getElementById("national-id");
+    const phone_number = document.getElementById("phone-number");
+    const search_btn = document.getElementById("search-btn");
+
+    search_btn.disabled = true;
+
+    national_id.addEventListener("input", stateHandle);
+    phone_number.addEventListener("input", stateHandle);
+
+    const amplitudeLogEvents = (eventName, ...args) => {
+      try {
+        const eventArgs = {};
+        if (args.length > 0) {
+
+          args.forEach((arg) => {
+            eventArgs[arg.name] = arg.input;
+          });
+        }
+        amplitude?.getInstance()?.logEvent(eventName, eventArgs);
+
+      } catch (error) {
+        console.error("An error occurred in amplitudeLogEvents:", error);
+      }
+    };
+
+    function stateHandle() {
+      national_id.value.replace(/\s/g, '');
+      phone_number.value.replace(/\s/g, '');
+      if (national_id.value !== "" && phone_number.value !== "") {
+        if (national_id.value.indexOf(" ") > -1) {
+          national_id.value = ""
+          return
+        }
+        if (phone_number.value.indexOf(" ") > -1) {
+          national_id.value = "";
+          return
+        }
+        search_btn.disabled = false;
+        search_btn.classList.remove("disabled")
+      } else {
+        search_btn.classList.add("disabled")
+        search_btn.disabled = true;
+      }
+    }
+    //
+
+    if (loader) {
+      loader.style.display = 'none';
+
+    }
+    search_btn.addEventListener('click', async () => {
+    })
+    // consumer data
+    const consumerInfo = <%- JSON.stringify(consumer) %>;
+    const consumerData = <%- JSON.stringify(scoringData) %>;
+    const phoneNumber = <%- JSON.stringify(phoneNumber || '') %>;
+    let documentPrinted = false
+    let initialConsumerInfo = consumerInfo;
+
+    if (downloadButton) {
+      downloadButton.addEventListener('click', async () => {
+        loader.style.display = 'block';
+
+        const response = await axios.post(checkScoringUrl, consumerData);
+        if (response.data.canDownload == true) {
+          amplitudeLogEvents('Print Document');
+          creditLimitSpan.innerHTML = response.data.creditLimit.toLocaleString('ar-EG');
+          creditLimitArabicSpan.innerHTML =response.data.creditLimitInArabicText+' جنيًها مصرًيا';
+          consumerInfo.credit_limit = response.data.creditLimit;
+          activateButton.textContent = 'تفعيل حساب العميل';
+          initialConsumerInfo = mapFormValuesToConsumer()
+
+          await downloadDocument('customerActivationDocs');
+
+          profileData.style.display = 'block';
+          creditLimitDiv.style.display = 'block'
+          activateButton.disabled = false;
+          documentPrinted = true;
+          loader.style.display = 'none';
+
+
+        }
+        else {
+          // amplitudeLogEvents('Failed Print Document', { name: 'message', input: response.data.error }, { name: 'api_is_success', input: response.data.canDownload });
+          const failureToaster = document.getElementById('failure-toaster');
+          failureToaster.style.display = 'block';
+          activateButton.disabled = true;
+          profileData.style.display = 'none';
+          creditLimitDiv.style.display = 'none';
+          loader.style.display = 'none';
+          window.scrollTo(0, 0);
+        }
+      })
+    }
+
+    if (activateButton) {
+      activateButton.addEventListener('click', async () => {
+        const activateConsumerUrl = "<%= activateConsumerUrl %>"
+        const consumerFilledInfo = { ...consumerInfo, ...mapFormValuesToConsumer() };
+        const response = await axios.post(activateConsumerUrl, consumerFilledInfo);
+
+        if (response.data.isSuccess == false) {
+          amplitudeLogEvents('Failed Activate Account', { name: 'message', input: response.data.message }, { name: 'api_is_success', input: response.data.isSuccess });
+          const failureToaster = document.getElementById('failure-toaster');
+          failureToaster.style.display = 'block';
+          const failureSpan = document.getElementById('failure-span');
+          failureSpan.innerHTML = response.data.message;
+          window.scrollTo(0, 0);
+        } else {
+          amplitudeLogEvents('Activate Account', { name: 'customer_id', input: consumerInfo.myloId });
+
+          const successToaster = document.getElementById('success-toaster');
+          successToaster.style.display = 'block';
+          window.scrollTo(0, 0);
+          window.setTimeout(() => { document.getElementById("find-consumer-form").submit(); }, 3000);
+        }
+      })
+    }
+   
+
+    async function downloadDocument(docType) {
+      const downloadUrl = "<%- printDocumentUrl %>"
+      const consumerFormData = mapFormValuesToConsumer()
+      const response = await axios.post(downloadUrl, { docType, ...consumerInfo, ...consumerFormData }, {
+        responseType: 'blob' // Ensure the response is treated as a file (binary data)
+      });
+
+      // Create a new URL for the file
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+
+      // Create a link element and simulate a click to download the file
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${consumerFormData.FullName}.pdf`); // Specify the file name and extension
+      document.body.appendChild(link);
+      link.click();
+
+      // Cleanup
+      link.remove();
+      window.URL.revokeObjectURL(url);
+
+    }
+    const schemaValidation = {
+      "validCustomerName": true,
+      "validAddress": true,
+      "validNationalIdAddress": true,
+      "validJobName": true,
+      "validCompany": true,
+      "validCompanyAddress": true,
+      "validBranchName": true,
+      "validSalary": true,
+      "validAdditionalSalary": true,
+      "validHomePhoneNumber":true,
+      "validWorkPhoneNumber":true,
+
+    }
+    const checkValidations = () => {
+      const valid = Object.keys(schemaValidation).reduce((acc, key) => {
+        return acc && schemaValidation[key];
+      }, true)
+
+      if (valid) {
+        downloadButton.classList.remove("disabled");
+        downloadButton.disabled = false;
+      }
+      else {
+        downloadButton.classList.add("disabled");
+        downloadButton.disabled = true
+      }
+    }
+    const checkFormStateChanges = () => {
+      const initialValues = initialConsumerInfo || {};
+      const formData = mapFormValuesToConsumer();
+      //check if input values have changed
+      let allUnchanged = true;
+      Object.keys(formData).forEach(key => {
+        if (formData[key] != initialValues[key]) {
+          allUnchanged = false;
+        }
+      });
+
+      if (allUnchanged) {
+        activateButton.disabled = false;
+        activateButton.textContent = 'تفعيل حساب العميل';
+      } else {
+        activateButton.disabled = true;
+        activateButton.textContent = 'اعاده الطباعه لتفيعل الحساب';
+      }
+    }
+    const mapFormValuesToConsumer = () => {
+      const formData = new FormData(activateConsumerForm);
+      const formObject = {};
+
+      // Define mapping for form field names
+      const fieldMapping = {
+        "name": "FullName",
+        "customer_address": "Address",
+        "national_id_address": "NationalIdAddress",
+        "home_phone_number": "HomePhoneNumber",
+        "job_name": "JobName",
+        "company": "Company",
+        "company_address": "CompanyAddress",
+        "work_phone_number": "WorkPhoneNumber",
+        "monthly_net_income": "Salary",
+        "additional_income": "AdditionalSalary",
+        "additional_salary_source": "AdditionalSalarySource",
+        "branch_name": "BranchName"
+      };
+      // Map form values to the desired object structure
+      formData.forEach((value, key) => {
+        const mappedKey = fieldMapping[key] || key;
+        formObject[mappedKey] = value;
+      });
+
+      return formObject;
+    }
+    const checkNumberValidation = (htmlElement, validatorName, validatorPlace, minNumber, maxNumber, validValidator, arabicMin, arabicMax, emptyFieldRequired, isNumber) => {
+      let validatorChecker = validatorName;
+      validatorChecker = htmlElement.value.trim().toString();
+      if (validatorChecker === '') {
+        if (!emptyFieldRequired) {
+          setErrorSuccess(htmlElement)
+          schemaValidation[validValidator] = true;
+        } else {
+          setErrorFunction(htmlElement, "الخانة مطلوبة")
+          schemaValidation[validValidator] = false;
+        }
+      }
+      else if (!isNumber && (validatorChecker.length < minNumber || validatorChecker.length > maxNumber)) {
+        if (minNumber == maxNumber) {
+          setErrorFunction(htmlElement, `برجاء ادخال  ${arabicMax} أرقام`)
+          schemaValidation[validValidator] = false;
+        } else {
+          setErrorFunction(htmlElement, `برجاء ادخال من ${arabicMin} الي ${arabicMax} حرف`)
+          schemaValidation[validValidator] = false;
+        }
+      }
+      else if (isNumber) {
+        if (validatorChecker < minNumber || validatorChecker[0]=='0') {
+          setErrorFunction(htmlElement, `برجاء ادخال قيمه اكبر من 0`)
+          schemaValidation[validValidator] = false;
+        }
+          else {
+          setErrorSuccess(htmlElement)
+          schemaValidation[validValidator] = true;
+        }
+      }
+      else {
+        setErrorSuccess(htmlElement)
+        schemaValidation[validValidator] = true;
+      }
+    }
+    const checkPhoneValidation = (htmlElement, validatorPlace, validValidator, emptyFieldRequired) => {
+      let validatorChecker = htmlElement.value.trim().toString();
+      if (validatorChecker === '') {
+        if (!emptyFieldRequired) {
+          setErrorSuccess(htmlElement)
+          schemaValidation[validValidator] = true;
+        } else {
+          setErrorFunction(htmlElement, "الخانة مطلوبة")
+          schemaValidation[validValidator] = false;
+        }
+      }
+      else if (!(/^(\+2)? ?01[0-2,5][0-9]{8}$/.test(validatorChecker) || /^(0[2-6]|08[2-9]|09[2-9])?\d{7,8}$/.test(validatorChecker))) {
+        setErrorFunction(htmlElement, "من فضلك ادخل رقم مصري صحيح")
+        schemaValidation[validValidator] = false;
+      }
+      else {
+        setErrorSuccess(htmlElement)
+        schemaValidation[validValidator] = true;
+      }
+    }
+    const setErrorFunction = (input, message) => {
+      const formControl = input.parentElement;
+      const error = formControl.querySelector('.error');
+
+      error.innerText = message;
+      error.style.display = "block"
+    }
+    const setErrorSuccess = (input) => {
+      const formControl = input.parentElement;
+      const error = formControl.querySelector('.error');
+      error.style.display = "none"
+    }
+
+     if (activateConsumerForm) {
+
+      const changeEventAction = () => {
+        if (documentPrinted)
+          checkFormStateChanges();
+        checkValidations();
+      }
+      activateConsumerForm.addEventListener("input", changeEventAction)
+      activateConsumerForm.addEventListener("change", changeEventAction)
+      const inputsToValidate = activateConsumerForm.querySelectorAll('input, textarea')||[];
+      const branchDropdown = activateConsumerForm.querySelector('#branch_name');
+      // Trigger the input event manually first time
+      if(branchDropdown)
+        branchDropdown.dispatchEvent(new Event('change'));
+      inputsToValidate.forEach(function (input) {
+        if (input) {
+          const event = new Event('input', {
+            bubbles: true,
+            cancelable: true
+          });
+          input.dispatchEvent(event);
+        }
+      });
+    }
+    if (consumerData && consumerInfo.myloStatus == "ACTIVE") {
+      const inputs = activateConsumerForm.querySelectorAll('input');
+      downloadButton.style.display = 'none';
+      activateConsumerForm.classList.add('disabled')
+      activateConsumerForm.disabled = true;
+      const fields = activateConsumerForm.elements;
+      for (let field of fields) {
+          field.readOnly = true;
+          field.disabled = true;
+      }
+    }
+    if (consumerData && consumerInfo.myloStatus == "AWAITING_ACTIVATION") {
+      amplitudeLogEvents('Search Customer', { name: 'customer_account_status', input: consumerInfo.myloStatus }, { name: 'customer_id', input: consumerInfo.myloId });
+    }
+    else if (phoneNumber != null && consumerData == null) {
+      amplitudeLogEvents('Search Customer', { name: 'customer_account_status', input: "Not Found" });
+    }
+    function auto_grow(element) {
+      element.style.height = "5px";
+      element.style.height = (element.scrollHeight) + "px";
+      element.res
+    }
+  </script>
+</body>

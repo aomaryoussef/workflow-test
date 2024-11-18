@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "common/money.proto";
+
+package event;
+
+option go_package = "github.com/btechlabs/lms/gen/pb/event";
+
+enum PaymentTransactionType {
+  PAYMENT = 0;
+  REFUND = 1;
+}
+
+enum PaymentChannel {
+  FAWRY = 0;
+  BTECH_STORE = 1;
+}
+
+message PaymentBookedEventPayload {
+  string paymentRegistryId = 1 [json_name="payment_registry_id"];
+  PaymentTransactionType transactionType = 2 [json_name="transaction_type"];
+  string payorId = 3 [json_name="payor_id"];
+  PaymentChannel paymentChannel = 4 [json_name="payment_channel"];
+  string paymentChannelCollectionPoint = 5 [json_name="payment_channel_collection_point"];
+  common.Money amount = 6;
+  optional string reversingTransactionId = 7 [json_name="reversing_transaction_id"];
+}

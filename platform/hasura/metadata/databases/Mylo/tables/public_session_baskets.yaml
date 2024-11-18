@@ -1,0 +1,13 @@
+table:
+  name: session_baskets
+  schema: public
+object_relationships:
+  - name: checkout_basket
+    using:
+      manual_configuration:
+        column_mapping:
+          id: session_basket_id
+        insertion_order: null
+        remote_table:
+          name: checkout_baskets
+          schema: public

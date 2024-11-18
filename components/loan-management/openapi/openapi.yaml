@@ -1,0 +1,1332 @@
+openapi: 3.0.3
+info:
+  title: Financial Core - OpenAPI 3.0
+  description: |-
+    # Welcome
+    
+    Welcome to the mylo Loan Management System (LMS) API documentation. Here you 
+    can learn everything you need to know about the system capabilities and how 
+    to interact with them!
+    
+    ## About APIs
+    
+    LMS API is a fully compliant RESTful API and we recommend building all new 
+    integrations with the latest versions. The core architecture principle is to 
+    ensure all APIs are backwards compatible and do not break existing integrations. 
+    LMS APIs **SHALL NOT** use the version number in the URL path, e.g. `../v1/..`
+    is not allowed.
+    
+    ## HTTP Verbs
+    
+    The LMS API uses the following HTTP verbs:
+    
+    - `GET` - Used for reading resources (Please note usually all GETs are performed
+    utilising common data access layer Hasura)
+    - `POST` - Used for creating resources
+    - `PUT` - Used for updating resources and always IDEMPOTENT
+    - `DELETE` - Used for deleting resources and always soft delete
+    
+    ## Authentication
+    
+    TBA
+    
+    ## Payloads
+    
+    All request and response payloads are in JSON format. The API will return
+    a `Content-Type: application/json` header in the response.
+    
+    ## Optimistic Locking
+    
+    The API uses optimistic locking to ensure that the data is not modified by
+    multiple clients at the same time. The `ETag` header is used to check the
+    version of the aggregate. With optimistic locking, this is used to check if
+    the aggregate has been modified since the last read.
+    
+    ## Responses
+    
+    The response to a request will contain either an error response or a payload 
+    in the content type that the endpoint accepts.
+
+    ### Error response
+    
+    An error response will consist of:
+    
+    | Field | Description | Always Present |
+    | --- | --- | --- |
+    | `trace_id` | A unique identifier for the error | Yes |
+    | `code` | A code for the error | Yes |
+    | `message` | A human-readable message for the error | Yes |
+
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+  - description: Local development
+    url: http://localhost:3010
+  - description: Staging
+    url: https://staging.financial-core.com
+  - description: Production (be careful)
+    url: https://financial-core.com
+tags:
+  - name: financial_product
+    description: |
+      Everything about your Financial Products.
+    externalDocs:
+      description: Find out more
+      url: https://swagger.io
+  - name: loan_accounts
+    description: |
+      ## Manage and Service loan accounts
+      
+      Allows you to retrieve, create, update, delete loan accounts and it also 
+      allows to execute some other actions like (servicing loan accounts):
+
+      - state changing
+      - process payments
+      - reject, withdraw or close a loan account
+      - cancelling a loan account
+      
+      > **Note:** This API is only available for internal use and not for external
+
+    externalDocs:
+      description: Find out more about our store
+      url: https://swagger.io
+  - name: subledger
+    description: Accounting operations on subledger
+    externalDocs:
+      description: Find out more about our store
+      url: https://swagger.io
+
+paths:
+  /ping:
+    get:
+      summary: Ping the API
+      description: |
+        This endpoint is used to check if the API is up and running.
+      operationId: ping
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Pong
+        '500':
+            $ref: '#/components/responses/InternalServerError'
+  /timeline:
+    get:
+      summary: Get the timeline of state changes
+      description: |
+        Returns the timeline of state changes that occured within the system
+      operationId: getTimeline
+      parameters:
+        - name: limit
+          in: query
+          description: The number of timeline events to return
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 100
+            example: 50
+        - name: cursor
+          in: query
+          description: |
+            The cursor to start the timeline from. This is used for pagination.
+            If not present, the timeline always starts with the oldest.
+            
+            **Note:** The cursor is the `id` of the last timeline event. Therefore,
+            use the ID of the last event fetched and pass it as a cursor to get the
+            next set of events. The passed cursor `id` will not be part of the next
+            result.
+          required: false
+          schema:
+            type: string
+            example: 01J2TAFPWGEEDQ3KQEDFY8KGSR
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTimeline'
+
+  /financial-products:
+    post:
+      tags:
+        - financial_product
+      summary: Create a new financial product
+      description: |
+        Creates a new financial product in the system. This 
+        operation creates the product in `draft` status.
+
+      operationId: createFinancialProduct
+      requestBody:
+        description: Create a new financial product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFinancialProduct'
+        required: true
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+            Location:
+              $ref: '#/components/headers/Location'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '412':
+          $ref: '#/components/responses/AlreadyExistingFinancialProduct'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+      security:
+        - financial_core_auth:
+            - manage:financial_product
+
+  /financial-products/{key}:
+    put:
+      tags:
+        - financial_product
+      summary: Update an existing financial product
+      description: |
+        Updates an existing financial product in the system. This 
+        operation updates the product in `draft` status.
+
+      operationId: updateFinancialProduct
+      parameters:
+        - name: key
+          in: path
+          description: The key of the financial product to update
+          required: true
+          schema:
+            type: string
+            pattern: ^[a-z0-9-]+$
+            minimum: 5
+            maximum: 50
+            example: electronics-mid-tier
+        - $ref: '#/components/parameters/If-Match'
+      requestBody:
+        description: Update an existing financial product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFinancialProduct'
+        required: true
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/VersionConflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+
+    delete:
+      tags:
+        - financial_product
+      summary: Delete a financial product
+      description: |
+        Deletes a financial product in the system. This operation 
+        changes the product status from `draft` to `deleted`.
+        
+        **Note:** This operation cannot be reverted once applied.
+        
+        **Description of Errors**
+        - 404: The financial product was not found
+        - 409: The optimistic concurrency control version check failed
+        - 412: The precondition for the request failed as in the state of the financial product does not allow deletion
+      operationId: deleteFinancialProduct
+      parameters:
+        - name: key
+          in: path
+          description: The key of the financial product to delete
+          required: true
+          schema:
+            type: string
+            pattern: ^[a-z0-9-]+$
+            minimum: 5
+            maximum: 50
+            example: electronics-mid-tier
+        - $ref: '#/components/parameters/If-Match'
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/VersionConflict'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+
+  /financial-products/{key}/approve:
+    put:
+      tags:
+        - financial_product
+      summary: Approve a financial product
+      description: |
+        Approves a financial product in the system. This operation 
+        changes the product status from `draft` to `approved`.
+        
+        **Description of Errors**
+        - 404: The financial product was not found
+        - 409: The optimistic concurrency control version check failed
+        - 412: The precondition for the request failed as in the state of the financial product does not allow approval
+      operationId: approveFinancialProduct
+      parameters:
+        - name: key
+          in: path
+          description: The key of the financial product to update
+          required: true
+          schema:
+            type: string
+            pattern: ^[a-z0-9-]+$
+            minimum: 5
+            maximum: 50
+            example: electronics-mid-tier
+        - $ref: '#/components/parameters/If-Match'
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/VersionConflict'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+
+  /financial-products/{key}/publish:
+    put:
+      tags:
+        - financial_product
+      summary: Publish a financial product
+      description: |
+        Publishes a financial product in the system. This operation 
+        changes the product status from `approved` to `publish`.
+        
+        At this point the financial product can be utilised for all
+        incoming loans and commercial offer.
+        
+        **Description of Errors**
+        - 404: The financial product was not found
+        - 409: The optimistic concurrency control version check failed
+        - 412: The precondition for the request failed as in the state of the financial product does not allow publishing
+      operationId: publishFinancialProduct
+      parameters:
+        - name: key
+          in: path
+          description: The key of the financial product to publish
+          required: true
+          schema:
+            type: string
+            pattern: ^[a-z0-9-]+$
+            minimum: 5
+            maximum: 50
+            example: electronics-mid-tier
+        - $ref: '#/components/parameters/If-Match'
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/VersionConflict'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+
+  /financial-products/{key}/unpublish:
+    put:
+      tags:
+        - financial_product
+      summary: Unpublish a financial product
+      description: |
+        Unpublishes (or archives) a financial product in the system. This operation 
+        changes the product status from `publish` to `unpublish`.
+        
+        **Note:** This operation cannot be reverted once applied.
+
+        At this point the financial product will not be available for all
+        incoming loans and commercial offer.
+
+        **Description of Errors**
+        - 404: The financial product was not found
+        - 409: The optimistic concurrency control version check failed
+        - 412: The precondition for the request failed as in the state of the financial product does not allow unpublishing
+      operationId: unpublishFinancialProduct
+      parameters:
+        - name: key
+          in: path
+          description: The key of the financial product to unpublish
+          required: true
+          schema:
+            type: string
+            pattern: ^[a-z0-9-]+$
+            minimum: 5
+            maximum: 50
+            example: electronics-mid-tier
+        - $ref: '#/components/parameters/If-Match'
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/VersionConflict'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+
+  /loan-accounts:
+    post:
+      tags:
+        - loan_accounts
+      summary: Create a new loan account
+      description: |
+        Creates a new loan account in the system. Loan accounts are used to track
+        the loans given to the borrowers.
+        
+        The loan account created stays in a `PENDING` state until it is activated.
+        All the financial transactions will be tracked once the loan account is activated.
+
+      operationId: createLoanAccount
+      requestBody:
+        description: Create a new loan account
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLoanAccount'
+        required: true
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+            Location:
+              $ref: '#/components/headers/Location'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '412':
+          $ref: '#/components/responses/AlreadyExistingLoanAccount'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /loan-accounts/{id}/activate:
+    put:
+      tags:
+        - loan_accounts
+      summary: Activates a loan account
+      description: |
+        The command to activate a loan account. This command (if successful)
+        activates the existing loan account and marks it as `ACTIVE`.
+        
+        This is the time when the loan account is ready for disbursement
+        and all accounting entries are created.
+      operationId: activateLoanAccount
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the loan account to activate
+        required: true
+        schema:
+          type: string
+          example: 01J2TAFPWGEEDQ3KQEDFY8KGSR
+      - $ref: '#/components/parameters/If-Match'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateLoanAccountRequest'
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/VersionConflict'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /loan-accounts/{id}/cancel:
+    put:
+      tags:
+        - loan_accounts
+      summary: Cancels a loan account
+      description: |
+        Command to cancel a loan account. This command (if successful)
+        closes the existing active loan account and marks it as `WITHDRAWN`.
+        
+        The rules of cancellation are as follows:
+        - The loan account can be canceled at any time if it is in `CREATED` state and not yet activated.
+        - The loan account can be canceled at max in 30 days if it is in `ACTIVE` state if no installment is paid.
+        
+        **Note:** This operation is irreversible.
+        
+        The loan account will be marked as `WITHDRAWN` and all the pending schedules will be canceled.
+        The caller of the API can also send a max. cancellation period in days to override the default 30 days.
+      operationId: cancelLoanAccount
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the loan account to cancel
+          required: true
+          schema:
+            type: string
+          example: 01J2TAFPWGEEDQ3KQEDFY8KGSR
+        - $ref: '#/components/parameters/If-Match'
+      requestBody:
+        description: Cancel loan account request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelLoanAccount'
+        required: true
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/VersionConflict'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /loan-accounts/{id}/early-settle:
+    put:
+      tags:
+        - loan_accounts
+      summary: Allows the loan account to be early settled
+      description: |
+        Command to request early settle a loan account.
+        
+        **Note:** This operation is only allowed for loan accounts 
+        that are in `ACTIVE` state and is irreversible.
+        
+        Once the request is accepted, the loan account pending
+        schedule will be canceled and a single new schedule will be
+        created for the early settlement where the due amount will
+        be calculated and the loan account will be marked as `EARLY_SETTLED`.
+      operationId: earlySettleLoanAccount
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the loan account to cancel
+          required: true
+          schema:
+            type: string
+          example: 01J2TAFPWGEEDQ3KQEDFY8KGSR
+        - $ref: '#/components/parameters/If-Match'
+      requestBody:
+        description: Early settle loan account request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EarlySettleLoanAccountRequest'
+        required: true
+      responses:
+        '202':
+          description: Successful operation and accepted for processing
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/VersionConflict'
+        '412':
+          $ref: '#/components/responses/PreconditionFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /payments/process:
+    post:
+      tags:
+        - subledger
+      summary: Process a payment
+      description: |
+        Command to process a payment received for a consumer against all the
+        open Active loans.
+
+        Once the request is accepted, the payment will be processed (async) and
+        the loan account pending schedule(s) will be updated with the payment amount and
+        needed segregations on sub-account level.
+      operationId: bookPayment
+      requestBody:
+        description: Payment book request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentProcessRequest'
+        required: true
+      responses:
+          '202':
+            description: Successful operation and accepted for processing
+            headers:
+              ETag:
+                $ref: '#/components/headers/ETag'
+          '412':
+              $ref: '#/components/responses/PreconditionFailed'
+          '500':
+              $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    ListTimeline:
+      type: object
+      required:
+        - timeline
+      properties:
+        timeline:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimelineEvent'
+    TimelineEvent:
+      type: object
+      required:
+        - id
+        - event_type
+        - event_time_utc
+        - event_time_local
+        - mapped_aggregate_id
+        - mapped_aggregate_type
+        - source_system_id
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the timeline event
+          example: 01J2TAFPWGEEDQ3KQEDFY8KGSR
+        event_type:
+          type: string
+          description: The type of the event
+          example: financial_product_created
+        event_time_utc:
+          type: string
+          format: date-time
+          description: The time when the event occurred
+          example: '2021-01-01T00:00:00Z'
+        event_time_local:
+          type: string
+          format: date-time
+          description: The time when the event occurred in the local timezone
+          example: '2021-01-01T00:00:00+01:00'
+        mapped_aggregate_id:
+          type: string
+          description: The mapped aggregate ID of the event
+          example: 01J2TAFPWGEEDQ3KQEDFY8KGSR
+        mapped_aggregate_type:
+          type: string
+          description: The mapped aggregate type
+          example: financial_product
+        source_system_id:
+          type: string
+          description: The source system which initiated a command that resulted into this event
+          example: http-api
+    FinancialProductWithoutKeyAndVersion:
+      type: object
+      required:
+        - name
+        - description
+        - active_since_utc
+        - active_until_utc
+        - grace_period_days
+        - min_principal
+        - max_principal
+        - min_down_payment_basis_points
+        - max_down_payment_basis_points
+        - admin_fee_basis_points
+        - early_settlement_fee_basis_points
+        - bad_debt_allowance_basis_points
+        - tenors
+      properties:
+        name:
+          type: string
+          description: The name of the financial product
+          pattern: ^[a-zA-Z0-9\s]+$
+          minimum: 10
+          maximum: 100
+          example: Electronics for mid-tier customers
+        description:
+          type: string
+          description: The description of the financial product
+          pattern: ^[a-zA-Z0-9\s\-,\.]+$
+          minimum: 10
+          maximum: 200
+          example: |
+            This is a financial product for mid-tier customers with a 
+            focus on electronics item purchase.
+        active_since_utc:
+          type: string
+          format: date-time
+          description: |
+            The date when the financial product is to be made active (in UTC format)
+          example: 2021-01-01T00:00:00Z
+        active_until_utc:
+          type: string
+          format: date-time
+          description: |
+            The date until when the financial product is active (in UTC format)
+          example: 2021-12-31T23:59:59Z
+        grace_period_days:
+          type: integer
+          description: |
+            Configured for the loans linked to this financial product, 
+            a grace period is the period of time after payment is due but 
+            before late fees, interest, or other penalties start to accrue
+          minimum: 0
+          maximum: 30
+          example: 5
+        min_principal:
+          $ref: '#/components/schemas/Money'
+        max_principal:
+          $ref: '#/components/schemas/Money'
+        min_down_payment_basis_points:
+          type: integer
+          description: |
+            The min down payment percent in basis points for the loans linked 
+            to this financial product. 1 basis point is equal to 0.01%.
+          minimum: 0
+          maximum: 10000
+          example: 100
+        max_down_payment_basis_points:
+          type: integer
+          description: |
+            The min down payment percent in basis points for the loans linked 
+            to this financial product. 1 basis point is equal to 0.01%.
+          minimum: 0
+          maximum: 10000
+          example: 100
+        admin_fee_basis_points:
+          type: integer
+          description: |
+            The admin fee in basis points for the loans linked to this financial product.
+            1 basis point is equal to 0.01%.
+          minimum: 0
+          maximum: 10000
+          example: 100
+        early_settlement_fee_basis_points:
+          type: integer
+          description: |
+            The early settlement fee in basis points for the loans linked to this financial product.
+            1 basis point is equal to 0.01%.
+          minimum: 0
+          maximum: 10000
+          example: 100
+        bad_debt_allowance_basis_points:
+          type: integer
+          description: |
+            The doubtful allowance in basis points for the loans linked to this financial product.
+            1 basis point is equal to 0.01%.
+            
+            An allowance for doubtful accounts is considered a “contra asset,” because it reduces the 
+            amount of an asset, in this case the accounts receivable. The allowance, sometimes called a 
+            bad debt reserve, represents management's estimate of the amount of accounts receivable that 
+            will not be paid by customers.
+          minimum: 0
+          maximum: 10000
+          example: 100
+        tenors:
+          type: array
+          description: |
+            The tenors for the loans linked to this financial product
+          items:
+            $ref: '#/components/schemas/FinancialProductTenor'
+          minItems: 1
+          maxItems: 10
+          uniqueItems: true
+    CreateFinancialProduct:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/FinancialProductWithoutKeyAndVersion'
+        - type: object
+          required:
+            - key
+          properties:
+            key:
+              type: string
+              description: The key of the financial product which is unique for every product
+              pattern: ^[a-z0-9-]+$
+              minimum: 5
+              maximum: 50
+              example: electronics-mid-tier
+    UpdateFinancialProduct:
+      allOf:
+        - $ref: '#/components/schemas/FinancialProductWithoutKeyAndVersion'
+    FinancialProductTenor:
+      type: object
+      required:
+        - key
+        - duration_in_days
+        - interest_rate_basis_points
+        - admin_fee_basis_points
+      description: |
+        Tenor in lending refers to the length of time until a financial contract 
+        expires, specifically in how long it will take a borrower to repay a loan
+      properties:
+        key:
+          type: string
+          description: The key of the tenor which is unique for every tenor
+          pattern: ^[a-z0-9_]+$
+          minimum: 5
+          maximum: 50
+          example: 6_months
+        duration_in_days:
+          type: integer
+          description: |
+            The duration of the tenor in days, where every month is counted as
+            30 days and every year is counted as 365 days
+          minimum: 1
+          maximum: 365
+          example: 180
+        interest_rate_basis_points:
+          type: integer
+          description: |
+            The interest rate in basis points for the loans linked to this financial product.
+              1 basis point is equal to 0.01%.
+          minimum: 0
+          maximum: 10000
+          example: 1400
+        admin_fee_basis_points:
+          type: integer
+          description: |
+            The admin fee in basis points for the loans linked to this financial product tenor.
+            1 basis point is equal to 0.01%.
+          minimum: 0
+          maximum: 10000
+          example: 100
+    FinancialProductMinimal:
+      type: object
+      title: FinancialProductMinimal
+      required:
+        - key
+        - name
+        - description
+        - version
+        - state
+        - created_at_utc
+        - updated_at_utc
+      properties:
+        key:
+          type: string
+          example: electronics-mid-tier
+        name:
+          type: string
+          example: Electronics for mid-tier customers
+        description:
+          type: string
+          example: |
+            This is a financial product for mid-tier customers with a 
+            focus on electronics item purchase.
+        version:
+          type: integer
+          example: 1
+        state:
+          type: string
+          example: draft
+        created_at_utc:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        updated_at_utc:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+    FinancialProduct:
+      allOf:
+        - $ref: '#/components/schemas/CreateFinancialProduct'
+        - type: object
+          required:
+            - state
+            - vat_percent_basis_points
+            - version
+            - created_at_utc
+            - updated_at_utc
+          properties:
+            state:
+              type: string
+              description: The state of the financial product
+              enum:
+                - draft
+                - published
+                - unpublished
+                - deleted
+              example: draft
+            vat_percent_basis_points:
+              type: integer
+              description: |
+                  The VAT percentage in basis points for the loans linked to this financial product.
+                  1 basis point is equal to 0.01%.
+              minimum: 0
+              maximum: 10000
+              example: 1400
+            version:
+              type: integer
+              description: The version of the financial product
+              example: 1
+            created_at_utc:
+              type: string
+              format: date-time
+              description: |
+                The date when the financial product was created (in UTC format)
+              example: '2021-01-01T00:00:00Z'
+            updated_at_utc:
+              type: string
+              format: date-time
+              description: |
+                The date when the financial product was last updated (in UTC format)
+              example: '2021-01-01T00:00:00Z'
+    Money:
+      type: object
+      required:
+        - amount
+        - currency
+      properties:
+        currency:
+          type: string
+          enum:
+            - EGP
+          description: The currency of the money
+          example: EGP
+        amount:
+          type: integer
+          description: |
+            The amount of money in lowest denomination units.
+            E.g. EGP 100.50 should be represented as 10050
+          example: 10050
+    ApiErrorResponse:
+      type: object
+      required:
+        - trace_id
+        - code
+        - message
+      properties:
+        trace_id:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+    ListFinancialProductsResponse:
+      type: object
+      required:
+          - financial_products
+      properties:
+        financial_products:
+          type: array
+          items:
+            $ref: '#/components/schemas/FinancialProductMinimal'
+    CreateLoanAccount:
+      type: object
+      description: |
+          New loan account create request
+      required:
+        - financial_product_key
+        - financial_product_tenor_key
+        - borrower
+        - booking_time_utc
+        - repayment_day_of_month
+        - commercial_offer_id
+        - lender_source
+        - origination_amount
+        - down_payment
+        - vat_collection_type
+        - service_fee_collection_type
+        - merchant_id
+        - merchant_code
+        - origination_channel
+      properties:
+        loan_id:
+          type: string
+          description: |
+            Optional unique identifier for the loan account (will be removed in future after data migration)
+          example: "7f005901-5f3e-4525-9aec-bf46c775ca05"
+        financial_product_key:
+          type: string
+          description: |
+            The key of the financial product that is linked to this loan account
+          example: electronics-mid-tier
+        financial_product_tenor_key:
+          type: string
+          description: |
+            The key of the financial product tenor that is linked to this loan account
+          example: 3_months
+        borrower:
+            $ref: '#/components/schemas/Borrower'
+        booking_time_utc:
+          type: string
+          format: date-time
+          description: |
+            The time in UTC when the loan account was booked
+          example: '2021-01-01T10:43:56Z'
+        commercial_offer_id:
+          type: string
+          description: |
+            The commercial offer ID that was used to offer this loan
+          example: '7f005901-5f3e-4525-9aec-bf46c775ca05'
+        lender_source:
+          type: string
+          enum:
+            - mylo
+            - octopus
+          default: mylo
+          description: |
+            The source of the lender that is linked to this loan account. Every
+            lender gets an exclusive space in the system to manage their loans.
+            This impacts all the related accounting entries that are linked to
+            this lender for this loan account.
+            
+            **octopus** is a lender that is used for internal loans for testing.
+          example: 'mylo'
+        origination_amount:
+          $ref: '#/components/schemas/Money'
+        down_payment:
+          $ref: '#/components/schemas/Money'
+        vat_collection_type:
+          $ref: '#/components/schemas/CollectionType'
+        service_fee_collection_type:
+          $ref: '#/components/schemas/CollectionType'
+        merchant_id:
+          type: string
+          description: |
+            mylo internal merchant ID that was used to offer this loan
+          example: '7f005901-5f3e-4525-9aec-bf46c775ca05'
+        merchant_code:
+          type: string
+          description: |
+            Merchant Code is the unique identifier of the merchant in the 
+            ERP system. This value will be used to book accounting entries
+            for the merchant accounts payable.
+        origination_channel:
+          type: string
+          enum:
+            - paymob
+            - merchant_in_store
+            - merchant_ecommerce_webshop
+          description: |
+              The origination channel that was used to offer this loan
+          example: 'paymob'
+    Borrower:
+      type: object
+      description: |
+        The borrower details for the loan account
+      required:
+        - borrower_id
+        - repayment_day_of_month
+      properties:
+        borrower_id:
+          type: string
+          description: |
+            The global reference ID of the borrower that is linked to this loan account
+          example: '7f005901-5f3e-4525-9aec-bf46c775ca05'
+        repayment_day_of_month:
+          type: integer
+          description: |
+            The day of the month when the repayment is due.
+            All ammortisation schedules will be based on this day.
+          minimum: 1
+          maximum: 10
+          example: 15
+    CollectionType:
+      type: string
+      description: |
+        The collection type of financial line items, e.g. VAT, service fee, etc.
+        These are either collected by merchants or can be put on ammortisation schedule.
+      enum:
+        - collected_by_merchant
+        - ammortised_evenly
+        - ammortised_first_month
+    CancelLoanAccount:
+      type: object
+      description: |
+        Cancel loan account request
+      required:
+        - cancelled_at_utc
+      properties:
+        reason:
+          type: string
+          pattern: ^[a-zA-Z0-9\s,]+$
+          description: |
+              The reason for cancelling the loan account
+          example: |
+            The retail product has been returned to merchant and 
+            the loan is no longer needed
+        cancelled_at_utc:
+          type: string
+          format: date-time
+          description: |
+            The time when the loan account was cancelled
+        return_policy_days:
+          type: integer
+          default: 30
+          description: |
+            The number of days since activation of the loan until which
+            it can be cancelled without any fees. This day depends on the
+            merchant's return policy and therefore is configurable on merchant
+            level.
+            
+            If not provided, the default value is 30 days.
+            
+            The way to utilise this is to store a return policy day on the
+            merchant level by the "merchant" domain. This API will be called
+            by an internal service which will take the data from the merchant
+            domain.
+
+    ActivateLoanAccountRequest:
+      type: object
+      description: |
+        Activate loan account request
+      required:
+        - activated_at_utc
+      properties:
+        activated_at_utc:
+          type: string
+          format: date-time
+          description: |
+            The time when the loan account was activated
+    EarlySettleLoanAccountRequest:
+      type: object
+      description: |
+        Early settle loan account request
+      required:
+        - booked_at_utc
+        - channel
+      properties:
+        booked_at_utc:
+          type: string
+          format: date-time
+          description: |
+            The time when the loan account was cancelled
+        channel:
+          type: string
+          enum:
+            - online
+            - offline
+          description: |
+              The channel through which the early settlement was requested
+          example: 'store'
+    PaymentProcessRequest:
+      type: object
+      description: |
+        Payment process request
+      required:
+        - transaction_id
+        - payment_channel
+        - payment_channel_collection_point
+        - payor_id
+        - payor_type
+        - booking_time_utc
+        - amount
+      properties:
+        transaction_id:
+          type: string
+          description: |
+              The transaction ID of the payment
+          example: '7f005901-5f3e-4525-9aec-bf46c775ca05'
+        payment_channel:
+          type: string
+          enum:
+            - fawry
+            - btech_store
+          description: |
+            The payment channel through which the payment was made
+        payment_channel_collection_point:
+          type: string
+          description: |
+            The collection point ID of the payment channel through which the payment was made.
+            This is used in case of B.TECH store collections where this data represents the store
+            ID.
+        payor_id:
+          type: string
+          description: |
+            The global reference ID of the payor who made this payment, usually
+            the borrower
+          example: '7f005901-5f3e-4525-9aec-bf46c775ca05'
+        payor_type:
+          type: string
+          enum:
+              - consumer
+          description: |
+            The type of the payor who made this payment
+          example: 'consumer'
+        booking_time_utc:
+          type: string
+          format: date-time
+          description: |
+            The time in UTC when the payment was actually booked
+          example: '2021-01-01T10:43:56Z'
+        amount:
+          $ref: '#/components/schemas/Money'
+
+  headers:
+    ETag:
+      description: |
+        The current version of the aggregate. With optimistic locking
+        this is used to check if the aggregate has been modified since
+        the last read.
+      required: true
+      schema:
+        type: string
+        pattern: ^[0-9]+$
+      example: 1
+    Location:
+      description: |
+        The location of the resource that was created
+      required: true
+      schema:
+        type: string
+      example: /financial-products/electronics-mid-tier
+
+  parameters:
+    If-Match:
+      name: If-Match
+      in: header
+      description: |
+        The version of the aggregate. With optimistic locking
+        this is used to check if the aggregate has been modified since
+        the last read.
+      required: true
+      schema:
+        type: integer
+      example: 2
+
+  responses:
+
+    AlreadyExistingLoanAccount:
+      description: |
+        The loan account already exists. The `commercial_offer_id`
+        is always used as an idempotency key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    AlreadyExistingFinancialProduct:
+      description: |
+        The financial product already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    AlreadyExistingFinancialAccount:
+      description: |
+        The financial account already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    NotFound:
+      description: |
+        The aggregate (or entity) was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    BadRequest:
+      description: |
+        The request is invalid or malformed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    VersionConflict:
+      description: |
+        The optimistic concurrency control version check failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    PreconditionFailed:
+      description: |
+        The precondition for the request failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    InternalServerError:
+      description: |
+        An internal server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    BadGateway:
+      description: |
+        The API requested is not available on this server
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+
+  securitySchemes:
+    financial_core_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            read:financial_product: read all financial products
+            manage:financial_product: edit
+            approve:financial_product: approve financial products
+            publish:financial_product: publish and unpublish financial products
+            manage:financial_account: manage financial accounts
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

@@ -1,0 +1,13 @@
+table:
+  name: bank_account_related_accounts
+  schema: accounts
+object_relationships:
+  - name: account
+    using:
+      foreign_key_constraint_on: account_id
+  - name: bank_account
+    using:
+      foreign_key_constraint_on: bank_account_id
+  - name: connector
+    using:
+      foreign_key_constraint_on: connector_id

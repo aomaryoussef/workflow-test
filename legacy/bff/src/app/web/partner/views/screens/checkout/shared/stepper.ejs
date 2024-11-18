@@ -1,0 +1,50 @@
+<div class="stepper">
+  <h5>إضافة طلب جديد</h5>
+  <ul>
+    <li id="search-consumer" class="stepper-item">
+      <div class="circle"><img src="/public/shared/img/icons/correct-icon.svg" alt="correct" /></div>
+      <div class="text">البحث عن العميل</div>
+    </li>
+    <li id="add-product" class="stepper-item">
+      <div class="circle">
+        <img src="/public/shared/img/icons/correct-icon.svg" alt="correct" />
+      </div>
+      <div class="text">إضافة المنتجات</div>
+    </li>
+    <li id="payment-option" class="stepper-item">
+      <div class="circle"><img src="/public/shared/img/icons/correct-icon.svg" alt="correct" /></div>
+      <div class="text">خيارات الدفع</div>
+    </li>
+    <li id="confirm-order" class="stepper-item">
+      <div class="circle"><img src="/public/shared/img/icons/correct-icon.svg" alt="correct" /></div>
+      <div class="text">تأكيد الطلب</div>
+    </li>
+  </ul>
+</div>
+
+<script>
+  const searchConsumerList = document.getElementById("search-consumer")
+  const addProduct = document.getElementById("add-product")
+  const paymentOption = document.getElementById("payment-option")
+  const confirmOrder = document.getElementById("confirm-order")
+
+  const adjustStepper = async () => {
+    const elementsList = [searchConsumerList, addProduct, paymentOption, confirmOrder]
+    for (let i = 0; i < elementsList.length; i++) {
+      if (currentStep - 1 === i) {
+        elementsList[i].className = "stepper-item active"
+      } else if (currentStep - 1 > i) {
+        elementsList[i].className = "stepper-item checked active"
+      }
+    }
+    if (currentStep != 1) {
+      document.getElementById(steps[currentStep - 2].divId).style.display = "none";
+    }
+    document.getElementById(steps[currentStep - 1].divId).style.display = "block";
+    if (currentStep == 3) {
+      await fetchCommercialOffers();
+    } else if (currentStep == 4) {
+      initOtp();
+    }
+  }
+</script>

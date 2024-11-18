@@ -1,0 +1,3 @@
+table:
+  name: consumer_used_credit_limits
+  schema: public

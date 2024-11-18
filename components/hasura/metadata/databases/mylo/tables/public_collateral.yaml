@@ -1,0 +1,7 @@
+table:
+  name: collateral
+  schema: public
+object_relationships:
+  - name: consumer
+    using:
+      foreign_key_constraint_on: consumer_id

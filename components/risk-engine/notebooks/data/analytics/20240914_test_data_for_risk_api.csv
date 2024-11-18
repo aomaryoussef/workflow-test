@@ -1,0 +1,307 @@
+client_id,ssn,phone_number_1,phone_number_2,flag_is_mc_customer,flag_is_rescore,contract_date,job_name_map,net_income,net_burden,job_map_min_salary,job_map_max_salary,insurance_type,marital_status,children_count,address_governorate,address_city,address_area,house_type,car_type_id,car_model_year,club_level,mobile_os_type,is_iscore,iscore_score,iscore_report
+1399159,27402131600251,01117588281,01111860172,1,0,2019-12-10,other-employed,11325.0,0.0,9167.0,24167.0,default-value,married,4,gharbia,tanta,tanta,owned,0,,,default-value,0,,
+127008,25503270101638,01002813018,24122044,1,0,2022-04-20,other-freelancer,6250.0,1450.0,5667.0,16667.0,default-value,married,4,cairo,makram-ebeid,zahraa-madinat-nasr,owned,0,,,default-value,0,,
+2164146,26512272500117,01009507229,01009507229,1,0,2020-05-11,other-employed,7500.0,0.0,9167.0,24167.0,default-value,married,2,asyut,al-huqouqiyin,l-huqouqiyyin,owned,0,,,default-value,0,,
+3120210,27106010102558,01001897187,01001897187,1,0,2022-10-09,other-employed,12228.75,0.0,9167.0,24167.0,default-value,married,4,cairo,al-zeitoun,al-zaytun,owned,0,,,default-value,0,,
+894118,29205011200869,01210181365,01010042405,1,0,2022-09-20,police-officer,9750.0,0.0,10000.0,15000.0,default-value,married,2,cairo,shubra,bahtim,owned,382,2020-01-01,,default-value,1,761.0,"[{""ModuleId"":""iScorePdfIcon"",""Content"":{""DATA"":null}},{""ModuleId"":""iScoreCreditRegistryConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":[],""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreLegalActionsConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":[],""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreInquiryHistoryConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreAddressHistoryConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":[],""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreNegativeListConsumer"",""Content"":{""DATA"":[{""NegativeList"":[],""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreDisclaimer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":""هذه المعلومات مستقاة من مصادر مختلفة ولا تمثل رأي الشركة المصرية للاستعلام الائتماني (“I-Score”) ولا تتحمل الشركة أية مسئولية خاصة بتجميع أو عرض المعلومات أو أي استخدام خاص بها له علاقة بصحة أو اكتمال البيانات بأي شكل من الأشكال.  المعلومات مقدمة على أساس السرية التامة ولا يحق استخدامها بواسطة أي طرف أخر أو إتاحتها له.\nالتقرير الائتماني يحتوي على البيانات المقر بها بشكل دورى من الجهات الأعضاء بما يقارب 89.6مليون تسهيل ائتماني وبيانات تاريخية عن عدد عملاء يقارب 23 مليون عميل.\nالتقييم الرقمي يتم تحديثه يومياً بناءً على البيانات الواردة بالتقرير وقت إجراء تحديث التقييم الرقمي ويتم احتساب التقييم الرقمي طبقا للمعايير الدولية دون أدنى مسئولية على الشركة المصرية للاستعلام الائتماني (“I-Score”)"",""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreMaxNDPDGraphConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":[{""PeriodId"":""Apr-22"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Mar-22"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Feb-22"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Jan-22"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Dec-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Nov-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Oct-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Sep-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Aug-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Jul-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Jun-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""May-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Apr-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Mar-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Feb-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Jan-21"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Dec-20"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Nov-20"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Oct-20"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Sep-20"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Aug-20"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Jul-20"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""Jun-20"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""},{""PeriodId"":""May-20"",""MAX_NUM_DAYS_DUE"":""0"",""REPORTED_DATE"":""06-Apr-2022""}],""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreSearchDetailsConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":""TEST1"",""ID"":""29205011200869"",""DOB"":null,""USER_ID"":""rc004800010001dca"",""NATIONALITY"":null,""NATIONALITY_DESC"":"""",""GENDER"":null,""GENDER_DESC"":"""",""ID_TYPE"":""003"",""ID_TYPE_DESC"":""بطاقه الرقم القومي"",""TICKET_ID"":""W-0011789831/20/09/2022"",""CREATED_DATE"":""20-Sep-2022"",""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScorePerformingOverdueUtilGraphConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":[{""AccountType_DESC"":""قرض  بضمان الراتب"",""AccountType"":""012"",""PerformingAccounts"":""1"",""OverdueAccounts"":""0""}],""UtilizationGraph"":null,""OpenAccountDetails"":null},{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":[],""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreWrittenOffFacilitiesConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":[],""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreClosedFacilitiesConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":[],""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreIdentificationDetailsConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":[{""ID_TYPE_DESC"":""بطاقه الرقم القومي"",""ID_TYPE"":""003"",""ID_CODE"":""29205011200869""},{""ID_TYPE_DESC"":""البنك المركزي المصري - كود العميل الخاص بالبنك المركزي "",""ID_TYPE"":""031"",""ID_CODE"":""000012360427""}],""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreCreditProfileOverviewConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":[{""Currency"":""EGP"",""NoOfAccounts"":""1"",""TotalApprovalAmt"":""95000"",""TotalMonthlyInstallmentAmt"":""1711"",""TotalBalanceAmount"":""775""}],""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null},{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":[],""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null},{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":[],""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null},{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":[{""Currency"":"""",""NoOfAccounts"":"""",""TotalUnEarnedInterestAmount"":""""}],""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null},{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":[{""NoOfFullySecuredFacilities"":""1"",""NoOfPartialSecuredFacilities"":""0"",""NoOfNoSecuredFacilities"":""0""}],""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreProfileSectionConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":[{""Gender_DESC"":""أنثى "",""Gender"":""002"",""DOB"":""01-May-1992"",""MaritalStatus_DESC"":"""",""MaritalStatus"":"""",""Citizenship_DESC"":""مصر "",""Citizenship"":""054"",""Occupation_DESC"":"""",""Occupation"":"""",""FullName"":""فاطمه عبد الله جمال ابراهيم عبدالله"",""IDValue"":""29205011200869"",""ContactValue"":"""",""FullAddress"":"""",""SCORE"":761,""REASONCODE1"":"""",""REASONCODE2"":"""",""WORST_LA"":""""}],""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":null}]}},{""ModuleId"":""iScoreActiveFacilitiesConsumer"",""Content"":{""DATA"":[{""NegativeList"":null,""AddressHistory"":null,""CRData"":null,""IdentifierDetails"":null,""DISCLAIMER_CONTENT"":null,""NAME"":null,""ID"":null,""DOB"":null,""USER_ID"":null,""NATIONALITY"":null,""NATIONALITY_DESC"":null,""GENDER"":null,""GENDER_DESC"":null,""ID_TYPE"":null,""ID_TYPE_DESC"":null,""TICKET_ID"":null,""CREATED_DATE"":null,""LegalActions"":null,""MaxNDPDHistoryGraph"":null,""WrittenOffAccountDetails"":null,""ClosedAccountDetails"":null,""ProfileSummary"":null,""CreditFacilities"":null,""WrittenOffFacilities"":null,""DishonoredCheques"":null,""UnearnedInterest"":null,""SecurityIndicator"":null,""PerfOverdueGraph"":null,""UtilizationGraph"":null,""OpenAccountDetails"":[{""SANCTION_DATE"":""24-Feb-2014"",""FACILITY_NATURE_INDICATOR_DESC"":""تسهيلات لأغراض استهلاكية"",""FACILITY_NATURE_INDICATOR"":""002"",""CURRENCY_DESC"":""جنيه مصري "",""CURRENCY"":""EGP"",""CURRENCY_CODE"":""EGP"",""SANCTION_AMT"":""95000"",""LOAN_TERM"":""97"",""AMT_OF_INSTALMENT"":""1711"",""REPAYMENT_TYPE_DESC"":""شهرى"",""REPAYMENT_TYPE"":""001"",""CF_AMENDMENT_DATE"":"""",""ACC_STATUS_DESC"":""ساري "",""ACC_STATUS"":""001"",""CF_SETTLEMENT_DATE"":"""",""AMT_WRITTEN_OFF"":"""",""REASON_AMT_WRITTEN_OFF_DESC"":"""",""REASON_AMT_WRITTEN_OFF"":"""",""AMOUNT_FORGIVEN"":"""",""REASON_AMT_FORGIVEN_DESC"":"""",""REASON_AMT_FORGIVEN"":"""",""DATE_ACC_CLOSE"":"""",""SPECIAL_COMMENTS_DESC"":"""",""SPECIAL_COMMENTS"":"""",""FIRST_DISBURSE_DATE"":""24-Feb-2014"",""SECURITY_INDICATOR_DESC"":""غطاء كلي"",""SECURITY_INDICATOR"":""001"",""LIABILITY_INDICATOR_DESC"":""مقترض"",""LIABILITY_INDICATOR"":""001"",""NO_OF_INSTALMENTS"":"""",""LOAN_TYPE_DESC"":""قرض  بضمان الراتب"",""LOAN_TYPE"":""012"",""REPORTED_DATE"":""06-Apr-2022"",""DPDHistory18Months"":[{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""775"",""PERIOD_ID"":""202204""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""2485"",""PERIOD_ID"":""202203""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""4143"",""PERIOD_ID"":""202202""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""5780"",""PERIOD_ID"":""202201""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""7400"",""PERIOD_ID"":""202112""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""8995"",""PERIOD_ID"":""202111""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""10575"",""PERIOD_ID"":""202110""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""12130"",""PERIOD_ID"":""202109""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""13665"",""PERIOD_ID"":""202108""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""15187"",""PERIOD_ID"":""202107""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""16683"",""PERIOD_ID"":""202106""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""18168"",""PERIOD_ID"":""202105""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""19626"",""PERIOD_ID"":""202103""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""21092"",""PERIOD_ID"":""202102""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""22513"",""PERIOD_ID"":""202101""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""23916"",""PERIOD_ID"":""202012""},{""MAX_NUM_DAYS_DUE"":""0"",""OVER_DUE_AMT"":""0"",""CURRENT_BAL"":""25311"",""PERIOD_ID"":""202011""}],""LegalActions"":[],""DishonorCheque"":[],""DisputeRef"":[],""DAYS_DUE"":""0"",""LAST_AMOUNT_PAID"":""1743"",""DATE_LATEST_PAY_RECEIVED"":""20-Mar-2022"",""ASSET_CLASSIFICATION_DESC"":""منتظم (تم دفع القسط و/الفائدة و/ المصاريف في الميعاد) : حتى 30 يوماً "",""ASSET_CLASSIFICATION"":""201"",""HIGHEST_CREDIT"":"""",""CURRENT_BAL_SV"":""775"",""OVER_DUE_AMT"":""0"",""AMT_OF_UNEARNED_INT"":""0"",""NO_OF_INSTALLMENTS_OVERDUE"":""1"",""DATA_PRDR_ID"":""CB30000001"",""MAX_NUM_DAYS_DUE"":""0"",""DATE_REPORTED_NDPD"":""ND""}]}]}}]"
+3209690,28609222502659,01101634497,01150494840,1,0,2022-12-27,other-employed,3851.0,0.0,9167.0,24167.0,default-value,married,1,asyut,al-huqouqiyin,l-huqouqiyyin,owned,0,,,default-value,1,651.0,"<DATAPACKET>
+  <HEADER>
+    <RESPONSE-TYPE CODE=""1"" DESCRIPTION=""Response DataPacket"" />
+    <SEARCH-RESULT-LIST>
+      <TICKET-ID>W-0152191039/2022</TICKET-ID>
+      <REPORT-ORDER-DATE>10-Mar-22</REPORT-ORDER-DATE>
+      <SEARCH-RESULT-ITEM NAME=""محمد  شحاته شحات محمد"" CONFIDENCE-SCORE=""89"">
+        <IDENTIFIERS>
+          <IDENTIFIER IDSOURCE=""003"" IDVALUE=""28609222502659"" />
+        </IDENTIFIERS>
+        <SURROGATES>
+          <SURROGATE ID=""CN79"" VALUE=""001"">
+            <GENDER>ذكر</GENDER>
+          </SURROGATE>
+          <SURROGATE ID=""CN80"" VALUE=""24-Jan-71"" />
+        </SURROGATES>
+        <APPLICATION>
+          <NUMBER>1703943</NUMBER>
+          <DATE>02-Dec-14</DATE>
+        </APPLICATION>
+      </SEARCH-RESULT-ITEM>
+    </SEARCH-RESULT-LIST>
+  </HEADER>
+  <BODY>
+    <CONSUMER_DISPUTE_SUMMARY />
+    <CONSUMER_CLOSED_ACCOUNT />
+    <CONSUMER_NEGATIVELIST_CBE />
+    <CONSUMER_LEGAL_ACTION />
+    <CONSUMER_SEARCH>
+      <SEARCH_DETAILS>
+        <SCORE>651</SCORE>
+        <SCORE_IMAGE>651</SCORE_IMAGE>
+        <REPORT_DATE>10-Mar-2022</REPORT_DATE>
+        <REPORT_TYPE>تقرير ائتماني أفراد</REPORT_TYPE>
+        <USER_ID>rc0048000100013bn</USER_ID>
+        <SEARCH_NAME>XXX XX XX</SEARCH_NAME>
+        <SEARCH_DOB>1/24/1971</SEARCH_DOB>
+        <SEARCH_ID> بطاقة الرقم القومي 28609222502659</SEARCH_ID>
+        <SHOW_SCORE_REASON>1</SHOW_SCORE_REASON>
+        <REASON3>0</REASON3>
+      </SEARCH_DETAILS>
+    </CONSUMER_SEARCH>
+    <CONSUMER_PROFILE>
+      <CONSUMER_DETAILS>
+        <NAME>محمد  شحاته شحات محمد</NAME>
+        <DATE_OF_BIRTH>22-Sep-86</DATE_OF_BIRTH>
+        <GENDER>001</GENDER>
+        <GENDER_VALUE>ذكر</GENDER_VALUE>
+        <CITIZENSHIP>054</CITIZENSHIP>
+        <CITIZENSHIP_VALUE>مصر </CITIZENSHIP_VALUE>
+        <MARITAL_STATUS>001</MARITAL_STATUS>
+        <MARITAL_STATUS_VALUE>متزوج</MARITAL_STATUS_VALUE>
+        <MOBILE_NUMBER>010631175436</MOBILE_NUMBER>
+        <IDENTIFICATION_DETAILS>
+          <ID_VALUE_CODE>003</ID_VALUE_CODE>
+          <ID_VALUE>28609222502659</ID_VALUE>
+          <ID_DISPLAY_NAME>بطاقة الرقم القومي</ID_DISPLAY_NAME>
+        </IDENTIFICATION_DETAILS>
+      </CONSUMER_DETAILS>
+    </CONSUMER_PROFILE>
+    <CONSUMER_INQUIRY>
+      <INQUIRY_DETAILS>
+        <REASON>اقرار قرض جديد </REASON>
+        <NO_OF_INQUIRIES>1</NO_OF_INQUIRIES>
+        <REQUEST_DATE>17-Apr-21</REQUEST_DATE>
+      </INQUIRY_DETAILS>
+      <INQUIRY_DETAILS>
+        <REASON>اقرار قرض جديد </REASON>
+        <NO_OF_INQUIRIES>1</NO_OF_INQUIRIES>
+        <REQUEST_DATE>17-May-21</REQUEST_DATE>
+      </INQUIRY_DETAILS>
+      <INQUIRY_DETAILS>
+        <REASON>اقرار قرض جديد </REASON>
+        <NO_OF_INQUIRIES>2</NO_OF_INQUIRIES>
+        <REQUEST_DATE>21-Dec-21</REQUEST_DATE>
+      </INQUIRY_DETAILS>
+      <INQUIRY_DETAILS>
+        <REASON>اقرار قرض جديد </REASON>
+        <NO_OF_INQUIRIES>1</NO_OF_INQUIRIES>
+        <REQUEST_DATE>31-Jan-22</REQUEST_DATE>
+      </INQUIRY_DETAILS>
+    </CONSUMER_INQUIRY>
+    <CONSUMER_CREDIT_SUMMARY>
+      <SummaryCredit>
+        <RAISE_DISPUTE>رفع شكوى</RAISE_DISPUTE>
+        <ACTIVE_LOANS>3</ACTIVE_LOANS>
+        <MEMBERS_COUNT>3</MEMBERS_COUNT>
+        <TOTAL_LIMITS>21000</TOTAL_LIMITS>
+        <TOTAL_BALANCE>11685</TOTAL_BALANCE>
+        <NO_OF_DISHONOURED_CHEQUE>0</NO_OF_DISHONOURED_CHEQUE>
+      </SummaryCredit>
+    </CONSUMER_CREDIT_SUMMARY>
+    <CONSUMER_CREDIT_FACILITY>
+      <CREDIT_DETAILS ID=""Credit Facility1"">
+        <LIABILITY_INDICATOR>001</LIABILITY_INDICATOR>
+        <LIABILITY_INDICATOR_VALUE>حامل البطاقة الأساسية</LIABILITY_INDICATOR_VALUE>
+        <BANK_CODE>MF00010001</BANK_CODE>
+        <ACCOUNT_STATUS>001</ACCOUNT_STATUS>
+        <ACCOUNT_STATUS_VALUE>ساري </ACCOUNT_STATUS_VALUE>
+        <LAST_AMOUNT_PAID>865</LAST_AMOUNT_PAID>
+        <CREDIT_FACILITY>023</CREDIT_FACILITY>
+        <CREDIT_FACILITY_VALUE>قروض متناهية الصغر</CREDIT_FACILITY_VALUE>
+        <DAYS_DUE>0</DAYS_DUE>
+        <APPROVAL_AMOUNT>8000</APPROVAL_AMOUNT>
+        <REPAYMENT_TYPE>001</REPAYMENT_TYPE>
+        <REPAYMENT_TYPE_VALUE>شهرى</REPAYMENT_TYPE_VALUE>
+        <CURRENCY>EGP</CURRENCY>
+        <CURRENCY_VALUE>جنيه مصري </CURRENCY_VALUE>
+        <FIRST_DISBURSEMENT_DATE>28-Jul-20</FIRST_DISBURSEMENT_DATE>
+        <DATE_LATEST_PAY_RECEIVED>26-Aug-21</DATE_LATEST_PAY_RECEIVED>
+        <APPROVAL_DATE>28-Jul-20</APPROVAL_DATE>
+        <CURRENT_BALANCE>0</CURRENT_BALANCE>
+        <OVERDUE_AMOUNT>0</OVERDUE_AMOUNT>
+        <PROTEST_NOTIFICATION_DATE />
+        <ASSET_CLASSIFICATION>201</ASSET_CLASSIFICATION>
+        <ASSET_CLASSIFICATION_VALUE>منتظم (تم دفع القسط و/الفائدة و/ المصاريف في الميعاد) : حتى 30 يوماً </ASSET_CLASSIFICATION_VALUE>
+        <PROTEST_NOTIFICATION>003</PROTEST_NOTIFICATION>
+        <REASON_FOR_CLOSURE>0</REASON_FOR_CLOSURE>
+        <DATE_REPORTED>28-Feb-22</DATE_REPORTED>
+        <MAX_NUM_DAYS_DUE>3</MAX_NUM_DAYS_DUE>
+        <NUMBER_OF_INSTALLMENTS_OVERDUE>0</NUMBER_OF_INSTALLMENTS_OVERDUE>
+        <AMT_OF_INSTALMENT>865</AMT_OF_INSTALMENT>
+        <LOAN_TERM>12 شهر</LOAN_TERM>
+      </CREDIT_DETAILS>
+      <CREDIT_DETAILS ID=""Credit Facility2"">
+        <LIABILITY_INDICATOR>001</LIABILITY_INDICATOR>
+        <LIABILITY_INDICATOR_VALUE>حامل البطاقة الأساسية</LIABILITY_INDICATOR_VALUE>
+        <BANK_CODE>MF00120001</BANK_CODE>
+        <ACCOUNT_STATUS>001</ACCOUNT_STATUS>
+        <ACCOUNT_STATUS_VALUE>ساري </ACCOUNT_STATUS_VALUE>
+        <LAST_AMOUNT_PAID>535</LAST_AMOUNT_PAID>
+        <CREDIT_FACILITY>023</CREDIT_FACILITY>
+        <CREDIT_FACILITY_VALUE>قروض متناهية الصغر</CREDIT_FACILITY_VALUE>
+        <DAYS_DUE>0</DAYS_DUE>
+        <APPROVAL_AMOUNT>5000</APPROVAL_AMOUNT>
+        <REPAYMENT_TYPE>001</REPAYMENT_TYPE>
+        <REPAYMENT_TYPE_VALUE>شهرى</REPAYMENT_TYPE_VALUE>
+        <CURRENCY>EGP</CURRENCY>
+        <CURRENCY_VALUE>جنيه مصري </CURRENCY_VALUE>
+        <FIRST_DISBURSEMENT_DATE>20-May-21</FIRST_DISBURSEMENT_DATE>
+        <DATE_LATEST_PAY_RECEIVED>20-Feb-22</DATE_LATEST_PAY_RECEIVED>
+        <APPROVAL_DATE>20-May-21</APPROVAL_DATE>
+        <CURRENT_BALANCE>1605</CURRENT_BALANCE>
+        <OVERDUE_AMOUNT>0</OVERDUE_AMOUNT>
+        <PROTEST_NOTIFICATION_DATE />
+        <ASSET_CLASSIFICATION>201</ASSET_CLASSIFICATION>
+        <ASSET_CLASSIFICATION_VALUE>منتظم (تم دفع القسط و/الفائدة و/ المصاريف في الميعاد) : حتى 30 يوماً </ASSET_CLASSIFICATION_VALUE>
+        <PROTEST_NOTIFICATION>003</PROTEST_NOTIFICATION>
+        <REASON_FOR_CLOSURE>0</REASON_FOR_CLOSURE>
+        <DATE_REPORTED>28-Feb-22</DATE_REPORTED>
+        <MAX_NUM_DAYS_DUE>0</MAX_NUM_DAYS_DUE>
+        <NUMBER_OF_INSTALLMENTS_OVERDUE>0</NUMBER_OF_INSTALLMENTS_OVERDUE>
+        <AMT_OF_INSTALMENT>535</AMT_OF_INSTALMENT>
+        <LOAN_TERM>12 شهر</LOAN_TERM>
+      </CREDIT_DETAILS>
+      <CREDIT_DETAILS ID=""Credit Facility3"">
+        <LIABILITY_INDICATOR>001</LIABILITY_INDICATOR>
+        <LIABILITY_INDICATOR_VALUE>حامل البطاقة الأساسية</LIABILITY_INDICATOR_VALUE>
+        <BANK_CODE>MF00021021</BANK_CODE>
+        <ACCOUNT_STATUS>001</ACCOUNT_STATUS>
+        <ACCOUNT_STATUS_VALUE>ساري </ACCOUNT_STATUS_VALUE>
+        <LAST_AMOUNT_PAID>0</LAST_AMOUNT_PAID>
+        <CREDIT_FACILITY>023</CREDIT_FACILITY>
+        <CREDIT_FACILITY_VALUE>قروض متناهية الصغر</CREDIT_FACILITY_VALUE>
+        <DAYS_DUE>0</DAYS_DUE>
+        <APPROVAL_AMOUNT>8000</APPROVAL_AMOUNT>
+        <REPAYMENT_TYPE>001</REPAYMENT_TYPE>
+        <REPAYMENT_TYPE_VALUE>شهرى</REPAYMENT_TYPE_VALUE>
+        <CURRENCY>EGP</CURRENCY>
+        <CURRENCY_VALUE>جنيه مصري </CURRENCY_VALUE>
+        <FIRST_DISBURSEMENT_DATE>05-Dec-21</FIRST_DISBURSEMENT_DATE>
+        <DATE_LATEST_PAY_RECEIVED />
+        <APPROVAL_DATE>05-Dec-21</APPROVAL_DATE>
+        <CURRENT_BALANCE>10080</CURRENT_BALANCE>
+        <OVERDUE_AMOUNT>0</OVERDUE_AMOUNT>
+        <PROTEST_NOTIFICATION_DATE />
+        <ASSET_CLASSIFICATION>201</ASSET_CLASSIFICATION>
+        <ASSET_CLASSIFICATION_VALUE>منتظم (تم دفع القسط و/الفائدة و/ المصاريف في الميعاد) : حتى 30 يوماً </ASSET_CLASSIFICATION_VALUE>
+        <PROTEST_NOTIFICATION>003</PROTEST_NOTIFICATION>
+        <REASON_FOR_CLOSURE>0</REASON_FOR_CLOSURE>
+        <DATE_REPORTED>31-Jan-22</DATE_REPORTED>
+        <MAX_NUM_DAYS_DUE>0</MAX_NUM_DAYS_DUE>
+        <NUMBER_OF_INSTALLMENTS_OVERDUE>0</NUMBER_OF_INSTALLMENTS_OVERDUE>
+        <AMT_OF_INSTALMENT>840</AMT_OF_INSTALMENT>
+        <LOAN_TERM>12 شهر</LOAN_TERM>
+      </CREDIT_DETAILS>
+    </CONSUMER_CREDIT_FACILITY>
+  </BODY>
+</DATAPACKET>"
+1778744,26609300101227,01100700381,01100700381,1,0,2019-05-30,other-employed,8750.0,0.0,9167.0,24167.0,default-value,married,2,cairo,al-badrasheen,albadrashin-waqri-al-tabea-laha,old-rent,0,,,default-value,0,,
+72468,25402072400211,01004333808,0846338706,1,0,2022-06-03,other-employed,6950.0,2101.0,9167.0,24167.0,default-value,married,3,faiyum,madinat-el-fayoum,el-central-street,owned,0,,,default-value,0,,
+2729565,29211240300036,01552009191,01286280565,1,0,2022-02-14,other-employed,3500.0,0.0,9167.0,24167.0,default-value,married,1,port-said,port-fouad,hay-al-zuhur,owned,0,,,default-value,1,665.0,"<DATAPACKET>
+  <HEADER>
+    <RESPONSE-TYPE CODE=""1"" DESCRIPTION=""Response DataPacket"" />
+    <SEARCH-RESULT-LIST>
+      <TICKET-ID>W-0150116616/2022</TICKET-ID>
+      <REPORT-ORDER-DATE>14-Feb-22</REPORT-ORDER-DATE>
+      <SEARCH-RESULT-ITEM NAME=""AHMED ATEF ALKHODARY"" CONFIDENCE-SCORE=""89"">
+        <IDENTIFIERS>
+          <IDENTIFIER IDSOURCE=""003"" IDVALUE=""29211240300036"" />
+        </IDENTIFIERS>
+        <SURROGATES>
+          <SURROGATE ID=""CN79"" VALUE=""001"">
+            <GENDER>ذكر</GENDER>
+          </SURROGATE>
+          <SURROGATE ID=""CN80"" VALUE=""24-Jan-71"" />
+        </SURROGATES>
+        <APPLICATION>
+          <NUMBER>1703943</NUMBER>
+          <DATE>02-Dec-14</DATE>
+        </APPLICATION>
+      </SEARCH-RESULT-ITEM>
+    </SEARCH-RESULT-LIST>
+  </HEADER>
+  <BODY>
+    <CONSUMER_DISPUTE_SUMMARY />
+    <CONSUMER_CLOSED_ACCOUNT />
+    <CONSUMER_NEGATIVELIST_CBE />
+    <CONSUMER_LEGAL_ACTION />
+    <CONSUMER_SEARCH>
+      <SEARCH_DETAILS>
+        <SCORE>665</SCORE>
+        <SCORE_IMAGE>665</SCORE_IMAGE>
+        <REPORT_DATE>14-Feb-2022</REPORT_DATE>
+        <REPORT_TYPE>تقرير ائتماني أفراد</REPORT_TYPE>
+        <USER_ID>rc0048000100013bn</USER_ID>
+        <SEARCH_NAME>XXX XX XX</SEARCH_NAME>
+        <SEARCH_DOB>1/24/1971</SEARCH_DOB>
+        <SEARCH_ID> بطاقة الرقم القومي 29211240300036</SEARCH_ID>
+        <SHOW_SCORE_REASON>1</SHOW_SCORE_REASON>
+        <REASON3>0</REASON3>
+      </SEARCH_DETAILS>
+    </CONSUMER_SEARCH>
+    <CONSUMER_PROFILE>
+      <CONSUMER_DETAILS>
+        <NAME>AHMED ATEF ALKHODARY</NAME>
+        <DATE_OF_BIRTH>24-Nov-92</DATE_OF_BIRTH>
+        <GENDER>001</GENDER>
+        <GENDER_VALUE>ذكر</GENDER_VALUE>
+        <CITIZENSHIP>054</CITIZENSHIP>
+        <CITIZENSHIP_VALUE>مصر </CITIZENSHIP_VALUE>
+        <MOBILE_NUMBER>201552009191</MOBILE_NUMBER>
+        <ADDRESS1>MSAKN ALHZEB WATNY,A34,BOR FOUAD          </ADDRESS1>
+        <ADDRESS2>MSAKN ALHZEB WATNY,A34,PORT SAID          </ADDRESS2>
+        <IDENTIFICATION_DETAILS>
+          <ID_VALUE_CODE>003</ID_VALUE_CODE>
+          <ID_VALUE>29211240300036</ID_VALUE>
+          <ID_DISPLAY_NAME>بطاقة الرقم القومي</ID_DISPLAY_NAME>
+        </IDENTIFICATION_DETAILS>
+      </CONSUMER_DETAILS>
+    </CONSUMER_PROFILE>
+    <CONSUMER_INQUIRY>
+      <INQUIRY_DETAILS>
+        <REASON>اقرار قرض جديد </REASON>
+        <NO_OF_INQUIRIES>1</NO_OF_INQUIRIES>
+        <REQUEST_DATE>27-Nov-21</REQUEST_DATE>
+      </INQUIRY_DETAILS>
+    </CONSUMER_INQUIRY>
+    <CONSUMER_CREDIT_SUMMARY>
+      <SummaryCredit>
+        <RAISE_DISPUTE>رفع شكوى</RAISE_DISPUTE>
+        <ACTIVE_LOANS>1</ACTIVE_LOANS>
+        <MEMBERS_COUNT>1</MEMBERS_COUNT>
+        <TOTAL_LIMITS>22000</TOTAL_LIMITS>
+        <TOTAL_BALANCE>3512</TOTAL_BALANCE>
+        <NO_OF_DISHONOURED_CHEQUE>0</NO_OF_DISHONOURED_CHEQUE>
+      </SummaryCredit>
+    </CONSUMER_CREDIT_SUMMARY>
+    <CONSUMER_CREDIT_FACILITY>
+      <CREDIT_DETAILS ID=""Credit Facility1"">
+        <LIABILITY_INDICATOR>001</LIABILITY_INDICATOR>
+        <LIABILITY_INDICATOR_VALUE>حامل البطاقة الأساسية</LIABILITY_INDICATOR_VALUE>
+        <BANK_CODE>PC04000001</BANK_CODE>
+        <ACCOUNT_STATUS>001</ACCOUNT_STATUS>
+        <ACCOUNT_STATUS_VALUE>ساري </ACCOUNT_STATUS_VALUE>
+        <LAST_AMOUNT_PAID>0</LAST_AMOUNT_PAID>
+        <CREDIT_FACILITY>003</CREDIT_FACILITY>
+        <CREDIT_FACILITY_VALUE>بطاقة ائتمان</CREDIT_FACILITY_VALUE>
+        <DAYS_DUE>0</DAYS_DUE>
+        <APPROVAL_AMOUNT>22000</APPROVAL_AMOUNT>
+        <REPAYMENT_TYPE>005</REPAYMENT_TYPE>
+        <REPAYMENT_TYPE_VALUE>بشكل متعاقب</REPAYMENT_TYPE_VALUE>
+        <CURRENCY>EGP</CURRENCY>
+        <CURRENCY_VALUE>جنيه مصري </CURRENCY_VALUE>
+        <FIRST_DISBURSEMENT_DATE>14-Apr-21</FIRST_DISBURSEMENT_DATE>
+        <APPROVAL_DATE>14-Apr-21</APPROVAL_DATE>
+        <CURRENT_BALANCE>3512</CURRENT_BALANCE>
+        <OVERDUE_AMOUNT>0</OVERDUE_AMOUNT>
+        <PROTEST_NOTIFICATION_DATE />
+        <ASSET_CLASSIFICATION>301</ASSET_CLASSIFICATION>
+        <ASSET_CLASSIFICATION_VALUE>منتظم (تم دفع القسط و/الفائدة و/المصاريف في الميعاد) : حتى 30 يوماً </ASSET_CLASSIFICATION_VALUE>
+        <PROTEST_NOTIFICATION>003</PROTEST_NOTIFICATION>
+        <REASON_FOR_CLOSURE>0</REASON_FOR_CLOSURE>
+        <DATE_REPORTED>01-Feb-22</DATE_REPORTED>
+        <MAX_NUM_DAYS_DUE>30</MAX_NUM_DAYS_DUE>
+        <NUMBER_OF_INSTALLMENTS_OVERDUE>0</NUMBER_OF_INSTALLMENTS_OVERDUE>
+      </CREDIT_DETAILS>
+    </CONSUMER_CREDIT_FACILITY>
+  </BODY>
+</DATAPACKET>"
+1370716,26703051300865,01013308532,01023481093,1,0,2019-04-15,teaching,16275.0,0.0,8500.0,22500.0,default-value,married,4,sharqia,al-ibrahimiya,al-ibrahimiya,owned,0,,,default-value,0,,

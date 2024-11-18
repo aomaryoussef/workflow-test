@@ -1,0 +1,50 @@
+- id: conductor:ui:root_protected
+  description: Conductor UI Root Protected
+  upstream:
+    url: http://localhost:7077
+    preserve_host: true
+  match:
+    url: "$CONDUCTOR_UI_DNS_ROOT<{/,/index.html,/favicon.ico,/logo.svg,/workbench,/taskQueue,/workflowDefs}>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: conductor:ui:static
+  description: Conductor UI Static
+  upstream:
+    url: http://localhost:7077
+    preserve_host: true
+  match:
+    url: "$CONDUCTOR_UI_DNS_ROOT/static/<{js,css}>/<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: conductor:ui:api_proxy
+  description: Conductor UI API Proxy
+  upstream:
+    url: http://conductor-server:7071
+    preserve_host: false
+  match:
+    url: "$CONDUCTOR_UI_DNS_ROOT/api/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop

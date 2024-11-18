@@ -1,0 +1,35 @@
+table:
+  name: transfer_initiation
+  schema: transfers
+object_relationships:
+  - name: account
+    using:
+      foreign_key_constraint_on: destination_account_id
+  - name: accountBySourceAccountId
+    using:
+      foreign_key_constraint_on: source_account_id
+  - name: connector
+    using:
+      foreign_key_constraint_on: connector_id
+array_relationships:
+  - name: transfer_initiation_adjustments
+    using:
+      foreign_key_constraint_on:
+        column: transfer_initiation_id
+        table:
+          name: transfer_initiation_adjustments
+          schema: transfers
+  - name: transfer_initiation_payments
+    using:
+      foreign_key_constraint_on:
+        column: transfer_initiation_id
+        table:
+          name: transfer_initiation_payments
+          schema: transfers
+  - name: transfer_reversals
+    using:
+      foreign_key_constraint_on:
+        column: transfer_initiation_id
+        table:
+          name: transfer_reversal
+          schema: transfers

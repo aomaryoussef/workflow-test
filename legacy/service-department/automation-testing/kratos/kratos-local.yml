@@ -1,0 +1,97 @@
+serve:
+  public:
+    base_url: http://localhost:4455/.ory/kratos/public/
+    cors:
+      enabled: true
+      allowed_origins:
+        - http://localhost
+        - http://localhost:3000
+        - http://localhost:4433/
+        - http://localhost:4434/
+        - http://localhost:4455
+        - http://127.0.0.1:4433/
+        - http://127.0.0.1:4434/
+      allowed_methods:
+        - POST
+        - GET
+        - PUT
+        - PATCH
+        - DELETE
+        - OPTIONS
+      allowed_headers:
+        - Authorization
+        - Cookie
+        - Content-Type
+      exposed_headers:
+        - Content-Type
+        - Set-Cookie
+  admin:
+    base_url: http://kratos:4434/
+
+selfservice:
+  default_browser_return_url: http://localhost:4455/
+  allowed_return_urls:
+    - http://localhost
+    - http://localhost:3000
+    - http://localhost:4455
+
+  methods:
+    password:
+      enabled: true
+      config:
+        haveibeenpwned_enabled: false
+        min_password_length: 6
+        identifier_similarity_check_enabled: false
+    code:
+      enabled: true
+      config:
+        lifespan: 1h
+    link:
+      enabled: false
+
+  flows:
+    error:
+      ui_url: http://localhost:4455/error
+    registration:
+      enabled: false
+    recovery:
+      enabled: true
+      use: code
+      lifespan: 15m
+      ui_url: http://localhost:4455/partner/recover
+      after:
+        hooks:
+        - hook: revoke_active_sessions
+    settings:
+      ui_url: http://localhost:4455/settings
+    login:
+      ui_url: http://localhost:4455/partner/login
+      after:
+        password:
+          default_browser_return_url: http://localhost:4455/partner/dashboard
+        hooks:
+          - hook: require_verified_address
+
+log:
+  level: debug
+  leak_sensitive_values: true
+
+hashers:
+  argon2:
+    parallelism: 8
+    memory: 640MB
+    iterations: 3
+    salt_length: 16
+    key_length: 32
+
+identity:
+  default_schema_id: "email_schema_v0"
+  schemas:
+    - id: email_schema_v0
+      url: file:///etc/ory-config/identity.email_schema_v0.json
+    - id: phone_schema_v0
+      url: file:///etc/ory-config/identity.phone_schema_v0.json
+
+courier:
+  smtp:
+    connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true

@@ -1,0 +1,164 @@
+import json
+from datetime import UTC, datetime
+from typing import List
+
+import psycopg2
+import requests
+from dacite import from_dict
+
+from . import config
+from .graphql import List_CHECKOUTS
+from .models import CheckoutBasket
+from .payments import run as migrate_loan_payments
+
+loan_versions = {}
+active_loans: List[str] = []
+
+
+def pg_connect():
+    conn = psycopg2.connect(
+        dbname=config.LMS2_DB_NAME,
+        user=config.LMS2_DB_USER,
+        password=config.LMS2_DB_PASSWORD,
+        host=config.LMS2_DB_HOST,
+        options=f"-c search_path={config.LMS2_DB_SCHEMA}",
+    )
+
+    return conn
+
+
+def run():
+    checkouts = _list_loans()
+    for checkout in checkouts:
+        _create_loan(checkout)
+        if checkout.loan.loan_statuses[-1].status == "CANCELLED":
+            # Cancel the created loan
+            _cancel_loan(checkout.loan.id)
+            pass
+        else:
+            # activate the created loan
+            _activate_loan(checkout.loan.id)
+            active_loans.append(checkout.loan.id)
+            _verify_loan_dates()
+            _verify_loan_amounts()
+
+    # After all loans activated,let us verify
+    # craete pg connection and get loan by id from db
+    # for loan_id in active_loans:
+
+    #     print(f"Verifying {loan_id}")
+    # migrate_loan_payments(loan_id)
+
+
+def _list_loans() -> List[CheckoutBasket]:
+    res = requests.post(
+        f"{config.HASURA_URL}",
+        json={
+            "query": List_CHECKOUTS,
+        },
+    )
+    data = res.json()
+    if "errors" in data:
+        raise Exception(f"Failed to fetch loans: {data['errors'][0]['message']}")
+    checkouts_raw = data["data"]["checkout_baskets"]
+    checkouts: List[CheckoutBasket] = [
+        from_dict(data_class=CheckoutBasket, data=co) for co in checkouts_raw
+    ]
+
+    return checkouts
+
+
+def _create_loan(checkout: CheckoutBasket):
+    loan_id = checkout.loan.id
+    selected_offer = [
+        offer
+        for offer in checkout.commercial_offers
+        if offer.id == checkout.selected_commercial_offer_id
+    ][0]
+
+    payload = {
+        "loan_id": loan_id,
+        "financial_product_key": checkout.loan.financial_product_key,
+        "financial_product_tenor_key": selected_offer.tenure,
+        "borrower": {
+            "borrower_id": checkout.loan.consumer.id,
+            "repayment_day_of_month": checkout.loan.consumer.single_payment_day,
+        },
+        "booking_time_utc": checkout.loan.booked_at,
+        "commercial_offer_id": checkout.selected_commercial_offer_id,
+        "lender_source": "mylo",
+        "origination_amount": {
+            "currency": selected_offer.total_amount.currency_code,
+            "amount": selected_offer.total_amount.units,
+        },
+        "down_payment": {
+            "currency": selected_offer.down_payment.currency_code,
+            "amount": selected_offer.down_payment.units,
+        },
+        "vat_collection_type": "collected_by_merchant",
+        "service_fee_collection_type": "collected_by_merchant",
+        "merchant_id": checkout.loan.merchant_global_id,
+        "merchant_code": checkout.loan.merchant_global_id,  # TODO: not correct
+        "origination_channel": "mylo",
+    }
+
+    print(f"Create loan for {checkout.loan
+          .financial_product_key}")
+    # send post requests with the payload as data and custom headers
+    method = "POST"
+    url = f"{config.LMS2_BASE_URL}/loan-accounts"
+    headers = {
+        "X-User-Id": config.MIGRATION_SCRIPT,
+    }
+    res = requests.request(
+        method=method, url=url, headers=headers, data=json.dumps(payload)
+    )
+    if res.status_code != 202:
+        raise Exception(f"Failed to create loan: {res.text}")
+
+    etag = res.headers.get("Etag")
+    loan_versions[loan_id] = etag
+    print(f"Loan {loan_id} was created")
+
+
+def _activate_loan(loan_id):
+    activation_time = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+    res = requests.request(
+        "PUT",
+        f"{config.LMS2_BASE_URL}/loan-accounts/{loan_id}/activate",
+        headers={
+            "X-User-Id": config.MIGRATION_SCRIPT,
+            "If-Match": loan_versions[loan_id],
+        },
+        data=json.dumps({"activated_at_utc": activation_time}),
+    )
+    if res.status_code != 202:
+        raise Exception(f"Failed to activate loan: {res.text}")
+
+    etag = res.headers.get("Etag")
+    loan_versions[loan_id] = etag
+    print(f"Loan {loan_id} was activated")
+
+
+def _cancel_loan(loan_id):
+    res = requests.request(
+        method="PUT",
+        url=f"{config.LMS2_BASE_URL}/loan-accounts/{loan_id}/cancel",
+        headers={
+            "X-User-Id": config.MIGRATION_SCRIPT,
+            "If-Match": loan_versions[loan_id],
+        },
+    )
+    etag = res.headers.get("Etag")
+    loan_versions[loan_id] = etag
+    print(f"Loan {loan_id} was cancelled")
+
+
+def _verify_loan_dates(loan_id: str):
+    # TODO: implement
+    pass
+
+
+def _verify_loan_amounts(loan_id: str):
+    # TODO: implement
+    pass

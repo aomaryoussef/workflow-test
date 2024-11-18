@@ -1,0 +1,93 @@
+log:
+  level: debug
+  format: text
+  leak_sensitive_values: false
+
+serve:
+  proxy:
+    cors:
+      enabled: true
+      allowed_origins:
+        - "consumer.myloapp.local"
+        - "partner.myloapp.local"
+        - "idp.consumer.myloapp.local"
+        - "idp.partner.myloapp.local"
+      allowed_methods:
+        - POST
+        - GET
+        - HEAD
+        - PUT
+        - PATCH
+        - DELETE
+      allowed_headers:
+        - Authorization
+        - Content-Type
+      exposed_headers:
+        - Content-Type
+      allow_credentials: true
+      debug: true
+
+errors:
+  fallback:
+    - json
+
+  handlers:
+    redirect:
+      enabled: true
+      config:
+        to: /login
+        when:
+          - error:
+              - unauthorized
+              - forbidden
+            request:
+              header:
+                accept:
+                  - text/html
+    json:
+      enabled: true
+      config:
+        verbose: true
+
+access_rules:
+  matching_strategy: glob
+  repositories:
+    - file:///etc/config/oathkeeper/iam-access-rules.yml
+
+authenticators:
+  anonymous:
+    enabled: true
+    config:
+      subject: guest
+
+  cookie_session:
+    enabled: true
+    config:
+      check_session_url: http://host.docker.internal:7001/sessions/whoami
+      preserve_path: true
+      extra_from: "@this"
+      subject_from: "identity.id"
+      only:
+        - ory_kratos_session
+
+  bearer_token:
+    enabled: true
+    config:
+      check_session_url: http://host.docker.internal:7001/sessions/whoami
+      preserve_path: true
+      extra_from: "@this"
+      subject_from: "identity.id"
+
+  noop:
+    enabled: true
+
+authorizers:
+  allow:
+    enabled: true
+
+
+mutators:
+  noop:
+    enabled: true
+  header:
+    enabled: false

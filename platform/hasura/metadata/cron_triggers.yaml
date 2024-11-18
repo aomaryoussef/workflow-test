@@ -1,0 +1,16 @@
+- name: Send Payment Reminders
+  webhook: '{{SERVICE_DEPARTMENT_BASE_URL}}/registry/payments-reminders'
+  schedule: 0 9 * * *
+  include_in_metadata: true
+  payload: {}
+  retry_conf:
+    num_retries: 3
+    retry_interval_seconds: 10
+    timeout_seconds: 10
+    tolerance_seconds: 21600
+  comment: Send reminders to consumers with future and due payments
+  request_transform:
+    method: POST
+    query_params: {}
+    template_engine: Kriti
+    version: 2

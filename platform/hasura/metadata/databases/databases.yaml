@@ -1,0 +1,54 @@
+- name: Hydra
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: HYDRA_DB
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include Hydra/tables/tables.yaml"
+- name: Keto
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: KETO_DB
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include Keto/tables/tables.yaml"
+- name: Kratos
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: KRATOS_DB
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include Kratos/tables/tables.yaml"
+- name: LMS
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: LMS_DB
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include LMS/tables/tables.yaml"
+- name: Mylo
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: MYLO_DB
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include Mylo/tables/tables.yaml"
+- name: Payments
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: PAYMENTS_DB
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include Payments/tables/tables.yaml"

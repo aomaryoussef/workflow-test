@@ -1,0 +1,29 @@
+<body>
+  <script>
+    const iamBaseURL = "<%= iamBaseURL  %>";
+    const loginUrl = "<%= loginUrl  %>";
+    const initLogoutFlow = async () => {
+      try {
+        const response = await axios.get(`${iamBaseURL}/self-service/logout/browser`, {
+          withCredentials: true,
+        });
+        try {
+          const logout_response = await axios.get(`${iamBaseURL}/self-service/logout`, {
+            withCredentials: true,
+            params: {
+              token: response.data.logout_token,
+            },
+          });
+        } catch (error) {
+          console.error(error);
+        } finally {
+          window.location.replace(loginUrl);
+        }
+      } catch (error) {
+        console.error("Kratos server unreachable");
+        console.error(error);
+      }
+    };
+    initLogoutFlow();
+  </script>
+</body>

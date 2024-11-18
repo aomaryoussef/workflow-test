@@ -1,0 +1,22 @@
+table:
+  name: merchant_payment
+  schema: public
+array_relationships:
+  - name: merchant_transaction_slips
+    using:
+      foreign_key_constraint_on:
+        column: merchant_payment_id
+        table:
+          name: merchant_transaction_slip
+          schema: public
+remote_relationships:
+  - definition:
+      to_source:
+        field_mapping:
+          merchant_account_id: id
+        relationship_type: object
+        source: Mylo
+        table:
+          name: partner
+          schema: public
+    name: merchant

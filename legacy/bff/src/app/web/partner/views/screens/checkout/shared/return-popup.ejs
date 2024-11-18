@@ -1,0 +1,44 @@
+<div id="checkout-back-alert" style="display: none">
+  <div class="custom-overlay">
+    <div class="popup one-btn-popup">
+      <div class="popup-wrapper">
+        <div class="center-data">
+          <div class="title" id="checkout-alert-title">هل تريد إلغاء المعامله؟</div>
+        </div>
+
+        <div class="btn-wrapper">
+          <div class="col-6">
+            <button class="btn primary-green-btn" id="hidePopup" onclick="closeCheckoutPopup()">رجوع</button>
+          </div>
+          <div class="col-6">
+            <button class="btn secondary-gray-btn action-confirm" onclick="cancelCheckoutWizard()" style="width: 98%">
+              موافقة
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var stepName;
+  const cancelPopup = document.getElementById("checkout-back-alert");
+  const showCancelPopup = (stName) => {
+    cancelPopup.style.display = "block ";
+    stepName = stName;
+  };
+  const closeCheckoutPopup = () => {
+    cancelPopup.style.display = "none";
+  };
+
+
+  const cancelCheckoutWizard = () => {
+    if (checkoutSessionId) {
+      window.location.href = `/private/partner/checkout/cancel-checkout?session_id=${checkoutSessionId}${userIamIdQueryParamString}`;
+      amplitudeLogEvents(`Cancel ${stepName}`);
+    } else {
+      amplitudeLogEvents(`Cancel ${stepName}`);
+      window.location.href = `/private/partner/checkout${userIamIdQueryParamString ? "?" + userIamIdQueryParamString.slice(1) : ""}`;
+    }
+  };
+</script>

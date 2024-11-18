@@ -1,0 +1,234 @@
+<div class="row">
+  <div class="col-lg-9 offset-lg-1">
+    <div class="title-with-button">
+      <div class="icon-title-wrapper">
+        <div class="icon-wrapper">
+          <img src="/public/partner/img/icons/receipt_long.svg" />
+        </div>
+        <div class="title-wrapper">
+          <div class="title">خيارات الدفع</div>
+          <div class="subtitle">اختر واحدة من خطط التقسيط</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-wrapper commercial-card-height" id="installment-plans" style="display: none"></div>
+    <div class="center-empty-message" id="no-installment-plans" style="display: none">
+      <div class="img-wrapper">
+        <img src="/public/partner/img/icons/empty-message.svg" alt="empty message" />
+      </div>
+      <div class="title">لا توجد خيارات دفع متاحة</div>
+      <div class="subtitle">يرجى المحاولة في وقت لاحق لوجود عطل مؤقت بالنظام أو عدم كفاية الحد المتاح</div>
+    </div>
+    <div class="note custom-note comm-note" id="commercial-note" style="display: none">
+      <div class="item-cont">
+        بالضغط على <b>"التالي"</b>، فإنك توافق على بيع المنتج المذكور لصالح مايلو وفقا للاتفاقية الموقعة بيننا
+      </div>
+      <div class="btn-wrapper fixed-btns">
+        <a class="btn primary-green-btn disabled" id="step-commercial-offers-next"
+          onclick="handleNextCommercialOffers()" href="#">
+          <img src="/public/shared/img/icons/arrow_forward.svg" class="enabled-img" name="next_arrow" />
+          <img src="/public/shared/img/icons/arrow_forward_disabled.svg" class="disabled-img" />
+          <div class="white-loader" id="step-commercial-offers-loading" hidden>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <span class="btn-text"> التالي</span>
+        </a>
+        <a class="btn border-gray-btn w-50" id="step-commercial-offers-cancel"
+          onclick="showCancelPopup('Commercial Offers Step')" href="#">الغاء</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const commercialOffersLoadingElement = document.getElementById("step-commercial-offers-loading");
+  const commercialOffersNextElement = document.getElementById("step-commercial-offers-next");
+  const commercialOffersCancelElement = document.getElementById("step-commercial-offers-cancel");
+  var downpayment;
+  var adminFee;
+  const fetchCommercialOffers = async () => {
+    commercialOffersLoadingElement.hidden = false;
+    commercialOffersNextElement.classList.add("disabled");
+    commercialOffersCancelElement.classList.add("disabled");
+    for (let i = 0; i < 60; i++) {
+      try {
+        const response = await axios.get(
+          `/private/partner/checkout/get-commercial-offers?checkoutSessionId=${checkoutSessionId}&consumerId=${consumerInfo.id}${userIamIdQueryParamString}`,
+        );
+        if (!response.data.offers) {
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+          continue;
+        } else {
+          commercialOffers = response.data.offers;
+          break;
+        }
+      } catch (error) {
+        console.error(error);
+        showErrorAlert("مشكلة بسيطة", "حدث خطأ في النظام");
+      }
+    }
+    displayCommercialOffers();
+    commercialOffersCancelElement.classList.remove("disabled");
+    commercialOffersLoadingElement.hidden = true;
+  };
+
+
+  const getFirstInstallmentDate = () => {
+
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = parseInt(currentDate.getMonth() + 1);
+    const year = currentDate.getFullYear();
+    const targetDay = consumerInfo.paymentDay;
+    let targetMonth;
+    let formattedDate;
+    if (day < 11) {
+      targetMonth = month + 1;
+      formattedDate = new Date(year, targetMonth - 1, targetDay).toLocaleString("ar-EG");
+      formattedDate = formattedDate.split(" ")[0];
+      return formattedDate;
+    } else {
+      targetMonth = month + 2;
+      formattedDate = new Date(year, targetMonth - 1, targetDay).toLocaleString("ar-EG");
+      formattedDate = formattedDate.split(" ")[0];
+      return formattedDate;
+    }
+  }
+
+  const displayCommercialOffers = () => {
+
+    // end validate date
+    if (commercialOffers && commercialOffers.length > 0) {
+      const tenureCard = document.getElementById("tenure-card");
+      const installmentPlans = document.getElementById("installment-plans");
+      document.getElementById("commercial-note").style.display = "block";
+      for (let i = 0; i < commercialOffers.length; i++) {
+        const commercialOffer = commercialOffers[i];
+        const card = tenureCard.cloneNode(true);
+        card.id = commercialOffer.id;
+        card.getElementsByClassName("tenure-duration")[0].innerText =
+          commercialOffer.tenure.duration.toLocaleString("ar-EG");
+        if (commercialOffer.tenure.duration > 10) {
+          card.getElementsByClassName("tenure-unit")[0].innerText = "شهر";
+        }
+        card.getElementsByClassName("tenure-amount")[0].innerText = (
+          commercialOffer.installmentAmount / 100
+        ).toLocaleString("ar-EG");
+        card.getElementsByClassName("tenure-financed-amount")[0].innerText =
+          (commercialOffer.financedAmount / 100).toLocaleString("ar-EG") + " جنيه";
+        if (commercialOffer.adminFeesAmount > 0) {
+          card.getElementsByClassName("tenure-admin-fees")[0].innerText =
+            (commercialOffer.adminFeesAmount / 100).toLocaleString("ar-EG") + " جنيه";
+        }
+        card.getElementsByClassName("tenure-total-with-interest")[0].innerText =
+          (commercialOffer.totalOfPayments / 100).toLocaleString("ar-EG") + " جنيه";
+        if (commercialOffer.interestRate > 0) {
+          card.getElementsByClassName("tenure-interest-rate")[0].innerText =
+            parseFloat(commercialOffer.interestRate).toLocaleString("ar-EG") + " %";
+        }
+
+        //date
+
+        card.getElementsByClassName("tenure-date")[0].innerHTML = getFirstInstallmentDate();
+
+
+        if (commercialOffer.downPaymentAmount > 0) {
+          card.getElementsByClassName("tenure-down-payment")[0].innerText =
+            (commercialOffer.downPaymentAmount / 100).toLocaleString("ar-EG") + " جنيه";
+        }
+        if (commercialOffer.downPaymentAmount + commercialOffer.adminFeesAmount > 0) {
+          document.getElementById("fees-collection-pay-upfront").style.display = "block";
+        }
+        card.style.display = "flex";
+        if (i === 0) {
+          card.classList.add("active-card");
+          selectedCommercialOfferId = commercialOffer.id;
+          changeSelectedCommercialOffer(commercialOffer.id);
+        }
+        card.addEventListener("click", () => {
+          changeSelectedCommercialOffer(commercialOffer.id);
+        });
+        installmentPlans.appendChild(card);
+      }
+      document.getElementById("installment-plans").style.display = "block";
+      commercialOffersNextElement.classList.remove("disabled");
+    } else {
+      document.getElementById("no-installment-plans").style.display = "flex";
+      document.getElementById("commercial-note").style.display = "none";
+      commercialOffersNextElement.disabled = true;
+      commercialOffersNextElement.classList.add("disabled");
+    }
+  };
+
+  const changeSelectedCommercialOffer = (newSelectedCommercialOfferId) => {
+    const oldSelectedOfferElement = document.getElementById(selectedCommercialOfferId);
+    if (oldSelectedOfferElement) {
+      oldSelectedOfferElement.classList.remove("active-card");
+    }
+    const newSelectedOfferElement = document.getElementById(newSelectedCommercialOfferId);
+    if (newSelectedOfferElement) {
+      newSelectedOfferElement.classList.add("active-card");
+    }
+    selectedCommercialOfferId = newSelectedCommercialOfferId;
+    const selectedCommercialOffer = commercialOffers.find((item) => item.id == selectedCommercialOfferId);
+    document.getElementById("fees-collection-monthly-installment").innerText =
+      (selectedCommercialOffer.installmentAmount / 100).toLocaleString("ar-EG") + " جنيه";
+    document.getElementById("fees-collection-admin-fees").innerText =
+      (selectedCommercialOffer.adminFeesAmount / 100).toLocaleString("ar-EG") + " جنيه";
+    document.getElementById("fees-collection-interest-rate").innerText =
+      parseFloat(selectedCommercialOffer.interestRate).toLocaleString("ar-EG") + " %";
+    document.getElementById("fees-collection-total-interest").innerText =
+      (selectedCommercialOffer.totalInterest / 100).toLocaleString("ar-EG") + " جنيه";
+    document.getElementsByClassName("start-date")[0].innerText = getFirstInstallmentDate();
+    if (selectedCommercialOffer.downPaymentAmount > 0) {
+      (selectedCommercialOffer.downPaymentAmount / 100).toLocaleString("ar-EG") + " جنيه";
+      downpayment = (selectedCommercialOffer.downPaymentAmount / 100);
+    } else {
+      document.getElementById("fees-collection-downpayment").innerText = "بدون";
+      downpayment = "none";
+    }
+    document.getElementById("fees-collection-total").innerText =
+      ((selectedCommercialOffer.downPaymentAmount + selectedCommercialOffer.adminFeesAmount) / 100).toLocaleString(
+        "ar-EG",
+      ) + " جنيه";
+    adminFee = (selectedCommercialOffer.downPaymentAmount + selectedCommercialOffer.adminFeesAmount / 100);
+  };
+
+  const handleNextCommercialOffers = async () => {
+    commercialOffersLoadingElement.hidden = false;
+    commercialOffersNextElement.classList.add("disabled");
+    commercialOffersCancelElement.classList.add("disabled");
+    try {
+      const response = await axios.post("/private/partner/checkout/send-otp", {
+        checkoutSessionId: checkoutSessionId,
+        consumerId: consumerInfo.id,
+        commercialOfferId: selectedCommercialOfferId,
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        params: params
+      });
+      consumerPhoneNumber = response.data.phoneNumber.slice(2);
+      let selectedData = await axios.get(
+        `/private/partner/checkout/get-commercial-offers?checkoutSessionId=${checkoutSessionId}&consumerId=${consumerInfo.id}${userIamIdQueryParamString}`,
+      );
+      let filteredData = selectedData.data.offers.filter((item) => item.id == selectedCommercialOfferId);
+      amplitudeLogEvents("Select Commercial Offer", { name: 'consumer_id', input: consumerInfo.id }, { name: 'transaction_id', input: filteredData[0].id }, { name: 'interest_rate', input: filteredData[0].interestRate }, { name: 'selected_tenure', input: filteredData[0].tenure.duration + " months" }, { name: 'financial_product_key', input: filteredData[0].id, }, { name: 'downpayment_fee', input: downpayment }, { name: 'admin_fee', input: adminFee });
+      currentStep++;
+      adjustStepper();
+    } catch (error) {
+      amplitudeLogEvents("Failed Select Commercial Offer", { name: 'consumer_id', input: consumerInfo.id }, { name: 'dev_message', input: error.response.data.message }, { name: 'message', input: error.message }, { name: 'status', input: error.response.status });
+      showErrorAlert("مشكلة بسيطة", error.response.data.message);
+    } finally {
+      commercialOffersLoadingElement.hidden = true;
+      commercialOffersNextElement.classList.remove("disabled");
+      commercialOffersCancelElement.classList.remove("disabled");
+    }
+  };
+</script>

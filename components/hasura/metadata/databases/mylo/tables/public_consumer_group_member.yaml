@@ -1,0 +1,10 @@
+table:
+  name: consumer_group_member
+  schema: public
+object_relationships:
+  - name: consumer
+    using:
+      foreign_key_constraint_on: consumer_id
+  - name: consumer_group
+    using:
+      foreign_key_constraint_on: consumer_group_id

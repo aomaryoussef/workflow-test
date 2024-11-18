@@ -1,0 +1,15 @@
+- id: ui:registry:public
+  description: Registry public
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/public/registry/<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop

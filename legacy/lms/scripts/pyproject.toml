@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "scripts"
+version = "0.1.0"
+description = ""
+authors = ["Sid Moitra <siddhartha.external@btech.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.12.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

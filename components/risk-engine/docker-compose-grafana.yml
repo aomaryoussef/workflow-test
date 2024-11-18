@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:14.6
+    restart: always
+    environment:
+      - POSTGRES_USER=db_user
+      - POSTGRES_PASSWORD=db_pass
+      - POSTGRES_DB=risk
+    ports:
+      - '5434:5432'
+    volumes:
+      - ./resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+volumes:
+  db:
+    driver: local

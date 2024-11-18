@@ -1,0 +1,57 @@
+table:
+  name: account
+  schema: accounts
+object_relationships:
+  - name: connector
+    using:
+      foreign_key_constraint_on: connector_id
+array_relationships:
+  - name: balances
+    using:
+      foreign_key_constraint_on:
+        column: account_id
+        table:
+          name: balances
+          schema: accounts
+  - name: bank_account_related_accounts
+    using:
+      foreign_key_constraint_on:
+        column: account_id
+        table:
+          name: bank_account_related_accounts
+          schema: accounts
+  - name: payments
+    using:
+      foreign_key_constraint_on:
+        column: destination_account_id
+        table:
+          name: payment
+          schema: payments
+  - name: paymentsBySourceAccountId
+    using:
+      foreign_key_constraint_on:
+        column: source_account_id
+        table:
+          name: payment
+          schema: payments
+  - name: pool_accounts
+    using:
+      foreign_key_constraint_on:
+        column: account_id
+        table:
+          name: pool_accounts
+          schema: accounts
+  - name: transferInitiationsBySourceAccountId
+    using:
+      foreign_key_constraint_on:
+        column: source_account_id
+        table:
+          name: transfer_initiation
+          schema: transfers
+  - name: transfer_initiations
+    using:
+      foreign_key_constraint_on:
+        column: destination_account_id
+        table:
+          name: transfer_initiation
+          schema: transfers

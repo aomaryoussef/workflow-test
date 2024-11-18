@@ -1,0 +1,17 @@
+export enum BackOfficeActions {
+    CREATE_PARTNER = "createPartner",
+    CREATE_PARTNER_STORE = "createPartnerStore",
+    CREATE_CONSUMER = "createConsumer",
+    SEARCH_PARTNERS = "searchPartners",
+    SEARCH_CONSUMERS = "searchConsumers",
+    PRINT_CONSUMER_DOCUMENTS = "printConsumerDocuments",
+    ACTIVATE_CONSUMER = "activateConsumer",
+    CREATE_CASHIER = "createCashier",
+    SEARCH_COLLECTIONS = "searchCollections",
+    MAKE_COLLECTION = "makeCollection",
+    VIEW_CONSUMER = "viewConsumer",
+    LIST_TRANSACTIONS = "listTransactions",
+    ACQUIRE_CHECKOUT_BASKET = "acquireCheckoutBasket",
+    ADMINISTRATE_PARTNER = "administerPartner",
+    INIT_CHECKOUT = "initCheckout",
+}

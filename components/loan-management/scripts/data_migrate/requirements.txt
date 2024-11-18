@@ -1,0 +1,7 @@
+requests
+pyyaml
+python-dotenv
+dacite
+urllib3
+pandas
+numpy

@@ -1,0 +1,11 @@
+table:
+  name: consumer_group
+  schema: public
+array_relationships:
+  - name: consumer_group_members
+    using:
+      foreign_key_constraint_on:
+        column: consumer_group_id
+        table:
+          name: consumer_group_member
+          schema: public

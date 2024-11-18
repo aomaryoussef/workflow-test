@@ -1,0 +1,71 @@
+-
+  location_url: https://maps.app.goo.gl/qio6kY9gddQtwfmX9
+  name:
+    ar: بى تك - ميجا اسيوط
+    en: B.TECH - Mega Asyut
+  address:
+    ar: برج ابن سينا - بجوار سينما رينيسانس - منطقة المجذوب, ش 23 يوليو, الحمراء الثانية، قسم أول أسيوط، محافظة أسيوط 
+    en: برج ابن سينا - بجوار سينما رينيسانس - منطقة المجذوب, ش 23 يوليو, Al Hamraa Ath Thaneyah, Asyut 1, Assiut Governorate
+  
+- 
+  location_url: https://maps.app.goo.gl/B7fBMS33yZujhqZK9
+  name:
+    ar: بى تك - اسيوط 2
+    en: B.TECH - Asyut
+  address:
+    ar: محافظة أسيوط - الازهر ميدان اسماء الله الحسنى الوليديه
+    en: Assiut Governorate - Al Azhar Square, Asmaa Allah Al Hosna Al Walidiya
+
+- 
+  location_url: https://maps.app.goo.gl/BMQbB7XtSfSaWdkc9
+  name:
+    ar: بى تك اكس  - اسيوط 
+    en: B.TECHX - Asyut
+  address:
+    ar: مول الوطنية,الدور الارضي ,محافظة أسيوط
+    en: Wataneya mall, first floor, Assiut Governorate
+
+- 
+  location_url: https://maps.app.goo.gl/wbMkjV3ihmKPRZgaA
+  name:
+    ar: بى تك ميجا  - سوهاج
+    en: B.TECH Mega - Sohag
+  address:
+    ar: ١٥ شارع قلفاو سوهاج ,محافظة سوهاج
+    en: 15 Qelfaw St., Sohag, Sohag Governorate
+
+- 
+  location_url: https://maps.app.goo.gl/u6kTqLwFRwqXAhsX7
+  name:
+    ar: بى تك  - سوهاج
+    en: B.TECH - Sohag
+  address:
+    ar: بجوار مديرية التربية والتعليم، 51 ش البحر، ميدان جمال عبد الناصر ,محافظة سوهاج
+    en: 51 Bahr St., Gamal Abdel Naser, Sohag Governorate
+
+- 
+  location_url: https://maps.app.goo.gl/TfVvUqnnQA1KXJS36
+  name:
+    ar: بى تك اكس  - سوهاج
+    en: B.TECHX - Sohag
+  address:
+    ar: شارع الجمهورية برج مبارك بجوار مبنى الادارة التعليمية سابقا ,محافظة سوهاج
+    en: El-Gomhoreya St., Mobarak tower, Sohag Governorate
+
+- 
+  location_url: https://maps.app.goo.gl/WW4Q1PogQEnfNxuv9
+  name:
+    ar: بى تك  - قنا
+    en: B.TECH - Qena
+  address:
+    ar: طريق الشنهوريه بجوار اوليمبك اليكتريك ,محافظة قنا
+    en: Ash-Shanhoria Rd, Qena Governorate
+
+- 
+  location_url: https://maps.app.goo.gl/rcZVFaTYCgi24TBf6
+  name:
+    ar: بى تك - نجع حمادي - قنا
+    en: B.TECH - Nag Hammadi - Qena
+  address:
+    ar: شارع الجمهوريه بجوار برج التطبيقين بنجع حمادي ,محافظة قنا
+    en: El-Gomhoreya Rd, Nag Hammadi, Qena Governorate

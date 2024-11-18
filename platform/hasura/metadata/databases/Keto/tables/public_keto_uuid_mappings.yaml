@@ -1,0 +1,3 @@
+table:
+  name: keto_uuid_mappings
+  schema: public

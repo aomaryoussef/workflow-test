@@ -1,0 +1,10 @@
+table:
+  name: areas
+  schema: public
+object_relationships:
+  - name: city
+    using:
+      foreign_key_constraint_on: city_id
+  - name: governorate
+    using:
+      foreign_key_constraint_on: governorate_id

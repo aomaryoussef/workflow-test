@@ -1,0 +1,4 @@
+.url-input {
+  /* Average URL length is 50 characters. */
+  min-width: 50ch !important;
+}

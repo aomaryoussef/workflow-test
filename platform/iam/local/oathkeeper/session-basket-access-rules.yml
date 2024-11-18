@@ -1,0 +1,38 @@
+- id: api:session-basket:public
+  description: Session basket public apis
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/public/api/session-basket/<**>"
+    methods:
+      - GET
+      - POST
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: api:session-basket:protected
+  description: Session basket private apis
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/private/api/session-basket<**>"
+    methods:
+      - GET
+      - POST
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: header
+  errors:
+    - handler: redirect
+      config:
+        to: /public/partner/login

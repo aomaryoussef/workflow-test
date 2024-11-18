@@ -1,0 +1,129 @@
+- id: iam:public:self_service
+  description: IAM Public Self Service
+  upstream:
+    url: http://host.docker.internal:7001
+    preserve_host: true
+  match:
+    url: "http://idp.<{consumer,partner}>.myloapp.local/idp/<{registration,verification,login,error}>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: iam:public:assets
+  description: IAM Public Assets
+  upstream:
+    url: http://host.docker.internal:7001
+    preserve_host: true
+  match:
+    url: "http://idp.<{consumer,partner}>.myloapp.local/<{*.css,*.js,*.svg,*.woff2,*.woff,*.ttf,assets/*.css,assets/*.min.css,assets/*.js,assets/**/*.woff2,assets/**/*.woff,assets/**/*.svg,assets/*.ttf}>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: kratos_consumer_get:public:self_service
+  description: Kratos Consumer Get Public Self Service
+  upstream:
+    url: http://kratos-consumer:4433
+    preserve_host: true
+  match:
+    url: "http://idp.consumer.myloapp.local/self-service/<{registration,verification,login}>/<{browser,flows}>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: kratos_consumer_post:public:self_service
+  description: Kratos Consumer Post Public Self Service
+  upstream:
+    url: http://kratos-consumer:4433
+    preserve_host: true
+  match:
+    url: "http://idp.consumer.myloapp.local/self-service/<{registration,verification,login}>"
+    methods:
+      - POST
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: kratos_consumer_get_error:public:self_service
+  description: Kratos Consumer Get Error Public Self Service
+  upstream:
+    url: http://kratos-consumer:4433
+    preserve_host: true
+  match:
+    url: "http://idp.consumer.myloapp.local/self-service/errors"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: kratos_partner_get:public:self_service
+  description: Kratos Partner Get Public Self Service
+  upstream:
+    url: http://kratos-merchant:4433
+    preserve_host: true
+  match:
+    url: "http://idp.partner.myloapp.local/self-service/<{registration,verification,login}>/<{browser,flows}>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: kratos_partner_post:public:self_service
+  description: Kratos Partner Post Public Self Service
+  upstream:
+    url: http://kratos-merchant:4433
+    preserve_host: true
+  match:
+    url: "http://idp.partner.myloapp.local/self-service/<{registration,verification}>"
+    methods:
+      - POST
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: kratos_partner_get_error:public:self_service
+  description: Kratos Partner Get Error Public Self Service
+  upstream:
+    url: http://kratos-merchant:4433
+    preserve_host: true
+  match:
+    url: "http://idp.partner.myloapp.local/self-service/errors"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+

@@ -1,0 +1,7 @@
+table:
+  name: entry
+  schema: public
+object_relationships:
+  - name: command
+    using:
+      foreign_key_constraint_on: command_id

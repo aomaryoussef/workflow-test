@@ -1,0 +1,648 @@
+{
+  "contentType": "application/vnd.gorules.decision",
+  "nodes": [
+    {
+      "id": "eb8d9303-5666-4d9a-91d1-c402c149bf8a",
+      "name": "request",
+      "type": "inputNode",
+      "position": {
+        "x": 40,
+        "y": 220
+      }
+    },
+    {
+      "id": "c40404fe-6915-4e75-9717-0cc85cfaa981",
+      "name": "response",
+      "type": "outputNode",
+      "position": {
+        "x": 900,
+        "y": 170
+      }
+    },
+    {
+      "id": "a9fe7dba-0e4e-4b11-8e3b-92951f10b09e",
+      "name": "Financial Products",
+      "type": "decisionTableNode",
+      "content": {
+        "hitPolicy": "collect",
+        "inputs": [
+          {
+            "id": "4afe5162-fa87-43d1-acf2-20d3d2ec75e1",
+            "name": "Partner Category",
+            "field": "partner.category",
+            "defaultValue": "\"other\""
+          },
+          {
+            "id": "d059142a-c868-4cca-a455-e03dc320a2e6",
+            "field": "partner.governorate",
+            "name": "Partner Governorate"
+          },
+          {
+            "id": "d98c8482-7d01-4cee-bd87-4216f5654f45",
+            "field": "partner.branch",
+            "name": "Partner Branch"
+          },
+          {
+            "id": "f550018d-3e18-4259-82a7-083eb6e11991",
+            "field": "partner.name",
+            "name": "Partner Name"
+          },
+          {
+            "id": "b903f378-60d9-49ef-9ed1-e43b47a537f9",
+            "field": "checkout.channel",
+            "name": "Checkout Channnel",
+            "defaultValue": ""
+          },
+          {
+            "id": "e6a843be-d62e-4e81-bd13-422d924399b8",
+            "field": "checkout.date",
+            "name": "Promo Start Date"
+          },
+          {
+            "id": "fc5e1c80-5c53-4050-afe0-add3135601b6",
+            "field": "checkout.date",
+            "name": "Promo End Date"
+          }
+        ],
+        "outputs": [
+          {
+            "id": "7b7e8c1c-ea53-4233-9da7-d8206d7275a0",
+            "name": "Financial Product",
+            "field": "financialProduct.name",
+            "defaultValue": "\"other-financial-product\""
+          },
+          {
+            "id": "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf",
+            "name": "Financial Product Version",
+            "field": "financialProduct.version",
+            "defaultValue": "\"2\""
+          },
+          {
+            "id": "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4",
+            "field": "isPromo",
+            "name": "is Promo",
+            "defaultValue": "false"
+          }
+        ],
+        "rules": [
+          {
+            "_id": "c7fd6bb3-3cb9-4e57-acd6-67efbc6ca984",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"ELECTRONICS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-48m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"3\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "6f328dc2-e7d5-4ab7-bef9-35a5cbc120c5",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"ELECTRONICS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-48m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "542cb885-93b5-4893-9bd7-5952c588720f",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"FASHION\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"fashion-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "479f8869-03e1-4473-9b2d-88d14ded02e9",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"FASHION\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"fashion-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"3\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "086c4c3f-e32b-4cea-b3ae-4663f06dce52",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"FURNITURE\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"furniture-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "6b7eebfc-425f-4611-b8da-456fe483ba51",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"FURNITURE\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"furniture-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"3\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "2be70735-294e-46cf-b89d-723b61b66d0c",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"CERAMICS_AND_SANITARY_WARE\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "bbc248a4-0f29-48c5-9615-f665d23b3983",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"CERAMICS_AND_SANITARY_WARE\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "83f6fbd8-3cfc-48da-b677-85353054915d",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"AUTO_SPARE_PARTS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-12m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "dfa83e81-2fe7-4d22-895a-b343e9a7ca80",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"AUTO_SPARE_PARTS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-12m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"1\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "feed2011-240a-4f58-8cf8-67d0d09febf2",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"BABY_AND_TOYS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "5afbb020-4c6f-4493-8659-1aa1a2376639",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"BABY_AND_TOYS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "ad6354da-a37f-4c73-9bf6-32a94bf7163b",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"JEWELRY\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "6b806b29-2557-4560-8de6-d319e6851637",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"JEWELRY\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "5cc10f1d-b8a9-4c88-bd5e-011dccaa07f1",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"SUPERMARKETS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "91eacccf-eba6-476a-812d-d77cc52bcf03",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"SUPERMARKETS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "ffaf843d-6d17-43d9-a362-7c0e5a8305fe",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"EVENT_PLANNING\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "5cb7d4e4-ae12-43da-93b8-4105b5fe0d3e",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"EVENT_PLANNING\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "4acaff15-476b-4d8b-9a8c-714ca906e5dd",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"EDUCATION\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-12m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "0511e2da-3713-4266-ae7a-2867f9d040fd",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"EDUCATION\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-12m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"1\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "5989dcdb-f71e-4e9c-b9d0-6d0ebb82f363",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"MOTORCYCLES\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"motorcycles-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "4020b3ad-b2e9-48e8-8e15-91be5840c85d",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"MOTORCYCLES\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"motorcycles-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"1\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "3e60e787-bee3-4353-ba7f-9d1dc7e7e16f",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"HOME_WARE\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"homeware-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "88d728b9-755a-4209-bd1f-7e5be72f1672",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"HOME_WARE\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-24m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "75f1fe75-882e-47b0-9071-3d6620483d23",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"TOURISM_AND_ENTERTAINMENT\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-9m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "3ab91735-80e0-4003-9ff8-141d33e25ecc",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"MEDICAL\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "f3a64688-9a00-4967-aa2d-e8c3c30718c0",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"MEDICAL\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "922ac7f0-c070-43a7-b7a5-0a8f059a6225",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"ACCESSORIES\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-24m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"3\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "bc441897-371d-4546-8742-3ada4be1c0b2",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"ACCESSORIES\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-24m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "d28995db-144f-413c-9eb1-863905d9d1e7",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"WEDDING_HALLS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "057e604f-20b0-4453-ab08-675a7a8251c0",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"OPTICS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "c668364c-ae0d-4a23-b1be-1973c978e2b8",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"OPTICS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "0a987e9d-f244-4e23-83fa-5c682b615f07",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"SPORTS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "c983d6b2-1a72-4be3-813d-8f323664779e",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"SPORTS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "39fa6c4c-5060-41d8-b939-fa1325f34f40",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"FINISHING\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "bc950982-ef52-4ac3-bdc9-1ea917895466",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"FINISHING\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "a6171a2a-8ad6-48b4-90b3-3d745036b336",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"MOBILE\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"mobile-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "1d9f3be2-8f45-4050-85c3-78a8523152ce",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"MOBILE\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product-24m\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"2\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "7c01992f-c62b-48fa-82b6-881beaea54ba",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"SHOPPING_HUBS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "\"Asyut\"",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"5\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          },
+          {
+            "_id": "fc0aa43d-9b90-4bf5-b184-0e2f952c8b07",
+            "4afe5162-fa87-43d1-acf2-20d3d2ec75e1": "\"SHOPPING_HUBS\"",
+            "d059142a-c868-4cca-a455-e03dc320a2e6": "",
+            "d98c8482-7d01-4cee-bd87-4216f5654f45": "",
+            "f550018d-3e18-4259-82a7-083eb6e11991": "",
+            "b903f378-60d9-49ef-9ed1-e43b47a537f9": "",
+            "e6a843be-d62e-4e81-bd13-422d924399b8": "",
+            "fc5e1c80-5c53-4050-afe0-add3135601b6": "",
+            "7b7e8c1c-ea53-4233-9da7-d8206d7275a0": "\"other-financial-product\"",
+            "ab9dbcc6-9032-4974-8e17-d44ef4eaa4cf": "\"4\"",
+            "1a226ee9-ec69-4d66-a976-25fbfbf8c8e4": "false"
+          }
+        ]
+      },
+      "position": {
+        "x": 355,
+        "y": 235
+      }
+    },
+    {
+      "type": "functionNode",
+      "content": {
+        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n\r\n  console.log(input)\r\n  return {\"promos\": input.filter(x=> x.isPromo == true), \"financialProducts\": input.filter(x=>x.isPromo!= true)};\r\n};\r\n"
+      },
+      "id": "614071ba-132a-4ba9-b316-c2b1d6d1f789",
+      "name": "handleResponse",
+      "position": {
+        "x": 640,
+        "y": 160
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "684729f9-9841-4336-b2d9-e193e23d4a9d",
+      "type": "edge",
+      "sourceId": "eb8d9303-5666-4d9a-91d1-c402c149bf8a",
+      "targetId": "a9fe7dba-0e4e-4b11-8e3b-92951f10b09e"
+    },
+    {
+      "id": "6c2f63d2-6cf3-450c-84db-d0cc0d15d060",
+      "sourceId": "a9fe7dba-0e4e-4b11-8e3b-92951f10b09e",
+      "type": "edge",
+      "targetId": "614071ba-132a-4ba9-b316-c2b1d6d1f789"
+    },
+    {
+      "id": "0f6f4097-da59-4305-9e9f-8b4929203ea6",
+      "sourceId": "614071ba-132a-4ba9-b316-c2b1d6d1f789",
+      "type": "edge",
+      "targetId": "c40404fe-6915-4e75-9717-0cc85cfaa981"
+    }
+  ]
+}

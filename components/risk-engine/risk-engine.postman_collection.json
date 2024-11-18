@@ -1,0 +1,321 @@
+{
+	"info": {
+		"_postman_id": "d107ff21-d995-4dc6-8254-837c37d76070",
+		"name": "Risk Engine",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1558677"
+	},
+	"item": [
+		{
+			"name": "Create Score",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{api-key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"booking_time\": \"2023-01-01T00:00:00\",\n  \"scenario\": \"SCORING\",\n  \"data\": {\n    \"address_area\": \"Sidi Gaber\",\n    \"address_city\": \"Sidi Gaber\",\n    \"address_governorate\": \"Alexandria\",\n    \"children_count\": 2,\n    \"client_id\": \"9a16b606-a29c-4472-92a1-ce8627a1401e\",\n    \"contract_date\": \"2019-02-06T00:00:00\",\n    \"flag_is_mc_customer\": 1,\n    \"house_type\": \"owner\",\n    \"insurance_type\": \"ios\",\n    \"job_name_map\": \"healthcare\",\n    \"job_type\": \"prime-entities\",\n    \"marital_status\": \"married\",\n    \"mobile_os_type\": \"ios\",\n    \"net_burden\": 0,\n    \"net_income\": 34500,\n    \"phone_number_1\": \"01000000000\",\n    \"phone_number_2\": \"01000000000\",\n    \"ssn\": \"12345678912345\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{testing-url}}/api/risk/score",
+					"host": [
+						"{{testing-url}}"
+					],
+					"path": [
+						"api",
+						"risk",
+						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Model",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{api-key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"is_active\": true,\n    \"name\": \"PDModel2\",\n    \"parameters\": {\n        \"GREEN_INCOME_ZONE_THRESHOLD\": 0.1,\n        \"RED_INCOME_ZONE_THRESHOLD\": 0.5\n    },\n    \"type\": \"ML\",\n    \"version\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{testing-url}}/api/risk/models",
+					"host": [
+						"{{testing-url}}"
+					],
+					"path": [
+						"api",
+						"risk",
+						"models"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Model",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{api-key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"is_active\": false,\n    \"name\": \"PDModel2\",\n    \"parameters\": {\n        \"GREEN_INCOME_ZONE_THRESHOLD\": 0.11111,\n        \"RED_INCOME_ZONE_THRESHOLD\": 0.55555\n    },\n    \"type\": \"ML\",\n    \"version\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{testing-url}}/api/risk/models/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+					"host": [
+						"{{testing-url}}"
+					],
+					"path": [
+						"api",
+						"risk",
+						"models",
+						"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List All Models",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{api-key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{testing-url}}/api/risk/models",
+					"host": [
+						"{{testing-url}}"
+					],
+					"path": [
+						"api",
+						"risk",
+						"models"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Model",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{api-key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{testing-url}}/api/risk/models/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+					"host": [
+						"{{testing-url}}"
+					],
+					"path": [
+						"api",
+						"risk",
+						"models",
+						"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Lookups",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{api-key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{testing-url}}/api/risk/lookups?lookup_type=job_name_map",
+					"host": [
+						"{{testing-url}}"
+					],
+					"path": [
+						"api",
+						"risk",
+						"lookups"
+					],
+					"query": [
+						{
+							"key": "lookup_type",
+							"value": "job_name_map",
+							"description": "one of: [job_map_name, job_type, mobile_os_type, house_type, marital_status, scenario]"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{testing-url}}/api/risk/health",
+					"host": [
+						"{{testing-url}}"
+					],
+					"path": [
+						"api",
+						"risk",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{testing-url}}/api/risk/status",
+					"host": [
+						"{{testing-url}}"
+					],
+					"path": [
+						"api",
+						"risk",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api-key",
+			"value": "CAS49d103a36844249fd2D32142a8d8EdF2"
+		},
+		{
+			"key": "testing-url",
+			"value": "https://risk-engine-mylo-test.myloapp.com",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,56 @@
+#############################################################
+# Important Information
+# ---------------------
+# 1. DO NOT use 5000, MacOS has 5000 port in use:
+#     https://developer.apple.com/forums/thread/682332
+#############################################################
+
+services:
+ #############################################################
+ # Platform Core: Persistence
+ #############################################################
+ postgres:
+  extends:
+   service: postgres
+   file: ../../.local/docker-compose-infra.yml
+  profiles:
+   - minimal
+   - full
+
+ river_ui:
+  container_name: river_ui
+  image: ghcr.io/riverqueue/riverui:latest
+  ports:
+    - "8080:8080"
+  environment:
+   - DATABASE_URL=postgres://postgres:admin@postgres:5432/mylo?search_path=_services
+  depends_on:
+   - postgres
+  networks:
+   - mylo
+  profiles:
+   - full
+
+ prometheus:
+  extends:
+   service: prometheus
+   file: ../telemetry/docker-compose.yml
+  profiles:
+   - full
+
+ grafana:
+  extends:
+   service: grafana
+   file: ../telemetry/docker-compose.yml
+  profiles:
+   - full
+
+volumes:
+ pgdata:
+ promdata:
+
+networks:
+ mylo:
+  driver: bridge
+
+

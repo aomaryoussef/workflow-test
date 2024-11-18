@@ -1,0 +1,74 @@
+- id: ui:partners:public
+  description: Partners public
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/public/partner/<**>"
+    methods:
+      - GET
+      - POST
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: ui:partners:private
+  description: Partners private
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/private/partner/<**>"
+    methods:
+      - GET
+      - POST
+      - PATCH
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: header
+  errors:
+    - handler: redirect
+      config:
+        to: /public/partner/login
+
+- id: api:partner:public
+  description: partners public APIs
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/public/api/partner/<**>"
+    methods:
+      - GET
+      - POST
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: api:partners:private
+  description: Partners api private
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/private/api/partner<**>"
+    methods:
+      - GET
+      - POST
+      - PATCH
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop

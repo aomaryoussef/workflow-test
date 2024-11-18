@@ -1,0 +1,94 @@
+<script>
+  let currentStep = 1;
+  const steps = [
+    {
+      divId: "step-search",
+    },
+    {
+      divId: "step-add-product",
+    },
+    {
+      divId: "step-commercial-offers",
+    },
+    {
+      divId: "step-otp",
+    },
+    {
+      divId: "step-fees-collection",
+    },
+  ];
+  let consumerInfo = {};
+  let checkoutSessionId = null;
+  let commercialOffers = null;
+  let selectedCommercialOfferId = null;
+  let consumerPhoneNumber = null;
+
+  // This part is related to tech support
+  const urlParams = new URLSearchParams(window.location.search);
+  const userIamIdQueryParam = urlParams.get('user_iam_id');
+  const userIamIdQueryParamString = userIamIdQueryParam ? `&user_iam_id=${userIamIdQueryParam}` : "";
+  const params = {
+    user_iam_id: userIamIdQueryParam
+  }
+</script>
+
+<div class="row" id="checkout-steps">
+  <div class="col-12 col-md-3 col-lg-3 bg-side">
+    <%- include('./shared/stepper');%>
+    <div><%- include('./shared/tenure');%></div>
+  </div>
+  <div class="col-12 col-md-9 col-lg-9">
+    <div><%- include('./steps/1-search');%></div>
+    <div><%- include('./steps/2-add-product');%></div>
+    <div class="checkout-box" id="step-commercial-offers" style="display: none">
+      <%- include('./steps/3-commercial-offers');%>
+    </div>
+    <div class="page-padding-25" id="step-otp" style="display: none"><%- include('./steps/4-otp');%></div>
+    <div class="page-padding-25" id="step-fees-collection" style="display: none">
+      <%- include('./steps/5-fees-collection');%>
+    </div>
+    <%- include('./shared/alert');%>
+    <div><%- include('./shared/return-popup') %></div>
+  </div>
+</div>
+
+<script>
+  const alertElement = document.getElementById("checkout-alert");
+  const alertTitleElement = document.getElementById("checkout-alert-title");
+  const alertSubtitleElement = document.getElementById("checkout-alert-subtitle");
+  const alertSuccessElement = document.getElementById("checkout-alert-success");
+  const alertFailureElement = document.getElementById("checkout-alert-failure");
+
+  const showSuccessAlert = (title, subtitle) => {
+    alertTitleElement.innerText = title;
+    alertSubtitleElement.innerHTML = subtitle;
+    alertSuccessElement.style.display = "block";
+    alertElement.style.display = "block";
+  };
+  const showErrorAlert = (title, subtitle) => {
+    alertTitleElement.innerText = title;
+    alertSubtitleElement.innerHTML = subtitle;
+    alertFailureElement.style.display = "block";
+    alertElement.style.display = "block";
+  };
+
+  document.addEventListener("load", adjustStepper());
+
+  const amplitudeLogEvents = (eventName, ...args) => {
+    try {
+      if (args.length > 0) {
+        const eventArgs = {};
+        args.forEach((arg) => {
+          eventArgs[arg.name] = arg.input;
+        });
+        amplitude?.getInstance()?.logEvent(eventName, eventArgs);
+      } else {
+        amplitude?.getInstance()?.logEvent(eventName);
+      }
+
+    } catch (error) {
+      console.error("An error occurred in amplitudeLogEvents:", error);
+    }
+  };
+
+</script>

@@ -1,0 +1,15 @@
+log:
+  level: debug
+  format: json
+  leak_sensitive_values: true
+
+namespaces:
+  location: file:///etc/ory-config/namespaces.keto.ts
+
+serve:
+  read:
+    host: 0.0.0.0
+    port: 4466
+  write:
+    host: 0.0.0.0
+    port: 4467

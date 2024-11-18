@@ -1,0 +1,72 @@
+[
+    {
+        "namespace": "Organization",
+        "object": "b_labs",
+        "relation": "relationshipManagers",
+        "subject_set": {
+            "namespace": "Group",
+            "object": "relationshipManagers",
+            "relation": "members"
+        }
+    },
+    {
+        "namespace": "Organization",
+        "object": "b_labs",
+        "relation": "branchEmployees",
+        "subject_set": {
+            "namespace": "Group",
+            "object": "branchEmployees",
+            "relation": "members"
+        }
+    },
+    {
+        "namespace": "Organization",
+        "object": "b_labs",
+        "relation": "customerCare",
+        "subject_set": {
+            "namespace": "Group",
+            "object": "customerCare",
+            "relation": "members"
+        }
+    },
+    {
+        "namespace": "Organization",
+        "object": "b_labs",
+        "relation": "admins",
+        "subject_set": {
+            "namespace": "Group",
+            "object": "admins",
+            "relation": "members"
+        }
+    },
+    {
+        "namespace": "Organization",
+        "object": "b_labs",
+        "relation": "consumers",
+        "subject_set": {
+            "namespace": "Group",
+            "object": "consumers",
+            "relation": "members"
+        }
+    },
+    {
+        "namespace": "Organization",
+        "object": "b_labs",
+        "relation": "partnerAdmins",
+        "subject_set": {
+            "namespace": "Group",
+            "object": "partnerAdmins",
+            "relation": "members"
+        }
+    },
+    {
+        "namespace": "Organization",
+        "object": "b_labs",
+        "relation": "partnerCashiers",
+        "subject_set": {
+            "namespace": "Group",
+            "object": "partnerCashiers",
+            "relation": "members"
+        }
+    }
+]

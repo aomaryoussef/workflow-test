@@ -1,0 +1,42 @@
+table:
+  name: partner_branch
+  schema: public
+object_relationships:
+  - name: area_record
+    using:
+      manual_configuration:
+        column_mapping:
+          area_id: id
+        insertion_order: null
+        remote_table:
+          name: areas
+          schema: public
+  - name: city_record
+    using:
+      manual_configuration:
+        column_mapping:
+          city_id: id
+        insertion_order: null
+        remote_table:
+          name: cities
+          schema: public
+  - name: governorate_record
+    using:
+      manual_configuration:
+        column_mapping:
+          governorate_id: id
+        insertion_order: null
+        remote_table:
+          name: governorates
+          schema: public
+  - name: partner
+    using:
+      foreign_key_constraint_on: partner_id
+array_relationships:
+  - name: partner_user_profiles
+    using:
+      foreign_key_constraint_on:
+        column: branch_id
+        table:
+          name: partner_user_profile
+          schema: public

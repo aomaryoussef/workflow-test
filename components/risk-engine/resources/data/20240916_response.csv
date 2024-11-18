@@ -1,0 +1,11 @@
+client_id_old,consumer_id,ar_status,calc_credit_limit,pd_predictions,income_predictions,income_zone,final_net_income,cwf_segment,cwf
+1399159,ca2c3484-95c3-4669-ac5c-3886613fc61b,accept,70000,0.008,10019,Red Zone,10019,Tier-1,7
+127008,cc4874c0-618f-4e9b-980b-7eaa2b1ba3ca,accept,34000,0.006,7514,Green Zone,4800,Tier-1,7
+2164146,7dfca9aa-265a-49b1-afed-5fa3d3ec4409,accept,71000,0.003,10108,Red Zone,10108,Tier-1,7
+3120210,1a97639b-b9aa-4ead-b7e7-425ede9b99ca,accept,51000,0.017,10109,Red Zone,10109,Tier-2,5
+894118,967ac2bc-78a2-413b-bf26-7417c746cc28,accept,62000,0.03,13638,Green Zone,12329,Tier-2,5
+3209690,5d25744c-09cb-455c-b34c-8cd89acf5145,accept,13000,0.083,10134,Green Zone,3305,Tier-3,4
+1778744,75221542-87e6-4880-b808-46e7844669a0,accept,48000,0.012,9617,Red Zone,9617,Tier-2,5
+72468,f11d21a5-1119-4b74-b90d-8e40419335fc,accept,24000,0.017,8910,Green Zone,4849,Tier-2,5
+2729565,b3a00d3a-377e-42ca-88d0-17b93a351179,accept,20000,0.046,9618,Green Zone,5040,Tier-3,4
+1370716,c40614a8-cf03-411d-aeaf-f4351a20f26d,accept,76000,0.008,10849,Red Zone,10849,Tier-1,7

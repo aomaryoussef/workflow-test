@@ -1,0 +1,91 @@
+- id: ui:back-office:public:pages
+  description: Back office public pages
+  upstream:
+    url: http://internal:3000
+    preserve_host: false
+  #    strip_path: /back-office
+  match:
+    url: "http://localhost:4455/<{en,ar}>/back-office/public/<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: ui:back-office:public:pages
+  description: Back office public pages
+  upstream:
+    url: http://internal:3000
+    preserve_host: false
+  #    strip_path: /back-office
+  match:
+    url: "http://localhost:4455/_next/static/<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: ui:back-office:public:images
+  description: Back office public pages
+  upstream:
+    url: http://internal:3000
+    preserve_host: false
+    strip_path: /back-office
+  match:
+    url: "http://localhost:4455/back-office/images/<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: ui:back-office:public:assets
+  description: Back office public pages
+  upstream:
+    url: http://internal:3000
+    preserve_host: false
+  #    strip_path: /back-office/assets
+  match:
+    url: "http://localhost:4455/assets/<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: ui:back-office:private
+  description: Back office - Private
+  upstream:
+    url: http://internal:3000
+    preserve_host: false
+  #    strip_path: /back-office
+  match:
+    url: "http://localhost:4455/<{en,ar}>/back-office/private/<**>"
+    methods:
+      - GET
+      - POST
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: header
+  errors:
+    - handler: redirect
+      config:
+        to: /en/back-office/public/login
+

@@ -1,0 +1,63 @@
+:root {
+  --primary-color: #0c3e42;
+  --primary-bg: #e6ebec;
+  --primary-black-color: 1F1F1F;
+  --dimmed-color: #e2e2e2;
+  --black-color: #000;
+  --white-color: #fff;
+  --red-color: #ef4444;
+  --green-color: #0e9f6e;
+  --blue-color: #1f2937;
+  --bg-gray: #f3f3f3;
+  --dark-gray: #a9a9a9;
+  --subtitle-grey: #6b7280;
+  --main-bg: #f9fafb;
+  --table-grey-border: #f3f4f6;
+  --green-color: #40a11c;
+  --indigo-bg: #ebf3ff;
+  --indigo-color: #4f46e5;
+  --primary-badge: #065f46;
+  --primary-badge-bg: #d1fae5;
+  --warning-badge: #92400e;
+  --warning-badge-bg: #fef3c7;
+  --deep-dark-grey: #6f6f6f;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/public/shared/fonts/NotoSansArabicCondensed-Regular.eot");
+  src:
+    url("/public/shared/fonts/NotoSansArabicCondensed-Regular.eot?#iefix") format("embedded-opentype"),
+    url("/public/shared/fonts/NotoSansArabicCondensed-Regular.woff2") format("woff2"),
+    url("/public/shared/fonts/NotoSansArabicCondensed-Regular.woff") format("woff"),
+    url("/public/shared/fonts/NotoSansArabicCondensed-Regular.ttf") format("truetype"),
+    url("/public/shared/fonts/NotoSansArabicCondensed-Regular.svg#NotoSansArabicCondensed-Regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div {
+  font-family: "Noto Sans" !important;
+}
+
+::-webkit-input-placeholder {
+  font-family: "Noto Sans" !important;
+}
+
+:-ms-input-placeholder {
+  font-family: "Noto Sans" !important;
+}
+
+:-moz-placeholder {
+  font-family: "Noto Sans" !important;
+}
+
+::-moz-placeholder {
+  font-family: "Noto Sans" !important;
+}

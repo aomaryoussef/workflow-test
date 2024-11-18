@@ -211,7 +211,7 @@
             "forkTasks": [
               [
                 {
-                  "name": "update_credit_limit",
+                  "name": "vas_update_consumer_credit_limit",
                   "taskReferenceName": "vas_update_consumer_credit_limit",
                   "description": null,
                   "inputParameters": {
@@ -298,7 +298,7 @@
             "startDelay": 0,
             "subWorkflowParam": null,
             "joinOn": [
-              "update_credit_limit",
+              "vas_update_consumer_credit_limit",
               "send_return_sms"
             ],
             "sink": null,

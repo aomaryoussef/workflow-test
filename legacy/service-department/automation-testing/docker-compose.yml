@@ -1,0 +1,82 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.6-alpine
+    environment:
+      - POSTGRES_USER=db_user
+      - POSTGRES_PASSWORD=db_pass
+  
+  kratos:
+    image: oryd/kratos:v0.13.0
+    environment:
+      - DSN=memory
+    ports:
+      - "4433:4433"
+      - "4434:4434"
+    volumes:
+      - type: bind
+        source: ./kratos
+        target: /etc/ory-config
+    command: serve -c /etc/ory-config/kratos-local.yml --dev --watch-courier
+
+  keto:
+    image: oryd/keto:latest
+    environment:
+      - DSN=memory
+    ports:
+      - "4466:4466"
+      - "4467:4467"
+    volumes:
+      - type: bind
+        source: ./keto
+        target: /etc/ory-config
+    command: serve -c /etc/ory-config/keto-local.yml
+
+  keto-initial-create:
+    image: oryd/keto:latest
+    depends_on:
+      - keto
+    volumes:
+      - type: bind
+        source: ./keto
+        target: /etc/ory-config
+    environment:
+      - KETO_WRITE_REMOTE=keto:4467
+    command: relation-tuple create /etc/ory-config/initial-policy.json --insecure-disable-transport-security -c /etc/ory-config/keto-local.yml
+
+  mock-server:
+    image: mockserver/mockserver:mockserver-5.15.0
+    environment:
+      MOCKSERVER_LOG_LEVEL: DEBUG
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializer.json
+    ports:
+      - "1080:1080"
+    volumes:
+      - ./mock-server/expectations.json:/config/initializer.json
+  
+  mylo-service-department:
+    build: ../
+    ports:
+      - "1337:1337"
+    depends_on:
+      - db
+      - mock-server
+      - kratos
+    environment:
+      OL_SD_APP__ENV: "dev"
+      OL_SD_DATABASE__HOST: db
+      OL_SD_DATABASE__PORT: 5432
+      OL_SD_DATABASE__NAME: mylo_db
+      OL_SD_DATABASE__USERNAME: db_user
+      OL_SD_DATABASE__PASSWORD: db_pass
+      OL_SD_IAM__KRATOS_ADMIN_BASE_URL: "http://kratos:4434"
+      OL_SD_IAM__KETO_READ_BASE_URL: "http://keto:4466"
+      OL_SD_IAM__KETO_WRITE_BASE_URL: "http://keto:4467"
+      OL_SD_WORKFLOW__NAME: checkout_process
+      OL_SD_WORKFLOW__VERSION: 5
+      OL_SD_WORKFLOW__BASE_URL: https://ol-conductor-ol-lms-lite-conductor-workflow.ol.dev.internal.btechlabs.io
+      OL_SD_NOTIFICATION__BASE_URL: https://green.retailtest.btechlabs.io
+      OL_SD_NOTIFICATION__API_KEY: 'api_key'
+      OL_SD_MINI_CASH__BASE_URL: https://mc2-stg.btech.com
+      OL_SD_MINI_CASH__TOKEN: 'token'
+      OL_SD_LMS__BASE_URL: https://ol-lms-lite-http-server-ol-lms-lite-server.ol.dev.internal.btechlabs.io

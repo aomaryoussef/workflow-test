@@ -1,0 +1,56 @@
+- id: ory:kratos:public
+  description: Ory Kratos Public
+  upstream:
+    url: http://kratos:4433
+    preserve_host: true
+    strip_path: "/.ory/kratos/public"
+  match:
+    url: "http://localhost:4455/.ory/kratos/public/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+  errors: []
+
+- id: ory:kratos:admin
+  description: Ory Kratos Admin
+  upstream:
+    url: http://kratos:4434
+    preserve_host: true
+    strip_path: "/.ory/kratos/admin"
+  match:
+    url: "http://localhost:4455/.ory/kratos/admin/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: remote_json
+    config:
+      remote: http://keto:4466/relation-tuples/check
+      payload: |
+              {
+                "namespace": "Group",
+                "subject_id": "{{ print .Subject }}",
+                "object": "admins",
+                "relation": "members"
+              }  
+  mutators:
+    - handler: noop
+  errors:
+    - handler: redirect
+      config:
+        to: /public/back-office/login

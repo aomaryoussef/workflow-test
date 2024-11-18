@@ -1,0 +1,261 @@
+<div class="row">
+  <div class="col-lg-8 offset-lg-2">
+    <div class="title-with-button">
+      <div class="icon-title-wrapper">
+        <div class="icon-wrapper">
+          <img src="/public/partner/img/icons/otp.svg" />
+        </div>
+        <div class="title-wrapper">
+          <div class="title">كود التأكيد</div>
+          <div class="subtitle">اطلب من العميل الكود المرسل له لإتمام الطلب</div>
+        </div>
+      </div>
+    </div>
+    <form class="otp-wrapper" id="otp_wrapper">
+      <div class="message" id="otp-consumer-phone">
+      </div>
+      <div id="inputs" class="inputs-wrapper">
+        <input type="text" inputmode="numeric" class="form-control custom-otp-input" id="otp_input_6" size="1"
+          maxlength="1" />
+        <input type="text" inputmode="numeric" class="form-control custom-otp-input" id="otp_input_5" size="1"
+          maxlength="1" />
+        <input type="text" inputmode="numeric" class="form-control custom-otp-input" id="otp_input_4" size="1"
+          maxlength="1" />
+        <input type="text" inputmode="numeric" class="form-control custom-otp-input" id="otp_input_3" size="1"
+          maxlength="1" />
+        <input type="text" inputmode="numeric" class="form-control custom-otp-input" id="otp_input_2" size="1"
+          maxlength="1" />
+        <input type="text" inputmode="numeric" class="form-control custom-otp-input" id="otp_input_1" size="1"
+          maxlength="1" autofocus />
+      </div>
+      <div class="errorOTP">إدخال خاطئ، برجاء إعادة المحاولة.</div>
+
+      <div class="timer" id="counter">أعد إرسال الكود بعد <span id="timer">00:59</span></div>
+      <div class="flex-wrapper">
+        <div class="resend_otp" id="resend_otp" onclick="resetOtpTimer()">أعد إرسال الكود</div>
+        <div class="resend_phone" id="resend_phone" onclick="resetPhoneTimer()">ارسال الكود عن طريق مكالمه هاتفيه</div>
+
+      </div>
+    </form>
+    <div class="btn-wrapper mt-145">
+      <button class="btn primary-green-btn disabled" id="otp-next-button" onclick="handleNextOtp()">
+        <img src="/public/shared/img/icons/arrow_forward.svg" class="enabled-img" />
+        <img src="/public/shared/img/icons/arrow_forward_disabled.svg" class="disabled-img" />
+
+        <div class="white-loader" id="step-otp-loading" hidden>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <span class="btn-text"> التالي</span>
+      </button>
+      <a class="btn border-gray-btn w-50" id="step-otp-cancel" onclick="showCancelPopup('OTP Step')" href="#">الغاء</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const timerElement = document.getElementById("timer");
+  const counterElement = document.getElementById("counter");
+  const resendOtpElement = document.getElementById("resend_otp");
+  const resendPhoneElement = document.getElementById("resend_phone");
+  const otpLoadingElement = document.getElementById("step-otp-loading");
+  const otpNextElement = document.getElementById("otp-next-button");
+  const otpCancelElement = document.getElementById("step-otp-cancel");
+  let attemptOtp = 0;
+
+  let otpCode = '';
+
+  const enableOtpNextHandler = () => {
+    if (otpCode.length == 6) {
+      otpNextElement.classList.remove("disabled");
+    }
+  }
+
+  const inputs = document.getElementById("inputs");
+
+  inputs.addEventListener("input", function (e) {
+    const target = e.target;
+    const val = target.value;
+
+    if (isNaN(val) || val == " ") {
+      target.value = "";
+      return;
+    }
+
+    if (val != "") {
+      const next = target.previousElementSibling;
+      if (next) {
+        next.focus();
+      }
+    }
+  });
+
+  inputs.addEventListener("keyup", function (e) {
+    const target = e.target;
+    const key = e.key.toLowerCase();
+    otpCode = document.getElementById("otp_input_1").value + document.getElementById("otp_input_2").value + document.getElementById("otp_input_3").value + document.getElementById("otp_input_4").value + document.getElementById("otp_input_5").value + document.getElementById("otp_input_6").value;
+    enableOtpNextHandler();
+    if (otpCode.length == 0) {
+      document.getElementById("otp_wrapper").classList.remove('error');
+    }
+    if (key == "backspace" || key == "delete") {
+      target.value = "";
+      const prev = target.nextElementSibling;
+      if (prev) {
+        prev.focus();
+      }
+      return;
+    }
+  });
+
+  const countdown = () => {
+    const timeInSeconds = 59;
+    let counter = timeInSeconds;
+    timerElement.innerHTML = "00:" + counter;
+    counterElement.style.display = "block";
+    resendOtpElement.style.display = "none";
+    resendPhoneElement.style.display = "none";
+
+    counter--;
+    const countdownInterval = setInterval(function () {
+      if (counter < 10) {
+        timerElement.innerHTML = "00:0" + counter;
+
+      } else {
+        timerElement.innerHTML = "00:" + counter;
+
+      }
+      counter--;
+      if (counter == -2) {
+        clearInterval(countdownInterval);
+        counterElement.style.display = "none";
+        resendOtpElement.style.display = "block";
+        resendPhoneElement.style.display = "block";
+        counter = timeInSeconds;
+      }
+    }, 1000);
+  }
+
+  const initOtp = () => {
+    document.getElementById("otp-consumer-phone").innerText = "تم الإرسال إلى " + consumerPhoneNumber
+    countdown();
+  }
+  function otpSpinner(show) {
+    if (show) {
+      otpNextElement.classList.add("disabled");
+      otpCancelElement.classList.add("disabled");
+      otpLoadingElement.hidden = false;
+    } else {
+      otpNextElement.classList.remove("disabled");
+      otpCancelElement.classList.remove("disabled");
+      otpLoadingElement.hidden = true;
+    }
+  }
+
+  const resetOtpTimer = async () => {
+    attemptOtp++;
+    if (attemptOtp <= 3) {
+      otpSpinner(true)
+      countdown();
+      try {
+        const response = await axios.post("/private/partner/checkout/resend-otp", {
+          checkoutSessionId: checkoutSessionId,
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          params: params
+        });
+        document.getElementById("otp_wrapper").classList.remove('error');
+        amplitudeLogEvents("Resend OTP", { name: 'resend_method', input: 'SMS' }, { name: 'consumer_id', input: consumerInfo.id });
+      } catch (error) {
+        amplitudeLogEvents("Failed Resend OTP", { name: 'consumer_id', input: consumerInfo.id }, { name: 'message', input: error.response.message }, { name: "status", input: error.response.status });
+        document.getElementById("otp_wrapper").classList.add('error');
+        console.error(error);
+      } finally {
+        otpSpinner(false)
+      }
+    }
+    else {
+      otpNextElement.disabled = true;
+      otpNextElement.classList.add("disabled");
+      showErrorAlert("مشكلة بسيطة", "لقد قمت بإدخال الكود ٣ مرات خطأ");
+    }
+  }
+
+  const resetPhoneTimer = async () => {
+    attemptOtp++;
+    if (attemptOtp <= 3) {
+      otpSpinner(true)
+      countdown();
+      try {
+        const response = await axios.post("/private/partner/checkout/resend-otp/callme", {
+          checkoutSessionId: checkoutSessionId,
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          params: params
+        });
+        document.getElementById("otp_wrapper").classList.remove('error');
+        amplitudeLogEvents("Resend OTP", { name: 'resend_method', input: 'Call' }, { name: 'consumer_id', input: consumerInfo.id });
+      } catch (error) {
+        amplitudeLogEvents("Failed Resend OTP", { name: 'consumer_id', input: consumerInfo.id }, { name: 'message', input: error.response.message }, { name: "status", input: error.response.status });
+        document.getElementById("otp_wrapper").classList.add('error');
+        console.error(error);
+      } finally {
+        otpSpinner(false)
+      }
+    }
+    else {
+      otpNextElement.disabled = true;
+      otpNextElement.classList.add("disabled");
+      showErrorAlert("مشكلة بسيطة", "لقد قمت بإدخال الكود ٣ مرات خطأ");
+    }
+  }
+
+  const handleNextOtp = async () => {
+     attemptOtp++;
+    if (attemptOtp <= 3) {
+      otpSpinner(true)
+      try {
+        const response = await axios.post("/private/partner/checkout/verify-otp", {
+          checkoutSessionId: checkoutSessionId,
+          otp: otpCode
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          params: params
+        });
+
+        amplitudeLogEvents("Enter Transaction OTP", { name: 'consumer_id', input: consumerInfo.id }, { name: 'otp', input: otpCode }, { name: 'correct_otp', input: "Yes" }, { name: 'consumer_id', input: consumerInfo.id });
+        currentStep++;
+        adjustStepper();
+      } catch (error) {
+        amplitudeLogEvents("Faild Resend OTP", { name: 'consumer_id', input: consumerInfo.id }, { name: 'message', input: error.message }, { name: "status", input: error.response.status });
+
+        document.getElementById("otp_wrapper").classList.add('error');
+      } finally {
+        otpSpinner(false);
+      }
+    }
+    else {
+      document.getElementById("checkout-alert-btn").addEventListener("click", function() {
+        cancelCheckoutWizard();
+      });
+      otpNextElement.disabled = true;
+      otpNextElement.classList.add("disabled");
+      showErrorAlert("مشكلة بسيطة", "لقد قمت بإدخال الكود ٣ مرات خطأ");
+    }
+
+  }
+
+  const otpCancelHandler = () => {
+    window.location.href = `/private/partner/checkout/cancel-checkout?session_id=${checkoutSessionId}${userIamIdQueryParamString}`;
+  }
+</script>
+</div>

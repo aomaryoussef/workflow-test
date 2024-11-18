@@ -1,0 +1,9 @@
+gl_journal_name,gl_account_type,lms_account_type,gl_account_id,lms_account_name
+CCN22,Loan Activation,LOAN_ACTIVATION,120301033,LoanReceivable
+CCN22,Loan Activation,LOAN_ACTIVATION,120301034,InterestReceivable
+CCN22,Loan Activation,LOAN_ACTIVATION,230202012,MerchantAccountsPayable
+CCN22,Loan Activation,LOAN_ACTIVATION,230406003,UnearnedRevenue
+CC22,Admin Fees,ADMIN_FEE,410101006,AdminFeeIncome
+CC22,Admin Fees,ADMIN_FEE,230202012,AdminFeeReceivable
+XXXX,Interest Earned,INTEREST_EARNED,410201001,InterestRevenue
+XXXX,Interest Earned,INTEREST_EARNED,230406003,UnearnedRevenue

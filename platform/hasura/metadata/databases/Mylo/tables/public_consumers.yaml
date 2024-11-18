@@ -1,0 +1,42 @@
+table:
+  name: consumers
+  schema: public
+array_relationships:
+  - name: consumers_credit_limits
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumers_credit_limits
+          schema: public
+remote_relationships:
+  - definition:
+      to_source:
+        field_mapping:
+          id: reference
+        relationship_type: object
+        source: Payments
+        table:
+          name: account
+          schema: accounts
+    name: formanceAccount
+  - definition:
+      to_source:
+        field_mapping:
+          iam_id: id
+        relationship_type: object
+        source: Kratos
+        table:
+          name: identities
+          schema: public
+    name: identity
+  - definition:
+      to_source:
+        field_mapping:
+          id: consumer_id
+        relationship_type: array
+        source: LMS
+        table:
+          name: loan
+          schema: public
+    name: loans

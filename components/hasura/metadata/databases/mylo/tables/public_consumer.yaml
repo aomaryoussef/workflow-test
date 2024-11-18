@@ -1,0 +1,53 @@
+table:
+  name: consumer
+  schema: public
+array_relationships:
+  - name: collaterals
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: collateral
+          schema: public
+  - name: consumer_group_members
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_group_member
+          schema: public
+  - name: consumer_kycs
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_kyc
+          schema: public
+  - name: consumer_states
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_state
+          schema: public
+  - name: consumer_user_mappings
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_user_mapping
+          schema: public
+  - name: credit_limits
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: credit_limit
+          schema: public
+  - name: guarantors
+    using:
+      foreign_key_constraint_on:
+        column: guarantor_of
+        table:
+          name: guarantor
+          schema: public

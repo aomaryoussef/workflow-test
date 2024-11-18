@@ -1,0 +1,2 @@
+schema: "src/core-services/hasura/graphql/schema.graphql"
+documents: "src/core-services/hasura/graphql/**/*.gql"

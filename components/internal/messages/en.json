@@ -1,0 +1,226 @@
+{
+  "web-internal": {
+    "dashboard": "dashboard",
+    "consumers": "consumers",
+    "identities": "identities",
+    "finances": "finances",
+    "partners": "partners",
+    "accounting": "accounting"
+  },
+  "common": {
+    "errorMessage": "Something went wrong!",
+    "tryAgain": "Try again!",
+    "fillRequiredFields": "Please make sure you have filled all the required fields before submitting",
+    "error": "An error occurred",
+    "success": "Operation completed successfully.",
+    "operationFailed": "Operation failed",
+    "congratulations": "Congratulations!"
+  },
+  "partner": {
+    "create": "Create partner",
+    "createPartnerStore": "Create partner store",
+    "selectPartner": "Select a partner",
+    "merchantName": "Merchant Name",
+    "commercialRegistrationNumber": "Commercial Registration Number",
+    "taxRegistrationNumber": "Tax Registration Number",
+    "commercialActivityCategory": "Commercial Activity Category",
+    "bankInformation": "Bank Information",
+    "bank": "Bank",
+    "branch": "Branch",
+    "beneficiaryName": "Beneficiary Name",
+    "IBAN": "IBAN",
+    "accountNumber": "Account Number",
+    "swiftCode": "SWIFT Code",
+    "contactPerson": "Contact Person",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "savePartner": "Save",
+    "saveBranch": "Save",
+    "name": "Name",
+    "branchName": "Branch Name",
+    "address": "Address",
+    "governorate": "Governorate",
+    "selectGovernorate": "Select governorate",
+    "city": "City",
+    "selectCity": "Select city",
+    "area": "Area",
+    "street": "Street",
+    "googleMapsLink": "Google Maps Link",
+    "longitude": "longitude",
+    "latitude": "latitude",
+    "required": "required",
+    "minLength": "min length {min}",
+    "maxLength": "max length {max}",
+    "length": "min length {min} and max length {max}",
+    "notValidNumber": "{label} is not a valid number",
+    "phoneNotValid": "Phone number is not valid",
+    "invalidLink": "Invalid link",
+    "errors": {
+      "failedtogetdata": "Failed fetch partners",
+      "noPartnersFound": "No partners found",
+      "invalidEmail": "Invalid email"
+    }
+  },
+  "consumer": {
+    "title": "Activate Consumer",
+    "subTitle": "Search for the customer in the database using both the mobile number and the national ID together.",
+    "paymentDayValue": "{day, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} of every month",
+
+    "sidebar": { "activate": "Activate Consumer" },
+    "notifications": {
+      "checkRequiredFieldsValid": "Please check that all the required fields are filled with valid values",
+      "consumerActivated": "Consumer activated successfully",
+      "cannotActivateConsumer": "This consumer can't be activated"
+    },
+    "buttons": {
+      "back": "Back",
+      "edit": "Edit",
+      "search": "Search",
+      "print": "Print",
+      "activate": "Activate",
+      "resetForm": "Reset Form"
+    },
+    "labels": {
+      "personalInfo": "Personal Information",
+      "jobInfo": "Job Information",
+      "incomeInfo": "Income Information",
+      "contract": "Contract",
+      "fullName": "Name",
+      "status": "Status",
+      "activatedAt": "Activated At",
+      "address": "Address",
+      "nationalId": "National ID",
+      "nationalIdAddress": "National ID Address",
+      "phoneNumber": "Phone Number",
+      "jobName": "Job",
+      "company": "Company",
+      "companyAddress": "Work Address",
+      "homePhoneNumber": "Home Phone Number",
+      "workPhoneNumber": "Work Phone Number",
+      "salary": "Salary",
+      "additionalSalary": "Additional Salary",
+      "additionalSalarySource": "Additional Salary Source",
+      "branchName": "Branch Name",
+      "singlePaymentDay": "Payment Day"
+    },
+    "statusOptions": {
+      "ACTIVE": "Active",
+      "BLOCKED": "Blocked",
+      "WAITING_LIST": "Waiting List",
+      "AWAITING_ACTIVATION": "Awaiting Activation"
+    },
+    "errors": {
+      "connectionError": "Connection error",
+      "invalidResponse": "Invalid response",
+      "unknownError": "An unknown error occurred",
+      "serverMessage": "Server message: {message}",
+
+      "form": {
+        "required": "Please enter {label}",
+        "length": "{label} must be {length} characters long",
+        "maxLength": "{label} must not exceed {max} characters long",
+        "notValidNumber": "{label} is not a valid number",
+        "cantBeLessThan": "{label} can't be less than {num}",
+        "cantBeGreaterThan": "{label} can't be greater than {num}",
+        "nationalIdNotValid": "National ID is not valid"
+      },
+
+      "miniCash": {
+        "failedToGetDataFromMiniCash": "Failed to get consumer data from MiniCash",
+        "couldNotAuthenticate": "Could not authenticate with MiniCash",
+        "invalidAuthToken": "Authorization has been denied for this request. Probably an invalid authentication token",
+        "unsupported_grant_type": "Unsupported grant type",
+        "invalid_grant": "Invalid grant, please check the credentials",
+        "consumerNotFoundInMiniCash": "Consumer with national id \"{id}\" not found In MiniCash Database",
+        "failedToGetScoring": "Failed to get consumer scoring",
+        "invalidResponseFromScoring": "Invalid response from scoring engine",
+        "invalidCreditLimit": "Invalid consumer credit limit: {creditLimit}"
+      },
+
+      "search": {
+        "consumerNotFoundInMylo": "Consumer with number \"{number}\" not found In Mylo Database",
+        "failedToGetDataFromMylo": "Failed to get consumer data from Mylo",
+        "failedToGetBTechBranches": "Failed to get BTech branches",
+        "phoneNumbersMismatch": "Phone numbers do not match in Mylo and MiniCash. Mylo: \"{myloPhone}\", MiniCash: \"{miniCashPhone}\"",
+        "consumerSanctioned": "Unfortunately this customer does not qualify for mylo",
+        "failedToGetSanctionsListStatus": "Failed to check sanctions list status",
+        "unknownErrorWhileSearchingForConsumer": "An unknown error occurred while searching for the consumer",
+        "consumerBlocked": "This Consumer is blocked",
+        "consumerWaitingList": "This Consumer is in waiting list",
+        "consumerUnknownStatus": "Consumer status is unknown: \"{status}\""
+      },
+
+      "prefilledContract": {
+        "errorWhileGeneratingPrefilledContractOnServer": "An error occurred while generating the prefilled contract",
+        "errorGeneratingPrefilledContractDownloadLink": "An error occurred while generating the prefilled contract download link",
+        "unknownErrorWhileGeneratingPrefilledContract": "An unknown error occurred while generating the prefilled contract"
+      },
+
+      "activate": {
+        "failedToUpdateConsumerData": "Failed to update consumer data",
+        "updatedButFailedToActivate": "Consumer data was updated, but failed to activate the consumer.",
+        "callSuccessButConsumerNotActive": "Somehow, the call to consumer activation was successful, but the consumer status is not Active. Please check the consumer status in the system. The current consumer status is: {status}",
+        "unknownErrorWhileActivatingConsumer": "An unknown error occurred while activating the consumer"
+      }
+    },
+    "info": {
+      "consumerAlreadyActivated": "Consumer is already activated"
+    },
+    "creditLimitCard": {
+      "title": "Credit Limit"
+    },
+    "SanctionsList": {
+      "SANCTION_LIST": "Sanctions list",
+      "TERRORIST_LIST": "Terrorists list"
+    }
+  },
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "SignInToYourAccount": "Sign in to your account",
+    "logout": "Logout",
+    "required": "{label} is required",
+    "invalidEmail": "Invalid email"
+  },
+  "repay": {
+    "monthlyInstallements": "Monthly Installements",
+    "paymentHistory": "Payment History",
+    "earlySettlement": "Early Settlement",
+    "pay": "Pay",
+    "changeConsumerName": "Change Consumer",
+    "enterCustomerNumber": "Enter the customer's mobile number to find the order",
+    "searchForCustomer": "Search for a customer",
+    "consumerName": "Consumer name",
+    "consumerPhoneNumber": "Consumer phone number",
+
+    "errors": {
+      "failedToGetRepaymentData": "Failed to get repayment data",
+      "failedToGetPaymentHistory": "Failed to get payment history",
+      "failedToGetEarlySettlementData": "Failed to get early settlement data"
+    },
+    "payPopup": {
+      "reviewPaymentRequest": "Review Payment Request",
+      "selectPaymentMethod": "Select Payment Method",
+      "clickHere": "Click here",
+      "cash": "Cash",
+      "last4DigitsOfCard": "Last 4 digits of the card",
+      "referenceNumber": "Reference Number",
+      "amountDueViaMaylo": "Amount due for Mylo",
+      "totalAmount": "Total Amount",
+      "confirmPayment": "Confirm Payment"
+    }
+  },
+  "general": {
+    "consumerName": "Consumer Name",
+    "changeConsumerName": "Change Consumer",
+    "pay": "Pay",
+    "action": "Action",
+    "popups": {
+      "paymentCompleted": "Payment completed successfully",
+      "problemHappened": "A Simple Problem Happened"
+    }
+  }
+}

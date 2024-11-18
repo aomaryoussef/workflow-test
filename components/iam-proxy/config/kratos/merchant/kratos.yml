@@ -1,0 +1,114 @@
+version: v1.1.0
+dsn: postgres://postgres:admin@localhost:5432/kratos
+
+
+log:
+  level: debug
+  format: text
+  leak_sensitive_values: false
+
+serve:
+  public:
+    base_url: http://idp.partner.myloapp.local/
+    cors:
+      enabled: true
+  admin:
+    base_url: http://idp.partner.myloapp.local/
+
+selfservice:
+  default_browser_return_url: http://partner.myloapp.local/
+  allowed_return_urls:
+    - http://idp.partner.myloapp.local
+    - http://partner.myloapp.local
+
+  methods:
+    password:
+      enabled: true
+      config:
+        haveibeenpwned_enabled: false
+        min_password_length: 6
+        identifier_similarity_check_enabled: false
+    code:
+      enabled: true
+      config:
+        lifespan: 1h
+    link:
+      enabled: false
+
+  flows:
+    error:
+      ui_url: http://idp.partner.myloapp.local/idp/error
+
+    settings:
+      ui_url: http://idp.partner.myloapp.local/idp/settings
+      privileged_session_max_age: 15m
+      required_aal: highest_available
+
+    recovery:
+      enabled: true
+      ui_url: http://idp.partner.myloapp.local/idp/recovery
+      use: code
+      lifespan: 15m
+      after:
+        hooks:
+          - hook: revoke_active_sessions
+
+    verification:
+      enabled: true
+      ui_url: http://idp.partner.myloapp.local/idp/verification
+      use: code
+      after:
+        # This is the return url of the consumer dashboard / mobile
+        default_browser_return_url: http://idp.partner.myloapp.local/idp/login
+
+    logout:
+      after:
+        default_browser_return_url: http://idp.partner.myloapp.local/idp/login
+
+    login:
+      ui_url: http://idp.partner.myloapp.local/idp/login
+      lifespan: 10m
+      after:
+        password:
+          default_browser_return_url: http://partner.myloapp.local/dashboard
+          hooks:
+            - hook: require_verified_address
+
+    registration:
+      enabled: false
+
+secrets:
+  cookie:
+    - nh8zYnDKNieX3mxZxqMQ0Fm27vXKXDCY
+  cipher:
+    - cmK9CFzQnimOjDyxUHkFHk61WmpPqtQ1
+
+ciphers:
+  algorithm: xchacha20-poly1305
+
+hashers:
+  argon2:
+    parallelism: 8
+    memory: 640MB
+    iterations: 3
+    salt_length: 16
+    key_length: 32
+
+identity:
+  default_schema_id: "merchant_v0"
+  schemas:
+    - id: merchant_v0
+      url: file:///etc/config/kratos/merchant_v0.json
+
+courier:
+  smtp:
+    connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
+  sms:
+    enabled: true
+    from: mylo
+    request_config:
+      url: http://sms-gateway:8080/send
+      method: POST
+      headers:
+        Content-Type: application/json
+      body: "base64://ZnVuY3Rpb24oY3R4KSB7CiAgaWRlbnRpdHlfaWQ6IGlmIGN0eFsiaWRlbnRpdHkiXSAhPSBudWxsIHRoZW4gY3R4LmlkZW50aXR5LmlkLAp9="

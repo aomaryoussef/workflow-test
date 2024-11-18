@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "common/money.proto";
+
+package event;
+
+option go_package = "github.com/btechlabs/lms/gen/pb/event";
+
+enum MonetaryLineItemType {
+  ORIGINATION_AMOUNT = 0;
+  DOWN_PAYMENT = 1;
+  FINANCED_AMOUNT = 2;
+  ADMIN_FEE = 3;
+  VAT = 4;
+  INTEREST_ACCRUAL = 5;
+  PENALTY_ACCRUAL = 6;
+  REPAYMENT = 7;
+}
+
+enum MonetaryLineItemCollectionType {
+  NONE = 0;
+  COLLECTED_BY_MERCHANT = 1;
+  COLLECTED_BY_REPAYMENT_CHANNEL = 2;
+//  AMMORTISED_EVENLY = 2;
+//  AMMORTISED_FIRST_MONTH = 3;
+}
+
+enum LoanAccountState {
+  CREATED = 0;
+  ACTIVE = 1;
+  LOCKED = 2;
+  TERMINATED = 3;
+  ACTIVE_IN_ARREARS = 4;
+  CLOSED = 5;
+}
+
+enum LoanAccountSubState {
+  NOT_AVAILABLE = 0;
+  WRITTEN_OFF = 1;
+  ALL_OBLIGATIONS_MET = 2;
+  REFINANCED = 3;
+  RESCHEDULED = 4;
+  PAID_OFF = 5;
+  WITHDRAWN = 6;
+  EARLY_SETTLEMENT_REQUESTED = 7;
+}
+
+message LoanAccountCreatedEventPayload {
+  LoanAccountState state = 1;
+  LoanAccountSubState subState = 2 [json_name="sub_state"];
+  string borrowerId = 3 [json_name="borrower_id"];
+  uint32 repaymentDayOfMonth = 4 [json_name="repayment_day_of_month"];
+  string commercialOfferId = 5 [json_name="commercial_offer_id"];
+  string financialProductId = 6 [json_name="financial_product_id"];
+  string financialProductTenorKey = 7 [json_name="financial_product_tenor_key"];
+  uint32 tenorDays = 8 [json_name="tenor_days"];
+  uint32 gracePeriodInDays = 9 [json_name="grace_period_in_days"];
+  google.protobuf.Timestamp bookedAt = 10 [json_name="booked_at"];
+  string merchantId = 11 [json_name="merchant_id"];
+  string merchantCode = 12 [json_name="merchant_code"];
+  string lenderSource = 13 [json_name="lender_source"];
+  string originationChannel = 14 [json_name="origination_channel"];
+  string appliedCurrency = 15 [json_name="applied_currency"];
+  uint32 flatRateBasisPoints = 16 [json_name="flat_rate_basis_points"];
+  double monthlyEffectiveRate = 17 [json_name="monthly_effective_rate"];
+  double totalEffectiveRate = 18 [json_name="total_effective_rate"];
+  double annualPercentageRate = 19 [json_name="annual_percentage_rate"];
+  uint32 vatPercentageBasisPoints = 20 [json_name="vat_percentage_basis_points"];
+  uint32 adminFeePercentageBasisPoints = 21 [json_name="admin_fee_percentage_basis_points"];
+  uint32 earlySettlementFeePercentageBasisPoints = 22 [json_name="early_settlement_fee_percentage_basis_points"];
+  uint32 badDebtFeePercentageBasisPoints = 23 [json_name="bad_debt_fee_percentage_basis_points"];
+  uint64 roundingUpEstimatedGainUnits = 24 [json_name="rounding_up_estimated_gain_units"];
+  repeated LoanAccountMonetaryLineItem monetaryLineItems = 25 [json_name="monetary_line_items"];
+  common.Money monthlyInstalment = 26 [json_name="monthly_instalment"];
+}
+
+message LoanAccountMonetaryLineItem {
+  common.Money money = 1;
+  MonetaryLineItemType type = 2;
+  MonetaryLineItemCollectionType collectionType = 3 [json_name="collection_type"];
+}
+
+message LoanAccountActivatedEventPayload {
+  LoanAccountState state = 1;
+  LoanAccountSubState subState = 2 [json_name = "sub_state"];
+  repeated LoanAccountAmmortisationLineItem ammortisationLineItems = 3 [json_name="ammortisation_line_items"];
+}
+
+message LoanAccountAmmortisationLineItem {
+  uint32 scheduleNumber = 1 [json_name="schedule_number"];
+  google.protobuf.Timestamp instalmentDueAt = 2 [json_name="instalment_due_at"];
+  google.protobuf.Timestamp gracePeriodEndAt = 3 [json_name="grace_period_end_at"];
+  common.Money loanBalance = 4 [json_name="loan_balance"];
+  common.Money principalDue = 5 [json_name="principal_due"];
+  common.Money interestDue = 6 [json_name="interest_due"];
+  common.Money cumulativeInterestDue = 7 [json_name="cumulative_interest_due"];
+  common.Money penaltyDue = 8 [json_name="penalty_due"];
+  common.Money adminFeeDue = 9 [json_name="admin_fee_due"];
+  common.Money vatDue = 10 [json_name="vat_due"];
+  common.Money totalInstalmentDue = 11 [json_name="total_instalment_due"];
+  bool cancelled = 12;
+  optional string cancelledReason = 13 [json_name="cancelled_reason"];
+  optional google.protobuf.Timestamp cancelledAt = 14 [json_name="cancelled_at"];
+  bool paid = 15;
+  optional google.protobuf.Timestamp paidAt = 16 [json_name="paid_at"];
+  repeated string paymentReferences = 17 [json_name="payment_references"];
+}
+
+
+message LoanAccountCanceledEventPayload {
+  LoanAccountState state = 1;
+  LoanAccountSubState subState = 2 [json_name = "sub_state"];
+  string cancellationReason = 3 [json_name = "cancellation_reason"];
+}
+
+message LoanAccountEarlySettledEventPayload {
+  LoanAccountSubState subState = 1 [json_name = "sub_state"];
+  repeated uint32 cancelledScheduleNumbers = 2 [json_name = "cancelled_schedule_numbers"];
+  LoanAccountAmmortisationLineItem addedEarlySettlementAmmortisation = 3 [json_name="added_early_settlement_ammortisation"];
+  google.protobuf.Timestamp bookingTime = 4 [json_name="booking_time"];
+}
+
+message LoanAccountRevenueRecognisedEventPayload {
+  uint32 scheduleNumber = 1 [json_name="schedule_number"];
+  common.Money money = 2 [json_name="money"];
+  MonetaryLineItemType type = 3 [json_name="type"];
+  google.protobuf.Timestamp bookingTime = 4 [json_name="booking_time"];
+}
+
+message LoanAccountPaymentAppliedEventPayload {
+  uint32 scheduleNumber = 1 [json_name="schedule_number"];
+  string paymentReference = 2 [json_name="payment_reference"];
+  google.protobuf.Timestamp bookingTime = 3 [json_name="booking_time"];
+  common.Money principalPaid = 4 [json_name="principal_paid"];
+  common.Money interestPaid = 5 [json_name="interest_paid"];
+  common.Money penaltyPaid = 6 [json_name="penalty_paid"];
+  common.Money adminFeePaid = 7 [json_name="admin_fee_paid"];
+  common.Money vatPaid = 8 [json_name="vat_paid"];
+}

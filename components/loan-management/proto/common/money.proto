@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option go_package = "github.com/btechlabs/lms/gen/pb/common";
+
+package common;
+
+/* A message that holds a Money object. */
+message Money {
+  uint64 units = 1;        // total units of money in the lowest possible denomination
+  string currency = 2;  // currency in 3-letter ISO 4217 format
+}

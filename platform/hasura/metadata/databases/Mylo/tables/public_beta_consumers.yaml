@@ -1,0 +1,3 @@
+table:
+  name: beta_consumers
+  schema: public

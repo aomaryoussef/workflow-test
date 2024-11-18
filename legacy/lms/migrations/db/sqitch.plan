@@ -1,0 +1,22 @@
+%syntax-version=1.0.0
+%project=lms-lite
+%uri=https://github.com/btechlabs/lms-lite
+
+001-init-database-schema 2023-09-28T08:31:46Z Sid Moitra <siddhartha_moitra@mckinsey.com> # initialise database schema
+002-audit-entries 2023-10-11T08:31:46Z Mate Vasarhelyi <mate_vasarhelyi@mckinsey.com> # add audit entries
+003-commercial-offer 2023-10-25T09:35:38Z Szilard Detar <szilard_i_detar@M-P463L4GVHF> # Add commercial offer table
+004-party-accounts 2023-11-03T10:51:06Z Mate Vasarhelyi <mate_vasarhelyi@mckinsey.com> # Adds party accounts table
+005-merchant-transaction-slip 2023-11-03T10:10:10Z Gergo Vinkler <gergo_vinkler-budd@mckinsey.com> # Add merchant transaction slip
+006-extend-commercial-offer 2023-11-05T09:35:38Z Szilard Detar <szilard_i_detar@M-P463L4GVHF> # Extend commercial offers table
+007-extend-merchant-disbursement 2023-11-20T17:13:00Z Sandor Nagy <sandor_nagy@mckinsey.com> # Adds missing updated at and other columns
+007_add_consumer_id_to_loan 2023-11-16T12:19:07Z Ahmed Ghazey <ahmed.ghazey@btech.com> # add consumer_id
+008_add_status_to_merchant_payment 2023-11-20T12:19:07Z Ahmed Ghazey <ahmed.ghazey@btech.com> # add status and status_timestamp
+009-clean-up-merchant-disbursements 2023-11-28T12:33:27Z Sandor Nagy <sandor_nagy@M-F6RQKVQCNF> # Invoice id to be sequential
+010_add_merchant_global_id_to_loan 2023-11-26T20:16:07Z Ahmed Ghazey <ahmed.ghazey@btech.com> # add merchant_global_id
+011_add_fk_to_merchant_transaction_slip 2023-11-28T23:51:07Z Ahmed Ghazey <ahmed.ghazey@btech.com> # add merchant_payment_id
+010-journal-transaction-type 2023-11-29T11:48:41Z Sandor Nagy <sandor_nagy@M-F6RQKVQCNF> # Add transaction type field to journal
+012-loan-commercial-offer-relation 2024-01-15T13:49:42Z Sandor Nagy <sandor_nagy@M-F6RQKVQCNF> # Add reference from loan to commercial offer, remove unused columns
+013-journal-voucher-entries 2024-01-18T12:44:05Z Sandor Nagy <sandor_nagy@M-F6RQKVQCNF> # Add new table to hold direct reference between individual journal entries and aggregated MS Dynamics journal vouchers
+014-add-ref-id-loan-schedule 2024-03-05T21:42:15Z Sid Moitra <siddhartha_moitra@mckinsey.com> # adds ref_id to loan_schedule table
+015-new-loan-id-loan-table 2024-04-30T16:55:42Z Sid Moitra <siddhartha_moitra@mckinsey.com> # adds new_loan_id to the loan table to be used for later as primary id
+016-add-loan-schedule-cancel 2024-05-17T09:13:04Z Siddhartha Moitra <Siddhartha_Moitra@M-RYVHYXKC72> # adds a column to loan_schedule table to determine if the schedule is cancelled

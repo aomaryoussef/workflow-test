@@ -1,0 +1,23 @@
+<div class="custom-overlay">
+  <div class="popup one-btn-popup">
+    <div class="popup-wrapper">
+      <div class="center-data">
+        <div class="icon">
+          <% if(data.valid) { %>
+          <img src="/public/partner/img/confirm.svg" alt="check" />
+          <% } else{ %>
+
+          <img src="/public/partner/img/wrong.svg" alt="wrong" />
+          <% } %>
+        </div>
+
+        <div class="title"><%= data.title %></div>
+        <div class="notification"><%= data.subtitle %> <br> <%= data.secondLine %> </div>
+      </div>
+
+      <div class="btn-wrapper">
+        <a class="btn primary-green-btn popupMainPageLink" href="/private/partner/checkout">الرئيسية</a>
+      </div>
+    </div>
+  </div>
+</div>

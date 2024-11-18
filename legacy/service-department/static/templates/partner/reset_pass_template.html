@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>تغيير كلمة السر</title>
+  </head>
+
+  <body dir="rtl">
+    <p>أهلاً، {{ name }}</p>
+    <p>استلمنا طلبك لتغيير كلمة السر الخاصة بحسابك.</p>
+    <p>من فضلك اضغط على الرابط الآتي أو انسخه في المتصفح الخاص بك:</p>
+    <p><a target="_blank" href="{{ recovery_link }}">{{ recovery_link }}</a></p>
+    <p>في حال عدم ارسالك هذا الطلب، نرجو منك تجاهل هذه الرسالة.</p>
+  </body>
+</html>

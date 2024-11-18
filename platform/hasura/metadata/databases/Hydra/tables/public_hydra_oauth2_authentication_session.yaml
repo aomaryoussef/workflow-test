@@ -1,0 +1,15 @@
+table:
+  name: hydra_oauth2_authentication_session
+  schema: public
+object_relationships:
+  - name: network
+    using:
+      foreign_key_constraint_on: nid
+array_relationships:
+  - name: hydra_oauth2_flows
+    using:
+      foreign_key_constraint_on:
+        column: login_session_id
+        table:
+          name: hydra_oauth2_flow
+          schema: public

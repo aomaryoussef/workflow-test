@@ -1,0 +1,11 @@
+table:
+  name: consumer_application
+  schema: public
+array_relationships:
+  - name: consumer_application_states
+    using:
+      foreign_key_constraint_on:
+        column: application_id
+        table:
+          name: consumer_application_state
+          schema: public

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <%- include('./common/head',{title:title});%>
+
+  <body class="white-bg">
+    <%- include('./common/header',{userInfo: userInfo, logoutUrl:logoutUrl});%>
+    <div class="page-content support">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-2 col-lg-2 border-side desktop-view"><%- include('./common/primary-nav');%></div>
+          <%-body %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

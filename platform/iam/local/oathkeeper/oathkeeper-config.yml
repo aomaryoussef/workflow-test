@@ -1,0 +1,129 @@
+log:
+  level: debug
+  format: json
+  leak_sensitive_values: true
+
+serve:
+  proxy:
+    cors:
+      enabled: true
+      allowed_origins:
+        - "*"
+      allowed_methods:
+        - POST
+        - GET
+        - PUT
+        - PATCH
+        - DELETE
+      allowed_headers:
+        - Authorization
+        - Content-Type
+      exposed_headers:
+        - Content-Type
+      allow_credentials: true
+      debug: true
+
+errors:
+  fallback:
+    - json
+
+  handlers:
+    redirect:
+      enabled: true
+      config:
+        to: /login
+        when:
+          - error:
+              - unauthorized
+              - forbidden
+            request:
+              header:
+                accept:
+                  - text/html
+    json:
+      enabled: true
+      config:
+        verbose: true
+
+access_rules:
+  matching_strategy: glob
+  repositories:
+    - file:///etc/ory-config/kratos-access-rules.yml
+    - file:///etc/ory-config/keto-access-rules.yml
+    - file:///etc/ory-config/partners-access-rules.yml
+    - file:///etc/ory-config/session-basket-access-rules.yml
+    - file:///etc/ory-config/back-office-access-rules.yml
+    - file:///etc/ory-config/consumers-access-rules.yml
+    - file:///etc/ory-config/shared-components-access-rules.yml
+    - file:///etc/ory-config/registry-access-rules.yml
+    - file:///etc/ory-config/service-department-access-rules.yml
+    - file:///etc/ory-config/backoffice-access-rules.yml
+    - file:///etc/ory-config/internal-bff-access-rules.yml
+    - file:///etc/ory-config/external-access-rules.yml
+    - file:///etc/ory-config/hydra-access-rules.yml
+    - file:///etc/ory-config/mylo-website-access-rules.yml
+
+authenticators:
+  anonymous:
+    enabled: true
+    config:
+      subject: guest
+  oauth2_client_credentials:
+    enabled: true
+    config:
+      token_url: http://hydra:4444/oauth2/token
+  oauth2_introspection:
+    enabled: true
+    config:
+      introspection_url: http://hydra:4445/oauth2/introspection
+      scope_strategy: exact
+
+  cookie_session:
+    enabled: true
+    config:
+      check_session_url: http://kratos:4433/sessions/whoami
+      preserve_path: true
+      extra_from: "@this"
+      subject_from: "identity.id"
+      only:
+        - ory_kratos_session
+
+  bearer_token:
+    enabled: true
+    config:
+      check_session_url: http://kratos:4433/sessions/whoami
+      preserve_path: true
+      extra_from: "@this"
+      subject_from: "identity.id"
+
+  noop:
+    enabled: true
+
+authorizers:
+  allow:
+    enabled: true
+  remote_json:
+    enabled: true
+    config:
+      remote: http://keto:4466/relation-tuples/check
+      forward_response_headers_to_upstream: []
+      payload: |
+        {
+            "namespace": "...",
+            "subject": "...",
+            "object": "...",
+            "relation": "..."
+        }
+
+mutators:
+  noop:
+    enabled: true
+  header:
+    enabled: true
+    config:
+      headers:
+        X-User-IAM-ID: "{{ print .Subject }}"
+        X-Trace-ID: "{{ now.Unix }}{{ randInt 1000000000 9999999999 }}"
+        X-User-IAM-Branch-Id: "{{ if .Extra }}{{ if .Extra.identity }}{{ if .Extra.identity.metadata_public }}{{ if .Extra.identity.metadata_public.branch_id }}{{ .Extra.identity.metadata_public.branch_id }}{{ end }}{{ end }}{{ end }}{{ end }}"
+        X-User-IAM-Email: "{{ if .Extra }}{{ if .Extra.identity }}{{ if .Extra.identity.traits }}{{ if .Extra.identity.traits.email }}{{ .Extra.identity.traits.email }}{{ end }}{{ end }}{{ end }}{{ end }}"
+        X-User-IAM-Phone: "{{ if .Extra }}{{ if .Extra.identity }}{{ if .Extra.identity.traits }}{{ if .Extra.identity.traits.phone }}{{ .Extra.identity.traits.phone }}{{ end }}{{ end }}{{ end }}{{ end }}"

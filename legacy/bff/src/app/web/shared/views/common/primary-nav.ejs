@@ -1,0 +1,57 @@
+<div class="primary-nav desktop">
+  <nav>
+    <ul>
+      <div class="item-wrapper">
+        <% for(navItem of navList) {%>
+        <li class="<%= typeof url != 'undefined' && url == navItem.url ? 'item active' : '' %>  <%= navItem.extra_class %>">
+          <a href="<%= navItem.url %>" class="item">
+            <i class="<%= navItem.icon %>"></i><span><%= navItem.title %></span>
+          </a>
+        </li>
+        <% } %>
+      </div>
+    </ul>
+  </nav>
+</div>
+<% if(navList.length > 0) {%>
+<div class="mobile-nav">
+  <div class="burger-menu" onclick="openMenu()">
+    <img src="/public/shared/img/menu.svg" width="25px" id="open_menu" />
+    <img src="/public/shared/img/close-gray-bg.svg" id="close_menu" width="30px" style="display: none" />
+  </div>
+  <div class="primary-nav" id="mobile-nav" style="display: none">
+    <nav>
+      <ul>
+        <div class="item-wrapper">
+          <% for(navItem of navList) {%>
+          <li class="<%= typeof url != 'undefined' && url == navItem.url ? 'item active' : '' %> <%= navItem.extra_class %>">
+            <a href="<%= navItem.url %>" class="item ">
+              <i class="<%= navItem.icon %>"></i><span><%= navItem.title %></span>
+            </a>
+          </li>
+          <% } %>
+        </div>
+      </ul>
+    </nav>
+  </div>
+</div>
+<% } %>
+
+<script>
+  let burgerMenu = document.getElementsByClassName("burger-menu");
+  const navMenu = document.getElementById("mobile-nav");
+  const openNavMenu = document.getElementById("open_menu");
+  const closeNavMenu = document.getElementById("close_menu");
+
+  const openMenu = () => {
+    if (navMenu.style.display == "none") {
+      navMenu.style.display = "block";
+      openNavMenu.style.display = "none";
+      closeNavMenu.style.display = "block";
+    } else {
+      navMenu.style.display = "none";
+      openNavMenu.style.display = "block";
+      closeNavMenu.style.display = "none";
+    }
+  };
+</script>

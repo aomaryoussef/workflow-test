@@ -1,0 +1,221 @@
+definitions:
+  domain.GetAllLoansForConsumerResponse:
+    properties:
+      loans:
+        items:
+          $ref: '#/definitions/github_com_btechlabs_lms-lite_internal_http_domain.Loan'
+        type: array
+    type: object
+  domain.GetAllLoansForMerchantResponse:
+    properties:
+      loans:
+        items:
+          $ref: '#/definitions/github_com_btechlabs_lms-lite_internal_http_domain.MerchantLoan'
+        type: array
+    type: object
+  domain.LmsHttpError:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  domain.Money:
+    properties:
+      amount:
+        type: integer
+      currency:
+        type: string
+    type: object
+  github_com_btechlabs_lms-lite_internal_http_domain.Loan:
+    properties:
+      admin_fee:
+        $ref: '#/definitions/domain.Money'
+      booked_at:
+        type: string
+      commercial_offer_id:
+        type: string
+      consumer_id:
+        type: string
+      correlation_id:
+        type: string
+      created_at:
+        type: string
+      created_by:
+        type: string
+      current_status:
+        $ref: '#/definitions/github_com_btechlabs_lms-lite_internal_http_domain.LoanStatus'
+      financial_product_key:
+        type: string
+      financial_product_version:
+        type: string
+      loan_id:
+        type: string
+      merchant_id:
+        type: string
+      payment_schedule:
+        items:
+          $ref: '#/definitions/github_com_btechlabs_lms-lite_internal_http_domain.LoanPaymentSchedule'
+        type: array
+      statuses:
+        items:
+          $ref: '#/definitions/github_com_btechlabs_lms-lite_internal_http_domain.LoanStatus'
+        type: array
+    type: object
+  github_com_btechlabs_lms-lite_internal_http_domain.LoanPaymentSchedule:
+    properties:
+      due_date:
+        type: string
+      grace_period_end_date:
+        type: string
+      id:
+        type: integer
+      interest_due:
+        $ref: '#/definitions/domain.Money'
+      late_fee_due:
+        $ref: '#/definitions/domain.Money'
+      loan_balance:
+        $ref: '#/definitions/domain.Money'
+      loan_id:
+        type: string
+      paid_date:
+        type: string
+      paid_interest:
+        $ref: '#/definitions/domain.Money'
+      paid_late_fee:
+        $ref: '#/definitions/domain.Money'
+      paid_principal:
+        $ref: '#/definitions/domain.Money'
+      principal_due:
+        $ref: '#/definitions/domain.Money'
+    type: object
+  github_com_btechlabs_lms-lite_internal_http_domain.LoanStatus:
+    properties:
+      created_at:
+        type: string
+      status_type:
+        type: string
+    type: object
+  github_com_btechlabs_lms-lite_internal_http_domain.MerchantLoan:
+    properties:
+      admin_fee:
+        $ref: '#/definitions/domain.Money'
+      booked_at:
+        type: string
+      commercial_offer_id:
+        type: string
+      consumer_id:
+        type: string
+      correlation_id:
+        type: string
+      created_at:
+        type: string
+      created_by:
+        type: string
+      current_status:
+        $ref: '#/definitions/github_com_btechlabs_lms-lite_internal_http_domain.LoanStatus'
+      financial_product_key:
+        type: string
+      financial_product_version:
+        type: string
+      loan_id:
+        type: string
+      merchant_id:
+        type: string
+      payment_status:
+        type: string
+      statuses:
+        items:
+          $ref: '#/definitions/github_com_btechlabs_lms-lite_internal_http_domain.LoanStatus'
+        type: array
+      transaction_id:
+        type: string
+      transaction_status:
+        type: string
+    type: object
+  rest.HealthResponse:
+    properties:
+      conductor_alive:
+        type: boolean
+      database_alive:
+        type: boolean
+      is_alive:
+        type: boolean
+      msg:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/loans/consumer/{consumer_id}:
+    get:
+      description: Get all loans for a consumer by consumer ID
+      operationId: get-all-loans-for-consumer
+      parameters:
+      - description: Consumer ID
+        in: path
+        name: consumerId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/domain.GetAllLoansForConsumerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.LmsHttpError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.LmsHttpError'
+      summary: Get all loans for a user
+  /api/loans/merchant/{merchant_id}:
+    get:
+      description: Get all loans for a merchant by merchant ID
+      operationId: get-all-loans-for-merchant
+      parameters:
+      - description: Merchant ID
+        in: path
+        name: merchantId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/domain.GetAllLoansForMerchantResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.LmsHttpError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.LmsHttpError'
+      summary: Get all loans for a user
+  /health:
+    get:
+      description: get request to check service health
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HealthResponse'
+        "408":
+          description: fail
+          schema:
+            type: string
+        "500":
+          description: fail
+          schema:
+            type: string
+      summary: get request to check service health
+swagger: "2.0"

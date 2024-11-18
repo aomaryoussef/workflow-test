@@ -1,0 +1,258 @@
+openapi: 3.0.3
+info:
+  title: OpenLoop Consumer Finance
+  description: |-
+
+    ---
+    # Introduction
+
+    - [Online Open API Editor](https://editor-next.swagger.io/)
+
+    # Pagination
+
+    OpenLoop utilises cursor-based pagination via the `start_at` 
+    and `end_before` parameters. Both parameters take an existing 
+    Object ID value and return objects in chronological order. The 
+    `end_before` parameter returns objects listed before the named 
+    object. The `start_at` parameter returns objects listed after 
+    the named object incl. the named object: So [start_at, end_before). 
+
+    The size of the page can be limited using the limit parameter. 
+    limit is optional; the default is 25 and can be between 1 and 100.
+
+
+    # Special Attributes
+
+    ## Money
+    The money value will be stored in lowest denominator possible. This allows 
+    us to utilise fixed point precisions as opposed to double where the guarantee 
+    of precision is undetermined.
+
+    See [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) for details on the
+    currency code.
+
+    ```
+    value:
+      type: integer
+      format: int64
+      description: |
+        The amount value
+    unit:
+      type: string
+      enum: ["cents"]
+      description: |
+        The unit of the given value
+    currency:
+      type: string
+      enum: [EGP]
+      description: |
+        The currency code supported as [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217)
+    ```
+
+    ## Correlation ID
+    The correlation ID will be utilised across all systems to ensure
+    proper request tracing from the first system accessed until all the
+    upstream systems (_incl._ async distributed transactions). The
+    OpenTracing systems will utilise the `correlation_id` to create
+    spans and tracing.
+
+    ## Date-Time
+    The date-time will use the 
+    [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6)
+    throughout with UTC timezone.
+
+    # External IDs
+
+
+
+
+
+    ### Open API Editor
+    Use the [Online Editor](https://editor-next.swagger.io/)
+
+    ---
+
+  termsOfService: http://blabs.com/engineering/terms/
+  contact:
+    email: engineering@blabs.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+externalDocs:
+  description: Find out more about LMS-Lite
+  url: https://github.com/btechlabs/consumer-finance-root/tree/main/docs/04_bounded-contexts/01_lms-lite
+servers:
+  - url: https://openloop.com/api
+
+paths:
+  /create-supplier:
+    post:
+      security:
+        - BearerAuth: []
+      summary: |
+        Command to create a merchant (or supplier) GA account
+      operationId: createSupplier
+      requestBody:
+        description: Command to activate a loan
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMerchantCommand'
+      responses:
+        '200':
+          description: created transaction ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMerchantResponse'
+              example:
+                ResponseStatus: SUCCEEDED
+
+        '400':
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMerchantResponse'
+              example:
+                ResponseStatus: FAILED
+                ResponseDescription: "Invalid VendAccount"
+
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMerchantResponse'
+              example:
+                ResponseStatus: FAILED
+                ResponseDescription: "Something bad happened in Dynamics"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+  schemas:
+    CreateMerchantCommand:
+      title: Create merchant command
+      type: object
+      required:
+        - MyloRequestNumber
+        - VendAccount
+        - VendName
+        - CurrencyCode
+        - MerchantBankName
+        - MerchantBankAddress
+        - MerchantBankBranchName
+        - MerchantBankSwiftCode
+        - MerchantBankIBAN
+        - MerchantBankAccountNum
+      properties:
+        MyloRequestNumber:
+          type: string
+          description: Unique Correlation ID for the request
+        VendAccount:
+          type: string
+          maxLength: 20
+          description: Global unique identifier for the merchant
+        VendName:
+          type: string
+          maxLength: 100
+          description: Legal Name of the merchant
+        VendGroup:
+          type: string
+          format: enum
+          enum: [TO, BE, DEFINED, BY, SHOUKRY]
+          description: Group mapping of the merchant
+        CurrencyCode:
+          type: string
+          format: enum
+          enum: [EGP]
+          description: ISO Currency Code
+        VendorSearchName:
+          type: string
+          maxLength: 60
+          description: Vendor name used for searching
+        TaxWithholdCalculate:
+          type: boolean
+          description: |
+            TBA
+        TaxWithholdGroup:
+          type: string
+          maxLength: 10
+          description: |
+            TBA.
+            "Must be created manually and mapped between 2 systems"
+        Location:
+          type: string
+          maxLength: 60
+        Street:
+          type: string
+          maxLength: 250
+        ZipCode:
+          type: string
+          maxLength: 10
+        State:
+          type: string
+          maxLength: 10
+        City:
+          type: string
+          maxLength: 60
+        StreetNumber:
+          type: string
+          maxLength: 20
+        MerchantBankName:
+          type: string
+          maxLength: 60
+        MerchantBankAddress:
+          type: string
+          maxLength: 100
+        MerchantBankBranchName:
+          type: string
+          maxLength: 60
+        MerchantBankSwiftCode:
+          type: string
+          maxLength: 30
+        MerchantBankIBAN:
+          type: string
+          maxLength: 30
+        MerchantBankAccountNum:
+          type: string
+          maxLength: 20
+      example:
+        RequestNumber: 12345
+        VendAccount: BTTD
+        VendName: BTECH Trading and Distribution
+        VendGroup: TO
+        CurrencyCode: EGP
+        VendorSearchName: BTECH
+        Location: New Cairo
+        Street: 5th Settlement
+        ZipCode: 11757
+        State: Cairo
+        City: Cairo
+        StreetNumber: 45
+        MerchantBankName: Central Bank
+        MerchantBankAddress: "Mirage City, Ring Road, 11757 Cairo"
+        MerchantBankBranchName: "Mirage City Branch"
+        MerchantBankSwiftCode: "AAAA-BB-CC-123"
+        MerchantBankIBAN: "EG380019000500000000263180002"
+        MerchantBankAccountNum: "0263180002"
+
+    CreateMerchantResponse:
+      title: Response for Create Merchant Command
+      type: object
+      required:
+        - ResponseStatus
+      properties:
+        ResponseStatus:
+          type: string
+          description: Response Status
+          enum: [FAILED, SUCCEEDED]
+        ResponseDescription:
+          type: string
+          description: Response detailed description on failures

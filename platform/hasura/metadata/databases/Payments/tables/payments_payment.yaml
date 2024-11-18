@@ -1,0 +1,28 @@
+table:
+  name: payment
+  schema: payments
+object_relationships:
+  - name: connector
+    using:
+      foreign_key_constraint_on: connector_id
+  - name: destinationAccount
+    using:
+      foreign_key_constraint_on: destination_account_id
+  - name: sourceAccount
+    using:
+      foreign_key_constraint_on: source_account_id
+array_relationships:
+  - name: adjustments
+    using:
+      foreign_key_constraint_on:
+        column: payment_id
+        table:
+          name: adjustment
+          schema: payments
+  - name: metadata
+    using:
+      foreign_key_constraint_on:
+        column: payment_id
+        table:
+          name: metadata
+          schema: payments

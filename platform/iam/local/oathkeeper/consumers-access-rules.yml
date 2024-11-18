@@ -1,0 +1,38 @@
+- id: api:consumers:public:pages
+  description: Consumers public APIs
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/public/api/consumers/<**>"
+    methods:
+      - GET
+      - POST
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: api:consumers:protected
+  description: Consuemrs protected APIs
+  upstream:
+    url: http://bff:3000
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/private/api/consumers/<**>"
+    methods:
+      - GET
+      - POST
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: header
+  errors:
+    - handler: redirect
+      config:
+        to: /consumers/login

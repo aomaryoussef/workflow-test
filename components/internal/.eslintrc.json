@@ -1,0 +1,46 @@
+{
+  "plugins": ["tailwindcss", "@typescript-eslint", "unused-imports", "simple-import-sort"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "root": true,
+  "extends": [
+    "next/core-web-vitals",
+    "next",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended", //  Ensures Prettier and ESLint work together without conflicts.
+    "plugin:tailwindcss/recommended"
+  ],
+  "rules": {
+    "semi": "warn",
+    "quotes": ["warn", "double", { "avoidEscape": true }],
+    "jsx-quotes": ["warn", "prefer-double"],
+    "no-unused-vars": "off", // Off because we are using @typescript-eslint/no-unused-vars, if left on it will cause warning on enums
+    "@typescript-eslint/no-unused-vars": "warn",
+    "unused-imports/no-unused-vars": "warn",
+    "unused-imports/no-unused-imports": "warn",
+    "import/no-duplicates": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "no-useless-catch": "warn",
+    "prettier/prettier": ["warn"],
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
+    "tailwindcss/no-custom-classname": "off"
+  },
+  "settings": {
+    "tailwindcss": {
+      "config": "./tailwind.config.ts",
+      "callees": ["cn"]
+    },
+    "next": {
+      "rootDir": ["./src/"]
+    }
+  },
+  "ignorePatterns": ["node_modules/", ".next/", "assets/", "public/"]
+}

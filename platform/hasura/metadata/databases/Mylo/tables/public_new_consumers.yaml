@@ -1,0 +1,46 @@
+table:
+  name: new_consumers
+  schema: public
+array_relationships:
+  - name: consumer_addresses
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_address
+          schema: public
+  - name: consumer_applications
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_application
+          schema: public
+  - name: consumer_kycs
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_kyc
+          schema: public
+  - name: consumer_phones
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_phone
+          schema: public
+  - name: consumer_states
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_state
+          schema: public
+  - name: consumer_user_details
+    using:
+      foreign_key_constraint_on:
+        column: consumer_id
+        table:
+          name: consumer_user_details
+          schema: public

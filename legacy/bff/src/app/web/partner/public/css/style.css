@@ -1,0 +1,10 @@
+@media (min-width: 992px) {
+  .offset-lg-2 {
+    margin-right: 16.66666667%;
+    margin-left: 0;
+  }
+  .offset-lg-1 {
+    margin-right: 8.33333333%;
+    margin-left: 0;
+  }
+}/*# sourceMappingURL=style.css.map */

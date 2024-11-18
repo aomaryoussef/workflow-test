@@ -1,0 +1,100 @@
+<body>
+  <%- include('./common/header',{userInfo: {userInitials:"R.M", userTag:"B.Tech Staff", userSubTag:"Relationship Manager"}, logoutUrl:logoutUrl});%>
+  <div class="login">
+    <div class="container">
+      <div class="cashierRegister">
+        <div class="container">
+          <div class="center-form">
+            <div class="col-12 col-md-8">
+              <form method="POST" action="/private/back-office/create-partner-cashier" class="form-box">
+                <h2 class="form-title">تسجيل كاشير</h2>
+
+                <div class="row">
+                  <!-- first person -->
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label class="required" for="exampleInputEmail9">الاسم الأول</label>
+                      <input type="text" name="first_name" class="form-control" id="exampleInputEmail9"
+                        aria-describedby="emailHelp" placeholder="الاسم الأول " />
+                      <% if(errors && errors.first_name){ %>
+                      <div class="error-msg">
+                        <%=errors.first_name?.msg%>
+                      </div>
+                      <% } %>
+                    </div>
+                  </div>
+                  <!-- second person -->
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label class="required">اسم العائلة </label>
+                      <input type="text" name="last_name" class="form-control" id="exampleInputEmail9"
+                        aria-describedby="emailHelp" placeholder="اسم العائلة " />
+                      <% if(errors && errors.last_name){ %>
+                      <div class="error-msg">
+                        <%=errors.last_name?.msg%>
+                      </div>
+                      <% } %>
+                    </div>
+                  </div>
+                  <!-- email -->
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">البريد الإلكتروني</label>
+                      <input type="text" name="email" class="form-control" id="exampleInputEmail3"
+                        aria-describedby="emailHelp" placeholder="البريد الالكتروني" />
+
+                    </div>
+                  </div>
+                  <!-- contact person -->
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label class="required" for="exampleInputEmail2">رقم موبايل</label>
+                      <input type="text" name="phone_number" class="form-control" id="exampleInputEmail2"
+                        aria-describedby="emailHelp" placeholder="رقم موبايل" />
+                      <% if(errors && errors.phone_number){ %>
+                      <div class="error-msg">
+                        <%=errors.phone_number?.msg%>
+                      </div>
+                      <% } %>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label for="national_id">الرقم القومي</label>
+                      <input type="text" name="national_id" class="form-control" id="national_id"
+                        aria-describedby="nationalIdHelp" placeholder="الرقم القومي" />
+                      <% if(errors && errors.national_id){ %>
+                      <div class="error-msg">
+                        <%=errors.national_id?.msg%>
+                      </div>
+                      <% } %>
+                    </div>
+                  </div>
+
+                  <!--partner name-->
+                  <div class="col-12 col-md-6">
+                    <div class="form-group">
+                      <label class="required" for="partnerName">الشريك</label>
+                      <select name="partnerID" class="form-select" id="partnerName">
+                        <% for(var i=0; i<partners.length; i++) {%>
+                        <option value=<%=partners[i].id %>><%= partners[i].name %> - <%=
+                                  partners[i].commercial_registration_number %>
+                        </option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="center-btn">
+                  <button class="btn btn-primary">إنشاء حساب</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

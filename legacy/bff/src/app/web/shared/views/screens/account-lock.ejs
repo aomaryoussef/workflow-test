@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <%- include('./common/head',{title:title});%>
+  </head>
+  <body>
+    <div class="login mylo-login">
+      <div class="container">
+        <div class="center-form row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-box account-locked">
+              <div class="logo-wrapper">
+                <img src="/partner/img/mylo-logo.svg" alt="Mylo" />
+              </div>
+              <div class="main-title">الحساب مغلق</div>
+              <div class="main-description">تم قفل الحساب بسبب محاولات تسجيل الدخول المتعددة</div>
+
+              <div class="rounded-btn">
+                <button class="btn btn-primary">إنشاء كلمة المرور</button>
+              </div>
+              <%- include('./common/copyrights');%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

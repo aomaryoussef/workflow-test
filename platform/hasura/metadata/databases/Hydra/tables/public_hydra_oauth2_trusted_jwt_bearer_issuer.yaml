@@ -1,0 +1,18 @@
+table:
+  name: hydra_oauth2_trusted_jwt_bearer_issuer
+  schema: public
+object_relationships:
+  - name: hydra_jwk
+    using:
+      manual_configuration:
+        column_mapping:
+          key_id: kid
+          key_set: sid
+          nid: nid
+        insertion_order: null
+        remote_table:
+          name: hydra_jwk
+          schema: public
+  - name: network
+    using:
+      foreign_key_constraint_on: nid

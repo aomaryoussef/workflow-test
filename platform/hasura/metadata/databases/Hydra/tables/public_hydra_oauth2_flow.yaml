@@ -1,0 +1,56 @@
+table:
+  name: hydra_oauth2_flow
+  schema: public
+object_relationships:
+  - name: hydra_client
+    using:
+      manual_configuration:
+        column_mapping:
+          client_id: id
+          nid: nid
+        insertion_order: null
+        remote_table:
+          name: hydra_client
+          schema: public
+  - name: hydra_oauth2_authentication_session
+    using:
+      foreign_key_constraint_on: login_session_id
+  - name: network
+    using:
+      foreign_key_constraint_on: nid
+array_relationships:
+  - name: hydra_oauth2_accesses
+    using:
+      foreign_key_constraint_on:
+        column: challenge_id
+        table:
+          name: hydra_oauth2_access
+          schema: public
+  - name: hydra_oauth2_codes
+    using:
+      foreign_key_constraint_on:
+        column: challenge_id
+        table:
+          name: hydra_oauth2_code
+          schema: public
+  - name: hydra_oauth2_oidcs
+    using:
+      foreign_key_constraint_on:
+        column: challenge_id
+        table:
+          name: hydra_oauth2_oidc
+          schema: public
+  - name: hydra_oauth2_pkces
+    using:
+      foreign_key_constraint_on:
+        column: challenge_id
+        table:
+          name: hydra_oauth2_pkce
+          schema: public
+  - name: hydra_oauth2_refreshes
+    using:
+      foreign_key_constraint_on:
+        column: challenge_id
+        table:
+          name: hydra_oauth2_refresh
+          schema: public

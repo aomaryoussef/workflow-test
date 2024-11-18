@@ -1,0 +1,66 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.6
+    restart: always
+    environment:
+      - POSTGRES_USER=db_user
+      - POSTGRES_PASSWORD=db_pass
+      - POSTGRES_DB=mylo_db
+    ports:
+      - '5433:5432'
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: developer@btech.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - db
+
+  mock-server:
+    image: mockserver/mockserver:mockserver-5.15.0
+    environment:
+      MOCKSERVER_LOG_LEVEL: DEBUG
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializer.json
+    ports:
+      - "1080:1080"
+    volumes:
+      - ./automation-testing/mock-server/expectations.json:/config/initializer.json
+
+  mylo-service-department:
+    build: .
+    ports:
+      - "1337:1337"
+    depends_on:
+      - db
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    environment:
+      OL_SD_APP__ENV: "dev"
+      OL_SD_DATABASE__HOST: db
+      OL_SD_DATABASE__PORT: 5432
+      OL_SD_DATABASE__NAME: mylo_db
+      OL_SD_DATABASE__USERNAME: db_user
+      OL_SD_DATABASE__PASSWORD: db_pass
+      OL_SD_IAM__KRATOS_ADMIN_BASE_URL: "http://mock-server:1080"
+      OL_SD_IAM__KETO_READ_BASE_URL: "http://mock-server:1080"
+      OL_SD_IAM__KETO_WRITE_BASE_URL: "http://mock-server:1080"
+      OL_SD_WORKFLOW__NAME: checkout_process
+      OL_SD_WORKFLOW__VERSION: 5
+      OL_SD_WORKFLOW__BASE_URL: https://ol-conductor-ol-lms-lite-conductor-workflow.ol.dev.internal.btechlabs.io
+      OL_SD_NOTIFICATION__BASE_URL: https://green.retailtest.btechlabs.io
+      OL_SD_NOTIFICATION__API_KEY: 'api_key'
+      OL_SD_MINI_CASH__BASE_URL: https://mc2-stg.btech.com
+      OL_SD_MINI_CASH__TOKEN: 'token'
+      OL_SD_LMS__BASE_URL: https://ol-lms-lite-http-server-ol-lms-lite-server.ol.dev.internal.btechlabs.io
+
+volumes:
+  db:
+    driver: local
+  pgadmin-data:

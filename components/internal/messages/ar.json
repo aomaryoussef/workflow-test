@@ -1,0 +1,225 @@
+{
+  "web-internal": {
+    "dashboard": "لوحة المستخدم",
+    "consumers": "المستخدمون",
+    "identities": "الهويات",
+    "finances": "الماليات",
+    "partners": "الشركاء",
+    "accounting": "الحسابات"
+  },
+  "common": {
+    "errorMessage": "مشكلة بسيطة، من فضلك حاول مرة اخرة",
+    "tryAgain": "اعد المحاولة",
+    "fillRequiredFields": "يرجى ملء جميع الخانات المطلوبة أولاً",
+    "error": "مشكلة بسيطة",
+    "success": "تمت العملية بنجاح",
+    "operationFailed": "لم تتم العملية بنجاح",
+    "congratulations": "مبروك!"
+  },
+  "partner": {
+    "create": "تسجيل شريك",
+    "createPartnerStore": "تسجيل فرع",
+    "selectPartner": "اختر شريك",
+    "merchantName": "اسم المحل",
+    "commercialRegistrationNumber": "رقم السجل التجاري",
+    "taxRegistrationNumber": "رقم التسجيل الضريبي",
+    "commercialActivityCategory": "نوع النشاط التجاري",
+    "bankInformation": "بيانات بنكية",
+    "bank": "البنك",
+    "branch": "الفرع",
+    "beneficiaryName": "اسم المستفيد",
+    "IBAN": "رقم الحساب المصرفى الدولي",
+    "accountNumber": "رقم الحساب",
+    "swiftCode": "سويفت كود",
+    "contactPerson": "مسئول الاتصال",
+    "firstName": "الاسم الاول",
+    "lastName": "الاسم الاخير",
+    "email": "البريد الالكتروني",
+    "phoneNumber": "رقم الموبايل",
+    "savePartner": "إنشاء حساب",
+    "saveBranch": "تسجيل فرع",
+    "name": "الاسم",
+    "branchName": "اسم الفرع",
+    "address": "العنوان",
+    "governorate": "المحافظة",
+    "selectGovernorate": "اختر المحافظة",
+    "city": "المدينة",
+    "selectCity": "اختر المدينة",
+    "area": "المنطقة",
+    "street": "الشارع",
+    "googleMapsLink": "رابط الموقع",
+    "longitude": "خط الطول",
+    "latitude": "خط العرض",
+    "required": "مطلوب",
+    "minLength": "الحد الأدنى لطول المدخل هو {min} حرف",
+    "maxLength": "الحد الأقصى لطول المدخل هو {max} حرف",
+    "length": "الحد الأدنى لطول المدخل هو {min} حرف والحد الأقصى لطول المدخل هو {max} حرف",
+    "notValidNumber": "{label} ليس رقماً صالحًا",
+    "phoneNotValid": "رقم الموبايل غير صالح",
+    "invalidLink": "رابط غير صالح",
+    "errors": {
+      "failedtogetdata": "لم ننجح في اظهار شركاء",
+      "noPartnersFound": "لم يتم العثور على شركاء",
+      "invalidEmail": "البريد الإلكتروني غير صحيح"
+    }
+  },
+  "consumer": {
+    "title": "تفعيل عميل جديد",
+    "subTitle": "ابحث عن العميل في قاعدة البيانات باستخدام كل من رقم الموبايل والرقم القومي معًا.",
+    "paymentDayValue": "{day} من كل شهر",
+
+    "sidebar": { "activate": "تفعيل مستهلك" },
+    "notifications": {
+      "checkRequiredFieldsValid": "يرجى التأكد من أن جميع الخانات المطلوبة مملوءة ببيانات صالحة",
+      "consumerActivated": "تم تفعيل المستهلك بنجاح",
+      "cannotActivateConsumer": "لا يمكن تفعيل هذا المستهلك"
+    },
+    "buttons": {
+      "back": "عودة",
+      "edit": "تعديل البيانات",
+      "search": "بحث",
+      "print": "طباعة",
+      "activate": "تفعيل",
+      "resetForm": "البدء من جديد"
+    },
+    "labels": {
+      "personalInfo": "البيانات الشخصية",
+      "jobInfo": "بيانات الوظيفة",
+      "incomeInfo": "بيانات الدخل",
+      "contract": "العقد",
+      "fullName": "الاسم",
+      "status": "الحالة",
+      "activatedAt": "تم التفعيل في",
+      "address": "محل الإقامة",
+      "nationalId": "الرقم القومي",
+      "nationalIdAddress": "عنوان بطاقة الرقم القومي",
+      "phoneNumber": "رقم الهاتف",
+      "jobName": "الوظيفة",
+      "company": "جهة العمل",
+      "companyAddress": "عنوان جهة العمل",
+      "homePhoneNumber": "رقم الهاتف المنزلي",
+      "workPhoneNumber": "رقم هاتف العمل",
+      "salary": "الدخل الأساسي",
+      "additionalSalary": "الدخل الإضافي",
+      "additionalSalarySource": "مصدر الدخل الإضافي",
+      "branchName": "اسم الفرع",
+      "singlePaymentDay": "يوم السداد"
+    },
+    "statusOptions": {
+      "ACTIVE": "مفعل",
+      "BLOCKED": "محظور",
+      "WAITING_LIST": "قائمة الانتظار",
+      "AWAITING_ACTIVATION": "في انتظار التفعيل"
+    },
+    "errors": {
+      "connectionError": "خطأ في الاتصال",
+      "invalidResponse": "رد غير صالح",
+      "unknownError": "حدث خطأ غير معروف",
+      "serverMessage": "رسالة الخطأ من السيرڤر: {message}",
+
+      "form": {
+        "required": "برجاء ادخال {label}",
+        "length": "خانة {label} يجب أن تكون {length} حرفًا",
+        "maxLength": "خانة {label} يجب ألا تتجاوز {max} حرفًا",
+        "notValidNumber": "{label} ليس رقماً صالحًا",
+        "cantBeLessThan": "{label} لا يمكن أن يكون أقل من {num}",
+        "cantBeGreaterThan": "{label} لا يمكن أن يكون أكبر من {num}",
+        "nationalIdNotValid": "الرقم القومي غير صالح"
+      },
+
+      "miniCash": {
+        "failedToGetDataFromMiniCash": "فشل في الحصول على بيانات المستهلك من ميني كاش",
+        "couldNotAuthenticate": "فشل في المصادقة مع ميني كاش",
+        "invalidAuthToken": "تم رفض التصريح لهذا الطلب. غالباً رمز المصادقة غير صالح",
+        "unsupported_grant_type": "نوع المصادقة غير مدعوم",
+        "invalid_grant": "مصادقة غير صالحة، يرجى التحقق من بيانات الاعتماد",
+        "consumerNotFoundInMiniCash": "المستهلك صاحب بطاقة رقم \"{id}\" غير موجود في قاعدة بيانات ميني كاشي",
+        "failedToGetScoring": "فشل في الحصول على الحد الائتماني للمستهلك",
+        "invalidResponseFromScoring": "استجابة غير صالحة من تقييم ميني كاش",
+        "invalidCreditLimit": "الحد الائتماني للمستهلك غير صالح: {creditLimit}"
+      },
+
+      "search": {
+        "consumerNotFoundInMylo": "المستهلك صاحب الرقم \"{number}\" غير موجود في قاعدة بيانات مايلو",
+        "failedToGetDataFromMylo": "فشل في الحصول على بيانات المستهلك من مايلو",
+        "failedToGetBTechBranches": "فشل في الحصول على فروع بتك",
+        "phoneNumbersMismatch": "أرقام الهواتف غير متطابقة في مايلو وميني كاش. مايلو: \"{myloPhone}\", ميني كاش: \"{miniCashPhone}\"",
+        "consumerSanctioned": "للأسف، هذا العميل لا يستوفي شروط مايلو",
+        "failedToGetSanctionsListStatus": "فشل في التحقق من حالة قائمة العقوبات",
+        "unknownErrorWhileSearchingForConsumer": "حدث خطأ غير معروف أثناء البحث عن المستهلك",
+        "consumerBlocked": "هذا المستهلك محظور.",
+        "consumerWaitingList": "هذا المستهلك في قائمة الانتظار.",
+        "consumerUnknownStatus": "حالة المستهلك غير معروفة: \"{status}\""
+      },
+
+      "prefilledContract": {
+        "errorWhileGeneratingPrefilledContractOnServer": "حدث خطأ أثناء إنشاء العقد المملوء مسبقًا",
+        "errorGeneratingPrefilledContractDownloadLink": "حدث خطأ أثناء إنشاء رابط تحميل العقد المملء مسبقًا",
+        "unknownErrorWhileGeneratingPrefilledContract": "حدث خطأ غير معروف أثناء إنشاء العقد المملء مسبقًا"
+      },
+
+      "activate": {
+        "failedToUpdateConsumerData": "فشل في تحديث بيانات المستهلك",
+        "updatedButFailedToActivate": "تم تحديث بيانات المستهلك، ولكن فشل في تفعيله.",
+        "callSuccessButConsumerNotActive": "تمت المكالمة بنجاح ولكن حالة المستهلك غير مفعلة. يرجى التحقق من حالة المستهلك في النظام. حالة المتسهلك الحالية: {status}",
+        "unknownErrorWhileActivatingConsumer": "حدث خطأ غير معروف أثناء تفعيل المستهلك"
+      }
+    },
+    "info": {
+      "consumerAlreadyActivated": "المستهلك مفعل بالفعل"
+    },
+    "creditLimitCard": {
+      "title": "الحد الائتماني"
+    },
+    "SanctionsList": {
+      "SANCTION_LIST": "مكافحة غسيل الأموال",
+      "TERRORIST_LIST": "مكافحة الإرهاب"
+    }
+  },
+  "login": {
+    "email": "البريد الالكتروني",
+    "password": "كلمة المرور",
+    "signIn": "تسجيل الدخول",
+    "SignInToYourAccount": "الدخول إلى حسابك",
+    "logout": "تسجيل الخروج",
+    "invalidEmail": "البريد الإلكتروني غير صحيح",
+    "required": "مطلوب {label}"
+  },
+  "repay": {
+    "monthlyInstallements": "الأقساط الشهرية",
+    "paymentHistory": "سجل المدفوعات السابقة",
+    "earlySettlement": "السداد المبكر",
+    "pay": "ادفع",
+    "changeConsumerName": "عميل آخر",
+    "enterCustomerNumber": "اكتب رقم موبايل العميل لإيجاد الطلب",
+    "searchForCustomer": "بحث عن عميل",
+    "consumerName": "اسم العميل",
+    "consumerPhoneNumber": "رقم موبايل العميل",
+    "errors": {
+      "failedToGetRepaymentData": "فشل في الحصول على بيانات السداد",
+      "failedToGetPaymentHistory": "فشل في الحصول على سجل المدفوعات",
+      "failedToGetEarlySettlementData": "فشل في الحصول على بيانات السداد المبكر"
+    },
+    "payPopup": {
+      "reviewPaymentRequest": "مراجعة طلب الدفع",
+      "selectPaymentMethod": "اختر طريقة الدفع",
+      "clickHere": "اضغط هنا",
+      "cash": "كاش",
+      "last4DigitsOfCard": "آخر 4 أرقام من البطاقة",
+      "referenceNumber": "الرقم المرجعي",
+      "amountDueViaMaylo": "المبلغ المستحق لمايلو",
+      "totalAmount": "المبلغ الإجمالي",
+      "confirmPayment": "تأكيد الدفع"
+    }
+  },
+  "general": {
+    "consumerName": "اسم المستهلك",
+    "changeConsumerName": "تغيير المستهلك",
+    "pay": "دفع",
+    "action": "العملية",
+    "popups": {
+      "paymentCompleted": "تم الدفع بنجاح",
+      "problemHappened": "حدثت مشكلة بسيطة"
+    }
+  }
+}

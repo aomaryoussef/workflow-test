@@ -1,0 +1,52 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+        cors:
+          allowed_origins:
+            - "http://*"
+            - "https://*"
+
+## define a batch processor that accumulates data over the period of 100 ms
+processors:
+  batch:
+    timeout: 100ms
+    send_batch_size: 650
+
+## define your list of exporters 
+exporters:
+  debug:
+    verbosity: detailed
+
+  ## export data to tempo
+  otlp:
+    endpoint: "http://tempo:9098"
+    tls:
+      insecure: true
+
+  ## export data to prometheus
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    # This will make your metrics to have all the attributes from the
+    # resource you configured when creating the metrics provider.
+    resource_to_telemetry_conversion:
+      enabled: true
+    
+
+extensions:
+  health_check: {}
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, prometheus]
+
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, otlp]

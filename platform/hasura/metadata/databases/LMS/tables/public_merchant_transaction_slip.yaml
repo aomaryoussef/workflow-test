@@ -1,0 +1,10 @@
+table:
+  name: merchant_transaction_slip
+  schema: public
+object_relationships:
+  - name: loan
+    using:
+      foreign_key_constraint_on: loan_id
+  - name: merchant_payment
+    using:
+      foreign_key_constraint_on: merchant_payment_id

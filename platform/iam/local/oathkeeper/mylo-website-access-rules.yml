@@ -1,0 +1,15 @@
+- id: ui:website:public
+  description: Consumers landing page
+  upstream:
+    url: https://myloapp.webflow.io/
+    preserve_host: false
+  match:
+    url: "http://localhost:4455/"
+    methods:
+      - GET
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop

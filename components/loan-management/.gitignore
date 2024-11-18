@@ -1,0 +1,24 @@
+.idea
+# Generated mocks
+mocks/
+**/mock_*
+# Generated coverage
+coverage/
+# Generated profile
+profile.cov
+# Generated binaries
+bin/
+# Generated documentation
+doc/
+# Generated vendor
+vendor/
+# Generated logs
+log/
+*.log
+# Generated files
+gen/api/*
+gen/pb/*
+gen/dynamics/*
+# Python scripts
+.venv
+__pycache__

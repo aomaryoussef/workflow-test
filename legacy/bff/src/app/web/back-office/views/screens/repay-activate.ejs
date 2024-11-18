@@ -1,0 +1,31 @@
+<body class="gray-bg">
+  <%- include('./common/header', {
+    userInfo: {
+      userInitials: "B.E",
+      userTag: "B.Tech Staff",
+      userSubTag: "Branch Employee"
+    },
+    logoutUrl: logoutUrl
+  }) %>
+
+  <div class="container">
+    <div class="form-details p-t-50">
+      <h2>اختر العملية</h2>
+      <div class="subtitle">يرجى اختيار العملية التي ترغب في إجرائها</div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-4 text-center">
+        <a href="/private/back-office/activate-consumer-account" class="btn btn-primary btn-lg btn-block mb-4">
+          تفعيل حساب العميل
+        </a>
+      </div>
+      <div class="col-md-4 text-center">
+        <a href="/private/back-office/repay" class="btn btn-primary btn-lg btn-block <%= repay ? '' : 'disabled' %>" <%= !repay ? 'aria-disabled="true"' : '' %>>
+          سداد الدفعات
+        </a>
+        <p class="pt-2"><%= repay ? '' : 'برجاء التواصل مع الدعم لتسجيل فرع قبل سداد الدفعات' %></p>
+      </div>
+    </div>
+  </div>
+</body>

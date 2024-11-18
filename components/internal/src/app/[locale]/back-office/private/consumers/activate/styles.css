@@ -1,0 +1,6 @@
+.ant-page-header-heading > .ant-page-header-heading-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: start !important;
+  align-items: start !important;
+}

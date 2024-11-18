@@ -1,0 +1,15 @@
+overwrite: true
+schema:
+  - 'http://localhost:8082/v1/graphql'
+documents:
+  - 'src/core-services/hasura/**/*.gql'
+
+generates:
+  src/core-services/hasura/graphql/_generated.ts: # generated sdk
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-generic-sdk
+  src/core-services/hasura/graphql/schema.graphql: # for vscode extension (GraphQL.vscode-graphql) to autocomplete
+    plugins:
+      - schema-ast

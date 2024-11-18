@@ -1,0 +1,116 @@
+<body>
+  <div class="login mylo-login">
+    <div class="container">
+      <div class="center-form row">
+        <div class="col-12 col-md-6 col-lg-5">
+          <div class="error-message">البريد الإلكتروني أو كلمة السر غير صحيحة. يرجى المحاولة مرة أخرى</div>
+
+          <form id="loginForm" method="POST" action="#" class="form-box login-form">
+              <input id="csrf_token" name="csrf_token" value="#" hidden="true" />
+              <input id="method" name="method" value="password" hidden="true" />
+              <div class="logo-wrapper">
+                <img src="/public/shared/img/mylo-logo-ar.svg" alt="Mylo" />
+              </div>
+              <div class="form-group">
+                <% if(!allowPhone) {%>
+                <label for="exampleInputEmail1">البريد الألكتروني</label>
+                <input type="text" name="identifier" class="form-control" id="userIdentifier"
+                aria-describedby="emailHelp" placeholder=" البريد الألكتروني" />
+                <% } else { %>
+                  <label for="exampleInputEmail1">البريد الإلكتروني او رقم الهاتف</label>
+                  <input type="text" name="identifier" class="form-control" id="userIdentifier"
+                  aria-describedby="emailHelp" placeholder=" البريد الإلكتروني او رقم الهاتف" />
+                  <% } %>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">كلمة السر</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                  placeholder="ادخل الرقم السري" />
+              </div>
+              <div class="form-group opp-alignment">
+                <% if (typeof forgetPasswordUrl != 'undefined') { %>
+                  <a href="<%= forgetPasswordUrl %>" class="bold-link">نسيت كلمة السر؟</a>
+                <% } %>
+              </div>
+            
+
+              <div class="rounded-btn">
+                <button class="btn btn-primary">تسجيل الدخول</button>
+              </div>
+              <%- include('./common/copyrights');%>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      const iamBaseURL = "<%= iamBaseURL  %>";
+      const returnTo = "<%= returnTo  %>";
+      const handleFormSubmission = (submitUrl) => {
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+          event.preventDefault();
+          var fd = new FormData();
+          try {
+            var identifier=document.getElementById('userIdentifier').value;
+            if (document.getElementById('userIdentifier').value.startsWith("01")) {
+              var phoneNumber = document.getElementById('userIdentifier').value;
+              identifier = "+2" + phoneNumber;
+            }
+            fd.append("csrf_token",document.getElementById('csrf_token').value);
+            fd.append("method",document.getElementById('method').value);
+            fd.append("identifier",identifier.toLowerCase());
+            fd.append("password",document.getElementById('exampleInputPassword1').value);
+
+            const response = await axios.post(submitUrl, fd, {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
+            });
+            if (response.status === 200) {
+              window.location.href = returnTo;
+            }
+          } catch (error) {
+            if (document.getElementById('userIdentifier').value.startsWith("+2")) {
+              document.getElementById('userIdentifier').value = document.getElementById('userIdentifier').value.slice(2);
+            }
+            document.querySelector('.mylo-login').classList.add('error-form');
+            if (error.response.data.ui.messages[0].id === 4000006) {
+              return;
+            } else {
+              document.querySelector('.error-message').innerHTML = "حدث خطأ!";
+            }
+          }
+        });
+      };
+      const initLogoutFlow = async () => {
+        try {
+          const response = await axios.get(`${iamBaseURL}/self-service/logout/browser`, {
+            withCredentials: true,
+          });
+          try {
+            const logout_response = await axios.get(`${iamBaseURL}/self-service/logout`, {
+              withCredentials: true,
+              params: {
+                token: response.data.logout_token,
+              },
+            });
+          } catch {}
+        } catch {}
+      };
+      const initLoginFlow = async () => {
+        await initLogoutFlow();
+        try {
+          const response = await axios.get(`${iamBaseURL}/self-service/login/browser`, {
+            withCredentials: true
+          });
+          document.getElementById("loginForm").setAttribute('action', response.data.ui.action);
+          document.getElementById("csrf_token").setAttribute('value', response.data.ui.nodes.find((item) => item.attributes.name === "csrf_token").attributes.value);
+          handleFormSubmission(response.data.ui.action);
+        } catch (error) {
+          console.error("Login server unreachable");
+        }
+      }
+      initLoginFlow();
+    </script>
+</body>

@@ -1,0 +1,3 @@
+table:
+  name: commercial_offer
+  schema: public

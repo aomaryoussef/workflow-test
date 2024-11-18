@@ -1,0 +1,53 @@
+- id: ui:service-department:health-check:public
+  description: Service Department Health Check public
+  upstream:
+    url: http://service-department:1337
+    preserve_host: false
+    strip_path: /sd
+  match:
+    url: "http://localhost:4455/sd"
+    methods:
+      - GET
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: ui:service-department:web-health-check:public
+  description: Service Department Web Health Check public
+  upstream:
+    url: http://service-department:1337
+    preserve_host: false
+    strip_path: /sd
+  match:
+    url: "http://localhost:4455/sd/health"
+    methods:
+      - GET
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: ui:service-department:db-health-check:public
+  description: Service Department DB Health Check public
+  upstream:
+    url: http://service-department:1337
+    preserve_host: false
+    strip_path: /sd
+  match:
+    url: "http://localhost:4455/sd/is-db-alive"
+    methods:
+      - GET
+  authenticators:
+    - handler: bearer_token
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop

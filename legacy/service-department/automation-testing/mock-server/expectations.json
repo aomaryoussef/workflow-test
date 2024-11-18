@@ -1,0 +1,246 @@
+[
+    {
+        "id": "ory-kratos-create-identity-email-success",
+        "httpRequest": {
+            "method": "POST",
+            "path": "/admin/identities",
+            "body": {
+                "schema_id": "email_schema_v0",
+                "traits": {
+                    "email": "demo_user@domain.com"
+                },
+                "verifiable_addresses": [
+                    {
+                        "status": "completed",
+                        "value": "demo_user@domain.com",
+                        "verified": true,
+                        "via": "email"
+                    }
+                ]
+            }
+        },
+        "httpResponse": {
+            "statusCode": 201,
+            "body": {
+                "id": "dd402e98-ff97-4adf-94ff-1de5c9dcaf2a",
+                "schema_id": "email_schema_v0",
+                "schema_url": "http://mock-server:1080/public/schemas/email_schema_v0",
+                "state": "active",
+                "traits": {
+                    "identifier": "demo_user@domain.com"
+                }
+            }
+        },
+        "times": {
+            "remainingTimes": 1
+        }
+    },
+    {
+        "id": "ory-kratos-create-identity-email-fail",
+        "httpRequest": {
+            "method": "POST",
+            "path": "/admin/identities",
+            "body": {
+                "schema_id": "email_schema_v0",
+                "traits": {
+                    "email": "demo_user@domain.com"
+                },
+                "verifiable_addresses": [
+                    {
+                        "status": "completed",
+                        "value": "demo_user@domain.com",
+                        "verified": true,
+                        "via": "email"
+                    }
+                ]
+            }
+        },
+        "httpResponse": {
+            "statusCode": 409,
+            "body": {
+                "error": {
+                    "code": 409,
+                    "status": "Conflict",
+                    "message": "Unable to insert or update resource because a resource with that value exists already"
+                }
+            }
+        }
+    },
+    {
+        "id": "ory-kratos-create-identity-phone-success",
+        "httpRequest": {
+            "method": "POST",
+            "path": "/admin/identities",
+            "body": {
+                "schema_id": "phone_schema_v0",
+                "traits": {
+                    "phone": "+201234567890"
+                },
+                "state": "active",
+                "verifiable_addresses": [
+                    {
+                        "status": "completed",
+                        "value": "+201234567890",
+                        "verified": true,
+                        "via": "phone"
+                    }
+                ]
+            }
+        },
+        "httpResponse": {
+            "statusCode": 201,
+            "body": {
+                "id": "fa777eea-0c9a-474e-baad-cf9f41d00d92",
+                "schema_id": "phone_schema_v0",
+                "schema_url": "http://mock-server:1080/public/schemas/phone_schema_v0",
+                "state": "active",
+                "traits": {
+                    "identifier": "+201234567890"
+                }
+            }
+        },
+        "times": {
+            "remainingTimes": 1
+        }
+    },
+    {
+        "id": "ory-kratos-create-identity-phone-fail",
+        "httpRequest": {
+            "method": "POST",
+            "path": "/admin/identities",
+            "body": {
+                "schema_id": "phone_schema_v0",
+                "traits": {
+                    "phone": "+201234567890"
+                },
+                "state": "active",
+                "verifiable_addresses": [
+                    {
+                        "status": "completed",
+                        "value": "+201234567890",
+                        "verified": true,
+                        "via": "phone"
+                    }
+                ]
+            }
+        },
+        "httpResponse": {
+            "statusCode": 409,
+            "body": {
+                "error": {
+                    "code": 409,
+                    "status": "Conflict",
+                    "message": "Unable to insert or update resource because a resource with that value exists already"
+                }
+            }
+        }
+    },
+    {
+        "id": "ory-kratos-get-identity-email-success",
+        "httpRequest": {
+            "method": "GET",
+            "path": "/admin/identities/dd402e98-ff97-4adf-94ff-1de5c9dcaf2a"
+        },
+        "httpResponse": {
+            "statusCode": 200,
+            "body": {
+                "id": "dd402e98-ff97-4adf-94ff-1de5c9dcaf2a",
+                "schema_id": "email_schema_v0",
+                "schema_url": "http://mock-server:1080/public/schemas/email_schema_v0",
+                "state": "active",
+                "traits": {
+                    "identifier": "demo_user@domain.com"
+                }
+            }
+        }
+    },
+    {
+        "id": "ory-kratos-get-identity-phone-success",
+        "httpRequest": {
+            "method": "GET",
+            "path": "/admin/identities/fa777eea-0c9a-474e-baad-cf9f41d00d92"
+        },
+        "httpResponse": {
+            "statusCode": 200,
+            "body": {
+                "id": "fa777eea-0c9a-474e-baad-cf9f41d00d92",
+                "schema_id": "phone_schema_v0",
+                "schema_url": "http://mock-server:1080/public/schemas/phone_schema_v0",
+                "state": "active",
+                "traits": {
+                    "identifier": "+201234567890"
+                }
+            }
+        }
+    },
+    {
+        "id": "ory-kratos-create-recovery-code-success",
+        "httpRequest": {
+            "method": "POST",
+            "path": "/admin/recovery/code",
+            "body": {
+                "identity_id": "dd402e98-ff97-4adf-94ff-1de5c9dcaf2a"
+            }
+        },
+        "httpResponse": {
+            "statusCode": 201,
+            "body": {
+                "recovery_link": "http://mock-server:1080/partner/recover?flow=69f84352-30a0-4d9e-9201-64c58ad2d220",
+                "recovery_code": "123456",
+                "expires_at": "2023-11-16T05:54:08.532541876Z"
+            }
+        }
+    },
+    {
+        "id": "ory-kratos-patch-identity-phone-state-active-success",
+        "httpRequest": {
+            "method": "PATCH",
+            "path": "/admin/identities/fa777eea-0c9a-474e-baad-cf9f41d00d92",
+            "body": [
+                {
+                    "op": "replace",
+                    "path": "/state",
+                    "value": "active"
+                }
+            ]
+        },
+        "httpResponse": {
+            "statusCode": 200,
+            "body": {
+                "id": "fa777eea-0c9a-474e-baad-cf9f41d00d92",
+                "schema_id": "phone_schema_v0",
+                "schema_url": "http://mock-server:1080/public/schemas/phone_schema_v0",
+                "state": "active",
+                "traits": {
+                    "identifier": "+201234567890"
+                }
+            }
+        }
+    },
+    {
+        "id": "ory-kratos-patch-identity-phone-state-inactive-success",
+        "httpRequest": {
+            "method": "PATCH",
+            "path": "/admin/identities/fa777eea-0c9a-474e-baad-cf9f41d00d92",
+            "body": [
+                {
+                    "op": "replace",
+                    "path": "/state",
+                    "value": "inactive"
+                }
+            ]
+        },
+        "httpResponse": {
+            "statusCode": 200,
+            "body": {
+                "id": "fa777eea-0c9a-474e-baad-cf9f41d00d92",
+                "schema_id": "phone_schema_v0",
+                "schema_url": "http://mock-server:1080/public/schemas/phone_schema_v0",
+                "state": "inactive",
+                "traits": {
+                    "identifier": "+201234567890"
+                }
+            }
+        }
+    }
+]

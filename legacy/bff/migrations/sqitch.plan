@@ -1,0 +1,6 @@
+%syntax-version=1.0.0
+%project=op-bff
+%uri=https://github.com/sqitchers/sqitch-intro/
+
+001_appschema 2023-09-18T18:42:48Z Sameh <sameh@Samehs-MacBook-Air.local> # create bff schema
+002_session_baskets 2023-09-19T08:48:11Z ,,, <sameh@SAMEH-SABRA> # create session_baskets table

@@ -1,0 +1,287 @@
+openapi: 3.0.3
+info:
+  title: Microsoft Dynamics 365 Financial Module - OpenAPI 3.0
+  description: |-
+    
+    ## About APIs
+    
+    MS Dynamics 365 Financial Module APIs are written in OpenAPI 3.0 specification using
+    reverse engineering from the MS Dynamics 365 Financial Module and only hosted by 
+    LMS so as to generate the client.
+
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+
+servers:
+  - description: Development
+    url: https://btech-test03.sandbox.operations.eu.dynamics.com
+  - description: Staging
+    url: https://btech-test03.sandbox.operations.eu.dynamics.com
+  - description: Production (be careful)
+    url: https://btech-erp.operations.dynamics.com
+  - description: Authorization (for all environments)
+    url: https://login.windows.net
+
+paths:
+  /{tenant-id}/oauth2/token:
+    post:
+      summary: Get an access token
+      description: |
+        Get an access token for Microsoft Dynamics 365 Financial Module.
+      operationId: getAccessToken
+      parameters:
+        - name: tenant-id
+          in: path
+          description: Tenant ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Get an access token
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  default: client_credentials
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                resource:
+                  type: string
+              required:
+                - client_id
+                - client_secret
+                - resource
+                - grant_type
+        required: true
+      responses:
+        '200':
+          description: Successful operation and accepted for processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthoriseResponse'
+
+  /api/services/BT_Mylo_ServiceGroup/BT_Mylo_SubmitToGeneralLedgerService/SubmitToGeneralLedger:
+    post:
+      summary: Create a posting journal
+      description: |
+        Creates a new journal posting in the general ledger.
+
+      operationId: postJournalEntries
+      requestBody:
+        description: Create a new posting
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostingRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation and accepted for processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostingResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorised'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+      security:
+        - bearerAuth: []
+
+components:
+  schemas:
+    AuthoriseResponse:
+      type: object
+      required:
+        - token_type
+        - expires_in
+        - ext_expires_in
+        - expires_on
+        - not_before
+        - resource
+        - access_token
+      properties:
+        token_type:
+          type: string
+        expires_in:
+          type: string
+        ext_expires_in:
+          type: string
+        expires_on:
+          type: string
+        not_before:
+          type: string
+        resource:
+          type: string
+        access_token:
+          type: string
+    PostingRequest:
+      $ref: '#/components/schemas/PostJournalEntries'
+    PostingResponse:
+      $ref: '#/components/schemas/DynamicsPostingModel'
+    PostingDirection:
+      type: string
+      enum:
+        - Debit
+        - Credit
+    PostJournalEntries:
+      type: object
+      required:
+        - _request
+      properties:
+        _request:
+          $ref: '#/components/schemas/DynamicsPostingModel'
+    DynamicsPostingModel:
+      type: object
+      required:
+        - DataAreaId
+        - GeneralJournalList
+        - IntegrationPoint
+        - MyloRequestNumber
+      properties:
+        DataAreaId:
+          type: string
+        GeneralJournalList:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeneralJournal'
+        IntegrationPoint:
+          type: string
+        MyloRequestNumber:
+          type: string
+    GeneralJournal:
+      type: object
+      required:
+        - EnteredBy
+        - HeaderResponseDescription
+        - HeaderResponseStatus
+        - JournalName
+        - MyloJournalReference
+        - MyloTransType
+        - TransDate
+        - JournalLines
+      properties:
+        EnteredBy:
+          type: string
+        HeaderResponseDescription:
+          type: string
+        HeaderResponseStatus:
+          type: string
+        JournalName:
+          type: string
+        MyloJournalReference:
+          type: string
+        MyloTransType:
+          type: string
+        TransDate:
+          type: string
+        JournalLines:
+          type: array
+          items:
+            $ref: '#/components/schemas/JournalLine'
+          minItems: 2
+    JournalLine:
+      type: object
+      required:
+        - Account
+        - AccountType
+        - Amount
+        - CardNumber
+        - Comment
+        - Description
+        - LineResponseDescription
+        - LineResponseStatus
+        - PaymentMethod
+        - StoreId
+        - Type
+      properties:
+        Account:
+          type: string
+        AccountType:
+          type: string
+        Amount:
+          type: integer
+          format: uint64
+        CardNumber:
+          type: string
+        Comment:
+          type: string
+        Description:
+          type: string
+        LineResponseDescription:
+          type: string
+        LineResponseStatus:
+          type: string
+        PaymentMethod:
+          type: string
+        StoreId:
+          type: string
+        Type:
+          $ref: '#/components/schemas/PostingDirection'
+    ApiErrorResponse:
+      type: object
+      required:
+        - Message
+        - ExceptionType
+        - ActivityId
+      properties:
+        Message:
+          type: string
+        ExceptionType:
+          type: string
+        ActivityId:
+          type: string
+
+  responses:
+    BadRequest:
+      description: |
+        The request is invalid or malformed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    Unauthorised:
+      description: |
+        The request is not authorised
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    InternalServerError:
+      description: |
+        An internal server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+    BadGateway:
+      description: |
+        The API requested is not available on this server
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorResponse'
+
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

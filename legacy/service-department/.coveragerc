@@ -1,0 +1,23 @@
+[run]
+concurrency = multiprocessing
+parallel = true
+show_missing = true
+
+omit =
+    */tests/*
+    */*_test.py
+    */__init__.py
+    */conftest.py
+    */config/*
+    */docs/*
+    */githooks/*
+    */logs/*
+    */logging*
+    */media/*
+    */static/*
+    src/utils/notifications.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    @deprecated

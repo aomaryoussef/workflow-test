@@ -1,0 +1,192 @@
+<body>
+  <%- include('./common/header',{userInfo: {userInitials:"T.S", userTag:"B.Tech Staff", userSubTag:"Technical Support"}, logoutUrl:logoutUrl});%>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .col-12 {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    ul li a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    ul li a:hover {
+      text-decoration: underline;
+    }
+
+    select.form-control {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    function updateDropdowns() {
+      const partnerName = document.getElementById('partnerDropdown').value;
+      const partnerUsers = <%- JSON.stringify(partnerUsers) %>;
+
+      const adminUsers = partnerUsers.filter(user => user.partner.name === partnerName && user.profile_type === 'ADMIN');
+      const cashierUsers = partnerUsers.filter(user => user.partner.name === partnerName && user.profile_type === 'CASHIER');
+
+      const adminDropdown = document.getElementById('adminDropdown');
+      const cashierDropdown = document.getElementById('cashierDropdown');
+
+      adminDropdown.innerHTML = '';
+      cashierDropdown.innerHTML = '';
+
+      adminUsers.forEach(user => {
+        const option = document.createElement('option');
+        option.value = user.iam_id;
+        option.text = user.first_name + ' ' + user.last_name + ' - ' + user.email;
+        adminDropdown.appendChild(option);
+      });
+
+      cashierUsers.forEach(user => {
+        const option = document.createElement('option');
+        option.value = user.iam_id;
+        option.text = user.first_name + ' ' + user.last_name + ' - ' + user.phone_number;
+        cashierDropdown.appendChild(option);
+      });
+
+      document.getElementById('adminDropdown').dispatchEvent(new Event('change'));
+      document.getElementById('cashierDropdown').dispatchEvent(new Event('change'));
+    }
+  </script>
+  <div class="container">
+    <div class="row">
+      <div class="order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">إدارة مايلو</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <a href="/private/back-office/repay" target="_blank">التحصيلات و المدفوعات</a>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <a href="/private/back-office/activate-consumer-account" target="_blank">تفعيل عميل جديد</a>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <a href="/private/back-office/create-partner" target="_blank">إضافة شريك</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">بوابة الشركاء</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">اختر الشركة</h6>
+              <select id="partnerDropdown" onchange="updateDropdowns()" class="form-control">
+                <% 
+                    const partnerNames = [...new Set(partnerUsers.map(user => user.partner.name))];
+                    partnerNames.forEach(name => { 
+                %>
+                <option value="<%= name %>"><%= name %></option>
+                <% }) %>
+              </select>
+
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">اختر المستخدم</h6>
+              <select id="adminDropdown" class="form-control">
+                <!-- Options will be populated dynamically -->
+              </select>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <a href="/private/partner/transactions?user_iam_id=" target="_blank" id="transactionsLink">المبيعات</a>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <a href="/private/partner/dashboard?user_iam_id=" target="_blank" id="dashboardLink">الكاشير</a>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <a href="/private/partner/branches?user_iam_id=" target="_blank" id="branchesLink">الفروع</a>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <a href="/private/partner/support?user_iam_id=" target="_blank" id="supportLink">الدعم</a>
+            </div>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">اختر الكاشير</h6>
+              <select id="cashierDropdown" class="form-control">
+                <!-- Options will be populated dynamically -->
+              </select>
+            </div>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <a href="/private/partner/checkout?user_iam_id=" target="_blank" id="checkoutLink">عملية بيع جديدة</a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('adminDropdown').addEventListener('change', function () {
+      var userIamId = this.value;
+      document.getElementById('transactionsLink').href = '/private/partner/transactions?user_iam_id=' + userIamId;
+      document.getElementById('dashboardLink').href = '/private/partner/dashboard?user_iam_id=' + userIamId;
+      document.getElementById('branchesLink').href = '/private/partner/branches?user_iam_id=' + userIamId;
+      document.getElementById('supportLink').href = '/private/partner/support?user_iam_id=' + userIamId;
+    });
+
+    document.getElementById('cashierDropdown').addEventListener('change', function () {
+      var userIamId = this.value;
+      document.getElementById('checkoutLink').href = '/private/partner/checkout?user_iam_id=' + userIamId;
+    });
+
+    document.getElementById('partnerDropdown').dispatchEvent(new Event('change'));
+    document.getElementById('adminDropdown').dispatchEvent(new Event('change'));
+    document.getElementById('cashierDropdown').dispatchEvent(new Event('change'));
+  </script>
+</body>
+
+</html>

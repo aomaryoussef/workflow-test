@@ -1,0 +1,66 @@
+- id: conductor:api:protected
+  description: Conductor Server APIs Protected
+  upstream:
+    url: http://localhost:8080
+    preserve_host: true
+  match:
+    url: "$CONDUCTOR_API_DNS_ROOT/api/<**>"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: conductor:actuator:protected
+  description: Conductor Server Actuator APIs Protected
+  upstream:
+    url: http://localhost:8080
+    preserve_host: true
+  match:
+    url: "$CONDUCTOR_API_DNS_ROOT/actuator/prometheus"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: conductor:swagger-ui:protected
+  description: Conductor Server Swagger UI Protected
+  upstream:
+    url: http://localhost:8080
+    preserve_host: true
+  match:
+    url: "$CONDUCTOR_API_DNS_ROOT/swagger-ui<{/index.html,/*.css,/*.js,/*.png}>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+
+- id: conductor:swagger-api-docs:protected
+  description: Conductor Server API Docs
+  upstream:
+    url: http://localhost:8080
+    preserve_host: true
+  match:
+    url: "$CONDUCTOR_API_DNS_ROOT/api-docs<**>"
+    methods:
+      - GET
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop

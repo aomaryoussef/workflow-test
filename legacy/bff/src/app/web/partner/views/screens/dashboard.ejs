@@ -1,0 +1,309 @@
+<div class="col-12 col-md-10">
+  <div class="row">
+    <div class="col-12">
+      <div class="main-title">
+        <div class="subtitle-wrapper">
+          <div class="subtitle">
+            <i class="icon-manage_accounts"></i>
+          </div>
+          <div class="title">الكاشير</div>
+        </div>
+        <div class="title-wrapper">
+          <div class="title">مسؤولي الكاشير</div>
+          <button class="btn secondary-btn" onclick="showCashierForm()"><span class="icon">+</span><span>إضافة
+              كاشير</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if (cashiers.length> 0) { %>
+
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table listing-table">
+        <thead>
+          <tr>
+            <th scope="col">الوقت والتاريخ</th>
+            <th scope="col">الاسم الأول</th>
+            <th scope="col">اسم العائلة</th>
+            <th scope="col">رقم الموبايل</th>
+            <th scope="col">البريد الإلكتروني</th>
+            <th scope="col">الفرع</th>
+            <th scope="col">الحالة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% cashiers.forEach(cashier=> { %>
+          <tr id="<%= cashier.id %>">
+            <td>
+              <span>
+                <%= cashier.created_at %>
+              </span>
+              <span class="time">
+                <%= cashier.current_time %>
+              </span>
+            </td>
+            <td>
+              <%= cashier.first_name %>
+            </td>
+            <td>
+              <%= cashier.last_name %>
+            </td>
+            <td>
+              <%= cashier.phone_number %>
+            </td>
+            <td>
+              <%= cashier.email %>
+            </td>
+            <td>
+              <%= cashier.branch_name %>
+            </td>
+            <td>
+              <div class="inline-wrapper">
+                <div id="worded-status" class="active">
+                  <% if (cashier.enabled) { %>
+                  مفعل
+                  <% } else {%>
+                  غير مفعل
+                  <% } %>
+
+                </div>
+
+                <input type="checkbox" id="switch-<%= cashier.id %>" <% if (cashier.enabled) { %> checked <%
+                              } %> /><label for="switch-<%= cashier.id %>">Toggle</label>
+              </div>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+
+      <div class="notification-wrapper hide-dev">
+        <div class="notification-message">
+          <div class="message">
+            <img src="/public/shared/img/right-icon.svg" />
+            <div class="title">تم إيقاف تفعيل الكاشير</div>
+          </div>
+          <img src="/public/shared/img/close-icon.svg" class="close-popup" onclick="hidePopup()" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <div class="paginator">
+        <% let startRecord=(pageSelected - 1) * perPage + 1; %>
+        <% let endRecord=Math.min(pageSelected * perPage, totalCount); %>
+        <div class="pagination-number">إظهار رقم <%= startRecord %> إلى <%= endRecord %> من <%= totalCount
+                              %> نتيجة.</div>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <% if(pageSelected !=1) { %>
+            <li class="page-item">
+              <a class="page-link" href="<%= getCashiersUrl %>?page=<%= pageSelected - 1 %>&per_page=<%= perPage %>"
+                aria-label="Next Page">
+                <img src="/public/shared/img/arrow.svg" alt="arrow">
+              </a>
+            </li>
+            <% }else { %>
+            <li class="page-item">
+              <a class="page-link disabled-arrow"
+                href="<%= getCashiersUrl %>?page=<%= pageSelected - 1 %>&per_page=<%= perPage %>"
+                aria-label="Next Page">
+                <img src="/public/shared/img/arrow.svg" alt="arrow">
+              </a>
+            </li>
+            <% } %>
+            <% const numberOfPages=Math.ceil(totalCount / perPage); for(let i=1; i <=numberOfPages;
+                                  i++) { %>
+            <li class="page-item"><a class="page-link" id="item<%= i %>"
+                href="<%= getCashiersUrl %>?page=<%= i %>&per_page=<%= perPage %>">
+                <%= i %>
+              </a></li>
+            <% } %>
+            <% if(pageSelected < numberOfPages) { %>
+            <li class="page-item">
+              <a class="page-link invert"
+                href="<%= getCashiersUrl %>?page=<%= pageSelected + 1 %>&per_page=<%= perPage %>"
+                aria-label="Next Page">
+                <img src="/public/shared/img/arrow.svg" alt="arrow">
+
+              </a>
+            </li>
+            <% } else {%>
+            <li class="page-item">
+              <a class="page-link disabled-arrow invert"
+                href="<%= getCashiersUrl %>?page=<%= pageSelected + 1 %>&per_page=<%= perPage %>"
+                aria-label="Next Page">
+                <img src="/public/shared/img/arrow.svg" alt="arrow">
+
+              </a>
+            </li>
+            <% } %>
+
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <% } %>
+
+  <% if (!cashiers || cashiers.length==0) { %>
+  <div class="row">
+    <div class="col-12">
+      <div class="empty-message">
+        <img src="/public/shared/img/Base-icons.svg" />
+        <div class="title">لا يوجد كاشير في القائمة</div>
+        <p class="subtitle">قم بإضافة مسؤولي الكاشير هنا للبدء مع مايلو!</p>
+        <button class="primary-black-btn btn" id="add-cashier-main" onclick="showCashierForm()">إضافة
+          كاشير</button>
+      </div>
+    </div>
+  </div>
+  <% } %>
+
+</div>
+</div>
+<% if (showPopup) { %>
+<div class="overlay show">
+  <div class="hidden-form show">
+    <% } else { %>
+    <div class="overlay">
+      <div class="hidden-form">
+        <% } %>
+        <div class="row">
+          <div class="col-12">
+            <div class="close-btn">
+              <img src="/public/shared/img/close-gray-bg.svg" alt="close" onclick="hideCashierForm(event)" />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-info">
+              <img src="/public/shared/img/add-user.svg" />
+              <div class="title">اضف كاشير جديد</div>
+              <div class="subtitle">يرجى ملء البيانات المطلوبة للإضافة.</div>
+            </div>
+          </div>
+          <div class="col-12">
+            <form class="add-user" method="POST" action="/private/partner/cashier/add">
+              <div class="form-group">
+                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="الاسم الاول" />
+                <% if(errors && errors.first_name){ %>
+                <div class="error-msg">
+                  <%=errors.first_name?.msg%>
+                </div>
+                <% } %>
+              </div>
+              <div class="form-group">
+                <input type="text" name="last_name" id="last_name" class="form-control" placeholder="الاسم الاخير" />
+                <% if(errors && errors.last_name){ %>
+                <div class="error-msg">
+                  <%=errors.last_name?.msg%>
+                </div>
+                <% } %>
+              </div>
+              <div class="form-group">
+                <input type="text" name="phone_number" id="phone_number" class="form-control"
+                  placeholder="رقم الهاتف" />
+                <% if(errors && errors.phone_number){ %>
+                <div class="error-msg">
+                  <%=errors.phone_number?.msg%>
+                </div>
+                <% } %>
+              </div>
+              <div class="form-group">
+                <input type="text" name="email" id="email" class="form-control" placeholder="البريد الالكتروني" />
+                <% if(errors && errors.email){ %>
+                <div class="error-msg">
+                  <%=errors.email?.msg%>
+                </div>
+                <% } %>
+              </div>
+              <div class="form-group custom-select-cashier">
+                <select name="branch_id" class="form-select" id="branch_id">
+                  <% branches.forEach(branch=> { %>
+                  <option value="<%= branch.id %>">
+                    <%= branch.name %>
+                  </option>
+                  <% }); %>
+                  <span> ></span>
+                </select>
+              </div>
+              <button type="submit" class="btn primary-black-btn" id="add-cashier">إضافة الكاشير</button>
+              <button class="btn secondary-grey-btn" onclick="hideCashierForm(event)">الغاء</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  if ("<% addCashierFormValues %>" == '') {
+    document.getElementById("first_name").value = "<%- addCashierFormValues.first_name %>";
+    document.getElementById("last_name").value = "<%- addCashierFormValues.last_name %>";
+    document.getElementById("phone_number").value = "<%- addCashierFormValues.phone_number %>";
+    document.getElementById("email").value = "<%- addCashierFormValues.email %>";
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    activeItem(`item<%= pageSelected %>`)
+    const checkboxes = document.querySelectorAll("input[type=checkbox]");
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", async (event) => {
+        const updateStateUrl = "<%= updateStateUrl %>"
+        const cashierId = event.target.id.split("switch-")[1];
+        if (event.target.checked) {
+          await axios.patch(updateStateUrl + "?page=<%= pageSelected %>&per_page=<%= perPage %>", {
+            cashierId,
+            state: "active"
+          });
+        } else {
+          await axios.patch(updateStateUrl + "?page=<%= pageSelected %>&per_page=<%= perPage %>", {
+            cashierId,
+            state: "inactive"
+          });
+          showPopup();
+        }
+        updateView(event.target, event.target.checked);
+      });
+    });
+  });
+
+  function updateView(checkbox, isChecked) {
+    const statusMessageElement = checkbox.parentElement.querySelector("#worded-status");
+    if (statusMessageElement) {
+      if (isChecked) {
+        statusMessageElement.innerHTML = "مفعل";
+      } else {
+        statusMessageElement.innerHTML = "غير مفعل";
+      }
+    }
+  }
+  const hidePopup = () => {
+    document.querySelector(".notification-wrapper").classList.add("hide-dev");
+  };
+
+  const showPopup = () => {
+    document.querySelector(".notification-wrapper").classList.remove("hide-dev");
+  };
+
+  const showCashierForm = () => {
+    document.querySelector(".hidden-form").classList.add("show");
+    document.querySelector(".overlay").classList.add("show");
+  };
+
+  const hideCashierForm = (event) => {
+    document.querySelector(".hidden-form").classList.remove("show");
+    document.querySelector(".overlay").classList.remove("show");
+    event.preventDefault()
+
+  };
+
+  const activeItem = (itemId) => {
+    document.querySelector(".page-link").classList.remove("active")
+    document.querySelector(`#${itemId}`).classList.add("active")
+  }
+
+</script>

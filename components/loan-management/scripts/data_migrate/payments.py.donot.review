@@ -1,0 +1,29 @@
+from dataclasses import dataclass
+
+import requests
+from dacite import from_dict
+
+from . import config
+from .graphql import LIST_PAYMENTS
+from .models import Payment
+
+
+def run(loan_id: str):
+    """Migrate payments for a loan"""
+    res = requests.post(
+        f"{config.HASURA_URL}",
+        json={
+            "query": LIST_PAYMENTS,
+            "variables": {"loan_id": loan_id},
+        },
+    )
+    data = res.json()
+    if "errors" in data:
+        raise Exception(f"Failed to fetch loans: {data['errors'][0]['message']}")
+    payments_raw = data["data"]["registry_payment"]
+
+    payments = [from_dict(data_class=Payment, data=payment) for payment in payments_raw]
+
+    for payment in payments_raw:
+        # TODO: craete payments on lms2 api
+        continue

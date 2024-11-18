@@ -1,0 +1,43 @@
+table:
+  name: partner
+  schema: public
+array_relationships:
+  - name: partner_bank_accounts
+    using:
+      foreign_key_constraint_on:
+        column: partner_id
+        table:
+          name: partner_bank_account
+          schema: public
+  - name: partner_branches
+    using:
+      foreign_key_constraint_on:
+        column: partner_id
+        table:
+          name: partner_branch
+          schema: public
+  - name: partner_tops
+    using:
+      foreign_key_constraint_on:
+        column: partner_id
+        table:
+          name: partner_top
+          schema: public
+  - name: partner_user_profiles
+    using:
+      foreign_key_constraint_on:
+        column: partner_id
+        table:
+          name: partner_user_profile
+          schema: public
+remote_relationships:
+  - definition:
+      to_source:
+        field_mapping:
+          id: merchant_account_id
+        relationship_type: array
+        source: LMS
+        table:
+          name: merchant_payment
+          schema: public
+    name: payments

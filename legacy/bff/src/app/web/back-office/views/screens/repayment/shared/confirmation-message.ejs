@@ -1,0 +1,32 @@
+<div id="checkout-back-alert" style="display: none">
+    <div class="custom-overlay">
+      <div class="popup one-btn-popup">
+        <div class="popup-wrapper">
+          <div class="center-data">
+            <div class="title" id="checkout-alert-title">هل تريد تنفيذ المعامله؟</div>
+          </div>
+          <div class="btn-wrapper">
+            <div class="col-6">
+              <button class="btn primary-green-btn" id="hidePopup" onclick="closePopup()">رجوع</button>
+            </div>
+            <div class="col-6">
+              <button class="btn secondary-gray-btn action-confirm" onclick="approveRequest()" style="width: 98%">
+                موافقة
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const cancelPopup = document.getElementById("checkout-back-alert");
+    const closePopup = () => {
+      cancelPopup.style.display = "none";
+    };
+    const approveRequest = () => {
+        payInstallment(payedInstallment)
+        cancelPopup.style.display = "none";
+
+    };
+  </script>

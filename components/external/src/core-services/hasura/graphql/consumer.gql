@@ -1,0 +1,33 @@
+query getConsumerLoans($phoneNumber: String!) {
+  consumers(where: { phone_number: { _eq: $phoneNumber } }) {
+    id
+    phone_number
+    full_name
+    loans(where: {loan_statuses_aggregate: {count: {predicate: {_eq: 1}}}}) {
+      id
+      loan_statuses(order_by: {created_at: desc}) {
+        created_at
+        status
+      }
+      loan_schedules(where: {paid_date: {_is_null: true}}, order_by: {due_date: asc}) {
+        id
+        loan_id
+        paid_date
+        created_at
+        due_principal
+        due_interest
+        due_late_fee
+        due_date
+      }
+    }
+  }
+}
+
+query getConsumerFormanceAccount($phoneNumber: String!) {
+  consumers(where: { phone_number: { _eq: $phoneNumber } }) {
+    id
+    formanceAccount {
+      id
+    }
+  }
+}

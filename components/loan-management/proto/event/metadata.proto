@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package event;
+
+option go_package = "github.com/btechlabs/lms/gen/pb/event";
+
+message EventMetadata {
+  string traceId = 1 [json_name="trace_id"];
+  string issuedBy = 2 [json_name="issued_by"];
+  google.protobuf.Timestamp issuedAtUtc = 3 [json_name="issued_at_utc"];
+}

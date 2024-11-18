@@ -1,0 +1,9 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "testTimeout": 30000,
+  "globalSetup": "../global-setup.ts",
+  "globalTeardown": "../global-teardown.ts",
+  "testRegex": ".*\\.e2e-spec\\.ts$",
+  "moduleFileExtensions": ["ts", "js", "json"]
+}

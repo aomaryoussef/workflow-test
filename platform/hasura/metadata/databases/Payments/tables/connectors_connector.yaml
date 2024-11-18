@@ -1,0 +1,46 @@
+table:
+  name: connector
+  schema: connectors
+array_relationships:
+  - name: accounts
+    using:
+      foreign_key_constraint_on:
+        column: connector_id
+        table:
+          name: account
+          schema: accounts
+  - name: bank_account_related_accounts
+    using:
+      foreign_key_constraint_on:
+        column: connector_id
+        table:
+          name: bank_account_related_accounts
+          schema: accounts
+  - name: payments
+    using:
+      foreign_key_constraint_on:
+        column: connector_id
+        table:
+          name: payment
+          schema: payments
+  - name: transfer_initiations
+    using:
+      foreign_key_constraint_on:
+        column: connector_id
+        table:
+          name: transfer_initiation
+          schema: transfers
+  - name: transfer_reversals
+    using:
+      foreign_key_constraint_on:
+        column: connector_id
+        table:
+          name: transfer_reversal
+          schema: transfers
+  - name: webhooks
+    using:
+      foreign_key_constraint_on:
+        column: connector_id
+        table:
+          name: webhook
+          schema: connectors

@@ -1,0 +1,119 @@
+[
+  {
+    "key": "electronics-mid-tier",
+    "id": "1",
+    "name": "Electronics for mid-tier customers",
+    "description": "This is a financial product for mid-tier customers with a \nfocus on electronics item purchase.\n",
+    "activeSinceUtc": "2021-01-01T00:00:00Z",
+    "activeUntilUtc": "2021-12-31T23:59:59Z",
+    "gracePeriodDays": 5,
+    "principalConstraints": {
+      "min": {
+        "currency": "EGP",
+        "amount": 10050
+      },
+      "max": {
+        "currency": "EGP",
+        "amount": 10050
+      }
+    },
+    "repaymentDaysOfMonth": [1, 15],
+    "downPaymentConstraints": {
+      "min": {
+        "currency": "EGP",
+        "amount": 10050
+      },
+      "max": {
+        "currency": "EGP",
+        "amount": 10050
+      }
+    },
+    "adminFeeBasisPoints": 100,
+    "tenors": [
+      {
+        "key": "6Months",
+        "durationInDays": 180,
+        "interestRateBasisPoints": 1400
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "key": "home-appliances-high-tier",
+    "id": "2",
+    "name": "Home Appliances for high-tier customers",
+    "description": "This is a financial product for high-tier customers with a \nfocus on home appliances purchase.\n",
+    "activeSinceUtc": "2021-02-01T00:00:00Z",
+    "activeUntilUtc": "2021-11-30T23:59:59Z",
+    "gracePeriodDays": 10,
+    "principalConstraints": {
+      "min": {
+        "currency": "EGP",
+        "amount": 20000
+      },
+      "max": {
+        "currency": "EGP",
+        "amount": 50000
+      }
+    },
+    "repaymentDaysOfMonth": [5, 20],
+    "downPaymentConstraints": {
+      "min": {
+        "currency": "EGP",
+        "amount": 5000
+      },
+      "max": {
+        "currency": "EGP",
+        "amount": 10000
+      }
+    },
+    "adminFeeBasisPoints": 150,
+    "tenors": [
+      {
+        "key": "12Months",
+        "durationInDays": 365,
+        "interestRateBasisPoints": 1200
+      }
+    ],
+    "status": "approved"
+  },
+  {
+    "key": "furniture-low-tier",
+    "id": "3",
+    "name": "Furniture for low-tier customers",
+    "description": "This is a financial product for low-tier customers with a \nfocus on furniture purchase.\n",
+    "activeSinceUtc": "2021-03-01T00:00:00Z",
+    "activeUntilUtc": "2021-10-31T23:59:59Z",
+    "gracePeriodDays": 7,
+    "principalConstraints": {
+      "min": {
+        "currency": "EGP",
+        "amount": 5000
+      },
+      "max": {
+        "currency": "EGP",
+        "amount": 15000
+      }
+    },
+    "repaymentDaysOfMonth": [10, 25],
+    "downPaymentConstraints": {
+      "min": {
+        "currency": "EGP",
+        "amount": 1000
+      },
+      "max": {
+        "currency": "EGP",
+        "amount": 3000
+      }
+    },
+    "adminFeeBasisPoints": 200,
+    "tenors": [
+      {
+        "key": "3Months",
+        "durationInDays": 90,
+        "interestRateBasisPoints": 1600
+      }
+    ],
+    "status": "active"
+  }
+]

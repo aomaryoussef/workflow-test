@@ -1,0 +1,160 @@
+import json
+import os
+import time
+from pathlib import Path
+from pprint import pprint
+
+import requests
+import yaml
+
+from . import config
+
+products_files_path = os.path.join(
+    Path(__file__).parent.parent.parent.parent.parent,
+    "legacy/lms/assets/financial_products",
+)
+fin_products = []
+
+for f in os.listdir(products_files_path):
+    if "test" not in f and not f.startswith("202"):
+        fin_products.append(f"{products_files_path}/{f}")
+fin_products.sort()
+
+
+def rate_to_bp(rate) -> int:
+    if rate["type"] == "FORMULA":
+        return int(float(rate["value"].split("+")[0].replace("%", "")) * 100)
+    elif rate["type"] == "PERCENT":
+        return int(float(rate["value"]) * 100)
+    else:
+        if int(float(rate["value"])) == 0:
+            return 0
+        else:
+            raise NotImplementedError(
+                "Convert monetary value to basis points is not implemnted "
+            )
+
+
+versions = {}
+
+
+def run():
+    for fp_file in fin_products:
+        with open(fp_file, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+
+            # Global Admin Fee
+            admin_fee_bp = rate_to_bp(data["global_attributes"]["admin_fee"])
+
+            # Down Payment, will be extracted from tenors list (all existing tenors have the same downpayment)
+            min_dp = data["tenor_variants"][0]["minimum_downpayment"]
+            max_dp = data["tenor_variants"][0]["maximum_downpayment"]
+            minimum_downpayment_in_bp = rate_to_bp(min_dp)
+            maximum_downpayment_in_bp = rate_to_bp(max_dp)
+
+            key = data["key"]
+
+            data = {
+                "key": key,
+                "name": data["name"],
+                "description": data["description"],
+                "active_since_utc": data["active_since"],
+                "active_until_utc": data["active_until"],
+                "grace_period_days": data["global_attributes"]["grace_period"][
+                    "in_days"
+                ],
+                "min_principal": {
+                    "currency": "EGP",
+                    "amount": int(
+                        float(
+                            data["global_attributes"]["allowed_principal_range"]["min"]
+                        )
+                    ),
+                },
+                "max_principal": {
+                    "currency": "EGP",
+                    "amount": int(
+                        float(
+                            data["global_attributes"]["allowed_principal_range"]["max"]
+                        )
+                    ),
+                },
+                "min_down_payment_basis_points": minimum_downpayment_in_bp,
+                "max_down_payment_basis_points": maximum_downpayment_in_bp,
+                "admin_fee_basis_points": admin_fee_bp,
+                "early_settlement_fee_basis_points": 0,
+                "bad_debt_allowance_basis_points": rate_to_bp(
+                    data["global_attributes"]["bad_debt"]
+                ),
+                "tenors": [
+                    {
+                        "key": tenor["key"],
+                        "duration_in_days": tenor["duration_in_days"],
+                        "interest_rate_basis_points": rate_to_bp(
+                            tenor["phases"][0]["interest"]
+                        ),
+                        "admin_fee_basis_points": admin_fee_bp
+                        if "admin_fee" not in tenor
+                        else rate_to_bp(tenor["admin_fee"]),
+                    }
+                    for tenor in data["tenor_variants"]
+                ],
+            }
+
+            method = "POST"
+            url = f"{config.LMS2_BASE_URL}/financial-products"
+            headers = {
+                "X-User-Id": config.MIGRATION_SCRIPT,
+            }
+
+            msg = "created"
+
+            if key in versions:
+                method = "PUT"
+                url = f"{config.LMS2_BASE_URL}/financial-products/{key}"
+                headers["If-Match"] = str(versions[key])
+                msg = "updated"
+            res = requests.request(
+                method=method,
+                url=url,
+                headers=headers,
+                data=json.dumps(data),
+            )
+            if res.status_code != 202:
+                print(f"{key} not created/updated")
+                continue
+            etag = res.headers.get("Etag")
+            versions[key] = etag
+            print(f"{key} was {msg}")
+            time.sleep(1)
+    for key in versions:
+        res = requests.request(
+            method="PUT",
+            url=f"{config.LMS2_BASE_URL}/financial-products/{key}/approve",
+            headers={
+                "X-User-Id": config.MIGRATION_SCRIPT,
+                "If-Match": versions[key],
+            },
+        )
+        if res.status_code != 202:
+            print(f"{key} was not approved")
+            continue
+        etag = res.headers.get("Etag")
+        versions[key] = etag
+        print(f"{key} was approved")
+        time.sleep(1)
+        res = requests.request(
+            method="PUT",
+            url=f"{config.LMS2_BASE_URL}/financial-products/{key}/publish",
+            headers={
+                "X-User-Id": config.MIGRATION_SCRIPT,
+                "If-Match": versions[key],
+            },
+        )
+        if res.status_code != 202:
+            print(f"{key} was not published")
+            continue
+
+        etag = res.headers.get("Etag")
+        versions[key] = etag
+        print(f"{key} was published")

@@ -1,0 +1,3 @@
+table:
+  name: paymob_audit
+  schema: public

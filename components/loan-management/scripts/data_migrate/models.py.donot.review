@@ -1,0 +1,87 @@
+from dataclasses import dataclass
+from typing import List
+
+
+@dataclass
+class Amount:
+    units: int
+    currency_code: str
+
+
+@dataclass
+class LoanStatus:
+    status: str
+    created_at: str
+
+
+@dataclass
+class Consumer:
+    id: str
+    full_name: str
+    single_payment_day: int
+
+
+@dataclass
+class CommercialOffer:
+    id: str
+    tenure: str
+    admin_fee: Amount
+    down_payment: Amount
+    total_amount: Amount
+    financed_amount: Amount
+    monthly_instalment: Amount
+    flat_effective_rate: str
+    annual_percentage_rate: str
+    interest_rate_per_tenure: str
+    annual_interest_percentage: str
+
+
+@dataclass
+class Loan:
+    id: str
+    booked_at: str
+    commercial_offer_id: str
+    consumer: Consumer
+    financial_product_key: str
+    merchant_global_id: str
+    loan_statuses: List[LoanStatus]
+
+
+@dataclass
+class CheckoutBasket:
+    id: str
+    loan: Loan
+    selected_commercial_offer_id: str
+    commercial_offers: List[CommercialOffer]
+
+
+@dataclass
+class RawRequest:
+    loan_id: str
+    payee_id: str
+    branch_id: str
+    payee_type: str
+    amount_units: int
+    loan_scheduel_id: int
+    collection_agent_email: str
+
+
+@dataclass
+class Payment:
+    channel: str
+    amount_currency: str
+    amount_units: int
+    billing_account: str
+    billing_account_schedule_id: int
+    booking_time: str
+    channel_reference_id: str
+    channel_transaction_id: str
+    created_at: str
+    created_by: str
+    id: str
+    payee_id: str
+    payee_type: str
+    payee_id_type: str
+    status: str
+    updated_at: str
+    raw_request: RawRequest

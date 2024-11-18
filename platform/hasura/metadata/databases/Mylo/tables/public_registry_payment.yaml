@@ -1,0 +1,3 @@
+table:
+  name: registry_payment
+  schema: public

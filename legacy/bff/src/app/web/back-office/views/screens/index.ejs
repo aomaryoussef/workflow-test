@@ -1,0 +1,95 @@
+<body class="white-bg vsc-initialized">
+
+    <%- include('./common/header',{userInfo: {userInitials:"R.M", userTag:"B.Tech Staff", userSubTag:"Relationship Manager"}, logoutUrl:logoutUrl});%>
+
+
+    <div class="page-content support">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-2 col-lg-2 border-side desktop-view">
+                    <div class="primary-nav desktop">
+                        <nav>
+                            <ul>
+                                <div class="item-wrapper">
+                                    <% if (formName === 'create-partner') { %>
+                                    <li class="item active">
+                                        <% } else { %>
+                                    <li class="item">
+                                        <% } %>
+
+                                        <a href="/private/back-office/create-partner" class="item"
+                                            onclick="openMenu(0)">
+                                            <i class="icon-manage_accounts"> </i> <span>تسجيل شريك</span>
+                                        </a>
+                                    </li>
+
+                                    <% if (formName === 'create-store') { %>
+                                    <li class="item active">
+                                        <% } else { %>
+                                    <li class="item">
+                                        <% } %>
+                                        <a href="/private/back-office/create-store" class="item" onclick="openMenu(1)">
+                                            <i class="icon-cashier-icon"> </i> <span>تسجيل فرع</span>
+                                        </a>
+                                    </li>
+                                </div>
+                            </ul>
+                        </nav>
+                    </div>
+
+
+                </div>
+                <div class="col-12 col-md-10">
+                    <% if (formName === 'create-partner') { %>
+                    <div class="row transaction-details" id="partner_form">
+                        <%- include('./screens/create-partner');%>
+                    </div>
+                    <% } %>
+                    <% if (formName === 'create-store') { %>
+                    <div class="row transaction-details" id="store_form">
+                        <%- include('./screens/create-store');%>
+
+                    </div>
+                    <% } %>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    let burgerMenu = document.getElementsByClassName("burger-menu");
+    const navMenu = document.getElementById("mobile-nav");
+    const openNavMenu = document.getElementById("open_menu");
+    const closeNavMenu = document.getElementById("close_menu");
+
+    const openMenu = (id) => {
+        if (id === 0) {
+            document.getElementById("partner_form").style.display = "block";
+            document.getElementById("store_form").style.display = "none";
+        } else {
+            document.getElementById("partner_form").style.display = "none";
+            document.getElementById("store_form").style.display = "block";
+        }
+    };
+    const navItems = document.querySelectorAll('.primary-nav li');
+
+    // Function to remove 'active' class from all nav items
+    const removeActiveClass = () => {
+        navItems.forEach(item => {
+            item.classList.remove('active');
+        });
+    };
+
+    // Loop through each nav item and add click event listener
+    navItems.forEach(item => {
+        item.addEventListener('click', function () {
+            // Remove 'active' class from all nav items
+            removeActiveClass();
+            // Add 'active' class to clicked nav item
+            this.classList.add('active');
+        });
+    });
+</script>
