@@ -13,9 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
+      # Step 1: Checkout the repository with full history
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch full history to access the base commit
 
       # Step 2: Identify changed components
       - name: Get Changed Components
