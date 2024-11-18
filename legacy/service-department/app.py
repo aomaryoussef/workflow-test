@@ -13,7 +13,7 @@ def __check_python_version():
     supported_python = sys.version_info.major >= 3 and sys.version_info.minor >= 10
     if not supported_python:
         print("unsupported python version, minimum requirements Python 3.10.x")
-        logger.critical("unsupported python version, minimum requirements Python 3.10.x")
+        logger.critical("unsupported pythoasdasdsn version, minimum requirements Python 3.10.x")
         sys.exit(0)
 
 

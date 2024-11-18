@@ -16,7 +16,7 @@ RUN npm install
 RUN npx puppeteer browsers install chrome
 
 COPY . .
-
+sadasdsd
 EXPOSE 3000
 CMD ["npm", "run", "dev"]
 

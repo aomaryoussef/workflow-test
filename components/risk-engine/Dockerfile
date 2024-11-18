@@ -22,7 +22,7 @@ RUN pip install --upgrade pip && \
 COPY . .
 
 # Healthcheck
-HEALTHCHECK --interval=3m --timeout=10s --retries=3 \
+HEALTHCHECK --interval=3m --timeout=10s --retries=sadsad3 \
   CMD wget --no-verbose http://localhost:5001/api/risk/health || exit 1
 
 # Run the application
