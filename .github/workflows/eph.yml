@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - main
-      - master
     types: [opened, synchronize, reopened]
 
 jobs:
@@ -13,18 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository with full history
+      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Fetch full history to access the base commit
-
-      # Step 2: Identify changed components
-      - name: Get Changed Components
-        id: changed_components
+          fetch-depth: 0 
+          
+      # Step 2: Identify files changed in the latest commit
+      - name: Get Changed Files
+        id: changed_files
         run: |
-          # Get the list of files changed in the PR
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          # Get files changed in the latest commit
+          CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r HEAD)
 
           # Filter files under the directories of interest
           COMPONENTS=$(echo "$CHANGED_FILES" | grep -E '^(components|legacy|platform)/' | cut -d'/' -f1-2 | sort -u)
@@ -40,4 +39,4 @@ jobs:
       - name: Deploy Changes
         run: |
           echo "Deploying the following components:"
-          echo "${{ steps.changed_components.outputs.components }}"
+          echo "${{ steps.changed_files.outputs.components }}"
