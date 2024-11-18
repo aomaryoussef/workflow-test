@@ -9,3 +9,4 @@ import { HttpModule } from '@nestjs/axios';
   exports: [MinicashService],
 })
 export class MinicashModule { }
+asdasdasd
