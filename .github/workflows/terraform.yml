@@ -1,0 +1,26 @@
+name: Terraform Fintech Outposts
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Please type The Environment To Run Terraform Command on:- "
+        required: true
+        type: choice
+        options:
+          - stg
+          - prod
+
+      action:
+        description: "Please Select The Command To Run { plan , apply, destroy }"
+        required: true
+        type: choice
+        options:
+          - plan
+          - apply
+jobs:
+  Terraform:
+    runs-on: minikube
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
