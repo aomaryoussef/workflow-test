@@ -1,0 +1,115 @@
+name: Build&Schedule&Suspend CronJobs outposts
+
+on:
+  workflow_dispatch:
+    inputs:
+      cronJob:
+        description: "Please Select The CronJob To Run Build on:- "
+        required: true
+        type: choice
+        options:
+          - eod-closure-trigger-cron
+          - merchant-disbursement-process-cron
+      schedule:
+        description: "Please type The CronJob schedule To Run:- "
+        required: false
+      suspend:
+        description: "Please choose either you want to stop the cronjob or not:- "
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - false
+          - true
+
+permissions: write-all
+
+#run-name: Building & Deploying [${{ inputs.service-name }}] to [${{ inputs.environment }} Environment]
+
+jobs:
+  build:
+    name: build-push-and-update-chart
+    runs-on: outposts
+    if: ${{ inputs.suspend != 'true' && inputs.schedule != '' }}
+    environment: ${{ inputs.environment || 'outposts' }}-${{ inputs.service-name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_OUTPOSTS }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_OUTPOSTS }}
+          aws-region: ${{ secrets.AWS_REGION_OUTPOSTS }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Get GitHub Tag
+        id: get-tag
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Build, Tag, and Push the Docker Image to GitHub Packages
+        env:
+          GITHUB_REGISTRY: ghcr.io
+          REPO_NAME: ${{ github.repository }}/${{ inputs.service-name }}
+          IMAGE_TAG: ${{ steps.get-tag.outputs.tag }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
+        run: |
+          CRON_JOB_NAME="${{ inputs.service-name }}"
+           
+          # Check the service name and change directory accordingly
+
+          if [[ "$CRON_JOB_NAME" == "eod-closure-trigger-cron" ]]; then
+            cd ./legacy/lms
+            pwd
+
+          elif [[ "$CRON_JOB_NAME" == "loan-management" ]]; then
+            cd ./legacy/lms
+            pwd
+          else
+            echo "CRON_JOB_NAME name not recognized."
+            exit 1
+          fi
+  schedule:
+    name: "Change CronJob Schedule For ${{ inputs.cronJob }}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check if schedule is provided and valid
+        if: ${{ inputs.schedule && inputs.schedule != '' }}
+        run: |
+          echo "Schedule provided: ${{ inputs.schedule }}"
+
+          # Regular expression to match the Cron format (minute, hour, day of month, month, day of week)
+          regex="^([0-5]?[0-9]) ([01]?[0-9]|2[0-3]) ([01]?[0-9]|[12][0-9]|3[01]) (1[0-2]|0?[1-9]) ([0-6]|\*)$"
+          
+          if [[ ! "${{ inputs.schedule }}" =~ $regex ]]; then
+            echo "Invalid CronJob schedule format. Please use a valid cron format."
+            exit 1  # This stops the workflow immediately if the schedule is invalid
+          else
+            echo "CronJob schedule is valid."
+          fi
+
+      - name: Apply CronJob Schedule Change
+        run: |
+          echo "Changing schedule for CronJob ${{ inputs.cronJob }} to ${{ inputs.schedule }}"
+  suspend:
+    name: "Suspend CronJob For ${{ inputs.cronJob }}"
+    runs-on: ubuntu-latest
+    if: ${{ inputs.suspend == 'true' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: "Suspend CronJob For ${{ inputs.cronJob }}"
+        run: |
+          echo "Suspend CronJob ${{ inputs.cronJob }}"
