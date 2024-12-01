@@ -80,12 +80,12 @@ jobs:
   schedule:
     name: "Change CronJob Schedule For ${{ inputs.cronJob }}"
     runs-on: ubuntu-latest
+    if: ${{ inputs.schedule && inputs.schedule != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Check if schedule is provided and valid
-        if: ${{ inputs.schedule && inputs.schedule != '' }}
         run: |
           echo "Schedule provided: ${{ inputs.schedule }}"
 
