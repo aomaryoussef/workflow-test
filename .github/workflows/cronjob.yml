@@ -30,7 +30,7 @@ jobs:
   build:
     name: build-push-and-update-chart
     runs-on: outposts
-    if: ${{ inputs.suspend != 'true' && inputs.schedule != '' }}
+    if: ${{ inputs.suspend == 'false' && inputs.schedule != '' }}
     environment: ${{ inputs.environment || 'outposts' }}-${{ inputs.service-name }}
     steps:
       - name: Checkout
