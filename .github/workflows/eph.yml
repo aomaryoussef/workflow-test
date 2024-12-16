@@ -1,43 +1,43 @@
-name: Ephemeral Environment Deployment
+# name: Ephemeral Environment Deployment
 
-on:
-  pull_request:
-    branches:
-      - main
-      - master
-    types: [opened, synchronize, reopened]
+# on:
+#   pull_request:
+#     branches:
+#       - main
+#       - master
+#     types: [opened, synchronize, reopened]
 
-jobs:
-  ephemeral-env:
-    name: Deploy Ephemeral Environment
-    runs-on: ubuntu-latest
+# jobs:
+#   ephemeral-env:
+#     name: Deploy Ephemeral Environment
+#     runs-on: ubuntu-latest
 
-    steps:
-      # Step 1: Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 
+#     steps:
+#       # Step 1: Checkout the repository
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0 
 
-      # Step 2: Identify files changed in the latest commit
-      - name: Get Changed Files
-        id: changed_files
-        run: |
-          # Get files changed in the latest commit
-          CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r HEAD)
+#       # Step 2: Identify files changed in the latest commit
+#       - name: Get Changed Files
+#         id: changed_files
+#         run: |
+#           # Get files changed in the latest commit
+#           CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r HEAD)
 
-          # Filter files under the directories of interest
-          COMPONENTS=$(echo "$CHANGED_FILES" | grep -E '^(components|legacy|platform)/' | cut -d'/' -f1-2 | sort -u)
+#           # Filter files under the directories of interest
+#           COMPONENTS=$(echo "$CHANGED_FILES" | grep -E '^(components|legacy|platform)/' | cut -d'/' -f1-2 | sort -u)
 
-          # Output the list of changed components
-          echo "Changed components:"
-          echo "$COMPONENTS"
+#           # Output the list of changed components
+#           echo "Changed components:"
+#           echo "$COMPONENTS"
 
-          # Save the list as an output for later steps
-          echo "components=$(echo $COMPONENTS | tr '\n' ',')" >> $GITHUB_OUTPUT
+#           # Save the list as an output for later steps
+#           echo "components=$(echo $COMPONENTS | tr '\n' ',')" >> $GITHUB_OUTPUT
 
-      # Step 3: Use the detected components in subsequent steps
-      - name: Deploy Changes
-        run: |
-          echo "Deploying the following components:"
-          echo "${{ steps.changed_files.outputs.components }}"
+#       # Step 3: Use the detected components in subsequent steps
+#       - name: Deploy Changes
+#         run: |
+#           echo "Deploying the following components:"
+#           echo "${{ steps.changed_files.outputs.components }}"
