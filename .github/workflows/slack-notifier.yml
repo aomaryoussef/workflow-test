@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - master
-      - fas4
+      - dash
 
 jobs:
   notifySlack:
