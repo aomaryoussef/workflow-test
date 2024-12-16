@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - master
-      - fas4
+      - adasd
 
 jobs:
   notifySlack:
@@ -18,7 +18,7 @@ jobs:
         uses: abinoda/slack-action@master
         with:
           args: >
-            {
+            '{
               "channel": "C0859N0R5EX",
               "blocks": [
                 {
@@ -43,4 +43,4 @@ jobs:
                   }
                 }
               ]
-            }
+            }'
